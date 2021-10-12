@@ -2,6 +2,6 @@
 
 We done goof now son
 
-<iframe src="https://giphy.com/embed/SUnnfaSxhfLvf8H7XB" width="480" height="366" frameBorder="0" class="giphy-embed" allowFullScreen></iframe><p><a href="https://giphy.com/gifs/spongebob-squarepants-mocking-SUnnfaSxhfLvf8H7XB">via GIPHY</a></p>
+https://media0.giphy.com/media/SUnnfaSxhfLvf8H7XB/giphy.gif?cid=ecf05e47bgx0x90zk2d2ht85xc0bvb4x1ht287q75yrhkdb9&rid=giphy.gif&ct=g
 
 ![Alt Text](https://tenor.com/view/spongebob-mocking-chicken-trending-meme-gif-8617355)
