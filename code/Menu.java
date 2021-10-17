@@ -563,7 +563,7 @@ public class Menu {
 			System.out.println("The index is incorrect");
 		else
 			return promo.get(index-1);
-		
+	
 
 
 	}
