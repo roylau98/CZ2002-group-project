@@ -1,6 +1,6 @@
 import java.util.Scanner;
 
-public class AlaCarteItem extends MenuItem {
+public class AlaCarteItem extends MenuItem implements Comparable<AlaCarteItem> {
 
 	private ItemType typeOfItem;
 
@@ -17,6 +17,9 @@ public class AlaCarteItem extends MenuItem {
 	public ItemType getItemType() {
 		return typeOfItem;
 	}
-
+	//@Override
+	public int compareTo(AlaCarte ac) {
+		return this.type.compareTo(ac.type);
+	}
 
 }

@@ -10,9 +10,6 @@ public class OrderApp {
 	//void printAllItemsInOrder()
 	//void printPrice()
 
-	//for OrderApp i havent add in any error detection yet i am not sure if we need one for the selection
-	//of item add/remove/update because i already add it in the Menu Class
-
 
 	Scanner sc = new Scanner(System.in);
 
@@ -30,20 +27,23 @@ public class OrderApp {
 	public void createOrder() {
 
 		int tchoice,ichoice;
-		MenuItem tempitem = new MenuItem();
+		AlaCarteItem tempitem = new AlaCarteItem();
 		PromotionalSet promotemp = new PromotionalSet();
 		Order temp=new Order();
 
 
 		do{
-			menuApp.printInstruction();
-			System.out.println("Please select option(1-6):");
+			
+			System.out.println("1) Ala Carte");
+			System.out.println("2) Promotion Package");
+			System.out.println("3) Exit");
+			System.out.println("Please select option(1-3):");
 			tchoice=sc.nextInt();
 
 			switch(tchoice) {
 
 				case 1:
-					menuApp.printMenu(tchoice);
+					menu.printAlaCarte();
 					do {
 						System.out.println("Please select the item to add in to order(Enter -1 to exit):");
 						ichoice=sc.nextInt();
@@ -56,51 +56,17 @@ public class OrderApp {
 
 
 				case 2:
-					menuApp.printMenu(tchoice);
-					do {
-						System.out.println("Please select the item to add in to order(Enter -1 to exit):");
-						ichoice=sc.nextInt();
-
-						tempitem= menuApp.getMenuItem(ichoice,tchoice);
-						temp.addMenuItems(temp);
-
-					}while(ichoice!=-1);
-					break;
-
-
-				case 3:
-					menuApp.printMenu(tchoice);
-					do {
-						System.out.println("Please select the item to add in to order(Enter -1 to exit):");
-						ichoice=sc.nextInt();
-
-						tempitem= menuApp.getMenuItem(ichoice,tchoice);
-						temp.addMenuItems(temp);
-
-					}while(ichoice!=-1);
-					break;
-
-
-				case 4:
-					menuApp.printMenu(tchoice);
-					do {
-						System.out.println("Please select the item to add in to order(Enter -1 to exit):");
-						ichoice=sc.nextInt();
-
-						tempitem= menuApp.getMenuItem(ichoice,tchoice);
-						temp.addMenuItems(temp);
-
-					}while(ichoice!=-1);
-					break;
-
-
-				case 5:
-					menuApp.printMenu(tchoice);
+					
+					for(int i = 0;i<menu.promo.size();i++)
+					{
+						menu.promo.get(i).printPromotionalSet();
+					}
 					do {
 						System.out.println("Please select the Promotion to add in to order(Enter -1 to exit):");
 						ichoice=sc.nextInt();
 
-						promotemp= menuApp.getPromoItem(ichoice);
+						promotemp=menu.getPromoItem(ichoice);
+						//NOT DONE YET
 						temp.addMenuItems(temp);
 
 					}while(ichoice!=-1);
@@ -108,7 +74,7 @@ public class OrderApp {
 					break;
 
 
-				case 6:
+				case 3:
 					System.out.println("==============Your Current Order=============");
 					temp.printAllItemsInOrder();
 					temp.printPrice();
@@ -121,15 +87,15 @@ public class OrderApp {
 					System.out.println("WRONG OPTION!!!");
 
 			}
-		}while(tchoice!=6);
+		}while(tchoice!=3);
 
 	}
 	//------------------------------------------------------------------------------------------------------------
 	public void updateOrder(int orderID) {
 
 		int tchoice,ichoice;
-		MenuItems tempitem = new MenuItems();
-		Promotion promotemp = new Promotion();
+		AlaCarteItem tempitem = new AlaCarteItem();
+		PromotionalSet promotemp = new PromotionalSet();
 		Order temp;
 
 		for(int i = 0; i< listOfOrder.size(); i++)
@@ -140,14 +106,16 @@ public class OrderApp {
 				temp = listOfOrder.get(i);
 
 				do{
-					menuApp.printInstruction();
-					System.out.println("Please select option(1-6):");
+					System.out.println("1) Ala Carte");
+					System.out.println("2) Promotion Package");
+					System.out.println("3) Exit");
+					System.out.println("Please select option(1-3):");
 					tchoice=sc.nextInt();
 
 					switch(tchoice) {
 
 						case 1:
-							menuApp.printMenu(tchoice);
+							menu.printAlaCarte();
 							do {
 								System.out.println("Please select the item to add in to order(Enter -1 to exit):");
 								ichoice=sc.nextInt();
@@ -160,46 +128,10 @@ public class OrderApp {
 
 
 						case 2:
-							menuApp.printMenu(tchoice);
-							do {
-								System.out.println("Please select the item to add in to order(Enter -1 to exit):");
-								ichoice=sc.nextInt();
-
-								tempitem= menuApp.getMenuItem(ichoice,tchoice);
-								temp.addMenuItems(temp);
-
-							}while(ichoice!=-1);
-							break;
-
-
-						case 3:
-							menuApp.printMenu(tchoice);
-							do {
-								System.out.println("Please select the item to add in to order(Enter -1 to exit):");
-								ichoice=sc.nextInt();
-
-								tempitem= menuApp.getMenuItem(ichoice,tchoice);
-								temp.addMenuItems(temp);
-
-							}while(ichoice!=-1);
-							break;
-
-
-						case 4:
-							menuApp.printMenu(tchoice);
-							do {
-								System.out.println("Please select the item to add in to order(Enter -1 to exit):");
-								ichoice=sc.nextInt();
-
-								tempitem= menuApp.getMenuItem(ichoice,tchoice);
-								temp.addMenuItems(temp);
-
-							}while(ichoice!=-1);
-							break;
-
-
-						case 5:
-							menuApp.printMenu(tchoice);
+							for(int i = 0;i<menu.promo.size();i++)
+							{
+								menu.promo.get(i).printPromotionalSet();
+							}
 							do {
 								System.out.println("Please select the Promotion to add in to order(Enter -1 to exit):");
 								ichoice=sc.nextInt();
@@ -212,7 +144,7 @@ public class OrderApp {
 							break;
 
 
-						case 6:
+						case 3:
 							System.out.println("==============Your Updated Order=============");
 							temp.printAllItemsInOrder();
 							temp.printPrice();
@@ -225,7 +157,7 @@ public class OrderApp {
 							System.out.println("WRONG OPTION!!!");
 
 					}
-				}while(tchoice!=6);
+				}while(tchoice!=3);
 				break;
 			}
 		}
