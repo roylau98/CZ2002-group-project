@@ -33,9 +33,8 @@ public class PromotionalSet extends MenuItem {
 		});
 	}
 
-	@Override
-	public void update(ArrayList<MenuItem> menuItems) {
-		super.update();
+	public void updatePromotionalSet(ArrayList<MenuItem> listOfMenuItems) {
+		super.updateMenuItem();
 
 		Scanner sc = new Scanner(System.in);
 		int choice;
@@ -56,15 +55,15 @@ public class PromotionalSet extends MenuItem {
 				switch (choice) {
 					case 1:
 						System.out.println();
-						for (int i=0; i<menuItems.size(); i++) {
-							System.out.println((i+1)+".) "+menuItems.get(i).getName());
+						for (int i=0; i<listOfMenuItems.size(); i++) {
+							System.out.println((i+1)+".) "+listOfMenuItems.get(i).getName());
 						}
 						System.out.println("Enter the index of the menu item to add:");
-						choice = sc.nextInt()-1;
+						choice = sc.nextInt();
 						System.out.println("Enter the quantity:");
 						inputForInt = sc.nextInt();
 
-						addToPromotionalSet(menuItems.get(choice-1).getName(),inputForInt);
+						addToPromotionalSet(listOfMenuItems.get(choice-1).getName(),inputForInt);
 						System.out.println("updated!");
 						break;
 
@@ -100,8 +99,6 @@ public class PromotionalSet extends MenuItem {
 
 				}
 			}
-
-
 		}
 		else if (choice == 0) {
 		}

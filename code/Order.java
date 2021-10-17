@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 public class Order {
 
 	private int orderID;
@@ -49,6 +51,10 @@ public class Order {
 	public void assignTable() {
 		// TODO - implement Order.assignTable
 		throw new UnsupportedOperationException();
+	}
+
+	public ArrayList<MenuItem> getOrderContents() {
+		return itemsOrdered;
 	}
 
 }

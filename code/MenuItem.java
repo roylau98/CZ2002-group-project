@@ -34,7 +34,7 @@ public abstract class MenuItem {
 		this.description = description;
 	}
 
-	public void update() {
+	public void updateMenuItem() {
 		Scanner sc = new Scanner(System.in);
 		int choice;
 		String inputForString;

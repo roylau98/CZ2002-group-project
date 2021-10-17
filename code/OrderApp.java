@@ -16,13 +16,13 @@ public class OrderApp {
 
 	Scanner sc = new Scanner(System.in);
 
-	private ArrayList<Order> order;
-	private Menu menu;
+	private ArrayList<Order> listOfOrder;
+	private Menu menuApp;
 	private SalesReport sales;
 
 	public OrderApp() {
-		order = new ArrayList<Order>();
-		menu = new Menu();
+		listOfOrder = new ArrayList<Order>();
+		menuApp = new Menu();
 		sales = new SalesReport();
 	}
 
@@ -30,25 +30,25 @@ public class OrderApp {
 	public void createOrder() {
 
 		int tchoice,ichoice;
-		MenuItems tempitem = new MenuItems();
-		Promotion promotemp = new Promotion();
+		MenuItem tempitem = new MenuItem();
+		PromotionalSet promotemp = new PromotionalSet();
 		Order temp=new Order();
 
 
 		do{
-			menu.printInstruction();
+			menuApp.printInstruction();
 			System.out.println("Please select option(1-6):");
 			tchoice=sc.nextInt();
 
 			switch(tchoice) {
 
 				case 1:
-					menu.printMenu(tchoice);
+					menuApp.printMenu(tchoice);
 					do {
 						System.out.println("Please select the item to add in to order(Enter -1 to exit):");
 						ichoice=sc.nextInt();
 
-						tempitem=menu.getMenuItem(ichoice,tchoice);
+						tempitem= menuApp.getMenuItem(ichoice,tchoice);
 						temp.addMenuItems(temp);
 
 					}while(ichoice!=-1);
@@ -56,12 +56,12 @@ public class OrderApp {
 
 
 				case 2:
-					menu.printMenu(tchoice);
+					menuApp.printMenu(tchoice);
 					do {
 						System.out.println("Please select the item to add in to order(Enter -1 to exit):");
 						ichoice=sc.nextInt();
 
-						tempitem=menu.getMenuItem(ichoice,tchoice);
+						tempitem= menuApp.getMenuItem(ichoice,tchoice);
 						temp.addMenuItems(temp);
 
 					}while(ichoice!=-1);
@@ -69,12 +69,12 @@ public class OrderApp {
 
 
 				case 3:
-					menu.printMenu(tchoice);
+					menuApp.printMenu(tchoice);
 					do {
 						System.out.println("Please select the item to add in to order(Enter -1 to exit):");
 						ichoice=sc.nextInt();
 
-						tempitem=menu.getMenuItem(ichoice,tchoice);
+						tempitem= menuApp.getMenuItem(ichoice,tchoice);
 						temp.addMenuItems(temp);
 
 					}while(ichoice!=-1);
@@ -82,12 +82,12 @@ public class OrderApp {
 
 
 				case 4:
-					menu.printMenu(tchoice);
+					menuApp.printMenu(tchoice);
 					do {
 						System.out.println("Please select the item to add in to order(Enter -1 to exit):");
 						ichoice=sc.nextInt();
 
-						tempitem=menu.getMenuItem(ichoice,tchoice);
+						tempitem= menuApp.getMenuItem(ichoice,tchoice);
 						temp.addMenuItems(temp);
 
 					}while(ichoice!=-1);
@@ -95,12 +95,12 @@ public class OrderApp {
 
 
 				case 5:
-					menu.printMenu(tchoice);
+					menuApp.printMenu(tchoice);
 					do {
 						System.out.println("Please select the Promotion to add in to order(Enter -1 to exit):");
 						ichoice=sc.nextInt();
 
-						promotemp=menu.getPromoItem(ichoice);
+						promotemp= menuApp.getPromoItem(ichoice);
 						temp.addMenuItems(temp);
 
 					}while(ichoice!=-1);
@@ -113,7 +113,7 @@ public class OrderApp {
 					temp.printAllItemsInOrder();
 					temp.printPrice();
 					System.out.println("=============================================");
-					order.add(temp);
+					listOfOrder.add(temp);
 					break;
 
 
@@ -132,27 +132,27 @@ public class OrderApp {
 		Promotion promotemp = new Promotion();
 		Order temp;
 
-		for(int i =0;i<order.size();i++)
+		for(int i = 0; i< listOfOrder.size(); i++)
 		{
-			if(order.get(i).getOrderID()==orderID)
+			if(listOfOrder.get(i).getOrderID()==orderID)
 			{
 
-				temp = order.get(i);
+				temp = listOfOrder.get(i);
 
 				do{
-					menu.printInstruction();
+					menuApp.printInstruction();
 					System.out.println("Please select option(1-6):");
 					tchoice=sc.nextInt();
 
 					switch(tchoice) {
 
 						case 1:
-							menu.printMenu(tchoice);
+							menuApp.printMenu(tchoice);
 							do {
 								System.out.println("Please select the item to add in to order(Enter -1 to exit):");
 								ichoice=sc.nextInt();
 
-								tempitem=menu.getMenuItem(ichoice,tchoice);
+								tempitem= menuApp.getMenuItem(ichoice,tchoice);
 								temp.addMenuItems(temp);
 
 							}while(ichoice!=-1);
@@ -160,12 +160,12 @@ public class OrderApp {
 
 
 						case 2:
-							menu.printMenu(tchoice);
+							menuApp.printMenu(tchoice);
 							do {
 								System.out.println("Please select the item to add in to order(Enter -1 to exit):");
 								ichoice=sc.nextInt();
 
-								tempitem=menu.getMenuItem(ichoice,tchoice);
+								tempitem= menuApp.getMenuItem(ichoice,tchoice);
 								temp.addMenuItems(temp);
 
 							}while(ichoice!=-1);
@@ -173,12 +173,12 @@ public class OrderApp {
 
 
 						case 3:
-							menu.printMenu(tchoice);
+							menuApp.printMenu(tchoice);
 							do {
 								System.out.println("Please select the item to add in to order(Enter -1 to exit):");
 								ichoice=sc.nextInt();
 
-								tempitem=menu.getMenuItem(ichoice,tchoice);
+								tempitem= menuApp.getMenuItem(ichoice,tchoice);
 								temp.addMenuItems(temp);
 
 							}while(ichoice!=-1);
@@ -186,12 +186,12 @@ public class OrderApp {
 
 
 						case 4:
-							menu.printMenu(tchoice);
+							menuApp.printMenu(tchoice);
 							do {
 								System.out.println("Please select the item to add in to order(Enter -1 to exit):");
 								ichoice=sc.nextInt();
 
-								tempitem=menu.getMenuItem(ichoice,tchoice);
+								tempitem= menuApp.getMenuItem(ichoice,tchoice);
 								temp.addMenuItems(temp);
 
 							}while(ichoice!=-1);
@@ -199,12 +199,12 @@ public class OrderApp {
 
 
 						case 5:
-							menu.printMenu(tchoice);
+							menuApp.printMenu(tchoice);
 							do {
 								System.out.println("Please select the Promotion to add in to order(Enter -1 to exit):");
 								ichoice=sc.nextInt();
 
-								promotemp=menu.getPromoItem(ichoice);
+								promotemp= menuApp.getPromoItem(ichoice);
 								temp.addPromoItems(promotemp);
 
 							}while(ichoice!=-1);
@@ -235,12 +235,12 @@ public class OrderApp {
 		int index=0;
 		Order temp;
 
-		for(int i =0;i<order.size();i++)
+		for(int i = 0; i< listOfOrder.size(); i++)
 		{
-			if(order.get(i).getOrderID()==orderID)
+			if(listOfOrder.get(i).getOrderID()==orderID)
 			{
 
-				temp = order.get(i);
+				temp = listOfOrder.get(i);
 				do{
 
 					System.out.println("==============Your Current Order=============");
@@ -266,12 +266,12 @@ public class OrderApp {
 
 		Order temp;
 
-		for(int i =0;i<order.size();i++)
+		for(int i = 0; i< listOfOrder.size(); i++)
 		{
-			if(order.get(i).getOrderID()==orderID)
+			if(listOfOrder.get(i).getOrderID()==orderID)
 			{
 
-				temp = order.get(i);
+				temp = listOfOrder.get(i);
 				System.out.println("==============Your Current Order=============");
 				temp.printAllItemsInOrder();
 				temp.printPrice();
@@ -285,12 +285,12 @@ public class OrderApp {
 		Order temp;
 		Invoice bill;
 
-		for(int i =0;i<order.size();i++)
+		for(int i = 0; i< listOfOrder.size(); i++)
 		{
-			if(order.get(i).getOrderID()==orderID)
+			if(listOfOrder.get(i).getOrderID()==orderID)
 			{
 
-				temp = order.get(i);
+				temp = listOfOrder.get(i);
 				bill=temp.getInvoice();
 				bill.printInvoice();
 				break;

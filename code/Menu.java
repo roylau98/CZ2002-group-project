@@ -238,7 +238,7 @@ public class Menu {
 					description = sc.nextLine();
 
 					addMenuitem = new PromotionalSet(name,description,price);
-					addMenuitem.update();
+					addMenuitem.updateMenuItem();
 					promo.add((PromotionalSet) addMenuitem);
 					break;
 
@@ -367,7 +367,7 @@ public class Menu {
 					if(menuIndexNo>main.size()||menuIndexNo<=0)
 						System.out.println("The index is incorrect");
 					else
-						main.get(menuIndexNo-1).update();
+						main.get(menuIndexNo-1).updateMenuItem();
 					break;
 
 
@@ -378,7 +378,7 @@ public class Menu {
 					if(menuIndexNo>appertizer.size()||menuIndexNo<=0)
 						System.out.println("The index is incorrect");
 					else
-						appertizer.get(menuIndexNo-1).update();
+						appertizer.get(menuIndexNo-1).updateMenuItem();
 					break;
 
 
@@ -389,7 +389,7 @@ public class Menu {
 					if(menuIndexNo>drink.size()||menuIndexNo<=0)
 						System.out.println("The index is incorrect");
 					else
-						drink.get(menuIndexNo-1).update();
+						drink.get(menuIndexNo-1).updateMenuItem();
 					break;
 
 
@@ -400,7 +400,7 @@ public class Menu {
 					if(menuIndexNo>dessert.size()||menuIndexNo<=0)
 						System.out.println("The index is incorrect");
 					else
-						dessert.get(menuIndexNo-1).update();
+						dessert.get(menuIndexNo-1).updateMenuItem();
 					break;
 
 
