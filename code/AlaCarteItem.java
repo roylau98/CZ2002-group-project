@@ -1,6 +1,6 @@
 import java.util.Scanner;
 
-public class AlaCarteItem extends MenuItem implements Comparable<AlaCarte> {
+public class AlaCarteItem extends MenuItem implements Comparable<AlaCarteItem> {
 
 	private ItemType typeOfItem;
 
