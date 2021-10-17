@@ -11,8 +11,9 @@ public abstract class MenuItem {
 	 * @param price
 	 */
 	public MenuItem(String name, String description, double price) {
-		// TODO - implement MenuItem.MenuItem
-		throw new UnsupportedOperationException();
+		this.name = name;
+		this.description = description;
+		this.price = price;
 	}
 
 	public double getPrice() {

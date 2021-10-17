@@ -1,23 +1,28 @@
+import java.util.HashMap;
+
 public class PromotionalSet extends MenuItem {
 
 	private HashMap<AlaCarteItem, Integer> items;
 
-	/**
-	 * 
-	 * @param item
-	 */
-	public void addToPromotionalSet(AlaCarteItem item) {
-		// TODO - implement PromotionalSet.addToPromotionalSet
-		throw new UnsupportedOperationException();
+	PromotionalSet() {
+		super("unknown", "unknown", 0);
 	}
 
-	/**
-	 * 
-	 * @param item
-	 */
-	public void removeFromPromotionalSet(AlaCarteItem item) {
-		// TODO - implement PromotionalSet.removeFromPromotionalSet
-		throw new UnsupportedOperationException();
+	PromotionalSet(String name, String description, double price) {
+		super(name, description, price);
+		items = new HashMap<AlaCarteItem,Integer>();
+	}
+
+	public void addToPromotionalSet(AlaCarteItem item, int quantity) {
+		items.put(item,quantity);
+	}
+
+	public void removeItemFromPromotionalSet(AlaCarteItem item) {
+		items.remove(item);
+	}
+
+	public HashMap<AlaCarteItem, Integer> getPromotionalSet() {
+		return items;
 	}
 
 }
