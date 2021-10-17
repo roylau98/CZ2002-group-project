@@ -36,7 +36,7 @@ public class OrderApp {
 
 
 		do{
-			menu.printType();
+			menu.printInstruction();
 			System.out.println("Please select option(1-6):");
 			tchoice=sc.nextInt();
 
@@ -140,7 +140,7 @@ public class OrderApp {
 				temp = order.get(i);
 
 				do{
-					menu.printType();
+					menu.printInstruction();
 					System.out.println("Please select option(1-6):");
 					tchoice=sc.nextInt();
 

@@ -1,5 +1,6 @@
 public enum ItemType {
 	MAIN_COURSE,
+	APPERTIZER,
 	DRINKS,
 	DESSERT
 }

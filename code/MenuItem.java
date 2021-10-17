@@ -4,12 +4,6 @@ public abstract class MenuItem {
 	private String description;
 	private double price;
 
-	/**
-	 * 
-	 * @param name
-	 * @param description
-	 * @param price
-	 */
 	public MenuItem(String name, String description, double price) {
 		this.name = name;
 		this.description = description;
@@ -26,6 +20,16 @@ public abstract class MenuItem {
 
 	public String getDescription() {
 		return this.description;
+	}
+
+	public void updatePrice(double price) {
+		this.price = price;
+	}
+	public void updateName(String name) {
+		this.name = name;
+	}
+	public void updateDescription(String description) {
+		this.description = description;
 	}
 
 }

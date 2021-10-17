@@ -19,27 +19,26 @@ public class Menu {
 	//do u wan to add error detection for price to make sure it is positive float??
 
 
-
 	Scanner sc = new Scanner(System.in);
 
-	private ArrayList<MenuItems> main;
-	private ArrayList<MenuItems> appertizer;
-	private ArrayList<MenuItems> drink;
-	private ArrayList<MenuItems> dessert;
-	private ArrayList<Promotion> promo;
+	private ArrayList<MenuItem> main;
+	private ArrayList<MenuItem> appertizer;
+	private ArrayList<MenuItem> drink;
+	private ArrayList<MenuItem> dessert;
+	private ArrayList<PromotionalSet> promo;
 
 
 	public Menu(){
 
-		ArrayList<MenuItems> main = new ArrayList<MenuItems>();
-		ArrayList<MenuItems> appertizer = new ArrayList<MenuItems>();
-		ArrayList<MenuItems> drink = new ArrayList<MenuItems>();
-		ArrayList<MenuItems> dessert = new ArrayList<MenuItems>();
-		ArrayList<Promotion> promo = new ArrayList<Promotion>();
+		main = new ArrayList<MenuItem>();
+		appertizer = new ArrayList<MenuItem>();
+		drink = new ArrayList<MenuItem>();
+		dessert = new ArrayList<MenuItem>();
+		promo = new ArrayList<PromotionalSet>();
 
 	}
 	//-------------------------------------------------------------------------------------------------------------
-	public void printType() {
+	public void printInstruction() {
 
 
 		System.out.println("=============THE KRUSTY KRAB=============");
@@ -48,14 +47,10 @@ public class Menu {
 		System.out.println("3)   Drinks");
 		System.out.println("4)   Dessert");
 		System.out.println("5)   Spongebob Recommendation");
-		System.out.println("6)   Exit");
+		//System.out.println("6)   Everything");
+		System.out.println("7)   Exit");
 		System.out.println("========================================");
 		System.out.println();
-		//printMenu(1);
-		//printMenu(2);
-		//printMenu(3);
-		//printMenu(4);
-		//printMenu(5);
 
 	}
 	public void printMenu(int c) {
@@ -67,9 +62,10 @@ public class Menu {
 				for (int i = 0; i < main.size(); i++)
 				{
 					System.out.println("Main Course "+i+1+")");
-					//******inside the ArrayList i think there is a getName inbuilt func so i change the name to getItemName*******
 					System.out.println();
-					System.out.println("Name       : "+main.get(i).getItemName());
+					//******inside the ArrayList i think there is a getName inbuilt func so i change the name to getItemName*******
+					//System.out.println("Name       : "+main.get(i).getItemName());
+					System.out.println("Name       : "+main.get(i).getName());
 					System.out.println("Price      : "+main.get(i).getPrice());
 					System.out.println("Description: "+main.get(i).getDescription());
 					System.out.println();
@@ -85,7 +81,7 @@ public class Menu {
 					System.out.println("Appertizer "+i+1+")");
 
 					System.out.println();
-					System.out.println("Name       : "+appertizer.get(i).getItemName());
+					System.out.println("Name       : "+appertizer.get(i).getName());
 					System.out.println("Price      : "+appertizer.get(i).getPrice());
 					System.out.println("Description: "+appertizer.get(i).getDescription());
 					System.out.println();
@@ -101,7 +97,7 @@ public class Menu {
 					System.out.println("Drink "+i+1+")");
 
 					System.out.println();
-					System.out.println("Name       : "+drink.get(i).getItemName());
+					System.out.println("Name       : "+drink.get(i).getName());
 					System.out.println("Price      : "+drink.get(i).getPrice());
 					System.out.println("Description: "+drink.get(i).getDescription());
 					System.out.println();
@@ -117,7 +113,7 @@ public class Menu {
 					System.out.println("Dessert "+i+1+")");
 
 					System.out.println();
-					System.out.println("Name       : "+dessert.get(i).getItemName());
+					System.out.println("Name       : "+dessert.get(i).getName());
 					System.out.println("Price      : "+dessert.get(i).getPrice());
 					System.out.println("Description: "+dessert.get(i).getDescription());
 					System.out.println();
@@ -130,18 +126,19 @@ public class Menu {
 				System.out.println("***********PROMOTION SETS***********");
 				for (int i = 0; i < promo.size(); i++)
 				{
-					System.out.println("Promotion "i+1+")");
+					System.out.println("Promotion "+i+1+")");
 					//******inside the ArrayList i think there is a getName inbuilt func so i change the name to getItemName*******
 					//for promotion can u do two func one is to print the name of all item in that certain promo package the other for the price??
 					System.out.println();
-					System.out.println("Package      : \n"+promo.get(i).printItem());
+					System.out.println("Package      : \n"+promo.get(i).getName());
 					System.out.println("Price        : "+promo.get(i).getPrice());
 					System.out.println("Description  : "+promo.get(i).getDescription());
+					System.out.println("Promo Set Items : ");
+					promo.get(i).printPromotionalSet();
 					System.out.println();
 				}
 				System.out.println("************************************");
 				break;
-
 
 			default:
 				System.out.println("Wrong Choice!!!");
@@ -157,15 +154,13 @@ public class Menu {
 		String name;
 		String description;
 		double price;
-		MenuItem temp;
-		Promotion temp1;
+		MenuItem addMenuitem;
 
 		do {
 
-
 			System.out.println("Please select the type of item to add:");
 			System.out.println();
-			System.out.println("1) Main Couse");
+			System.out.println("1) Main Course");
 			System.out.println("2) Appertizer");
 			System.out.println("3) Drinks");
 			System.out.println("4) Dessert");
@@ -186,8 +181,8 @@ public class Menu {
 					System.out.println("Enter the description of new Main Course:");
 					description = sc.nextLine();
 
-					temp= new MenuItem(name,price,description);
-					main.add(temp);
+					addMenuitem = new AlaCarteItem(name,description,price,ItemType.MAIN_COURSE);
+					main.add(addMenuitem);
 					break;
 
 				case 2:
@@ -200,8 +195,8 @@ public class Menu {
 					System.out.println("Enter the description of new Appertizer:");
 					description = sc.nextLine();
 
-					temp = new MenuItem(name,price,description);
-					appertizer.add(temp);
+					addMenuitem = new AlaCarteItem(name,description,price,ItemType.APPERTIZER);
+					appertizer.add(addMenuitem);
 					break;
 
 				case 3:
@@ -214,8 +209,8 @@ public class Menu {
 					System.out.println("Enter the description of new Drinks:");
 					description = sc.nextLine();
 
-					temp = new MenuItem(name,price,description);
-					drink.add(temp);
+					addMenuitem = new AlaCarteItem(name,description,price,ItemType.DRINKS);
+					drink.add(addMenuitem);
 					break;
 
 				case 4:
@@ -228,23 +223,24 @@ public class Menu {
 					System.out.println("Enter the description of new Dessert:");
 					description = sc.nextLine();
 
-					temp = new MenuItem(name,price,description);
-					dessert.add(temp);
+					addMenuitem = new AlaCarteItem(name,description,price,ItemType.DESSERT);
+					dessert.add(addMenuitem);
 					break;
 
-					/*case 5:
-						System.out.println("Enter the name of new Main Course:");
-						name = sc.nextLine();
+				case 5:
+					System.out.println("Enter the name of new Promotional Set:");
+					name = sc.nextLine();
 
-						System.out.println("Enter the price of new Main Course:");
-						price = sc.nextDouble();
+					System.out.println("Enter the price of new Promotional Set:");
+					price = sc.nextDouble();
 
-						System.out.println("Enter the description of new Main Course:");
-						description = sc.nextLine();
+					System.out.println("Enter the description of new Promotional Set:");
+					description = sc.nextLine();
 
-						temp1 = new Promotion(name,price,description);
-						promo.add(temp1);
-						break;*/
+					addMenuitem = new PromotionalSet(name,description,price);
+					COME BACK
+					promo.add();
+					break;
 				case 6:
 					break;
 
@@ -259,7 +255,7 @@ public class Menu {
 	public void removeItem() {
 
 		int choice;
-		int no;
+		int menuIndexNo;
 
 		do {
 			System.out.println("Please select the type of item to remove:");
@@ -278,56 +274,56 @@ public class Menu {
 
 				case 1:
 					System.out.println("Please enter the index no. of Main Course to remove:");
-					no=sc.nextInt();
+					menuIndexNo=sc.nextInt();
 
-					if(no>main.size()||no<=0)
-						System.out.println("The index is incorrect");
+					if(menuIndexNo>main.size()||menuIndexNo<=0)
+						System.out.println("The index no. is incorrect");
 					else
-						main.remove(no-1);
+						main.remove(menuIndexNo-1);
 					break;
 
 
 				case 2:
 					System.out.println("Please enter the index no. of Appertizer to remove:");
-					no=sc.nextInt();
+					menuIndexNo=sc.nextInt();
 
-					if(no>appertizer.size()||no<=0)
+					if(menuIndexNo>appertizer.size()||menuIndexNo<=0)
 						System.out.println("The index is incorrect");
 					else
-						appertizer.remove(no-1);
+						appertizer.remove(menuIndexNo-1);
 					break;
 
 
 				case 3:
 					System.out.println("Please enter the index no. of Drinks to remove:");
-					no=sc.nextInt();
+					menuIndexNo=sc.nextInt();
 
-					if(no>drink.size()||no<=0)
+					if(menuIndexNo>drink.size()||menuIndexNo<=0)
 						System.out.println("The index is incorrect");
 					else
-						drink.remove(no-1);
+						drink.remove(menuIndexNo-1);
 					break;
 
 
 				case 4:
 					System.out.println("Please enter the index no. of Dessert to remove:");
-					no=sc.nextInt();
+					menuIndexNo=sc.nextInt();
 
-					if(no>dessert.size()||no<=0)
+					if(menuIndexNo>dessert.size()||menuIndexNo<=0)
 						System.out.println("The index is incorrect");
 					else
-						dessert.remove(no-1);
+						dessert.remove(menuIndexNo-1);
 					break;
 
 
 				case 5:
 					System.out.println("Please enter the index no. of Promotion to remove:");
-					no=sc.nextInt();
+					menuIndexNo=sc.nextInt();
 
-					if(no>promo.size()||no<=0)
+					if(menuIndexNo>promo.size()||menuIndexNo<=0)
 						System.out.println("The index is incorrect");
 					else
-						promo.remove(no-1);
+						promo.remove(menuIndexNo-1);
 					break;
 
 
@@ -344,9 +340,10 @@ public class Menu {
 	public void updateMenuItem() {
 
 		int choice;
-		int no;
-		String name;
-		double price;
+		int menuIndexNo;
+		String updatedName;
+		String updatedDescription;
+		double updatedPrice;
 
 		do {
 			System.out.println("Please select the type of item to update:");
@@ -364,56 +361,57 @@ public class Menu {
 
 				case 1:
 					System.out.println("Please enter the index no. of Main Course to update:");
-					no=sc.nextInt();
+					menuIndexNo=sc.nextInt();
 
-					if(no>main.size()||no<=0)
+					if(menuIndexNo>main.size()||menuIndexNo<=0)
 						System.out.println("The index is incorrect");
 					else
-						update(main.get(no-1));
+
+						
 					break;
 
 
 				case 2:
 					System.out.println("Please enter the index no. of Appertizer to update:");
-					no=sc.nextInt();
+					menuIndexNo=sc.nextInt();
 
-					if(no>appertizer.size()||no<=0)
+					if(menuIndexNo>appertizer.size()||menuIndexNo<=0)
 						System.out.println("The index is incorrect");
 					else
-						update(appertizer.get(no-1));
+						update(appertizer.get(menuIndexNo-1));
 					break;
 
 
 				case 3:
 					System.out.println("Please enter the index no. of Drinks to update:");
-					no=sc.nextInt();
+					menuIndexNo=sc.nextInt();
 
-					if(no>drink.size()||no<=0)
+					if(menuIndexNo>drink.size()||menuIndexNo<=0)
 						System.out.println("The index is incorrect");
 					else
-						update(drink.get(no-1));
+						update(drink.get(menuIndexNo-1));
 					break;
 
 
 				case 4:
 					System.out.println("Please enter the index no. of Dessert to update:");
-					no=sc.nextInt();
+					menuIndexNo=sc.nextInt();
 
-					if(no>dessert.size()||no<=0)
+					if(menuIndexNo>dessert.size()||menuIndexNo<=0)
 						System.out.println("The index is incorrect");
 					else
-						update(dessert.get(no-1));
+						update(dessert.get(menuIndexNo-1));
 					break;
 
 
 				case 5:
 					System.out.println("Please enter the index no. of Promotion to update:");
-					no=sc.nextInt();
+					menuIndexNo=sc.nextInt();
 
-					if(no>promo.size()||no<=0)
+					if(menuIndexNo>promo.size()||menuIndexNo<=0)
 						System.out.println("The index is incorrect");
 					else
-						updatePromo(promo.get(no-1));
+						updatePromo(promo.get(menuIndexNo-1));
 					break;
 
 
