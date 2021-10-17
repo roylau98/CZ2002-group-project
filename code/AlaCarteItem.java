@@ -1,3 +1,5 @@
+import java.util.Scanner;
+
 public class AlaCarteItem extends MenuItem {
 
 	private ItemType typeOfItem;
@@ -15,5 +17,6 @@ public class AlaCarteItem extends MenuItem {
 	public ItemType getItemType() {
 		return typeOfItem;
 	}
+
 
 }

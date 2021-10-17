@@ -238,9 +238,10 @@ public class Menu {
 					description = sc.nextLine();
 
 					addMenuitem = new PromotionalSet(name,description,price);
-					COME BACK
-					promo.add();
+					addMenuitem.update();
+					promo.add((PromotionalSet) addMenuitem);
 					break;
+
 				case 6:
 					break;
 
@@ -366,8 +367,7 @@ public class Menu {
 					if(menuIndexNo>main.size()||menuIndexNo<=0)
 						System.out.println("The index is incorrect");
 					else
-
-						
+						main.get(menuIndexNo-1).update();
 					break;
 
 
@@ -378,7 +378,7 @@ public class Menu {
 					if(menuIndexNo>appertizer.size()||menuIndexNo<=0)
 						System.out.println("The index is incorrect");
 					else
-						update(appertizer.get(menuIndexNo-1));
+						appertizer.get(menuIndexNo-1).update();
 					break;
 
 
@@ -389,7 +389,7 @@ public class Menu {
 					if(menuIndexNo>drink.size()||menuIndexNo<=0)
 						System.out.println("The index is incorrect");
 					else
-						update(drink.get(menuIndexNo-1));
+						drink.get(menuIndexNo-1).update();
 					break;
 
 
@@ -400,7 +400,7 @@ public class Menu {
 					if(menuIndexNo>dessert.size()||menuIndexNo<=0)
 						System.out.println("The index is incorrect");
 					else
-						update(dessert.get(menuIndexNo-1));
+						dessert.get(menuIndexNo-1).update();
 					break;
 
 
@@ -411,7 +411,7 @@ public class Menu {
 					if(menuIndexNo>promo.size()||menuIndexNo<=0)
 						System.out.println("The index is incorrect");
 					else
-						updatePromo(promo.get(menuIndexNo-1));
+
 					break;
 
 
@@ -425,7 +425,7 @@ public class Menu {
 		}while(choice!=6);
 	}
 
-	public void update(MenuItems item) {
+	public void update(MenuItem item) {
 		int choice=0;
 		String name;
 		String description;
@@ -468,101 +468,66 @@ public class Menu {
 			}
 		}while(choice!=4);
 	}
-	/*public void updatePromo(Promotion promo) {
-		int choice=0;
-		String name;
-		String description;
-		double price;
 
-		do {
-
-			System.out.println("Update:");
-			System.out.println();
-			System.out.println("(1) Name");
-			System.out.println("(2) Price");
-			System.out.println("(3) Description");
-			System.out.println("(4) Exit");
-			choice=sc.nextInt();
-
-			switch(choice) {
-				case 1:
-					System.out.println("Enter a new name:");
-					name=sc.nextLine();
-					item.updateName(name);
-					break;
-
-				case 2:
-					System.out.println("Enter a new price:");
-					price=sc.nextDouble();
-					item.updatePrice(price);
-					break;
-
-				case 3:
-					System.out.println("Enter a new description");
-					description=sc.nextLine();
-					item.updateDescription(description);
-					break;
-
-				case 4:
-					break;
-
-				default:
-					System.out.println("Wrong Input!!!");
-			}
-		}while(choice!=4);
-	}*/
 	//---------------------------------------------------------------------------------------------
 	//type 1=main 2=appertizer 3=drinks 4=desserts
-	public MenuItems getMenuItem(int index,int type) {
+	public MenuItem getMenuItem(int index,int type) {
 
 		switch(type) {
 
 			case 1:
-				if(index>main.size()||index<=0)
+				if(index>main.size()||index<=0) {
 					System.out.println("The index is incorrect");
-				else
+				}
+				else {
 					return main.get(index-1);
+				}
 				break;
 
 
 			case 2:
-				if(index>appertizer.size()||index<=0)
+				if(index>appertizer.size()||index<=0) {
 					System.out.println("The index is incorrect");
-				else
+				}
+				else {
 					return appertizer.get(index-1);
+				}
 				break;
 
 
 			case 3:
-				if(index>drink.size()||index<=0)
+				if(index>drink.size()||index<=0) {
 					System.out.println("The index is incorrect");
-				else
+				}
+				else {
 					return drink.get(index-1);
+				}
 				break;
 
 
 			case 4:
-				if(index>dessert.size()||index<=0)
+				if(index>dessert.size()||index<=0) {
 					System.out.println("The index is incorrect");
-				else
-					return dessert.get(index-1);
+				}
+				else {
+					return dessert.get(index - 1);
+				}
 				break;
-
 
 			default:
 				System.out.println("Wrong type!!!");
+				return null;
 
 		}
 
 	}
-	public Promotion getPromoItem(int index) {
-
-		if(index>main.size()||index<=0)
+	public PromotionalSet getPromoItem(int index) {
+		if(index>main.size()||index<=0) {
 			System.out.println("The index is incorrect");
-		else
+			return null;
+		}
+		else {
 			return promo.get(index-1);
-		
-
-
+		}
 	}
 }

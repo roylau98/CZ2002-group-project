@@ -1,3 +1,5 @@
+import java.util.Scanner;
+
 public abstract class MenuItem {
 
 	private String name;
@@ -31,5 +33,51 @@ public abstract class MenuItem {
 	public void updateDescription(String description) {
 		this.description = description;
 	}
+
+	public void update() {
+		Scanner sc = new Scanner(System.in);
+		int choice;
+		String inputForString;
+		double inputForDouble;
+
+		System.out.println("Update Item Name? 1-Yes, 0-N");
+		choice = sc.nextInt();
+		if (choice == 1) {
+			inputForString = sc.next();
+			updateName(inputForString);
+		}
+		else if (choice == 0) {
+		}
+		else {
+			System.out.println("Wrong input, returning");
+			return;
+		}
+
+		System.out.println("Update Item Description? 1-Yes, 0-N");
+		choice = sc.nextInt();
+		if (choice == 1) {
+			inputForString = sc.next();
+			updateDescription(inputForString);
+		}
+		else if (choice == 0) {
+		}
+		else {
+			System.out.println("Wrong input, returning");
+			return;
+		}
+
+		System.out.println("Update Item Price? 1-Yes, 0-N");
+		choice = sc.nextInt();
+		if (choice == 1) {
+			inputForDouble = sc.nextDouble();
+			updatePrice(inputForDouble);
+		}
+		else if (choice == 0) {
+		}
+		else {
+			System.out.println("Wrong input, returning");
+			return;
+		}
+	};
 
 }
