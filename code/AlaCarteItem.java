@@ -17,9 +17,10 @@ public class AlaCarteItem extends MenuItem implements Comparable<AlaCarteItem> {
 	public ItemType getItemType() {
 		return typeOfItem;
 	}
-	//@Override
-	public int compareTo(AlaCarte ac) {
-		return this.type.compareTo(ac.type);
+
+	@Override
+	public int compareTo(AlaCarteItem ac) {
+		return this.getItemType().compareTo(ac.getItemType());
 	}
 
 }

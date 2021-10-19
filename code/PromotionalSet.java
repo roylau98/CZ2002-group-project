@@ -1,4 +1,3 @@
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Scanner;
 
@@ -15,26 +14,40 @@ public class PromotionalSet extends MenuItem {
 		items = new HashMap<>();
 	}
 
-	public void addToPromotionalSet(String itemName, int quantity) {
-		items.put(itemName,quantity);
+	public void addItemToPromotionalSet(String itemName, int quantity) {
+		items.putIfAbsent(itemName,quantity);
+		System.out.println("item added!");
 	}
 
 	public void removeItemFromPromotionalSet(String itemName) {
-		items.remove(itemName);
+		if (items.containsKey(itemName)) {
+			items.remove(itemName);
+			System.out.println("item removed!");
+		}
+		else {
+			System.out.println("No such item in promotional set");
+		}
 	}
 
-	public HashMap<String, Integer> getPromotionalSet() {
-		return items;
+	public void updateItemInPromotionalSet(String itemName, int updatedQuantity) {
+		if (items.containsKey(itemName)) {
+			items.replace(itemName,updatedQuantity);
+			System.out.println("item updated!");
+		}
+		else {
+			System.out.println("No such item in promotional set");
+		}
 	}
 
-	public void printPromotionalSet() {
+	public void printPromotionalSetListOfItems() {
 		items.entrySet().forEach(entry -> {
 			System.out.println(entry.getKey() + " " + entry.getValue());
 		});
 	}
 
-	public void updatePromotionalSet(ArrayList<MenuItem> listOfMenuItems) {
-		super.updateMenuItem();
+	@Override
+	public void updateContents() {
+		super.updateContents();
 
 		Scanner sc = new Scanner(System.in);
 		int choice;
@@ -42,7 +55,7 @@ public class PromotionalSet extends MenuItem {
 		int inputForInt;
 		double inputForDouble;
 
-		System.out.println("Update Promo contents? 1-Yes, 0-N");
+		System.out.println("Update Set contents? 1-Yes, 0-N");
 		choice = sc.nextInt();
 		if (choice == 1) {
 			System.out.println("1.) Add promotional Item");
@@ -54,60 +67,40 @@ public class PromotionalSet extends MenuItem {
 			while(choice != 4) {
 				switch (choice) {
 					case 1:
-						System.out.println();
-						for (int i=0; i<listOfMenuItems.size(); i++) {
-							System.out.println((i+1)+".) "+listOfMenuItems.get(i).getName());
-						}
-						System.out.println("Enter the index of the menu item to add:");
-						choice = sc.nextInt();
+						System.out.println("Enter the name of the item to add:");
+						inputForString = sc.next();
 						System.out.println("Enter the quantity:");
 						inputForInt = sc.nextInt();
-
-						addToPromotionalSet(listOfMenuItems.get(choice-1).getName(),inputForInt);
+						addItemToPromotionalSet(inputForString,inputForInt);
 						System.out.println("updated!");
 						break;
 
 					case 2:
-						printPromotionalSet();
+						printPromotionalSetListOfItems();
 						System.out.println("Type the name of the item:");
 						inputForString = sc.next();
-						System.out.println("updated!");
-
-						if (items.containsKey(inputForString)) {
-							removeItemFromPromotionalSet(inputForString);
-						}
-						else {
-						System.out.println("No such item in promotional set");
-						}
+						removeItemFromPromotionalSet(inputForString);
 						break;
 
 					case 3:
 						System.out.println("Type the name of the item:");
 						inputForString = sc.next();
-						if (items.containsKey(inputForString)) {
-							inputForInt = sc.nextInt();
-							items.replace(inputForString,inputForInt);
-							System.out.println("updated!");
-						}
-						else {
-							System.out.println("No such item in promotional set");
-						}
+						System.out.println("Type the updated quantity:");
+						inputForInt = sc.nextInt();
+						updateItemInPromotionalSet(inputForString,inputForInt);
 						break;
 
 					default:
 						System.out.println("Wrong choice");
-
 				}
 			}
 		}
 		else if (choice == 0) {
 		}
 		else {
-			System.out.println("Wrong input, returning");
+			System.out.println("Wrong input, returning!");
 			return;
 		}
-
-		System.out.println();
-
 	}
+
 }

@@ -43,7 +43,7 @@ public class OrderApp {
 			switch(tchoice) {
 
 				case 1:
-					menu.printAlaCarte();
+					menu.printAlaCarteByItemType();
 					do {
 						System.out.println("Please select the item to add in to order(Enter -1 to exit):");
 						ichoice=sc.nextInt();
@@ -115,7 +115,7 @@ public class OrderApp {
 					switch(tchoice) {
 
 						case 1:
-							menu.printAlaCarte();
+							menu.printAlaCarteByItemType();
 							do {
 								System.out.println("Please select the item to add in to order(Enter -1 to exit):");
 								ichoice=sc.nextInt();
