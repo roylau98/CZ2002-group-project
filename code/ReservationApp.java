@@ -6,11 +6,18 @@ import java.util.ArrayList;
 public class ReservationApp {
 	private static ArrayList<Table> listOfTables = new ArrayList<>();
 
-//	public ReservationApp() {
-//		listOfTables = new ArrayList<>();
-//	}
-
+	/**
+	 * Adds a reservation to the table's records
+	 * @param r The reservation object
+	 * @return true if reservation is added, else false
+	 */
 	public static boolean addReservation(Reservation r) {
+		//maybe can change to void instead of boolean. (!!!)
+		if (r.getDate().isBefore(LocalDate.now()) || (r.getDate().isEqual(LocalDate.now()) && r.getTime().isBefore(LocalTime.now()))){
+			System.out.println("Reservation time selected is before current time");
+			return false;
+		}
+
 		for (Table t : listOfTables) {
 			if (r.getNoOfPax() <= t.getCapacity()) {
 				// get the date and time of booking;
@@ -52,16 +59,15 @@ public class ReservationApp {
 		LocalTime bookingTime = dt.toLocalTime();
 		int bookingHour = bookingTime.getHour();
 
-		//
 		for (Table t : listOfTables) {
-			if (t.getReservations().containsKey(bookingDate)
-					&& t.getReservations().get(bookingDate)[bookingHour] != null
-					&& t.getReservations().get(bookingDate)[bookingHour].getCustomer().getName().equals(name)
-					&& t.getReservations().get(bookingDate)[bookingHour].getCustomer().getContactNo().equals(contactNo)
-					&& t.getReservations().get(bookingDate)[bookingHour].getNoOfPax() == noOfPax) {
-				t.getReservations().get(bookingDate)[bookingHour] = null;
-				System.out.println("Reservation at table number " + t.getTableID() + " successfully cancelled");
-				return;
+			if (t.getReservations().containsKey(bookingDate)) {
+				Reservation r = t.getReservations().get(bookingDate)[bookingHour];
+				if (r != null
+						&& r.getCustomer().getName().equals(name)
+						&& r.getCustomer().getContactNo().equals(contactNo)
+						&& r.getNoOfPax() == noOfPax) {
+					return r;
+				}
 			}
 		}
 
@@ -69,17 +75,21 @@ public class ReservationApp {
 	}
 
 	private static void cancelReservation(Reservation r) {
-		// get the date and time of bookin
-		LocalDate bookingDate = r.getBookingTime().toLocalDate();
-		LocalTime bookingTime = r.getBookingTime().toLocalTime();
+		if (r == null) {
+			System.out.println("Reservation cannot be found");
+			return;
+		}
+		// get the date and time of booking
+		LocalDate bookingDate = r.getDate();
+		LocalTime bookingTime = r.getTime();
 		int bookingHour = bookingTime.getHour();
 
 		Table restaurantTable = listOfTables.get(r.getTableNo());
-		//error checking, to check if table really contains reservation for that date.
-		if (!restaurantTable.getReservations().containsKey(bookingDate)) {
-			System.out.println("Reservation not found");
-			return;
-		}
+//		//error checking, to check if table really contains reservation for that date.
+//		if (!restaurantTable.getReservations().containsKey(bookingDate)) {
+//			System.out.println("Reservation not found");
+//			return;
+//		}
 
 		restaurantTable.getReservations().get(bookingDate)[bookingHour] = null;
 		System.out.println("Reservation successfully cancelled");
@@ -108,8 +118,9 @@ public class ReservationApp {
 	}
 
 	public static void main(String[] args) {
-		Customer c1 = new Customer("James", "123", false);
-		Customer c2 = new Customer("John", "456", false);
+		Customer c1 = new Customer("James", Sex.MALE, "123", false);
+		Customer c2 = new Customer("John", Sex.MALE, "456", false);
+		Customer c3 = new Customer("Mark", Sex.MALE, "789", false);
 		Table t1 = new Table(0, 2);
 		Table t2 = new Table(1, 2);
 		Table t3 = new Table(2, 4);
@@ -129,9 +140,13 @@ public class ReservationApp {
 		ReservationApp.addReservation(r3);
 		ReservationApp.addReservation(r4);
 
-		ReservationApp.cancelReservation(LocalDateTime.of(2021, 10, 19, 13, 0), "James", "123", 2);
-		ReservationApp.cancelReservation(LocalDateTime.of(2021, 10, 19, 13, 0), "Non-existant Person", "123", 2);
-//		ReservationApp.cancelReservation(r1);
+		Reservation s1 = ReservationApp.findReservation(LocalDateTime.of(2021, 10, 20, 13, 0), "James", "123", 2);
+		Reservation s2 = ReservationApp.findReservation(LocalDateTime.of(2021, 10, 20, 13, 0), "Mark", "123", 2);
+		//ReservationApp.updateReservation(s1, s2);
+		//ReservationApp.cancelReservation(s1);
+		//ReservationApp.updateReservation(r2, r3);
+		//ReservationApp.cancelReservation(r3);
+
 //		ReservationApp.cancelReservation(r2);
 //		ReservationApp.cancelReservation(r3);
 //		ReservationApp.cancelReservation(r4);
