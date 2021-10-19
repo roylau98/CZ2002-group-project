@@ -40,9 +40,15 @@ public class PromotionalSet extends MenuItem {
 	}
 
 	public void printPromotionalSetListOfItems() {
-		items.entrySet().forEach(entry -> {
-			System.out.println(entry.getKey() + " " + entry.getValue());
+		items.entrySet().forEach(
+				entry -> { System.out.println(entry.getKey() + " " + entry.getValue());
 		});
+	}
+
+	@Override
+	public void print() {
+		super.print();
+		printPromotionalSetListOfItems();
 	}
 
 	@Override

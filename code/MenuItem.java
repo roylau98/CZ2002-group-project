@@ -15,11 +15,9 @@ public abstract class MenuItem {
 	public double getPrice() {
 		return this.price;
 	}
-
 	public String getName() {
 		return this.name;
 	}
-
 	public String getDescription() {
 		return this.description;
 	}
@@ -32,6 +30,12 @@ public abstract class MenuItem {
 	}
 	public void updateDescription(String description) {
 		this.description = description;
+	}
+
+	public void print() {
+		System.out.println("Name: "+getName());
+		System.out.println("Description: "+getDescription());
+		System.out.println("Price: "+getPrice());
 	}
 
 	public void updateContents() {
@@ -72,8 +76,7 @@ public abstract class MenuItem {
 			inputForDouble = sc.nextDouble();
 			updatePrice(inputForDouble);
 		}
-		else if (choice == 0) {
-		}
+		else if (choice == 0) {}
 		else {
 			System.out.println("Wrong input, returning");
 			return;
