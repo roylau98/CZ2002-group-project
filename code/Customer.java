@@ -5,26 +5,20 @@ public class Customer extends Person {
 
 	public Boolean isMember() {
 		// TODO - implement Customer.isMember
-		throw new UnsupportedOperationException();
+		return membershipStatus;
 	}
-
-	public Customer() {
+	public Customer(String name, Sex gender, int contactNo, Boolean membershipStatus) {
 		// TODO - implement Customer.Customer
-		throw new UnsupportedOperationException();
+		super(name, gender);
+		this.contactNo = contactNo;
+		this.membershipStatus = membershipStatus;
 	}
-
-	/**
-	 * 
-	 * @param parameter
-	 */
 	public Customer(int parameter) {
-		// TODO - implement Customer.Customer
+		// TODO - implement Customer.Customer // what is this?
 		throw new UnsupportedOperationException();
 	}
-
 	public int getContactNo() {
 		// TODO - implement Customer.getContactNo
-		throw new UnsupportedOperationException();
+		return contactNo;
 	}
-
 }
