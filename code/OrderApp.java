@@ -1,5 +1,16 @@
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
+/**
+ * Manages all the {@link Order} objects of the whole restaurants, 
+ * basically the "manager" of {@link RRPSS} to {@link Order} objects
+ * <p> 
+ * This class provides various methods to create,update(add/remove MenuItem) of the order,
+ * and view individual order details and bills.
+ * <p>
+ * @author Chua Zi Jian
+ * 
+ */
 
 public class OrderApp {
 
@@ -12,11 +23,22 @@ public class OrderApp {
 
 
 	Scanner sc = new Scanner(System.in);
-
-	private ArrayList<Order> listOfOrder;
-	private Menu menuApp;
+	/**
+         * List of Order implemented in {@link ArrayList} data structure.
+         * Each entry consists of a reference to existing {@link Order}object.
+         */
+	private ArrayList<Order> order;
+	
+	/**
+         * 
+         */
+	private Menu menu;
 	private SalesReport sales;
-
+	
+	/**
+         * Constructs an {@code OrderApp} object and
+         * initialize the attributes {@code Order}/{@code }/{@code } .
+         */
 	public OrderApp() {
 		listOfOrder = new ArrayList<Order>();
 		menuApp = new Menu();
@@ -24,6 +46,10 @@ public class OrderApp {
 	}
 
 	//-----------------------------------------------------------------------------------------------------------
+	/**
+	 * A Do-While loop to create an order and add items of AlaCarteItem and add PromotionalSet to it 
+	 * 
+	 */
 	public void createOrder() {
 
 		int tchoice,ichoice;
@@ -91,6 +117,12 @@ public class OrderApp {
 
 	}
 	//------------------------------------------------------------------------------------------------------------
+	/**
+	 * A Do-While loop to update existing order (adding more items of AlaCarteItem and add PromotionalSet to it) by orderID
+	 * 
+	 * @param 	orderID	The ID that is used to indicate existing {@link Order} object   
+	 * 
+	 */
 	public void updateOrder(int orderID) {
 
 		int tchoice,ichoice;
@@ -128,10 +160,7 @@ public class OrderApp {
 
 
 						case 2:
-							for(int i = 0;i<menu.promo.size();i++)
-							{
-								menu.promo.get(i).printPromotionalSet();
-							}
+							menu.printPromotion();
 							do {
 								System.out.println("Please select the Promotion to add in to order(Enter -1 to exit):");
 								ichoice=sc.nextInt();
@@ -163,6 +192,12 @@ public class OrderApp {
 		}
 	}
 	//--------------------------------------------------------------------------------------------------------------------
+	/**
+	 * A Do-While loop to update existing order (removing more items of AlaCarteItem and add PromotionalSet to it) by orderID
+	 * 
+	 * @param 	orderID	The ID that is used to indicate existing {@link Order} object   
+	 * 
+	 */
 	public void removeOrderItem(int orderID) {
 		int index=0;
 		Order temp;
@@ -194,6 +229,12 @@ public class OrderApp {
 		}
 	}
 	//-----------------------------------------------------------------------------------------------------------------------
+	/**
+	 * A function that printout the existing items in order by using orderID
+	 * 
+	 * @param 	orderID	The ID that is used to indicate existing {@link Order} object   
+	 * 
+	 */
 	public void viewOrder(int orderID) {
 
 		Order temp;
@@ -213,6 +254,12 @@ public class OrderApp {
 		}
 	}
 	//-----------------------------------------------------------------------------------------------------------------------
+	/**
+	 * A function that printout the bills in order by using orderID
+	 * 
+	 * @param 	orderID	The ID that is used to indicate existing {@link Order} object   
+	 * 
+	 */
 	public void chargeBill(int orderID) {
 		Order temp;
 		Invoice bill;
@@ -230,5 +277,4 @@ public class OrderApp {
 		}
 
 	}
-}
 }
