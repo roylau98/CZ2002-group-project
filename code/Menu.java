@@ -1,7 +1,6 @@
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 /**
  * Manages the {@link AlaCarteItem} and {@link PromotionalSet} of the {@link Menu}. 
@@ -32,8 +31,8 @@ public class Menu {
      */
 	public Menu(){
 		
-		List<AlaCarteItem> alaCartes = new ArrayList<AlaCarteItem>();
-		ArrayList<PromotionalSet> promo = new ArrayList<PromotionalSet>();
+		 alaCartes = new ArrayList<AlaCarteItem>();
+		 promo = new ArrayList<PromotionalSet>();
 		
 	}
 	//-------------------------------------------------------------------------------------------------------------
@@ -61,9 +60,9 @@ public class Menu {
 	 */
 	public void printMenuItem(ItemType type) {
 		System.out.println("--------------"+type+"---------------");
-		for (int i = 0; i < food.size(); i++)
+		for (int i = 0; i < alaCartes.size(); i++)
 		{
-			if(alaCartes.get(i).getItemType==type)
+			if(alaCartes.get(i).getItemType()==type)
 			{
 				System.out.println(i+1+")");
 				System.out.println();
@@ -96,13 +95,13 @@ public class Menu {
 	public void addMenuItem() {
 		
 		int choice;
-		String name;
-		String description;
+		String name=new String();
+		String description=new String();
 		double price;
-		AlaCarteItem temp;
-		Itemtype type;
+		AlaCarteItem temp=new AlaCarteItem();
+		ItemType type = null;
 		PromotionalSet temp1;
-		
+		int n;
 		
 		do {
 			
@@ -139,24 +138,29 @@ public class Menu {
 								break;
 						}
 						
+						//buffer
+						sc.nextLine();
+						
 						
 						System.out.println("Enter the new name :");
-						name = sc.nextLine();
+						name=sc.nextLine();
 						
 						System.out.println("Enter the new price:");
 						price = sc.nextDouble();
 						
+						//buffer
+						sc.nextLine();
 						System.out.println("Enter the new description:");
 						description = sc.nextLine();
 						
-						temp= new AlaCarte(name,description,price,type);
+						temp= new AlaCarteItem(name,description,price,type);
 						alaCartes.add(temp);
 						break;
 						
 					case 2:
 						
 						temp1=new PromotionalSet();
-						temp1.update(food);
+						temp1.update(alaCartes);
 						promo.add(temp1);
 						break;
 						
@@ -311,9 +315,7 @@ public class Menu {
          * @return {@link AlaCarteItem} object of given index.
 	 */
 	public AlaCarteItem getMenuItem(int index) {
-			if(index>alaCartes.size()||index<=0)
-				System.out.println("The index is incorrect");
-			else
+	
 				return alaCartes.get(index-1);		
 	}
 		
@@ -326,11 +328,8 @@ public class Menu {
 	 */
 	public PromotionalSet getPromoItem(int index) {
 		
-		if(index>promo.size()||index<=0)
-			System.out.println("The index is incorrect");
-		else
 			return promo.get(index-1);
-		break;
+		
 			
 		
 	}
