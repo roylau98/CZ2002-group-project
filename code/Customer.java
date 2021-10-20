@@ -1,7 +1,21 @@
-public class Customer extends Person {
+import java.util.Objects;
 
-	private int contactNo;
-	private Boolean membershipStatus;
+/**
+ * Represents a customer entity.
+ * It is used in the Reservation class.
+ *
+ * @author
+ * @since 2021-10-19
+ */
+public class Customer extends Person {
+    /**
+     * Customer contact number
+     */
+    private String contactNo;
+    /**
+     * Customer membershipStatus
+     */
+    private Boolean membershipStatus;
 
     /**
      * Class constructor
@@ -53,4 +67,34 @@ public class Customer extends Person {
         this.membershipStatus = membershipStatus;
     }
 
+    /**
+     * Checks and compares Customer objects
+     *
+     * @param obj Customer object
+     * @return true if the Customer object is the same, else false
+     */
+    @Override
+    public boolean equals(Object obj) {
+        if (!(obj instanceof Customer)) {
+            return false;
+        }
+        if (!this.contactNo.equals(((Customer) obj).getContactNo()))
+            return false;
+        if (!this.getName().equals(((Customer) obj).getName()))
+            return false;
+        return true;
+        //return super.equals(obj);
+    }
+
+    /**
+     * Generates a hash for an instance of the Customer class.
+     * All customers with the exact same attributes will generate the same hashCode.
+     * This is used in the mapping for HashMap.
+     *
+     * @return hashCode for the customer instance.
+     */
+    @Override
+    public int hashCode() {
+        return Objects.hash(this.getName(), contactNo);
+    }
 }

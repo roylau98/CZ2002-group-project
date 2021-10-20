@@ -9,24 +9,30 @@ import java.time.LocalTime;
  * @since 2021-10-19
  */
 public class Reservation {
-	/**
-	 * The date of reservation.
-	 */
-	private LocalDate date;
-	/**
-	 * The time of reservation.
-	 */
-	private LocalTime time;
-	/**
-	 * The hour that is reserved.
-	 */
-	private int hour;
-	/**
-	 * Number of persons
-	 */
-	private int noOfPax;
-	private Customer customer;
-	private int tableNo;
+    /**
+     * The date of reservation.
+     */
+    private LocalDate date;
+    /**
+     * The time of reservation.
+     */
+    private LocalTime time;
+    /**
+     * The hour that is reserved.
+     */
+    private int hour;
+    /**
+     * Number of persons
+     */
+    private int noOfPax;
+    /**
+     * Customer that made the booking
+     */
+    private Customer customer;
+    /**
+     * Table number that is reserved.
+     */
+    private int tableNo;
 
     /**
      * Class constructor
@@ -108,9 +114,14 @@ public class Reservation {
         return noOfPax;
     }
 
-	public void setNoOfPax(int noOfPax) {
-		this.noOfPax = noOfPax;
-	}
+    /**
+     * Changes the pax of the reservation.
+     *
+     * @param noOfPax The new pax for the reservation.
+     */
+    public void setNoOfPax(int noOfPax) {
+        this.noOfPax = noOfPax;
+    }
 
 	public Customer getCustomer() {
 		return customer;

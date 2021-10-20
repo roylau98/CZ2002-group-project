@@ -11,7 +11,10 @@ import java.util.ArrayList;
  * @since 2021-10-19
  */
 public class ReservationApp {
-	private static ArrayList<Table> listOfTables = new ArrayList<>();
+    /**
+     * A list of all tables in the restaurant.
+     */
+    private static ArrayList<Table> listOfTables = new ArrayList<>();
 
     /**
      * Adds a reservation to the table's records
@@ -35,25 +38,24 @@ public class ReservationApp {
         System.out.println("No available table found");
     }
 
-	public static void cancelReservation(LocalDateTime dt, String name, String contactNo, int noOfPax) {
-		LocalDate bookingDate = dt.toLocalDate();
-		LocalTime bookingTime = dt.toLocalTime();
-		int bookingHour = bookingTime.getHour();
-
-		for (Table t : listOfTables) {
-			if (t.getReservations().containsKey(bookingDate)) {
-				Reservation r = t.getReservations().get(bookingDate)[bookingHour];
-				if (r != null
-						&& r.getCustomer().getName().equals(name)
-						&& r.getCustomer().getContactNo().equals(contactNo)
-						&& r.getNoOfPax() == noOfPax) {
-					return r;
-				}
-			}
-		}
-
-		System.out.println("Reservation not found");
-	}
+    /**
+     * Finds the reservation based on the customer's name, contactNo, date and time of reservation,
+     * and the number of pax.
+     *
+     * @param dt        preferred date and time for the reservation
+     * @param name      customer's name
+     * @param contactNo customer's contact number
+     * @param noOfPax   number of persons
+     * @return reservation object
+     */
+    public static Reservation findReservation(LocalDateTime dt, String name, String contactNo, int noOfPax) {
+        for (Table t : listOfTables) {
+            Reservation r = t.comparesReservation(dt, name, contactNo, noOfPax);
+            if (r != null)
+                return r;
+        }
+        return null;
+    }
 
     /**
      * Cancels the reservation
@@ -118,5 +120,6 @@ public class ReservationApp {
 //		ReservationApp.cancelReservation(r2);
 //		ReservationApp.cancelReservation(r3);
 //		ReservationApp.cancelReservation(r4);
-	}
+//		System.out.println(listOfTables.get(0).getReservations().toString());
+    }
 }
