@@ -59,7 +59,6 @@ public class PromotionalSet extends MenuItem {
 		int choice;
 		String inputForString;
 		int inputForInt;
-		double inputForDouble;
 
 		System.out.println("Update Set contents? 1-Yes, 0-N");
 		choice = sc.nextInt();
@@ -69,8 +68,8 @@ public class PromotionalSet extends MenuItem {
 			System.out.println("3.) Change promotional Item quantity");
 			System.out.println("4.) Quit");
 
-			choice = sc.nextInt();
 			while(choice != 4) {
+				choice = sc.nextInt();
 				switch (choice) {
 					case 1:
 						System.out.println("Enter the name of the item to add:");
