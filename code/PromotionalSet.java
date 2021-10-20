@@ -1,24 +1,51 @@
 import java.util.HashMap;
 import java.util.Scanner;
-
+/**
+ * Stores information about a PromotionalSet inherit from{@link MenuItem} class to used in context of a menu.
+ * This class stores the name, price, description of PromotionalSet {@link Menu},
+ * and uses HashMap to keep track of the items in PromotionalSet.
+ * it also provide various method to add/remove/update the content of the PromotionalSet.
+ *
+ *@see         HashMap
+ */
 public class PromotionalSet extends MenuItem {
-
+	
+	/**
+	 * HashMap that is used to keep track of the items in PromotionalSet
+	 */
 	private HashMap<String, Integer> items;
-
+	
+	/**
+	 * Constructs a PromotionalSet with default name, price, description and type.
+	 */
 	PromotionalSet() {
 		super("unknown", "unknown", 0);
 	}
-
+	
+	/**
+	 * Constructs a PromotionalSet with specific name, price, description and type.
+	 */
 	PromotionalSet(String name, String description, double price) {
 		super(name, description, price);
 		items = new HashMap<>();
 	}
-
+	
+	/**
+	 * Add an existing item in Menu into PromotionaLSet
+	 *
+	 * @param itemName	name of the existing item in Menu to be added into PromotionalSet
+	 * @param quantity	The quantity of that certain item to be added in
+	 */
 	public void addItemToPromotionalSet(String itemName, int quantity) {
 		items.putIfAbsent(itemName,quantity);
 		System.out.println("item added!");
 	}
-
+	
+	/**
+	 * Remove a certain item from PromotionaLSet
+	 *
+	 * @param itemName	name of the item  to be removed from PromotionalSet
+	 */
 	public void removeItemFromPromotionalSet(String itemName) {
 		if (items.containsKey(itemName)) {
 			items.remove(itemName);
@@ -28,7 +55,13 @@ public class PromotionalSet extends MenuItem {
 			System.out.println("No such item in promotional set");
 		}
 	}
-
+	
+	/**
+	 * Update the quantity of certain item in PromotionaLSet
+	 *
+	 * @param itemName		name of the item to be updated in PromotionalSet
+	 * @param updatedQuantity 	the updated quantity of the certain item in PromotionalSet
+	 */
 	public void updateItemInPromotionalSet(String itemName, int updatedQuantity) {
 		if (items.containsKey(itemName)) {
 			items.replace(itemName,updatedQuantity);
@@ -38,19 +71,28 @@ public class PromotionalSet extends MenuItem {
 			System.out.println("No such item in promotional set");
 		}
 	}
-
+	/**
+	 * Print the items and their quantity in this PromotionalSet
+	 */
 	public void printPromotionalSetListOfItems() {
 		items.entrySet().forEach(
 				entry -> { System.out.println(entry.getKey() + " " + entry.getValue());
 		});
 	}
-
+	/**
+	 * Print all the items in this PromotionalSet which overrides the
+	 * method from the abstract class {@link MenuItem}
+	 */
 	@Override
 	public void print() {
 		super.print();
 		printPromotionalSetListOfItems();
 	}
-
+	/**
+	 * A function to update the content(name,description,price,quantity) of this PromotionalSet which overrides the
+	 * method from the abstract class {@link MenuItem}
+	 *
+	 */
 	@Override
 	public void updateContents() {
 		super.updateContents();
