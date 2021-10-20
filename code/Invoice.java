@@ -27,37 +27,37 @@ public class Invoice {
 		this.totalPrice = 0;
 		this.finalPrice = 0;
 		this.order = order;
-		listOfSoldItems = order.getOrderContents();
+		listOfSoldItems = order.getListOfItemsOrdered();
 		timestamp = LocalDateTime.now();
 	}
 	public void printInvoice() {
-		for (int i=0; i<order.getOrderContents().size(); i++) {
-			System.out.println((i+1)+" "+order.getOrderContents().get(i).getName()+" "+order.getOrderContents().get(i).getPrice());
+		for (int i = 0; i<order.getListOfItemsOrdered().size(); i++) {
+			System.out.println((i+1)+" "+order.getListOfItemsOrdered().get(i).getName()+" "+order.getListOfItemsOrdered().get(i).getPrice());
 		}
-		calculateSale();
+		calculateFinalPrice();
 		System.out.println("Total Price : "+getTotalPrice());
 		System.out.println("Total Price : "+getFinalPrice());
-		order.orderComplete();
+		order.setOrderAsCompleted();
 	}
 
 	public double getFinalPrice() {
 		return finalPrice;
 	}
-
 	public double getTotalPrice() {
 		return totalPrice;
 	}
+	public ArrayList<MenuItem> getListOfSoldItems() {
+		return listOfSoldItems;
+	}
 
-	public double calculateSale() {
-		for (int i=0; i<order.getOrderContents().size(); i++) {
-			totalPrice = totalPrice + order.getOrderContents().get(i).getPrice();
+	public double calculateFinalPrice() {
+		for (int i = 0; i<order.getListOfItemsOrdered().size(); i++) {
+			totalPrice = totalPrice + order.getListOfItemsOrdered().get(i).getPrice();
 		}
 		finalPrice = (totalPrice * (1+serviceCharge)) * (1+gst) ;
 		return finalPrice;
 	}
 
-	public ArrayList<MenuItem> getListOfSoldItems() {
-		return listOfSoldItems;
-	}
+
 
 }
