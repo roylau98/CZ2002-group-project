@@ -58,6 +58,8 @@ public class Invoice {
 		listOfSoldItems = order.getOrderContents();
 		timestamp = LocalDateTime.now();
 	}
+	
+	
 	/**
     	 * Print the Invoice of this order
      	 */
@@ -70,18 +72,24 @@ public class Invoice {
 		System.out.println("Total Price : "+getFinalPrice());
 		order.orderComplete();
 	}
+	
+	
 	/**
     	 * Return the final price that take accounts of GST,service charge 
      	 */
 	public double getFinalPrice() {
 		return finalPrice;
 	}
+	
+	
 	/**
     	 * Return the total price of the ordered item(exclude GST,service charge )
      	 */
 	public double getTotalPrice() {
 		return totalPrice;
 	}
+	
+	
 	/**
     	 * Calculate and return the final price that take accounts of GST,service charge
      	 */
@@ -92,6 +100,8 @@ public class Invoice {
 		finalPrice = (totalPrice * (1+serviceCharge)) * (1+gst) ;
 		return finalPrice;
 	}
+	
+	
 	/**
     	 *  Return the list of item ordered by the customer
      	 */
