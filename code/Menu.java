@@ -42,7 +42,7 @@ public class Menu {
 		System.out.println("6) Exit");
 		int choice = 0;
 		choice = sc.nextInt();
-		while (choice != 5 )
+		while (choice != 6 )
 		switch (choice) {
 			case 1:
 				printListOfMenuItems();
