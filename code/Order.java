@@ -15,6 +15,8 @@ public class Order {
 	private Table assignedTable;
 
 	public Order() {
+		//TODO
+		// set orderID as int or UUID??
 		orderID = 9999;
 		dateTimeOrderCreated = LocalDateTime.now();
 		itemsOrdered = new ArrayList<MenuItem>();
@@ -35,19 +37,14 @@ public class Order {
 		throw new UnsupportedOperationException();
 	}
 
-	public void setOrderID(int orderID) {
-		this.orderID = orderID ;
+	public LocalDateTime getDateTimeOrderCreated() {
+		return dateTimeOrderCreated;
 	}
-	public int getOrderID() {
-		return this.orderID;
+	public Customer getCustomer() {
+		return customer;
 	}
-
-	public Boolean isCompleted() {
-		return completedStatus;
-	}
-
-	public void setOrderAsCompleted() {
-		this.completedStatus = true;
+	public Table getAssignedTable() {
+		return assignedTable;
 	}
 
 	public Invoice getInvoice() {
@@ -68,6 +65,19 @@ public class Order {
 		throw new UnsupportedOperationException();
 	}
 
+	public void setOrderID(int orderID) {
+		this.orderID = orderID ;
+	}
+	public int getOrderID() {
+		return this.orderID;
+	}
+
+	public Boolean isCompleted() {
+		return completedStatus;
+	}
+	public void setOrderAsCompleted() {
+		this.completedStatus = true;
+	}
 
 	public ArrayList<MenuItem> getListOfItemsOrdered() {
 		return itemsOrdered;
@@ -89,6 +99,7 @@ public class Order {
 	public void removeItemFromOrder(int index) {
 		itemsOrdered.remove(index);
 	}
+
 
 
 }

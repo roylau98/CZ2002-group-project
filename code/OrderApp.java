@@ -26,7 +26,7 @@ public class OrderApp {
          * Each entry consists of a reference to existing {@link Order}object.
          */
 	private ArrayList<Order> listOfOrders;
-	
+
 	/**
          * 
          */
