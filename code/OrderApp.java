@@ -38,14 +38,13 @@ public class OrderApp {
          * initialize the attributes {@code Order}/{@code }/{@code } .
          */
 	public OrderApp() {
-		listOfOrders = new ArrayList<Order>();
+		listOfOrders = new ArrayList<>();
 		menuApp = new Menu();
 	}
 
 	public void orderAppOptions() {
-		int choice=999;
+		int choice;
 		int input;
-		System.out.println("");
 
 		do {
 			System.out.println("Enter Option");
@@ -128,7 +127,7 @@ public class OrderApp {
 			System.out.println("Order is already completed and paid");
 		}
 		else {
-			int choice=999;
+			int choice;
 
 			System.out.println("1) Add menuItem");
 			System.out.println("2) Remove menuItem");
@@ -178,7 +177,7 @@ public class OrderApp {
 	 * 
 	 */
 	public void removeOrder(int orderID) {
-		int index=0;
+		int index;
 		Order currOrder;
 
 		for(int i = 0; i< listOfOrders.size(); i++)
@@ -194,6 +193,7 @@ public class OrderApp {
 					currOrder.getTotalPriceOfOrder();
 					System.out.println("=============================================");
 					System.out.println("Please select the item to remove (Enter -1 to exit)");
+					index = sc.nextInt();
 					currOrder.removeItemFromOrder(index);
 
 				}while(index!=-1);
