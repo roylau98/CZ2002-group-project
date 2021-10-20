@@ -93,7 +93,7 @@ public class AlaCarteItem extends MenuItem {
 				default:
 					System.out.println("Wrong input. Try again");
 			}
-
+ 
 		}
 
 	}
