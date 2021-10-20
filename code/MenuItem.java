@@ -40,47 +40,59 @@ public abstract class MenuItem {
 
 	public void updateContents() {
 		Scanner sc = new Scanner(System.in);
-		int choice;
+		int choice=-1;
 		String inputForString;
 		double inputForDouble;
 
-		System.out.println("Update Item Name? 1-Yes, 0-N");
-		choice = sc.nextInt();
-		if (choice == 1) {
-			inputForString = sc.next();
-			updateName(inputForString);
-		}
-		else if (choice == 0) {
-		}
-		else {
-			System.out.println("Wrong input, returning");
-			return;
-		}
-
-		System.out.println("Update Item Description? 1-Yes, 0-N");
-		choice = sc.nextInt();
-		if (choice == 1) {
-			inputForString = sc.next();
-			updateDescription(inputForString);
-		}
-		else if (choice == 0) {
-		}
-		else {
-			System.out.println("Wrong input, returning");
-			return;
+		while (choice !=1 || choice !=0) {
+			System.out.println("Update Item Name? 1-Yes, 0-N");
+			choice = sc.nextInt();
+			if (choice == 1) {
+				inputForString = sc.next();
+				updateName(inputForString);
+				break;
+			}
+			else if (choice == 0) {
+				break;
+			}
+			else {
+				System.out.println("Wrong input. Try again");
+			}
 		}
 
-		System.out.println("Update Item Price? 1-Yes, 0-N");
-		choice = sc.nextInt();
-		if (choice == 1) {
-			inputForDouble = sc.nextDouble();
-			updatePrice(inputForDouble);
+		while (choice !=1 || choice !=0) {
+			System.out.println("Update Item Description? 1-Yes, 0-N");
+			choice = sc.nextInt();
+			if (choice == 1) {
+				inputForString = sc.next();
+				updateDescription(inputForString);
+				break;
+			}
+			else if (choice == 0) {
+				break;
+			}
+			else {
+				System.out.println("Wrong input. Try again");
+			}
 		}
-		else if (choice == 0) {}
-		else {
-			System.out.println("Wrong input, returning");
-			return;
+
+		while (choice !=1 || choice !=0) {
+			System.out.println("Update Item Price? 1-Yes, 0-N");
+			choice = sc.nextInt();
+			if (choice == 1) {
+				inputForDouble = sc.nextDouble();
+				updatePrice(inputForDouble);
+				break;
+			}
+			else if (choice == 0) {
+				break;
+			}
+			else {
+				System.out.println("Wrong input. Try again");
+			}
 		}
-	};
+
+
+	}
 
 }

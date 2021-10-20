@@ -97,7 +97,7 @@ public class PromotionalSet extends MenuItem {
 						break;
 
 					default:
-						System.out.println("Wrong choice");
+						System.out.println("Wrong choice. Try again!");
 				}
 			}
 		}
@@ -105,7 +105,6 @@ public class PromotionalSet extends MenuItem {
 		}
 		else {
 			System.out.println("Wrong input, returning!");
-			return;
 		}
 	}
 

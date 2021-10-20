@@ -28,7 +28,7 @@ public class Menu {
      * Constructs an {@code Menu} object and
      * initialize the attributes {@code AlaCarteItem}/{@code PromotionalSet} .
      */
-	public Menu(){
+	public Menu() {
 		listOfMenuItems = new ArrayList<MenuItem>();
 	}
 
@@ -48,7 +48,9 @@ public class Menu {
 				printListOfMenuItems();
 				break;
 			case 2:
-				getMenuItem();
+				System.out.println("Type index of item");
+				int indexNo = sc.nextInt();
+				getMenuItem(indexNo-1);
 			case 3:
 				addMenuItem();
 				break;
@@ -76,7 +78,9 @@ public class Menu {
 	 * Prints all the items in the AlaCarteItem List with the order of(1.Main Course 2.Appertizer 3.Drinks 4.Dessert)
 	 */
 	public void sortListOfMenuItems() {
+		// sort by class type
 		Collections.sort(listOfMenuItems,(o1, o2) -> o1.getClass().getName().compareTo(o2.getClass().getName()));
+
 
 		ArrayList<AlaCarteItem> listOfAlaCarteItem = new ArrayList<>();
 		for (int i=0; i<listOfMenuItems.size(); i++) {
@@ -86,6 +90,8 @@ public class Menu {
 		}
 
 		listOfMenuItems.removeIf(element -> element instanceof AlaCarteItem);
+
+		// sort AlaCarteItem by AlaCarteItemType
 		Collections.sort(listOfAlaCarteItem, (o1,o2) -> o1.getItemType().compareTo(o2.getItemType()));
 		listOfMenuItems.addAll(listOfAlaCarteItem);
 
@@ -97,11 +103,11 @@ public class Menu {
 		printMenuItemsByCat(new PromotionalSet());
 	}
 
-	public void printMenuItemsByCat(ItemType itemType) {
-		System.out.println("---"+ itemType +"---");
+	public void printMenuItemsByCat(AlaCarteItemType alaCarteItemType) {
+		System.out.println("---"+ alaCarteItemType +"---");
 		for (int i=0; i< listOfMenuItems.size(); i++) {
-			if (((AlaCarteItem)listOfMenuItems.get(i)).getItemType() == itemType) {
-				System.out.println("Index: "+i);
+			if (((AlaCarteItem)listOfMenuItems.get(i)).getItemType() == alaCarteItemType) {
+				System.out.println("Index: "+(i+1));
 				listOfMenuItems.get(i).print();
 			}
 		}
@@ -110,35 +116,15 @@ public class Menu {
 		System.out.println("---PromotionalSets---");
 		for (int i=0; i< listOfMenuItems.size(); i++) {
 			if (listOfMenuItems.get(i) instanceof PromotionalSet) {
-				System.out.println("Index: "+i);
+				System.out.println("Index: "+(i+1));
 				listOfMenuItems.get(i).print();
 			}
 		}
 	}
 	public void printMenuItemsByCat(AlaCarteItem item) {
-		Arrays.asList(ItemType.values()).forEach(
-				itemType -> printMenuItemsByCat(itemType)
+		Arrays.asList(AlaCarteItemType.values()).forEach(
+				alaCarteItemType -> printMenuItemsByCat(alaCarteItemType)
 		);
-	}
-
-
-	public MenuItem searchMenuItem(String name) {
-		int choice;
-		printListOfMenuItems();
-
-		for (int i=0; i < listOfMenuItems.size(); i++) {
-			if (listOfMenuItems.get(i).getName() == name) {
-				listOfMenuItems.get(i).print();
-				System.out.println("Confirm Item? 1-YES");
-				choice = sc.nextInt();
-				if (choice == 1) {
-					return listOfMenuItems.get(i);
-				}
-				else {}
-			}
-		}
-
-		return null;
 	}
 
 	public Boolean isMenuItemExist(MenuItem menuItem) {
@@ -167,7 +153,7 @@ public class Menu {
 		String description;
 		double price;
 
-		ItemType type = null;
+		AlaCarteItemType type = null;
 		
 		do {
 			System.out.println("Please select the type of item to add:");
@@ -188,16 +174,16 @@ public class Menu {
 						int c =sc.nextInt();
 						switch(c) {
 							case 1:
-								type=ItemType.MAIN_COURSE;
+								type= AlaCarteItemType.MAIN_COURSE;
 								break;
 							case 2:
-								type=ItemType.APPERTIZER;
+								type= AlaCarteItemType.APPERTIZER;
 								break;
 							case 3:
-								type=ItemType.DRINKS;
+								type= AlaCarteItemType.DRINKS;
 								break;
 							case 4:
-								type=ItemType.DESSERT;
+								type= AlaCarteItemType.DESSERT;
 								break;
 						}
 						sc.nextLine(); //buffer
@@ -221,6 +207,8 @@ public class Menu {
 						}
 						else {
 							listOfMenuItems.add(temp);
+							sortListOfMenuItems();
+							System.out.println("Added!");
 						}
 						break;
 						
@@ -228,6 +216,7 @@ public class Menu {
 						PromotionalSet tempP = new PromotionalSet();
 						tempP.updateContents();
 						listOfMenuItems.add(tempP);
+						System.out.println("Added!");
 						break;
 						
 					case 3:
@@ -245,35 +234,26 @@ public class Menu {
 	
 	
 	/**
-	 * A Do-While loop to remove existing items of AlaCarteItem and PromotionalSet 
+	 *  Function to remove existing MenuItems
 	 * 
 	 */
 	public void removeMenuItem() {
 		
 		int choice=0;
 		String name;
+		int indexNo;
 
 		printListOfMenuItems();
-		System.out.println("Please type item name to remove:");
-		name = sc.nextLine();
-		sc.nextLine(); // buffer
-		for (int i=0; i < listOfMenuItems.size(); i++) {
-			if (listOfMenuItems.get(i).getName() == name) {
-				listOfMenuItems.get(i).print();
-				System.out.println("Is this the item to be deleted? 1-YES");
-				choice = sc.nextInt();
-				if (choice == 1) {
-					listOfMenuItems.remove(i);
-					System.out.println("Deleted");
-					return;
-				}
-				else {
-					System.out.println("Continuing");
-				}
-			}
+		System.out.println("Please type index of menu item to remove:");
+		indexNo = sc.nextInt();
+		if (indexNo > listOfMenuItems.size()) {
+			System.out.println("No such item");
 		}
-
-		System.out.println("item not found");
+		else {
+			listOfMenuItems.remove(indexNo-1);
+			sortListOfMenuItems();
+			System.out.println("item removed");
+		}
 
 	}
 	//---------------------------------------------------------------------------------------------------------------------
@@ -284,27 +264,18 @@ public class Menu {
 	 * 
 	 */
 	public void updateMenuItem() {
-		
-		int choice;
-		int no;
-		String name;
-		double price;
-		System.out.println("Please type item name to be updated:");
-		name = sc.nextLine();
-		sc.nextLine(); //buffer
 
-		for (int i=0; i< listOfMenuItems.size(); i++) {
-			if (isMenuItemExist(listOfMenuItems.get(i)) != null) {
-				listOfMenuItems.get(i).print();
-				System.out.println("Confirm item to be updated. 1-YES");
-				choice = sc.nextInt();
-				if (choice == 1) {
+		int indexNo;
+		System.out.println("Please type index of item to be updated:");
+		indexNo = sc.nextInt();
 
-				}
-			}
+		if (indexNo > listOfMenuItems.size()) {
+			System.out.println("No such item in Menu");
 		}
-
-		System.out.println("No such item in Menu");
+		else {
+			listOfMenuItems.get(indexNo-1).updateContents();
+			sortListOfMenuItems();
+		}
 
 	}
 	
@@ -314,12 +285,21 @@ public class Menu {
 	/**
 	 * Return a existing {@link AlaCarteItem}object by using the INDEX(actual index plus 1) of ArrayList 
 	 * 
-	 * @param  index   the INDEX(actual index plus 1) of alaCarte to be retrieved.
+	 * @param  indexNo   the INDEX(actual index plus 1) of alaCarte to be retrieved.
          * @return {@link AlaCarteItem} object of given index.
 	 */
-	public MenuItem getMenuItem(int index) {
-		return listOfMenuItems.get(index-1);
+	public MenuItem getMenuItem(int indexNo) {
+		return listOfMenuItems.get(indexNo-1);
 	}
 
-	
+	public int searchMenuItemIndex(MenuItem c) {
+		for (int i=0; i < listOfMenuItems.size(); i++) {
+			if (listOfMenuItems.get(i).equals(c)) {
+				return i;
+			}
+		}
+		return -1;
+	}
+
 }
+

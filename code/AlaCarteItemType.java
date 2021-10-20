@@ -1,4 +1,4 @@
-public enum ItemType {
+public enum AlaCarteItemType {
 	MAIN_COURSE,
 	APPERTIZER,
 	DRINKS,
