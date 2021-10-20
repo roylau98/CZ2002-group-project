@@ -3,9 +3,9 @@ import java.util.*;
 /**
  * Manages the {@link AlaCarteItem} and {@link PromotionalSet} of the {@link Menu}. 
  * <p> 
- * This class provides printing of whole menu or individual AlaCarteItems based on Itemtype and PromotionalSet,
- * provide accessor (get methods) of individual AlaCarteItem & PromotionalSet
- * and various methods to add,remove,update AlaCarteItem/PromotionalSet in the menu.
+ * This class provides printing of whole menu or individual MenuItem,
+ * provide accessor (get methods) of individual MenuItem
+ * and various methods to add,remove,update MenuItem in the menu.
  * <p>
  * @author Chua Zi Jian
  * 
@@ -15,23 +15,25 @@ public class Menu {
 
 	Scanner sc = new Scanner(System.in);
 
-	private ArrayList<MenuItem> listOfMenuItems;
-
     /**
-     * List of AlaCarteItem and PromotionalSet, implemented respectively in {@link List} and {@link ArrayList} data structure.
+     * ArrayList of MenuItem which consists of AlaCarteItem and PromotionalSet, implemented in {@link ArrayList} data structure.
      * Each entry consists of a reference to existing {@link AlaCarteItem}/{@link PromotionalSet}object.
      */
+	private ArrayList<MenuItem> listOfMenuItems;
 
-	
+
 	
     /**
      * Constructs an {@code Menu} object and
-     * initialize the attributes {@code AlaCarteItem}/{@code PromotionalSet} .
+     * initialize the attributes {@code MenuItem} .
      */
 	public Menu() {
 		listOfMenuItems = new ArrayList<MenuItem>();
 	}
-
+	
+    /**
+     * A function used to do 
+     */
 	public void menuOptions() {
 		System.out.println("What do you want to do?");
 		System.out.println("1) print Menu");
@@ -75,7 +77,7 @@ public class Menu {
 	
 	
 	/**
-	 * Prints all the items in the AlaCarteItem List with the order of(1.Main Course 2.Appertizer 3.Drinks 4.Dessert)
+	 * Sorts all the items in the MenuItem ArrayList in order
 	 */
 	public void sortListOfMenuItems() {
 		// sort by class type
@@ -96,13 +98,19 @@ public class Menu {
 		listOfMenuItems.addAll(listOfAlaCarteItem);
 
 	}
-
+	/**
+	 * Prints all the items in the Menu according to its order
+	 */
 	public void printListOfMenuItems() {
 		System.out.println("MENU ITEMS");
 		printMenuItemsByCat(new AlaCarteItem());
 		printMenuItemsByCat(new PromotionalSet());
 	}
-
+	
+	/**
+	 * Prints a certain type of AlaCarteItems in the Menu (Overload)
+	 * @param alaCarteItemType	the type of the AlaCarte
+	 */
 	public void printMenuItemsByCat(AlaCarteItemType alaCarteItemType) {
 		System.out.println("---"+ alaCarteItemType +"---");
 		for (int i=0; i< listOfMenuItems.size(); i++) {
@@ -112,6 +120,10 @@ public class Menu {
 			}
 		}
 	}
+	/**
+	 * Prints PromotionalSet in the Menu (Overload)
+	 * @param item	an empty variable used to initiate the function
+	 */
 	public void printMenuItemsByCat(PromotionalSet item) {
 		System.out.println("---PromotionalSets---");
 		for (int i=0; i< listOfMenuItems.size(); i++) {
@@ -121,12 +133,19 @@ public class Menu {
 			}
 		}
 	}
+	
 	public void printMenuItemsByCat(AlaCarteItem item) {
 		Arrays.asList(AlaCarteItemType.values()).forEach(
 				alaCarteItemType -> printMenuItemsByCat(alaCarteItemType)
 		);
 	}
-
+	
+	/**
+	 * Return true/false of the existence of certain MenuItem
+	 *
+	 * @param menuItem	menu item to be checked whether it is inside the menu
+	 * @return true/false	the existence(boolean) of certain MenuItem
+	 */
 	public Boolean isMenuItemExist(MenuItem menuItem) {
 		for (int i=0; i < listOfMenuItems.size(); i++) {
 			MenuItem curr = listOfMenuItems.get(i);
@@ -260,7 +279,7 @@ public class Menu {
 	
 	
 	/**
-	 * A Do-While loop to update the parameter(name,price,description) of existing items of AlaCarteItem and PromotionalSet 
+	 * Update the details(name,price,description) of existing items in Menu
 	 * 
 	 */
 	public void updateMenuItem() {
@@ -283,7 +302,7 @@ public class Menu {
 	
 	
 	/**
-	 * Return a existing {@link AlaCarteItem}object by using the INDEX(actual index plus 1) of ArrayList 
+	 * Return a existing {@link MenuItem}object by using the INDEX(actual index plus 1) of ArrayList 
 	 * 
 	 * @param  indexNo   the INDEX(actual index plus 1) of alaCarte to be retrieved.
          * @return {@link AlaCarteItem} object of given index.
@@ -291,7 +310,13 @@ public class Menu {
 	public MenuItem getMenuItem(int indexNo) {
 		return listOfMenuItems.get(indexNo-1);
 	}
-
+	
+	/**
+	 * Return the index no. of a existing {@link MenuItem}object  
+	 * 
+	 * @param c		{@link AlaCarteItem} object to find its index.
+         * @return indexNo	the index no of MenuItem to be retrieved.
+	 */
 	public int searchMenuItemIndex(MenuItem c) {
 		for (int i=0; i < listOfMenuItems.size(); i++) {
 			if (listOfMenuItems.get(i).equals(c)) {
