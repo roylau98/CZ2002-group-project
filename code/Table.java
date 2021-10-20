@@ -1,22 +1,25 @@
 import java.time.LocalDate;
-/**
- * Represents a table object in the restaurant.
- * @author
- * @version
- * @since 2021-10-19
- */
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.HashMap;
 
-
+/**
+ * Represents a table object in the restaurant.
+ *
+ * @author
+ * @since 2021-10-19
+ */
 public class Table {
     /**
      * Unique identifier for the table instance.
      */
     private int tableID;
+
     /**
      * Maximum number of seats at the table
      */
     private int capacity;
+
     /**
      * Stores all reservation for the table instance using HashMap.
      * The key used is the date of reservation, while the value is an array of Reservation object.
@@ -26,7 +29,8 @@ public class Table {
 
     /**
      * Class constructor
-     * @param tableID unique identifier for the table
+     *
+     * @param tableID  unique identifier for the table
      * @param capacity maximum number of seats at teh table
      */
     public Table(int tableID, int capacity) {
@@ -37,6 +41,7 @@ public class Table {
 
     /**
      * Gets the tableID
+     *
      * @return the tableID
      */
     public int getTableID() {
@@ -45,6 +50,7 @@ public class Table {
 
     /**
      * Sets the tableID
+     *
      * @param tableID the table ID
      */
     public void setTableID(int tableID) {
@@ -53,6 +59,7 @@ public class Table {
 
     /**
      * Gets the capacity of the table.
+     *
      * @return Capcaity of the table.
      */
     public int getCapacity() {
@@ -61,6 +68,7 @@ public class Table {
 
     /**
      * Sets the capacity of the table
+     *
      * @param capacity capacity of the table
      */
     public void setCapacity(int capacity) {
@@ -69,6 +77,7 @@ public class Table {
 
     /**
      * Gets the HashMap containing all reservation of the Table instance.
+     *
      * @return HashMap containing all reservations.
      */
     public HashMap<LocalDate, Reservation[]> getReservations() {
@@ -77,6 +86,7 @@ public class Table {
 
     /**
      * Sets the list of reservations at the table
+     *
      * @param reservations updated list of reservations in a HashMap
      */
     public void setReservations(HashMap<LocalDate, Reservation[]> reservations) {
