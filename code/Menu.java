@@ -325,6 +325,13 @@ public class Menu {
 		}
 		return -1;
 	}
+	public Promotion getPromoItem(int index) {
+
+		if(index>main.size()||index<=0)
+			System.out.println("The index is incorrect");
+		else
+			return promo.get(index-1);
+	
 
 }
 
