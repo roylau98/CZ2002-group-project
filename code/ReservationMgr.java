@@ -3,23 +3,26 @@ import java.time.LocalTime;
 import java.util.ArrayList;
 
 /**
- * Application class for reservation
- * Handles reservation addition, removal, updating and finding.
- *
+ * Manager of tables and reservations.
+ * Supports addition, removal and amendment of reservations.
  * @author
- * @since 2021-10-19
+ * @since 2021-10-23
  */
 public class ReservationMgr {
     /**
-     * A list of all tables in the restaurant.
+     * Collection of all tables in the restaurant.
      */
     private static ArrayList<Table> allTables = new ArrayList<>();
+
+    /**
+     * Collection of all reservations in the restaurant.
+     */
     private static ArrayList<Reservation> allReservations = new ArrayList<>();
 
     /**
-     * Adds a reservation to the table's records
-     *
-     * @param r The reservation object
+     * Makes a reservation. Finds a suitable table that can contain the number of persons.
+     * Reservation will be added to the collection and asks the table to be marked as unavailable at the specified date and time.
+     * @param r Reservation.
      */
     public static void makeReservation(Reservation r) {
         if (r.getDate().isBefore(LocalDate.now()) || (r.getDate().isEqual(LocalDate.now()) && r.getTime().isBefore(LocalTime.now()))) {
@@ -41,28 +44,9 @@ public class ReservationMgr {
     }
 
     /**
-     * Finds the reservation based on the customer's name, contactNo, date and time of reservation,
-     * and the number of pax.
-     *
-     * @param dt        preferred date and time for the reservation
-     * @param name      customer's name
-     * @param contactNo customer's contact number
-     * @param noOfPax   number of persons
-     * @return reservation object
-     */
-//    public static Reservation findReservation(LocalDateTime dt, String name, String contactNo, int noOfPax) {
-//        for (Table t : allTables) {
-//            Reservation r = t.comparesReservation(dt, name, contactNo, noOfPax);
-//            if (r != null)
-//                return r;
-//        }
-//        return null;
-//    }
-
-    /**
-     * Cancels the reservation
-     *
-     * @param r The reservation object
+     * Cancels a reservation.
+     * Removes the reservation from the collection and asks the table to be marked as available for other reservations at the specified date and time.
+     * @param reservationNo Reservation number.
      */
     public static void cancelReservation(int reservationNo) {
         Reservation r = allReservations.get(reservationNo);
@@ -73,10 +57,9 @@ public class ReservationMgr {
     }
 
     /**
-     * Update the reservation
-     *
-     * @param oldReservation To remove the old reservation object
-     * @param newReservation To add the new reservation object
+     * Updates a reservation.
+     * @param oldReservationNo Reservation number of the outdated reservation to be removed.
+     * @param newReservation Updated reservation to be added.
      */
     public static void updateReservation(int oldReservationNo, Reservation newReservation) {
         System.out.println("Reservation updated by performing the actions below");
@@ -85,6 +68,9 @@ public class ReservationMgr {
         System.out.println("Update completed");
     }
 
+    /**
+     * Prints a list of all active reservations to the console.
+     */
     public static void viewAllReservations() {
         System.out.println("---List of all reservations---");
         for (Reservation r : allReservations)
@@ -92,6 +78,9 @@ public class ReservationMgr {
         System.out.println("----------");
     }
 
+    /**
+     * Prints a list of all the tables and their respective availabilities to the console.
+     */
     public static void viewAllTables() {
         System.out.println("---List of all tables---");
         for (Table t : allTables)
@@ -101,40 +90,5 @@ public class ReservationMgr {
 
     public static void addTable(int capacity) {
         allTables.add(new Table(capacity));
-    }
-
-    // for testing of RestaurantApp's functionality
-    public static void main(String[] args) {
-        Customer c1 = new Customer("James", Sex.MALE, "123", false);
-        Customer c2 = new Customer("John", Sex.MALE, "456", false);
-        Customer c3 = new Customer("Mark", Sex.MALE, "789", false);
-        Customer c4 = new Customer("Sally", Sex.FEMALE, "789", false);
-        ReservationMgr.allTables.add(new Table(2));
-        ReservationMgr.allTables.add(new Table(2));
-        ReservationMgr.allTables.add(new Table(4));
-        ReservationMgr.allTables.add(new Table(4));
-
-        Reservation r1 = new Reservation(LocalDate.of(2021, 10, 30), LocalTime.of(14, 0), 2, c1);
-        Reservation r2 = new Reservation(LocalDate.of(2021, 10, 30), LocalTime.of(14, 0), 2, c2);
-        Reservation r3 = new Reservation(LocalDate.of(2021, 10, 30), LocalTime.of(14, 0), 2, c3);
-//		Reservation r3 = new Reservation(LocalDateTime.of(2021, 10, 19, 13, 0), 2, c1);
-//		Reservation r4 = new Reservation(LocalDateTime.of(2021, 10, 19, 13, 0), 2, c2);
-
-        ReservationMgr.makeReservation(r1);
-        ReservationMgr.makeReservation(r2);
-		ReservationMgr.makeReservation(r3);
-        ReservationMgr.viewAllReservations();
-        ReservationMgr.viewAllTables();
-//		ReservationApp.makeReservation(r4);
-
-//        Reservation s1 = ReservationMgr.findReservation(LocalDateTime.of(2021, 10, 30, 14, 0), "James", "123", 2);
-//        Reservation s2 = ReservationMgr.findReservation(LocalDateTime.of(2021, 10, 30, 14, 0), "Mark", "123", 2);
-//        ReservationMgr.updateReservation(r2, r3);
-        ReservationMgr.cancelReservation(2);
-
-//		ReservationApp.cancelReservation(r2);
-//		ReservationApp.cancelReservation(r3);
-//		ReservationApp.cancelReservation(r4);
-//		System.out.println(listOfTables.get(0).getReservations().toString());
     }
 }

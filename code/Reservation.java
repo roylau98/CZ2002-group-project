@@ -25,12 +25,12 @@ public class Reservation {
     private int hour;
 
     /**
-     * Number of persons
+     * Number of persons.
      */
     private int noOfPax;
 
     /**
-     * Customer that made the booking
+     * Customer that made the booking.
      */
     private Customer customer;
 
