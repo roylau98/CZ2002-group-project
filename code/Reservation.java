@@ -144,4 +144,16 @@ public class Reservation {
     public void setTableNo(int tableNo) {
         this.tableNo = tableNo;
     }
+
+    @Override
+    public String toString() {
+        return "Reservation{" +
+                "date=" + date +
+                ", time=" + time +
+                ", hour=" + hour +
+                ", noOfPax=" + noOfPax +
+                ", customer=" + customer +
+                ", tableNo=" + tableNo +
+                '}';
+    }
 }

@@ -97,4 +97,12 @@ public class Customer extends Person {
     public int hashCode() {
         return Objects.hash(this.getName(), contactNo);
     }
+
+    @Override
+    public String toString() {
+        return super.toString() + " Customer{" +
+                "contactNo='" + contactNo + '\'' +
+                ", membershipStatus=" + membershipStatus +
+                '}';
+    }
 }
