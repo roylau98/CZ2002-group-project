@@ -10,25 +10,30 @@ import java.time.LocalTime;
  */
 public class Reservation {
     /**
-     * The date of reservation.
+     * Date of the reservation.
      */
     private LocalDate date;
+
     /**
-     * The time of reservation.
+     * Time of the reservation.
      */
     private LocalTime time;
+
     /**
      * The hour that is reserved.
      */
     private int hour;
+
     /**
      * Number of persons
      */
     private int noOfPax;
+
     /**
      * Customer that made the booking
      */
     private Customer customer;
+
     /**
      * Table number that is reserved.
      */
@@ -37,10 +42,10 @@ public class Reservation {
     /**
      * Class constructor
      *
-     * @param date     date of Reservation
-     * @param time     time of Reservation
-     * @param noOfPax  number of pax for Reservation
-     * @param customer Customer object for Reservation
+     * @param date     Date of reservation.
+     * @param time     Time of reservation.
+     * @param noOfPax  Number of persons for the reservation.
+     * @param customer Customer that made the reservation.
      */
     public Reservation(LocalDate date, LocalTime time, int noOfPax, Customer customer) {
         this.date = date;
