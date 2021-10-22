@@ -10,17 +10,17 @@ import java.time.LocalTime;
  */
 public class Reservation {
     /**
-     * Date of the reservation.
+     * Date reserved.
      */
     private LocalDate date;
 
     /**
-     * Time of the reservation.
+     * Time reserved.
      */
     private LocalTime time;
 
     /**
-     * The hour that is reserved.
+     * Hour reserved.
      */
     private int hour;
 
@@ -35,7 +35,7 @@ public class Reservation {
     private Customer customer;
 
     /**
-     * Table number that is reserved.
+     * Table that has been reserved.
      */
     private int tableNo;
 
@@ -56,95 +56,40 @@ public class Reservation {
     }
 
     /**
-     * Gets the booking date of the reservation
-     *
-     * @return the booking date
+     * Gets the date of the reservation.
+     * @return Date reserved.
      */
     public LocalDate getDate() {
         return date;
     }
 
     /**
-     * Changes the booking date of the reservation.
-     *
-     * @param date The new reservation date.
-     */
-    public void setDate(LocalDate date) {
-        this.date = date;
-    }
-
-    /**
-     * Gets the booking time of the reservation
-     *
-     * @return the booking time
+     * Gets the time of the reservation.
+     * @return Time reserved.
      */
     public LocalTime getTime() {
         return time;
     }
 
     /**
-     * Changes the booking time of the reservation.
-     *
-     * @param time The new reservation time.
-     */
-    public void setTime(LocalTime time) {
-        this.time = time;
-        setHour(time.getHour());
-    }
-
-    /**
-     * Gets the current local time
-     *
-     * @return the current local time
-     */
-    public int getHour() {
-        return hour;
-    }
-
-    /**
-     * Changes the booking hour of the reservation.
-     *
-     * @param hour The new reservation hour.
-     */
-    private void setHour(int hour) {
-        this.hour = hour;
-    }
-
-    /**
-     * Gets the number of pax
-     *
-     * @return the number of pax
+     * Gets the number of persons.
+     * @return Number of persons.
      */
     public int getNoOfPax() {
         return noOfPax;
     }
 
     /**
-     * Changes the pax of the reservation.
-     *
-     * @param noOfPax The new pax for the reservation.
-     */
-    public void setNoOfPax(int noOfPax) {
-        this.noOfPax = noOfPax;
-    }
-
-	public Customer getCustomer() {
-		return customer;
-	}
-
-    /**
-     * Gets the table number
-     *
-     * @return the table number
+     * Gets the table number that that the reservation has been asssigned to.
+     * @return Table number.
      */
     public int getTableNo() {
         return tableNo;
     }
 
     /**
-     * Changes the table number of the reservation
-     *
-     * @param tableNo new table number
+     * Sets the table number that the reservation has been assigned to.
+     * @params Table number.
      */
     public void setTableNo(int tableNo) {
         this.tableNo = tableNo;

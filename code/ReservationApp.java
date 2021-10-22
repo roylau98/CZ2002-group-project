@@ -86,7 +86,7 @@ public class ReservationApp {
         System.out.print("Contact number: ");
         String contactNumber = scanner.nextLine();
 
-        System.out.print("Member? ");
+        System.out.print("Member? (Yes/No) ");
         char entry = scanner.next().charAt(0);
         boolean isMember = entry == 'Y' || entry == 'y';
 
@@ -104,6 +104,6 @@ public class ReservationApp {
         int temp = scanner.nextInt();
         scanner.nextLine();
 
-
+        // TODO
     }
 }

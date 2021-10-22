@@ -24,10 +24,10 @@ public class ReservationMgr {
      * Reservation will be added to the collection and asks the table to be marked as unavailable at the specified date and time.
      * @param r Reservation.
      */
-    public static void makeReservation(Reservation r) {
+    public static boolean makeReservation(Reservation r) {
         if (r.getDate().isBefore(LocalDate.now()) || (r.getDate().isEqual(LocalDate.now()) && r.getTime().isBefore(LocalTime.now()))) {
             System.out.println("Reservation time selected is before current time");
-            return;
+            return false;
         }
         for (Table t : allTables) {
             if (r.getNoOfPax() > t.getCapacity())
@@ -37,10 +37,11 @@ public class ReservationMgr {
                 r.setTableNo(allTables.indexOf(t));
                 allReservations.add(r);
                 System.out.println("Reservation made successfully at table number " + allTables.indexOf(t));
-                return;
+                return true;
             }
         }
         System.out.println("No available table found");
+        return false;
     }
 
     /**
@@ -63,8 +64,12 @@ public class ReservationMgr {
      */
     public static void updateReservation(int oldReservationNo, Reservation newReservation) {
         System.out.println("Reservation updated by performing the actions below");
+        Reservation restore = allReservations.get(oldReservationNo);
         cancelReservation(oldReservationNo);
-        makeReservation(newReservation);
+        if (!makeReservation(newReservation)) {
+            makeReservation(restore);
+            System.out.println("Update unsuccessful. Previous reservation restored.");
+        }
         System.out.println("Update completed");
     }
 
