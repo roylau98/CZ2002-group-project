@@ -1,27 +1,53 @@
+import java.util.*;
+
 public class RRPSS {
 
-	public void createReservation() {
-		// TODO - implement RRPSS.createReservation
-		throw new UnsupportedOperationException();
+	private OrderApp orderApp;
+	private ReservationApp reservationApp;
+
+	public RRPSS() {
+		orderApp = new OrderApp();
+		reservationApp = new ReservationApp();
 	}
 
-	public void addOrder() {
-		// TODO - implement RRPSS.addOrder
-		throw new UnsupportedOperationException();
+	public void rrpsOptions() {
+		Scanner sc = new Scanner(System.in);
+		System.out.println("What do you want?");
+		int choice = sc.nextInt();
+
+		switch (choice) {
+			case 1:
+
+			case 2:
+
+			case 3:
+
+			case 4:
+				break;
+			case 5:
+				System.out.println("Exited");
+				return;
+			default:
+				System.out.println("Invalid option. Try again!");
+		}
+
 	}
 
-	public void getInvoice() {
-		// TODO - implement RRPSS.getInvoice
-		throw new UnsupportedOperationException();
+	public void startReservationApp() {
+
 	}
+	public void startOrderApp() {
+		orderApp.orderAppOptions();
+	}
+
 
 	public void printSalesReport() {
-		// TODO - implement RRPSS.printSalesReport
-		throw new UnsupportedOperationException();
+		orderApp.getSalesReport();
+
 	}
 
-	public void main() {
-		// TODO - implement RRPSS.main
-		throw new UnsupportedOperationException();
+	public static void main(String args[]) {
+		RRPSS main = new RRPSS();
+		main.rrpsOptions();
 	}
 }
