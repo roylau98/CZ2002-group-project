@@ -1,7 +1,11 @@
+import java.util.ArrayList;
+
 public class SalesReport {
 
 	private ArrayList<Invoice> listOfSales;
 	private double revenue;
+
+
 
 	public double calculateRevenue() {
 
