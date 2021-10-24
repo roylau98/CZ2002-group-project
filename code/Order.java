@@ -15,8 +15,6 @@ public class Order {
 	private Table assignedTable;
 
 	public Order() {
-		//TODO
-		// set orderID as int or UUID??
 		orderID = 9999;
 		dateTimeOrderCreated = LocalDateTime.now();
 		itemsOrdered = new ArrayList<MenuItem>();

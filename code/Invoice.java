@@ -35,8 +35,8 @@ public class Invoice {
     	 * Constructs an {@code Invoice} object with default value of GST,serviceCharge and order
      	 */
 	public Invoice() {
-		gst = 0.7;
-		serviceCharge = 0.2;
+		gst = 0.07;
+		serviceCharge = 0.02;
 		totalPrice = 0;
 		finalPrice = 0;
 		order = null;
@@ -72,12 +72,13 @@ public class Invoice {
     	 * Print the Invoice of this order
      	 */
 	public void printInvoice() {
+		System.out.println("TimeStamp: " + getTimestamp());
 		for (int i = 0; i< listOfSoldItems.size(); i++) {
 			System.out.println((i+1)+" "+listOfSoldItems.get(i).getName()+" "+listOfSoldItems.get(i).getPrice());
 		}
 		calculateFinalPrice();
-		System.out.println("Total Price : "+getTotalPrice());
-		System.out.println("Final Price : "+getFinalPrice());
+		System.out.println("Order's Total Price : "+getTotalPrice());
+		System.out.println("Order's Final Price : "+getFinalPrice());
 		order.setOrderAsCompleted();
 	}
 	

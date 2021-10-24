@@ -26,6 +26,7 @@ public class RRPSS {
 				break;
 			case 5:
 				System.out.println("Exited");
+
 				return;
 			default:
 				System.out.println("Invalid option. Try again!");

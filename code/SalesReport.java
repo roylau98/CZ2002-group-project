@@ -1,12 +1,11 @@
 import java.time.*;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
 public class SalesReport {
 
 	private ArrayList<Invoice> listOfSales;
-	private double revenue;
-
-
 
 	public double calculateRevenue(ArrayList<Invoice> selectedListOfSales) {
 		double sum = 0;
@@ -14,6 +13,20 @@ public class SalesReport {
 			sum = sum + selectedListOfSales.get(i).getFinalPrice(); // finalprice or totalprice?
 		}
 		return sum;
+	}
+
+	public void printAllSales() {
+		sortListOfSalesByLocalDateTime(listOfSales);
+		for(int i = 0; i< listOfSales.size(); i++) {
+			listOfSales.get(i).printInvoice();
+		}
+		System.out.println("Total revenue: " + calculateRevenue(listOfSales));
+	}
+
+	public void printSalesByMonth() {
+		sortListOfSalesByLocalDateTime(listOfSales);
+
+
 	}
 
 	public void printSalesInSelectedMonth(Month month) {
@@ -60,6 +73,13 @@ public class SalesReport {
 		return selectedList;
 	}
 
-
+	public ArrayList<Invoice> sortListOfSalesByLocalDateTime(ArrayList<Invoice> selectedListOfSales) {
+		Collections.sort(selectedListOfSales, new Comparator<Invoice>() {
+			public int compare(Invoice o1, Invoice o2) {
+				return o1.getTimestamp().compareTo(o2.getTimestamp());
+			}
+		});
+		return selectedListOfSales;
+	}
 
 }

@@ -36,6 +36,8 @@ public class OrderApp {
 	 */
 	private SalesReport salesReport;
 
+	private int orderIDtracker;
+
 	
 	/**
          * Constructs an {@code OrderApp} object and
@@ -44,6 +46,8 @@ public class OrderApp {
 	public OrderApp() {
 		listOfOrders = new ArrayList<>();
 		menuApp = new Menu();
+		salesReport = new SalesReport();
+		orderIDtracker = 0;
 	}
 
 	public void orderAppOptions() {
@@ -105,7 +109,8 @@ public class OrderApp {
 			MenuItem selectedMenuItem = menuApp.getMenuItem(choice-1);
 			customerOrder.addItemToOrder(selectedMenuItem);
 		}
-		customerOrder.setOrderID(listOfOrders.size());
+		customerOrder.setOrderID(orderIDtracker);
+		orderIDtracker++;
 		listOfOrders.add(customerOrder);
 	}
 	//------------------------------------------------------------------------------------------------------------
@@ -268,9 +273,9 @@ public class OrderApp {
 	public ArrayList<Order> getListOfOrders() {
 		return listOfOrders;
 	}
+
 	public void getSalesReport() {
 		salesReport.createListOfInvoices(this.listOfOrders);
-
 	}
 
 
