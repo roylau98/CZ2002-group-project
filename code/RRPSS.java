@@ -1,9 +1,5 @@
 public class RRPSS {
 
-	private RRPSS rrpss;
-	private OrderApp orderApp;
-	private ReservationApp reserApp;
-
 	public void createReservation() {
 		// TODO - implement RRPSS.createReservation
 		throw new UnsupportedOperationException();
@@ -28,5 +24,4 @@ public class RRPSS {
 		// TODO - implement RRPSS.main
 		throw new UnsupportedOperationException();
 	}
-
 }
