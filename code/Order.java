@@ -50,10 +50,9 @@ public class Order {
 	public Invoice getInvoice() {
 		return orderInvoice;
 	}
-	public void createInvoice() {
+	public void createInvoice(Order order) {
 		orderInvoice = new Invoice();
-		//TODO
-
+		orderInvoice.setOrder(order);
 	}
 
 	public void assignTable() {

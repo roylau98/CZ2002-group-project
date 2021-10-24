@@ -317,7 +317,7 @@ public class Menu {
 	 * @param c		{@link AlaCarteItem} object to find its index.
          * @return indexNo	the index no of MenuItem to be retrieved.
 	 */
-	public int searchMenuItemIndex(MenuItem c) {
+	public int searchIndexOfMenuItem(MenuItem c) {
 		for (int i=0; i < listOfMenuItems.size(); i++) {
 			if (listOfMenuItems.get(i).equals(c)) {
 				return i;
@@ -325,13 +325,5 @@ public class Menu {
 		}
 		return -1;
 	}
-	public Promotion getPromoItem(int index) {
-
-		if(index>main.size()||index<=0)
-			System.out.println("The index is incorrect");
-		else
-			return promo.get(index-1);
-	
-
 }
 

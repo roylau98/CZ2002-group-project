@@ -1,5 +1,5 @@
 import java.time.LocalDateTime;
-import java.util.ArrayList;
+import java.util.*;
 
 /**
  * Stores information of a order invoices in the restaurant.
@@ -58,18 +58,26 @@ public class Invoice {
 		listOfSoldItems = order.getListOfItemsOrdered();
 		timestamp = LocalDateTime.now();
 	}
-	
+
+
+	public void setOrder(Order order) {
+		this.order = order;
+		this.totalPrice = order.getTotalPriceOfOrder();
+		calculateFinalPrice();
+		this.finalPrice = getFinalPrice();
+		this.listOfSoldItems = order.getListOfItemsOrdered();
+	}
 	
 	/**
     	 * Print the Invoice of this order
      	 */
 	public void printInvoice() {
-		for (int i = 0; i<order.getListOfItemsOrdered().size(); i++) {
-			System.out.println((i+1)+" "+order.getListOfItemsOrdered().get(i).getName()+" "+order.getListOfItemsOrdered().get(i).getPrice());
+		for (int i = 0; i< listOfSoldItems.size(); i++) {
+			System.out.println((i+1)+" "+listOfSoldItems.get(i).getName()+" "+listOfSoldItems.get(i).getPrice());
 		}
 		calculateFinalPrice();
 		System.out.println("Total Price : "+getTotalPrice());
-		System.out.println("Total Price : "+getFinalPrice());
+		System.out.println("Final Price : "+getFinalPrice());
 		order.setOrderAsCompleted();
 	}
 	
@@ -102,6 +110,10 @@ public class Invoice {
 		}
 		finalPrice = (totalPrice * (1+serviceCharge)) * (1+gst) ;
 		return finalPrice;
+	}
+
+	public LocalDateTime getTimestamp() {
+		return timestamp;
 	}
 
 }

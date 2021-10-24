@@ -31,6 +31,10 @@ public class OrderApp {
          * 
          */
 	private Menu menuApp;
+	/**
+	 *
+	 */
+	private SalesReport salesReport;
 
 	
 	/**
@@ -251,7 +255,7 @@ public class OrderApp {
 		for(int i = 0; i< listOfOrders.size(); i++) {
 			if(listOfOrders.get(i).getOrderID()==orderID) {
 				selectedOrder = listOfOrders.get(i);
-				selectedOrder.createInvoice();
+				selectedOrder.createInvoice(selectedOrder);
 				bill = selectedOrder.getInvoice();
 				bill.printInvoice();
 				return;
@@ -260,4 +264,14 @@ public class OrderApp {
 
 		System.out.println("No such order");
 	}
+
+	public ArrayList<Order> getListOfOrders() {
+		return listOfOrders;
+	}
+	public void getSalesReport() {
+		salesReport.createListOfInvoices(this.listOfOrders);
+
+	}
+
+
 }
