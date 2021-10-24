@@ -60,7 +60,7 @@ public class Invoice {
 		this.order = order;
 		
 		if((this.order.getCustomer()).getMembershipStatus()==true)
-			memberDiscount=0.01;
+			memberDiscount=0.01; 
 		else
 			memberDiscount=1;
 		
