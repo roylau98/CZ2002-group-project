@@ -6,18 +6,11 @@ import java.util.*;
  * This class provides various methods to create,update(add/remove MenuItem) of the order,
  * and view individual order details and bills.
  * <p>
- * @author Chua Zi Jian
+ * @author 
  * 
  */
 
 public class OrderApp {
-
-	//Pls add these func to order class(or i can add after u finish the order class)
-	//void addMenuItems(MenuItems items)
-	//void addPromoItems(Promotion promo)
-	//void removeItems(int index)
-	//void printAllItemsInOrder()
-	//void printPrice()
 
 
 	Scanner sc = new Scanner(System.in);
@@ -105,9 +98,16 @@ public class OrderApp {
 		menuApp.printListOfMenuItems();
 		while (choice != -1) {
 			System.out.println("Enter menu item choice. Or -1 to Quit");
-			choice = sc.nextInt(); // have not accounted for arrayOutOfBounds Error
-			MenuItem selectedMenuItem = menuApp.getMenuItem(choice-1);
-			customerOrder.addItemToOrder(selectedMenuItem);
+			choice = sc.nextInt(); // have not accounted for arrayOutOfBounds Error(Done)
+			try 
+			{
+				MenuItem selectedMenuItem = menuApp.getMenuItem(choice-1);
+				customerOrder.addItemToOrder(selectedMenuItem);
+			}
+			catch(IndexOutOfBoundsException e)
+			{
+				System.out.println("Invalid choice!");
+			}
 		}
 		customerOrder.setOrderID(orderIDtracker);
 		orderIDtracker++;
@@ -149,9 +149,15 @@ public class OrderApp {
 					menuApp.printListOfMenuItems();
 					while (choice != -1) {
 						System.out.println("Enter menuItem choice. Or -1 to Quit");
-						choice = sc.nextInt(); // have not accounted for arrayOutOfBounds Error
-						MenuItem selectedMenuItem = menuApp.getMenuItem(choice-1);
-						selectedOrder.addItemToOrder(selectedMenuItem);
+						choice = sc.nextInt(); // have not accounted for arrayOutOfBounds Error(Done)
+						try {
+							MenuItem selectedMenuItem = menuApp.getMenuItem(choice-1);
+							selectedOrder.addItemToOrder(selectedMenuItem);
+						}
+						catch(IndexOutOfBoundsException e)
+						{
+							System.out.println("Invalid choice!");
+						}
 					}
 				}
 				else if (choice == 2) {
@@ -162,8 +168,14 @@ public class OrderApp {
 
 					while (choice != -1) {
 						System.out.println("Enter choice. Or -1 to Quit");
-						choice = sc.nextInt(); // have not accounted for arrayOutOfBounds Error
+						choice = sc.nextInt(); // have not accounted for arrayOutOfBounds Error(Done)
+						try {
 						selectedOrder.removeItemFromOrder(choice);
+						}
+						catch(IndexOutOfBoundsException e)
+						{
+							System.out.println("Invalid choice!");
+						}
 					}
 
 				}
