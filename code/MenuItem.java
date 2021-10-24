@@ -2,7 +2,7 @@ import java.util.Scanner;
 /**
  * An abstract class for {@link AlaCarteItem} and {@link PromotionalSet} used to store information about an item 
  *
- * @author Chua Zi Jian
+ * @author 
  */
 public abstract class MenuItem {
 	
@@ -137,9 +137,19 @@ public abstract class MenuItem {
 			System.out.println("Update Item Price? 1-Yes, 0-N");
 			choice = sc.nextInt();
 			if (choice == 1) {
-				inputForDouble = sc.nextDouble();
-				updatePrice(inputForDouble);
-				break;
+				try {
+					inputForDouble = sc.nextDouble();
+					if (inputForDouble<=0)
+						throw new Exception("Error: price must not lower or equal to 0!" );
+					updatePrice(inputForDouble);
+					break;
+				}
+				catch (Exception e) 
+				{
+					System.out.println( e.getMessage() );
+				}
+				
+				
 			}
 			else if (choice == 0) {
 				break;
