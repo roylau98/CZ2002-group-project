@@ -3,7 +3,7 @@ import java.time.LocalTime;
 import java.util.ArrayList;
 
 /**
- * Manager of tables and reservations.
+ * Manager of all reservations and tables.
  * Supports addition, removal and amendment of reservations.
  * @author
  * @since 2021-10-23
@@ -57,17 +57,40 @@ public class ReservationMgr {
         System.out.println("Reservation has been cancelled");
     }
 
+    public static void updateReservation(int reservationNo, LocalDate newDate) {
+        Reservation deepCopy = new Reservation(allReservations.get(reservationNo));
+        deepCopy.setDate(newDate);
+        updateReservation(reservationNo, deepCopy);
+    }
+
+    public static void updateReservation(int reservationNo, LocalTime newTime) {
+        Reservation deepCopy = new Reservation(allReservations.get(reservationNo));
+        deepCopy.setTime(newTime);
+        updateReservation(reservationNo, deepCopy);
+    }
+
+    public static void updateReservation(int reservationNo, int newNoOfPax) {
+        Reservation deepCopy = new Reservation(allReservations.get(reservationNo));
+        deepCopy.setNoOfPax(newNoOfPax);
+        updateReservation(reservationNo, deepCopy);
+    }
+
+    public static void updateReservation(int reservationNo, Customer newCust) {
+        allReservations.get(reservationNo).setCustomer(newCust);
+        System.out.println("Customer details updated");
+    }
+
     /**
      * Updates a reservation.
      * @param oldReservationNo Reservation number of the outdated reservation to be removed.
      * @param newReservation Updated reservation to be added.
      */
-    public static void updateReservation(int oldReservationNo, Reservation newReservation) {
+    private static void updateReservation(int oldReservationNo, Reservation newReservation) {
         System.out.println("Reservation updated by performing the actions below");
-        Reservation restore = allReservations.get(oldReservationNo);
+        Reservation oldReservation = allReservations.get(oldReservationNo);
         cancelReservation(oldReservationNo);
         if (!makeReservation(newReservation)) {
-            makeReservation(restore);
+            makeReservation(oldReservation);
             System.out.println("Update unsuccessful. Previous reservation restored.");
         }
         System.out.println("Update completed");
@@ -93,7 +116,10 @@ public class ReservationMgr {
         System.out.println("----------");
     }
 
-    public static void addTable(int capacity) {
-        allTables.add(new Table(capacity));
+    public static void addTables() {
+        allTables.add(new Table(2));
+        allTables.add(new Table(2));
+        allTables.add(new Table(4));
+        allTables.add(new Table(4));
     }
 }

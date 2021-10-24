@@ -31,6 +31,12 @@ public class Customer extends Person {
         this.membershipStatus = membershipStatus;
     }
 
+    public Customer(Customer c) {
+        super(c);
+        this.contactNo = String.valueOf(c.contactNo);
+        this.membershipStatus = c.membershipStatus;
+    }
+
     /**
      * Gets Customer Contact number
      *

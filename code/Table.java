@@ -70,7 +70,7 @@ public class Table {
         if (!availabilityRecord.containsKey(date))
             return;
         availabilityRecord.get(date)[time.getHour()] = true;
-        // map cleaning?
+        mapCleanup();
     }
 
     /**
@@ -85,6 +85,20 @@ public class Table {
             availabilityRecord.put(date, a);
         }
         availabilityRecord.get(date)[time.getHour()] = false;
+    }
+
+    private void mapCleanup() {
+        for (LocalDate date : availabilityRecord.keySet()) {
+            if (date.isBefore(LocalDate.now()))
+                availabilityRecord.remove(date);
+            boolean noRecords = true;
+            for (int i = 0; i < 24; i++) {
+                if (!availabilityRecord.get(date)[i])
+                    noRecords = false;
+            }
+            if (noRecords)
+                availabilityRecord.remove(date);
+        }
     }
 
     @Override

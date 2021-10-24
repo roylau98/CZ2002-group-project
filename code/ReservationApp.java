@@ -78,16 +78,16 @@ public class ReservationApp {
         System.out.print("Name: ");
         String name = scanner.nextLine();
 
-        System.out.print("Gender: ");
-        System.out.println();
-        // TODO - implement later
-        Sex gender = Sex.FEMALE;
+        System.out.print("Gender (Male/Female): ");
+        char entry = scanner.next().charAt(0);
+        boolean isMale = entry == 'M' || entry == 'm';
+        Sex gender = isMale ? Sex.MALE : Sex.FEMALE;
 
         System.out.print("Contact number: ");
         String contactNumber = scanner.nextLine();
 
-        System.out.print("Member? (Yes/No) ");
-        char entry = scanner.next().charAt(0);
+        System.out.print("Member (Yes/No): ");
+        entry = scanner.next().charAt(0);
         boolean isMember = entry == 'Y' || entry == 'y';
 
         ReservationMgr.makeReservation(
@@ -101,9 +101,69 @@ public class ReservationApp {
         Scanner scanner = new Scanner(System.in);
         ReservationMgr.viewAllReservations();
         System.out.println("Which reservation would you like to amend?");
-        int temp = scanner.nextInt();
+        int toAmend = scanner.nextInt();
         scanner.nextLine();
 
-        // TODO
+        System.out.println("What would you like to amend?\n" +
+                "1. Date of reservation\n" +
+                "2. Time of reservation\n" +
+                "3. Number of persons\n" +
+                "4. Customer details");
+        int choice = scanner.nextInt();
+        scanner.nextLine();
+
+        switch (choice) {
+            case 1:
+                System.out.print("Year: ");
+                int year = scanner.nextInt();
+                scanner.nextLine();
+
+                System.out.print("Month: ");
+                int month = scanner.nextInt();
+                scanner.nextLine();
+
+                System.out.print("Date: ");
+                int date = scanner.nextInt();
+                scanner.nextLine();
+
+                ReservationMgr.updateReservation(toAmend, LocalDate.of(year, month, date));
+
+                break;
+            case 2:
+                System.out.print("Hour: ");
+                int hour = scanner.nextInt();
+                scanner.nextLine();
+
+                ReservationMgr.updateReservation(toAmend, LocalTime.of(hour, 0));
+
+                break;
+            case 3:
+                System.out.print("Number of persons: ");
+                int noOfPax = scanner.nextInt();
+                scanner.nextLine();
+
+                ReservationMgr.updateReservation(toAmend, noOfPax);
+
+                break;
+            case 4:
+                System.out.print("Name: ");
+                String name = scanner.nextLine();
+
+                System.out.print("Gender (Male/Female): ");
+                char entry = scanner.next().charAt(0);
+                boolean isMale = entry == 'M' || entry == 'm';
+                Sex gender = isMale ? Sex.MALE : Sex.FEMALE;
+
+                System.out.print("Contact number: ");
+                String contactNumber = scanner.nextLine();
+
+                System.out.print("Member (Yes/No): ");
+                entry = scanner.next().charAt(0);
+                boolean isMember = entry == 'Y' || entry == 'y';
+
+                ReservationMgr.updateReservation(toAmend, new Customer(name, gender, contactNumber, isMember));
+
+                break;
+        }
     }
 }

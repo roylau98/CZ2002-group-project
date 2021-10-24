@@ -29,6 +29,15 @@ public class Person {
     }
 
     /**
+     * Copy constructor.
+     * @param p Person to be cloned.
+     */
+    public Person(Person p) {
+        this.name = String.valueOf(p.name);
+        this.gender = p.gender;
+    }
+
+    /**
      * Gets the name of the person
      *
      * @return name of the person
@@ -79,7 +88,6 @@ public class Person {
         if (this.gender != ((Person) obj).gender)
             return false;
         return true;
-        //return super.equals(obj);
     }
 
     /**

@@ -40,7 +40,7 @@ public class Reservation {
     private int tableNo;
 
     /**
-     * Class constructor
+     * Class constructor.
      *
      * @param date     Date of reservation.
      * @param time     Time of reservation.
@@ -56,11 +56,32 @@ public class Reservation {
     }
 
     /**
+     * Copy constructor.
+     * @param r Reservation to be cloned.
+     */
+    public Reservation(Reservation r) {
+        this.date = r.date;
+        this.time = r.time;
+        this.hour = r.hour;
+        this.noOfPax = r.noOfPax;
+        this.tableNo = r.tableNo;
+        this.customer = new Customer(r.customer);
+    }
+
+    /**
      * Gets the date of the reservation.
      * @return Date reserved.
      */
     public LocalDate getDate() {
         return date;
+    }
+
+    /**
+     * Sets the date of the reservation.
+     * @param date Date reserved.
+     */
+    public void setDate(LocalDate date) {
+        this.date = date;
     }
 
     /**
@@ -72,11 +93,28 @@ public class Reservation {
     }
 
     /**
+     * Sets the time of the reservation.
+     * @param time Time reserved.
+     */
+    public void setTime(LocalTime time) {
+        this.time = time;
+        this.hour = time.getHour();
+    }
+
+    /**
      * Gets the number of persons.
      * @return Number of persons.
      */
     public int getNoOfPax() {
         return noOfPax;
+    }
+
+    /**
+     * Sets the number of persons.
+     * @param noOfPax Number of persons.
+     */
+    public void setNoOfPax(int noOfPax) {
+        this.noOfPax = noOfPax;
     }
 
     /**
@@ -93,6 +131,14 @@ public class Reservation {
      */
     public void setTableNo(int tableNo) {
         this.tableNo = tableNo;
+    }
+
+    public Customer getCustomer() {
+        return customer;
+    }
+
+    public void setCustomer(Customer customer) {
+        this.customer = customer;
     }
 
     @Override
