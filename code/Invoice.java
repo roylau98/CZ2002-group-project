@@ -40,7 +40,7 @@ public class Invoice {
 		serviceCharge = 0.02;
 		totalPrice = 0;
 		finalPrice = 0;
-		memberDiscount = 1;
+		memberDiscount = 0;
 		order = null;
 		listOfSoldItems = null;
 		timestamp = LocalDateTime.now();
@@ -62,7 +62,7 @@ public class Invoice {
 		if((this.order.getCustomer()).getMembershipStatus()==true)
 			memberDiscount=0.1; 
 		else
-			memberDiscount=1;
+			memberDiscount=0;
 		
 		listOfSoldItems = order.getOrderContents();
 		timestamp = LocalDateTime.now();
