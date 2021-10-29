@@ -1,5 +1,5 @@
 import java.time.LocalDateTime;
-import java.util.ArrayList;
+import java.util.*;
 
 /**
  * Stores information of a order invoices in the restaurant.
@@ -52,7 +52,6 @@ public class Invoice {
 	 * @param order		the ordered item from customer
 	 */
 	public Invoice(double gst, double serviceCharge, Order order) {
-		
 		this.gst = gst;
 		this.serviceCharge = serviceCharge;
 		this.totalPrice = 0;
@@ -63,23 +62,31 @@ public class Invoice {
 			memberDiscount=0.1; 
 		else
 			memberDiscount=0;
-		
-		listOfSoldItems = order.getOrderContents();
+		listOfSoldItems = order.getListOfItemsOrdered();
 		timestamp = LocalDateTime.now();
 	}
-	
+
+
+	public void setOrder(Order order) {
+		this.order = order;
+		this.totalPrice = order.getTotalPriceOfOrder();
+		calculateFinalPrice();
+		this.finalPrice = getFinalPrice();
+		this.listOfSoldItems = order.getListOfItemsOrdered();
+	}
 	
 	/**
     	 * Print the Invoice of this order
      	 */
 	public void printInvoice() {
-		for (int i=0; i<order.getOrderContents().size(); i++) {
-			System.out.println((i+1)+" "+order.getOrderContents().get(i).getName()+" "+order.getOrderContents().get(i).getPrice());
+		System.out.println("TimeStamp: " + getTimestamp());
+		for (int i = 0; i< listOfSoldItems.size(); i++) {
+			System.out.println((i+1)+" "+listOfSoldItems.get(i).getName()+" "+listOfSoldItems.get(i).getPrice());
 		}
-		calculateSale();
-		System.out.println("Total Price : "+getTotalPrice());
-		System.out.println("Total Price : "+getFinalPrice());
-		order.orderComplete();
+		calculateFinalPrice();
+		System.out.println("Order's Total Price : "+getTotalPrice());
+		System.out.println("Order's Final Price : "+getFinalPrice());
+		order.setOrderAsCompleted();
 	}
 	
 	
@@ -89,33 +96,32 @@ public class Invoice {
 	public double getFinalPrice() {
 		return finalPrice;
 	}
-	
-	
 	/**
     	 * Return the total price of the ordered item(exclude GST,service charge )
-     	 */
+     	 */	
 	public double getTotalPrice() {
 		return totalPrice;
 	}
-	
-	
-	/**
-    	 * Calculate and return the final price that take accounts of GST,service charge
-     	 */
-	public double calculateSale() {
-		for (int i=0; i<order.getOrderContents().size(); i++) {
-			totalPrice = totalPrice + order.getOrderContents().get(i).getPrice();
-		}
-		finalPrice = (totalPrice * (1+serviceCharge)) * (1+gst)*(1-memberDiscount) ;
-		return finalPrice;
-	}
-	
-	
 	/**
     	 *  Return the list of item ordered by the customer
      	 */
 	public ArrayList<MenuItem> getListOfSoldItems() {
 		return listOfSoldItems;
+	}
+
+	/**
+    	 * Calculate and return the final price that take accounts of GST,service charge
+     	 */
+	public double calculateFinalPrice() {
+		for (int i = 0; i<order.getListOfItemsOrdered().size(); i++) {
+			totalPrice = totalPrice + order.getListOfItemsOrdered().get(i).getPrice();
+		}
+		finalPrice = (totalPrice * (1+serviceCharge)) * (1+gst) *(1-memberDiscount);
+		return finalPrice;
+	}
+
+	public LocalDateTime getTimestamp() {
+		return timestamp;
 	}
 
 }
