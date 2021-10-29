@@ -133,10 +133,12 @@ public abstract class MenuItem {
 			}
 		}
 
-		while (choice !=1 || choice !=0) {
+		while (choice !=0) {
 			System.out.println("Update Item Price? 1-Yes, 0-N");
 			choice = sc.nextInt();
 			if (choice == 1) {
+				inputForDouble = sc.nextDouble();
+				updatePrice(inputForDouble);
 				try {
 					inputForDouble = sc.nextDouble();
 					if (inputForDouble<=0)
@@ -148,8 +150,6 @@ public abstract class MenuItem {
 				{
 					System.out.println( e.getMessage() );
 				}
-				
-				
 			}
 			else if (choice == 0) {
 				break;
