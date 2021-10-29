@@ -7,7 +7,7 @@ import java.util.*;
  * provide accessor (get methods) of individual MenuItem
  * and various methods to add,remove,update MenuItem in the menu.
  * <p>
- * @author Chua Zi Jian
+ * @author 
  * 
  */
 
@@ -213,6 +213,13 @@ public class Menu {
 						
 						System.out.println("Enter the new price:");
 						price = sc.nextDouble();
+						
+						while(price<=0)
+						{
+							System.out.println("Error: price must not lower or equal to 0!");
+							System.out.println("Enter the new price:");
+							price = sc.nextDouble();
+						}
 						
 						//buffer
 						sc.nextLine();
