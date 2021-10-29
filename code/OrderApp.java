@@ -263,6 +263,7 @@ public class OrderApp {
 				selectedOrder.createInvoice(selectedOrder);
 				bill = selectedOrder.getInvoice();
 				bill.printInvoice();
+				salesReport.addInvoice(bill);
 				return;
 			}
 		}
@@ -274,9 +275,12 @@ public class OrderApp {
 		return listOfOrders;
 	}
 
-	public void getSalesReport() {
-		salesReport.createListOfInvoices(this.listOfOrders);
+	public void salesReportOptions() {
+		salesReport.options();
 	}
 
+	public SalesReport getSalesReport() {
+		return salesReport;
+	}
 
 }
