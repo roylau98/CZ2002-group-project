@@ -1,102 +1,163 @@
-import java.util.ArrayList;
-import java.util.Scanner;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
+
 /**
  * Manages the {@link AlaCarteItem} and {@link PromotionalSet} of the {@link Menu}. 
  * <p> 
- * This class provides printing of whole menu or individual AlaCarteItems based on Itemtype and PromotionalSet,
- * provide accessor (get methods) of individual AlaCarteItem & PromotionalSet
- * and various methods to add,remove,update AlaCarteItem/PromotionalSet in the menu.
+ * This class provides printing of whole menu or individual MenuItem,
+ * provide accessor (get methods) of individual MenuItem
+ * and various methods to add,remove,update MenuItem in the menu.
  * <p>
  * @author 
  * 
  */
 
 public class Menu {
-	
+
 	Scanner sc = new Scanner(System.in);
-	
+
     /**
-     * List of AlaCarteItem and PromotionalSet, implemented respectively in {@link List} and {@link ArrayList} data structure.
+     * ArrayList of MenuItem which consists of AlaCarteItem and PromotionalSet, implemented in {@link ArrayList} data structure.
      * Each entry consists of a reference to existing {@link AlaCarteItem}/{@link PromotionalSet}object.
      */
-	private List<AlaCarteItem> alaCartes;
-	private ArrayList<PromotionalSet> promo;
-	
+	private ArrayList<MenuItem> listOfMenuItems;
+
+
 	
     /**
      * Constructs an {@code Menu} object and
-     * initialize the attributes {@code AlaCarteItem}/{@code PromotionalSet} .
+     * initialize the attributes {@code MenuItem} .
      */
-	public Menu(){
-		
-		 alaCartes = new ArrayList<AlaCarteItem>();
-		 promo = new ArrayList<PromotionalSet>();
-		
+	public Menu() {
+		listOfMenuItems = new ArrayList<MenuItem>();
 	}
+	
+    /**
+     * A function used to do 
+     */
+	public void menuOptions() {
+		System.out.println("What do you want to do?");
+		System.out.println("1) print Menu");
+		System.out.println("2) choose menu item");
+		System.out.println("3) add menu item");
+		System.out.println("4) remove menu item");
+		System.out.println("5) update menu item");
+		System.out.println("6) Exit");
+		int choice = 0;
+		choice = sc.nextInt();
+		while (choice != 6 )
+		switch (choice) {
+			case 1:
+				printListOfMenuItems();
+				break;
+			case 2:
+				System.out.println("Type index of item");
+				int indexNo = sc.nextInt();
+				getMenuItem(indexNo-1);
+			case 3:
+				addMenuItem();
+				break;
+			case 4:
+				removeMenuItem();
+				break;
+			case 5:
+				updateMenuItem();
+				break;
+
+			case 6:
+				System.out.println("Exited!");
+				break;
+
+			default:
+				System.out.println("Invalid option");
+		}
+
+	}
+
 	//-------------------------------------------------------------------------------------------------------------
 	
 	
 	/**
-	 * Prints all the items in the AlaCarteItem List with the order of(1.Main Course 2.Appertizer 3.Drinks 4.Dessert)
+	 * Sorts all the items in the MenuItem ArrayList in order
 	 */
-	public void printAlaCarte() {
-		
-		printMenuItem(ItemType.MAIN_COURSE);
-		printMenuItem(ItemType.APPERTIZER);
-		printMenuItem(ItemType.DRINKS);
-		printMenuItem(ItemType.DESSERT);
-		
-	}
-	public void printMenu() {
-		System.out.println("-----------------------------");
-		for (int i = 0; i < alaCartes.size(); i++)
-		{
-				System.out.println(i+1+")");
-				System.out.println();
-				System.out.println("Name       : "+alaCartes.get(i).getName());
-				System.out.println("Price      : "+alaCartes.get(i).getPrice());
-				System.out.println("Description: "+alaCartes.get(i).getDescription());
-				System.out.println();
-		}
-		System.out.println("----------------------------------------");
-		}
-	
-	
-	/**
-	 * Prints the items in the AlaCarteItem List of specific ItemType (1.Main Course 2.Appertizer 3.Drinks 4.Dessert) 
-	 * in a certain format
-	 * 
-	 * @param  type  an enumeration{@link ItemType} which is used to indicate the type of AlaCarteItem
-	 */
-	public void printMenuItem(ItemType type) {
-		System.out.println("--------------"+type+"---------------");
-		for (int i = 0; i < alaCartes.size(); i++)
-		{
-			if(alaCartes.get(i).getItemType()==type)
-			{
-				System.out.println(i+1+")");
-				System.out.println();
-				System.out.println("Name       : "+alaCartes.get(i).getName());
-				System.out.println("Price      : "+alaCartes.get(i).getPrice());
-				System.out.println("Description: "+alaCartes.get(i).getDescription());
-				System.out.println();
+	public void sortListOfMenuItems() {
+		// sort by class type
+		Collections.sort(listOfMenuItems,(o1, o2) -> o1.getClass().getName().compareTo(o2.getClass().getName()));
+
+
+		ArrayList<AlaCarteItem> listOfAlaCarteItem = new ArrayList<>();
+		for (int i=0; i<listOfMenuItems.size(); i++) {
+			if ( listOfMenuItems.get(i) instanceof AlaCarteItem) {
+				listOfAlaCarteItem.add(((AlaCarteItem)listOfMenuItems.get(i)));
 			}
 		}
-		System.out.println("----------------------------------------");
-		}
-	
+
+		listOfMenuItems.removeIf(element -> element instanceof AlaCarteItem);
+
+		// sort AlaCarteItem by AlaCarteItemType
+		Collections.sort(listOfAlaCarteItem, (o1,o2) -> o1.getItemType().compareTo(o2.getItemType()));
+		listOfMenuItems.addAll(listOfAlaCarteItem);
+
+	}
+	/**
+	 * Prints all the items in the Menu according to its order
+	 */
+	public void printListOfMenuItems() {
+		System.out.println("MENU ITEMS");
+		printMenuItemsByCat(new AlaCarteItem());
+		printMenuItemsByCat(new PromotionalSet());
+	}
 	
 	/**
-	 * Prints all the items in the List of PromotionalSet 
+	 * Prints a certain type of AlaCarteItems in the Menu (Overload)
+	 * @param alaCarteItemType	the type of the AlaCarte
 	 */
-	public void printPromotion() {
-		for(int i = 0;i<promo.size();i++)
-		{
-			promo.get(i).printPromotionalSet();
+	public void printMenuItemsByCat(AlaCarteItemType alaCarteItemType) {
+		System.out.println("---"+ alaCarteItemType +"---");
+		for (int i=0; i< listOfMenuItems.size(); i++) {
+			if (((AlaCarteItem)listOfMenuItems.get(i)).getItemType() == alaCarteItemType) {
+				System.out.println("Index: "+(i+1));
+				listOfMenuItems.get(i).print();
+			}
 		}
 	}
+	/**
+	 * Prints PromotionalSet in the Menu (Overload)
+	 * @param item	an empty variable used to initiate the function
+	 */
+	public void printMenuItemsByCat(PromotionalSet item) {
+		System.out.println("---PromotionalSets---");
+		for (int i=0; i< listOfMenuItems.size(); i++) {
+			if (listOfMenuItems.get(i) instanceof PromotionalSet) {
+				System.out.println("Index: "+(i+1));
+				listOfMenuItems.get(i).print();
+			}
+		}
+	}
+	
+	public void printMenuItemsByCat(AlaCarteItem item) {
+		Arrays.asList(AlaCarteItemType.values()).forEach(
+				alaCarteItemType -> printMenuItemsByCat(alaCarteItemType)
+		);
+	}
+	
+	/**
+	 * Return true/false of the existence of certain MenuItem
+	 *
+	 * @param menuItem	menu item to be checked whether it is inside the menu
+	 * @return true/false	the existence(boolean) of certain MenuItem
+	 */
+	public Boolean isMenuItemExist(MenuItem menuItem) {
+		for (int i=0; i < listOfMenuItems.size(); i++) {
+			MenuItem curr = listOfMenuItems.get(i);
+			if (curr.getName() == menuItem.getName()) {
+				if (curr.getDescription() == menuItem.getDescription()) {
+					return true;
+				}
+			}
+		}
+		return false;
+	}
+
 	//-----------------------------------------------------------------------------------------------------------------
 	
 	
@@ -106,19 +167,15 @@ public class Menu {
 	 */
 	public void addMenuItem() {
 		
-		int choice;
-		String name=new String();
-		String description=new String();
+		int choice=0;
+		String name;
+		String description;
 		double price;
-		AlaCarteItem temp=new AlaCarteItem();
-		ItemType type = null;
-		PromotionalSet temp1;
-		int n;
+
+		AlaCarteItemType type = null;
 		
 		do {
-			
 			System.out.println("Please select the type of item to add:");
-			System.out.println();
 			System.out.println("1) Ala Carte");
 			System.out.println("2) Promotion Package");
 			System.out.println("3) Exit");
@@ -129,7 +186,6 @@ public class Menu {
 				
 					case 1:
 						System.out.println("Please select :");
-						System.out.println();
 						System.out.println("1) Main Course");
 						System.out.println("2) Appertizer");
 						System.out.println("3) Drinks");
@@ -137,21 +193,19 @@ public class Menu {
 						int c =sc.nextInt();
 						switch(c) {
 							case 1:
-								type=ItemType.MAIN_COURSE;
+								type= AlaCarteItemType.MAIN_COURSE;
 								break;
 							case 2:
-								type=ItemType.APPERTIZER;
+								type= AlaCarteItemType.APPERTIZER;
 								break;
 							case 3:
-								type=ItemType.DRINKS;
+								type= AlaCarteItemType.DRINKS;
 								break;
 							case 4:
-								type=ItemType.DESSERT;
+								type= AlaCarteItemType.DESSERT;
 								break;
 						}
-						
-						//buffer
-						sc.nextLine();
+						sc.nextLine(); //buffer
 						
 						
 						System.out.println("Enter the new name :");
@@ -159,6 +213,7 @@ public class Menu {
 						
 						System.out.println("Enter the new price:");
 						price = sc.nextDouble();
+						
 						while(price<=0)
 						{
 							System.out.println("Error: price must not lower or equal to 0!");
@@ -166,25 +221,32 @@ public class Menu {
 							price = sc.nextDouble();
 						}
 						
-						
 						//buffer
 						sc.nextLine();
 						System.out.println("Enter the new description:");
 						description = sc.nextLine();
 						
-						temp= new AlaCarteItem(name,description,price,type);
-						alaCartes.add(temp);
+						AlaCarteItem temp = new AlaCarteItem(name,description,price,type);
+
+						if (isMenuItemExist(temp) == true) {
+							System.out.println("Item already exists");
+						}
+						else {
+							listOfMenuItems.add(temp);
+							sortListOfMenuItems();
+							System.out.println("Added!");
+						}
 						break;
 						
 					case 2:
-						
-						temp1=new PromotionalSet();
-						temp1.update(alaCartes);
-						promo.add(temp1);
+						PromotionalSet tempP = new PromotionalSet();
+						tempP.updateContents();
+						listOfMenuItems.add(tempP);
+						System.out.println("Added!");
 						break;
 						
 					case 3:
-						Collections.sort(alaCartes);
+						System.out.println("Exited!");
 						break;
 						
 					default:
@@ -198,158 +260,77 @@ public class Menu {
 	
 	
 	/**
-	 * A Do-While loop to remove existing items of AlaCarteItem and PromotionalSet 
+	 *  Function to remove existing MenuItems
 	 * 
 	 */
-	public void removeItem() {
+	public void removeMenuItem() {
 		
-		int choice;
-		int no;
-		
-		do {
-		System.out.println("Please select the type of item to remove:");
-		System.out.println();
-		System.out.println("1) Ala Carte");
-		System.out.println("2) Promotion Package");
-		System.out.println("3) Exit");
-		choice=sc.nextInt();
-		
-		
-		switch(choice) {
-		
-			case 1:
-				
-				printAlaCarte();
-				
-				
-				System.out.println("Please enter the index no. of Ala Carte to remove:");
-				no=sc.nextInt();
-				
-				if(alaCartes.size()==0)
-					System.out.println("Ala Carte List is empty");
-				else if(no>alaCartes.size()||no<=0)
-					System.out.println("The index is incorrect");
-				else
-					alaCartes.remove(no-1);
-				break;
-				
-				
-			case 2:
-				
-				printPromotion();
-				
-				System.out.println("Please enter the index no. of Promotion to remove:");
-				no=sc.nextInt();
-				
-				if(promo.size()==0)
-					System.out.println("Promotion List is empty");
-				else if(no>promo.size()||no<=0)
-					System.out.println("The index is incorrect");
-				else
-					promo.remove(no-1);
-				break;
-				
-				
-			case 3:
-				break;
-				
-			default:
-				System.out.println("Wrong Choice!!!");
-			
-		}	
-		}while(choice!=3);
+		int choice=0;
+		String name;
+		int indexNo;
+
+		printListOfMenuItems();
+		System.out.println("Please type index of menu item to remove:");
+		indexNo = sc.nextInt();
+		if (indexNo > listOfMenuItems.size()) {
+			System.out.println("No such item");
+		}
+		else {
+			listOfMenuItems.remove(indexNo-1);
+			sortListOfMenuItems();
+			System.out.println("item removed");
+		}
+
 	}
 	//---------------------------------------------------------------------------------------------------------------------
 	
 	
 	/**
-	 * A Do-While loop to update the parameter(name,price,description) of existing items of AlaCarteItem and PromotionalSet 
+	 * Update the details(name,price,description) of existing items in Menu
 	 * 
 	 */
 	public void updateMenuItem() {
-		
-		int choice;
-		int no;
-		String name;
-		double price;
-		
-		do {
-			System.out.println("Please select the type of item to update:");
-			System.out.println();
-			System.out.println("1) Ala Carte");
-			System.out.println("2) Promotion Package");
-			System.out.println("3) Exit");
-			choice=sc.nextInt();
-			
-			
-			switch(choice) {
-			
-			case 1:
-				printAlaCarte();
-				
-				System.out.println("Please enter the index no. of Ala Carte to update:");
-				no=sc.nextInt();
-				
-				if(alaCartes.size()==0)
-					System.out.println("Ala Carte List is empty");
-				else if(no>alaCartes.size()||no<=0)
-					System.out.println("The index is incorrect");
-				else
-					alaCartes.get(no-1).update();
-				break;
-				
-				
-			case 2:
-				printPromotion();
-				
-				System.out.println("Please enter the index no. of Promotion to update:");
-				no=sc.nextInt();
-				
-				if(promo.size()==0)
-					System.out.println("Promotion List is empty");
-				else if(no>promo.size()||no<=0)
-					System.out.println("The index is incorrect");
-				else
-					promo.get(no-1).update(alaCartes);
-				break;
-				
-				
-			case 3:
-				break;
-				
-			default:
-				System.out.println("Wrong Choice!!!");
-				
-			}
-		}while(choice!=3);
+
+		int indexNo;
+		System.out.println("Please type index of item to be updated:");
+		indexNo = sc.nextInt();
+
+		if (indexNo > listOfMenuItems.size()) {
+			System.out.println("No such item in Menu");
+		}
+		else {
+			listOfMenuItems.get(indexNo-1).updateContents();
+			sortListOfMenuItems();
+		}
+
 	}
 	
 	//---------------------------------------------------------------------------------------------
 	
 	
 	/**
-	 * Return a existing {@link AlaCarteItem}object by using the INDEX(actual index plus 1) of ArrayList 
+	 * Return a existing {@link MenuItem}object by using the INDEX(actual index plus 1) of ArrayList 
 	 * 
-	 * @param  index   the INDEX(actual index plus 1) of alaCarte to be retrieved.
+	 * @param  indexNo   the INDEX(actual index plus 1) of alaCarte to be retrieved.
          * @return {@link AlaCarteItem} object of given index.
 	 */
-	public AlaCarteItem getMenuItem(int index) {
-	
-				return alaCartes.get(index-1);		
+	public MenuItem getMenuItem(int indexNo) {
+		return listOfMenuItems.get(indexNo-1);
 	}
-		
 	
 	/**
-	 * Return a existing {@link PromotionalSet}object by using the INDEX(actual index plus 1) of ArrayList 
+	 * Return the index no. of a existing {@link MenuItem}object  
 	 * 
-	 * @param  index   the INDEX(actual index plus 1) of alaCarte to be retrieved.
-         * @return {@link PromotionalSet} object of given index.
+	 * @param c		{@link AlaCarteItem} object to find its index.
+         * @return indexNo	the index no of MenuItem to be retrieved.
 	 */
-	public PromotionalSet getPromoItem(int index) {
-		
-			return promo.get(index-1);
-		
-			
-		
+	public int searchIndexOfMenuItem(MenuItem c) {
+		for (int i=0; i < listOfMenuItems.size(); i++) {
+			if (listOfMenuItems.get(i).equals(c)) {
+				return i;
+			}
+		}
+		return -1;
 	}
+}
 
