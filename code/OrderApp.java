@@ -12,6 +12,13 @@ import java.util.*;
 
 public class OrderApp {
 
+	//Pls add these func to order class(or i can add after u finish the order class)
+	//void addMenuItems(MenuItems items)
+	//void addPromoItems(Promotion promo)
+	//void removeItems(int index)
+	//void printAllItemsInOrder()
+	//void printPrice()
+
 
 	Scanner sc = new Scanner(System.in);
 	/**
@@ -96,13 +103,14 @@ public class OrderApp {
 		Order customerOrder = new Order();
 		//TODO
 		menuApp.printListOfMenuItems();
-		while (choice != -1) {
+		while (true) {
 			System.out.println("Enter menu item choice. Or -1 to Quit");
-			choice = sc.nextInt(); // have not accounted for arrayOutOfBounds Error(Done)
+			choice = sc.nextInt(); // have not accounted for arrayOutOfBounds Error
 			try 
 			{
 				MenuItem selectedMenuItem = menuApp.getMenuItem(choice-1);
 				customerOrder.addItemToOrder(selectedMenuItem);
+				break;
 			}
 			catch(IndexOutOfBoundsException e)
 			{
@@ -149,8 +157,9 @@ public class OrderApp {
 					menuApp.printListOfMenuItems();
 					while (choice != -1) {
 						System.out.println("Enter menuItem choice. Or -1 to Quit");
-						choice = sc.nextInt(); // have not accounted for arrayOutOfBounds Error(Done)
-						try {
+						choice = sc.nextInt(); // have not accounted for arrayOutOfBounds Error
+						try 
+						{
 							MenuItem selectedMenuItem = menuApp.getMenuItem(choice-1);
 							selectedOrder.addItemToOrder(selectedMenuItem);
 						}
@@ -168,9 +177,10 @@ public class OrderApp {
 
 					while (choice != -1) {
 						System.out.println("Enter choice. Or -1 to Quit");
-						choice = sc.nextInt(); // have not accounted for arrayOutOfBounds Error(Done)
-						try {
-						selectedOrder.removeItemFromOrder(choice);
+						choice = sc.nextInt(); // have not accounted for arrayOutOfBounds Error
+						try 
+						{
+							selectedOrder.removeItemFromOrder(choice);
 						}
 						catch(IndexOutOfBoundsException e)
 						{
