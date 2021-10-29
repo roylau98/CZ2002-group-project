@@ -3,16 +3,11 @@ import java.time.LocalTime;
 import java.util.Scanner;
 
 public class ReservationApp {
+    private static final Scanner scanner = new Scanner(System.in);
 
     public static void main(String[] args) {
-        // TODO - look for a better place to add tables to the restaurant
-        ReservationMgr.addTable(2);
-        ReservationMgr.addTable(2);
-        ReservationMgr.addTable(4);
-        ReservationMgr.addTable(4);
-
+        ReservationMgr.addTables();
         System.out.println("Welcome to the ReservationApp.");
-        Scanner scanner = new Scanner(System.in);
         boolean cont = true;
         while (true) {
             System.out.println("Please select one of the options below:\n" +
@@ -29,11 +24,7 @@ public class ReservationApp {
                     makeReservation();
                     break;
                 case 2:
-                    ReservationMgr.viewAllReservations();
-                    System.out.println("Which reservation would you like to cancel?");
-                    int temp = scanner.nextInt();
-                    scanner.nextLine();
-                    ReservationMgr.cancelReservation(temp);
+                    cancelReservation();
                     break;
                 case 3:
                     updateReservation();
@@ -52,56 +43,26 @@ public class ReservationApp {
     }
 
     private static void makeReservation() {
-        Scanner scanner = new Scanner(System.in);
         System.out.println("Please enter the following details below:");
+        LocalDate date = askUserForDate();
+        LocalTime time = askUserForTime();
+        int noOfPax = askUserForPax();
+        Customer customer = askUserForCustomerDetails();
+        ReservationMgr.makeReservation(new Reservation(date, time, noOfPax, customer));
+    }
 
-        System.out.print("Year: ");
-        int year = scanner.nextInt();
+    private static void cancelReservation() {
+        ReservationMgr.viewAllReservations();
+        System.out.println("Which reservation would you like to cancel?");
+        int temp = scanner.nextInt();
         scanner.nextLine();
-
-        System.out.print("Month: ");
-        int month = scanner.nextInt();
-        scanner.nextLine();
-
-        System.out.print("Date: ");
-        int date = scanner.nextInt();
-        scanner.nextLine();
-
-        System.out.print("Hour: ");
-        int hour = scanner.nextInt();
-        scanner.nextLine();
-
-        System.out.print("Number of persons: ");
-        int noOfPax = scanner.nextInt();
-        scanner.nextLine();
-
-        System.out.print("Name: ");
-        String name = scanner.nextLine();
-
-        System.out.print("Gender (Male/Female): ");
-        char entry = scanner.next().charAt(0);
-        boolean isMale = entry == 'M' || entry == 'm';
-        Sex gender = isMale ? Sex.MALE : Sex.FEMALE;
-
-        System.out.print("Contact number: ");
-        String contactNumber = scanner.nextLine();
-
-        System.out.print("Member (Yes/No): ");
-        entry = scanner.next().charAt(0);
-        boolean isMember = entry == 'Y' || entry == 'y';
-
-        ReservationMgr.makeReservation(
-                new Reservation(LocalDate.of(year, month, date),
-                        LocalTime.of(hour, 0),
-                        noOfPax,
-                        new Customer(name, gender, contactNumber, isMember)));
+        ReservationMgr.cancelReservation(temp);
     }
 
     private static void updateReservation() {
-        Scanner scanner = new Scanner(System.in);
         ReservationMgr.viewAllReservations();
         System.out.println("Which reservation would you like to amend?");
-        int toAmend = scanner.nextInt();
+        int reservationNoToUpdate = scanner.nextInt();
         scanner.nextLine();
 
         System.out.println("What would you like to amend?\n" +
@@ -114,56 +75,72 @@ public class ReservationApp {
 
         switch (choice) {
             case 1:
-                System.out.print("Year: ");
-                int year = scanner.nextInt();
-                scanner.nextLine();
-
-                System.out.print("Month: ");
-                int month = scanner.nextInt();
-                scanner.nextLine();
-
-                System.out.print("Date: ");
-                int date = scanner.nextInt();
-                scanner.nextLine();
-
-                ReservationMgr.updateReservation(toAmend, LocalDate.of(year, month, date));
-
+                LocalDate date = askUserForDate();
+                ReservationMgr.updateReservation(reservationNoToUpdate, date);
                 break;
             case 2:
-                System.out.print("Hour: ");
-                int hour = scanner.nextInt();
-                scanner.nextLine();
-
-                ReservationMgr.updateReservation(toAmend, LocalTime.of(hour, 0));
-
+                LocalTime time = askUserForTime();
+                ReservationMgr.updateReservation(reservationNoToUpdate, time);
                 break;
             case 3:
-                System.out.print("Number of persons: ");
-                int noOfPax = scanner.nextInt();
-                scanner.nextLine();
-
-                ReservationMgr.updateReservation(toAmend, noOfPax);
-
+                int noOfPax = askUserForPax();
+                ReservationMgr.updateReservation(reservationNoToUpdate, noOfPax);
                 break;
             case 4:
-                System.out.print("Name: ");
-                String name = scanner.nextLine();
-
-                System.out.print("Gender (Male/Female): ");
-                char entry = scanner.next().charAt(0);
-                boolean isMale = entry == 'M' || entry == 'm';
-                Sex gender = isMale ? Sex.MALE : Sex.FEMALE;
-
-                System.out.print("Contact number: ");
-                String contactNumber = scanner.nextLine();
-
-                System.out.print("Member (Yes/No): ");
-                entry = scanner.next().charAt(0);
-                boolean isMember = entry == 'Y' || entry == 'y';
-
-                ReservationMgr.updateReservation(toAmend, new Customer(name, gender, contactNumber, isMember));
-
+                Customer updatedCustomer = askUserForCustomerDetails();
+                ReservationMgr.updateReservation(reservationNoToUpdate, updatedCustomer);
                 break;
         }
+    }
+
+    private static LocalDate askUserForDate() {
+        System.out.print("Year: ");
+        int year = scanner.nextInt();
+        scanner.nextLine();
+
+        System.out.print("Month: ");
+        int month = scanner.nextInt();
+        scanner.nextLine();
+
+        System.out.print("Date: ");
+        int date = scanner.nextInt();
+        scanner.nextLine();
+
+        return LocalDate.of(year, month, date);
+    }
+
+    private static LocalTime askUserForTime() {
+        System.out.print("Hour: ");
+        int hour = scanner.nextInt();
+        scanner.nextLine();
+
+        return LocalTime.of(hour, 0);
+    }
+
+    private static int askUserForPax() {
+        System.out.print("Number of persons: ");
+        int noOfPax = scanner.nextInt();
+        scanner.nextLine();
+
+        return noOfPax;
+    }
+
+    private static Customer askUserForCustomerDetails() {
+        System.out.print("Name: ");
+        String name = scanner.nextLine();
+
+        System.out.print("Gender (Male/Female): ");
+        char entry = scanner.nextLine().charAt(0);
+        boolean isMale = entry == 'M' || entry == 'm';
+        Sex gender = isMale ? Sex.MALE : Sex.FEMALE;
+
+        System.out.print("Contact number: ");
+        String contactNumber = scanner.nextLine();
+
+        System.out.print("Member (Yes/No): ");
+        entry = scanner.nextLine().charAt(0);
+        boolean isMember = entry == 'Y' || entry == 'y';
+
+        return new Customer(name, gender, contactNumber, isMember);
     }
 }
