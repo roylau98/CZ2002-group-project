@@ -115,12 +115,12 @@ public class OrderApp implements Serializable {
 			System.out.println("Enter menu item choice. Or -1 to Quit");
 			choice = sc.nextInt(); // have not accounted for arrayOutOfBounds Error
 			if(choice==-1)
-				return;
+				break;
 			try 
 			{
 				MenuItem selectedMenuItem = menuApp.getMenuItem(choice-1);
 				customerOrder.addItemToOrder(selectedMenuItem);
-				break;
+				
 			}
 			catch(IndexOutOfBoundsException e)
 			{
