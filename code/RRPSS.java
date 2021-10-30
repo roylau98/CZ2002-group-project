@@ -23,8 +23,8 @@ public class RRPSS implements Serializable {
 			System.out.println("What do you want?");
 			System.out.println("(1) Reservation");
 			System.out.println("(2) Order");
-			System.out.println("(3) Menu");
-			System.out.println("(4) Sales Report");
+			System.out.println("(3) Edit Menu   (Admin)");
+			System.out.println("(4) Sales Report(Admin)");
 			System.out.println("(5) Exit");
 			System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
 			System.out.println();
@@ -100,6 +100,8 @@ public class RRPSS implements Serializable {
 			switch (choice) {
 				case 1:
 					main = new RRPSS();
+					System.out.println("New RRPSS created !");
+					System.out.println();
 					main.rrpsOptions();
 					System.out.println("Saving system state...");
 					database.save(main,"file1.txt");
