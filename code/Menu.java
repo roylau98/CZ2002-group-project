@@ -35,6 +35,11 @@ public class Menu implements Serializable {
      * A function used to do 
      */
 	public void menuOptions() {
+		int choice = 0;
+		
+		
+		while (choice != 6 ){
+		
 		System.out.println("What do you want to do?");
 		System.out.println("1) print Menu");
 		System.out.println("2) choose menu item");
@@ -42,10 +47,9 @@ public class Menu implements Serializable {
 		System.out.println("4) remove menu item");
 		System.out.println("5) update menu item");
 		System.out.println("6) Exit");
-		int choice = 0;
-		sc = new Scanner(System.in);
+		System.out.println();
+		System.out.print("Enter Your Choice");
 		choice = sc.nextInt();
-		while (choice != 6 )
 		switch (choice) {
 			case 1:
 				printListOfMenuItems();
@@ -70,8 +74,8 @@ public class Menu implements Serializable {
 
 			default:
 				System.out.println("Invalid option");
+		        }
 		}
-
 	}
 
 	//-------------------------------------------------------------------------------------------------------------
