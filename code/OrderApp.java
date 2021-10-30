@@ -13,12 +13,6 @@ import java.io.*;
 
 public class OrderApp implements Serializable {
 
-	//Pls add these func to order class(or i can add after u finish the order class)
-	//void addMenuItems(MenuItems items)
-	//void addPromoItems(Promotion promo)
-	//void removeItems(int index)
-	//void printAllItemsInOrder()
-	//void printPrice()
 
 
 	private transient Scanner sc = new Scanner(System.in);
