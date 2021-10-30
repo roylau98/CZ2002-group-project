@@ -6,20 +6,16 @@ public class RRPSS implements Serializable {
 
 	private OrderApp orderApp;
 	private ReservationApp reservationApp;
+	private transient Scanner sc = new Scanner(System.in);
 
 	public RRPSS() {
 		orderApp = new OrderApp();
 		reservationApp = new ReservationApp();
 	}
 
-	public void rrpsDataBaseOption() {
-
-
-	}
-
 	public void rrpsOptions() {
-		Scanner sc = new Scanner(System.in);
 		System.out.println("What do you want?");
+		sc = new Scanner(System.in);
 		int choice = sc.nextInt();
 
 		switch (choice) {
@@ -44,20 +40,19 @@ public class RRPSS implements Serializable {
 	public void startReservationApp() {
 
 	}
+
 	public void startOrderApp() {
 		orderApp.orderAppOptions();
 	}
-
 
 	public void startSalesReport() {
 		orderApp.salesReportOptions();
 	}
 
 	public static void main(String args[]) {
-
 		Scanner sc = new Scanner(System.in);
 		int choice = -1;
-		RRPSS main;
+		RRPSS main = null;
 		Database database = new Database();
 
 		while (choice != 3) {
@@ -70,9 +65,15 @@ public class RRPSS implements Serializable {
 			switch (choice) {
 				case 1:
 					main = new RRPSS();
+					main.rrpsOptions();
+					System.out.println("Saving system state...");
+					database.save(main,"file1.txt");
 					break;
 				case 2:
 					main = ( (RRPSS) database.load("file1.txt") );
+					main.rrpsOptions();
+					System.out.println("Saving system state...");
+					database.save(main,"file1.txt");
 					break;
 				case 3:
 					System.out.println("Exited");
@@ -82,10 +83,6 @@ public class RRPSS implements Serializable {
 			}
 
 		}
-
-		main.rrpsOptions();
-		System.out.println("Saving system state...");
-		database.save(main,"file1.txt");
 
 	}
 }

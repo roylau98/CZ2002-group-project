@@ -13,6 +13,7 @@ public class AlaCarteItem extends MenuItem {
 	 * Enumeration type {@link AlaCarteItemType}used to indicate type of the AlaCarteItem
 	 */
 	private AlaCarteItemType typeOfItem;
+	private transient Scanner sc = new Scanner(System.in);
 	
 	/**
 	 * Constructs a item with default name, price, description and type.
@@ -59,13 +60,11 @@ public class AlaCarteItem extends MenuItem {
 	public void updateContents() {
 		super.updateContents();
 
-		Scanner sc = new Scanner(System.in);
 		int choice=-1;
-
-
 
 		while (choice !=1 || choice !=0) {
 			System.out.println("Update Item Type? 1-Yes, 0-N");
+			sc = new Scanner(System.in);
 			choice = sc.nextInt();
 
 			int i=0;
@@ -75,6 +74,7 @@ public class AlaCarteItem extends MenuItem {
 			}
 
 			System.out.println("Type option: ");
+			sc = new Scanner(System.in);
 			choice = sc.nextInt();
 
 			switch (choice) {

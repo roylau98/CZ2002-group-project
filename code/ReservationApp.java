@@ -1,10 +1,11 @@
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.Scanner;
+import java.io.*;
 
-public class ReservationApp {
-    private static final Scanner scanner = new Scanner(System.in);
-
+public class ReservationApp implements Serializable {
+    //private static final Scanner scanner = new Scanner(System.in);
+    private static transient Scanner scanner = new Scanner(System.in);
     public static void main(String[] args) {
         ReservationMgr.addTables();
         System.out.println("Welcome to the ReservationApp.");

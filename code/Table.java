@@ -2,14 +2,14 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.Arrays;
 import java.util.HashMap;
-
+import java.io.*;
 /**
  * Represents a table object in the restaurant.
  *
  * @author
  * @since 2021-10-22
  */
-public class Table {
+public class Table implements Serializable {
     /**
      * Capacity of the table.
      */

@@ -1,3 +1,4 @@
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
@@ -8,7 +9,7 @@ import java.util.ArrayList;
  * @author
  * @since 2021-10-23
  */
-public class ReservationMgr {
+public class ReservationMgr implements Serializable {
     /**
      * Collection of all tables in the restaurant.
      */
