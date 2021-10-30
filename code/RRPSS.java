@@ -16,10 +16,11 @@ public class RRPSS implements Serializable {
 	public void rrpsOptions() {
 		int choice=0;
 		
-		System.out.println("~~~~~Welcome to Krusty Krab~~~~~");
-		System.out.println();
+		
 		while(choice!=4)
 		{
+			System.out.println("~~~~~Welcome to Krusty Krab~~~~~");
+			System.out.println();
 			System.out.println("What do you want?");
 			System.out.println("(1) Reservation");
 			System.out.println("(2) Order");
@@ -58,27 +59,27 @@ public class RRPSS implements Serializable {
 	}
 
 	public void startReservationApp() {
-		System.out.print("======Reservation Option======");
+		System.out.println("======Reservation Option======");
 		//reservationApp.
-		System.out.print("==End of Reservation Option===");
+		System.out.println("==End of Reservation Option===");
 	}
 
 	public void startOrderApp() {
-		System.out.print("========Order Option========");
+		System.out.println("========Order Option========");
 		orderApp.orderAppOptions();
-		System.out.print("====End of Order Option=====");
+		System.out.println("====End of Order Option=====");
 	}
 	
 	public void startMenuApp() {
-		System.out.print("========Menu Option=========");
+		System.out.println("========Menu Option=========");
 		orderApp.openMenuApp();
-		System.out.print("=====End of Menu Option=====");
+		System.out.println("=====End of Menu Option=====");
 	}
 	
 	public void startSalesReport() {
-		System.out.print("=====Sales Report Option====");
+		System.out.println("=====Sales Report Option====");
 		orderApp.salesReportOptions();
-		System.out.print("=End of SalesReport Option==");
+		System.out.println("=End of SalesReport Option==");
 	}
 
 	public static void main(String args[]) {
@@ -86,12 +87,15 @@ public class RRPSS implements Serializable {
 		int choice = -1;
 		RRPSS main = null;
 		Database database = new Database();
-		System.out.println("***Krusty Krab Restaurant Reservation and Point of Sale System Manager***");
+		
 		while (choice != 3) {
+			System.out.println("***Krusty Krab Restaurant Reservation and Point of Sale System Manager***");
+			System.out.println();
 			System.out.println("What do you want?");
 			System.out.println("1.) Create New RRPSS System");
 			System.out.println("2.) Load existing RRPSS System");
 			System.out.println("3.) Exit");
+			System.out.println();
 			System.out.println("*************************************************************************");
 			System.out.println();
 			System.out.print("Enter Your Choice: ");
