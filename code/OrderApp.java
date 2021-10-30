@@ -57,6 +57,12 @@ public class OrderApp implements Serializable {
 		int input;
 
 		do {
+			System.out.println("(1)View Order");
+			System.out.println("(2)Create new Order");
+			System.out.println("(3)Remove Order");
+			System.out.println("(4)Update Order");
+			System.out.println("(5)Charge Bill");
+			System.out.println();
 			System.out.println("Enter Option");
 			choice = sc.nextInt();
 
@@ -84,6 +90,8 @@ public class OrderApp implements Serializable {
 					input = sc.nextInt();
 					chargeBill(input);
 					break;
+				
+					
 				default:
 					System.out.println("Invalid Option. Try again!");
 			}
@@ -91,7 +99,10 @@ public class OrderApp implements Serializable {
 		} while(choice != -1);
 
 	}
-
+	
+	public void openMenuApp(){
+		menuApp.menuOptions();
+	}
 	//-----------------------------------------------------------------------------------------------------------
 	/**
 	 * A Do-While loop to create an order and add items of AlaCarteItem and add PromotionalSet to it 
