@@ -14,39 +14,61 @@ public class RRPSS implements Serializable {
 	}
 
 	public void rrpsOptions() {
-		System.out.println("What do you want?");
-		sc = new Scanner(System.in);
-		int choice = sc.nextInt();
+		int choice=0;
+		
+		System.out.println("~~~~~Welcome to Krusty Krab~~~~~");
+		System.out.println();
+		while(choice!=4)
+		{
+			System.out.println("What do you want?");
+			System.out.println("(1) Reservation");
+			System.out.println("(2) Order");
+			System.out.println("(3) Sales Report");
+			System.out.println("(4) Exit");
+			System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+			System.out.println();
+			System.out.print("Enter Your Choice: ");
 
-		switch (choice) {
-			case 1:
-				startReservationApp();
-				break;
-			case 2:
-				startOrderApp();
-				break;
-			case 3:
-				startSalesReport();
-				break;
-			case 4:
-				System.out.println("Exited");
-				return;
-			default:
-				System.out.println("Invalid option. Try again!");
+			sc = new Scanner(System.in);
+			choice = sc.nextInt();
+
+			switch (choice) {
+				case 1:
+					startReservationApp();
+					break;
+				case 2:
+					startOrderApp();
+					break;
+				case 3:
+					startSalesReport();
+					break;
+				case 4:
+					System.out.println("Exited");
+					return;
+				default:
+					System.out.println("Invalid option. Try again!");
+			}
 		}
+		
 
 	}
 
 	public void startReservationApp() {
-
+		System.out.print("======Reservation Option======");
+		//reservationApp.
+		System.out.print("==End of Reservation Option===");
 	}
 
 	public void startOrderApp() {
+		System.out.print("========Order Option========");
 		orderApp.orderAppOptions();
+		System.out.print("====End of Order Option=====");
 	}
 
 	public void startSalesReport() {
+		System.out.print("=====Sales Report Option====");
 		orderApp.salesReportOptions();
+		System.out.print("=End of SalesReport Option==");
 	}
 
 	public static void main(String args[]) {
@@ -54,12 +76,15 @@ public class RRPSS implements Serializable {
 		int choice = -1;
 		RRPSS main = null;
 		Database database = new Database();
-
+		System.out.println("***Krusty Krab Restaurant Reservation and Point of Sale System Manager***");
 		while (choice != 3) {
 			System.out.println("What do you want?");
 			System.out.println("1.) Create New RRPSS System");
 			System.out.println("2.) Load existing RRPSS System");
 			System.out.println("3.) Exit");
+			System.out.println("*************************************************************************");
+			System.out.println();
+			System.out.print("Enter Your Choice: ");
 			choice = sc.nextInt();
 
 			switch (choice) {
@@ -71,6 +96,8 @@ public class RRPSS implements Serializable {
 					break;
 				case 2:
 					main = ( (RRPSS) database.load("file1.txt") );
+					System.out.println("System state loaded !");
+					System.out.println();
 					main.rrpsOptions();
 					System.out.println("Saving system state...");
 					database.save(main,"file1.txt");
@@ -81,8 +108,9 @@ public class RRPSS implements Serializable {
 				default:
 					System.out.println("Wrong input. Try again!");
 			}
-
+ 
 		}
+	        
 
 	}
 }
