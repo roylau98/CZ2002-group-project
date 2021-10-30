@@ -23,8 +23,9 @@ public class RRPSS implements Serializable {
 			System.out.println("What do you want?");
 			System.out.println("(1) Reservation");
 			System.out.println("(2) Order");
-			System.out.println("(3) Sales Report");
-			System.out.println("(4) Exit");
+			System.out.println("(3) Menu");
+			System.out.println("(4) Sales Report");
+			System.out.println("(5) Exit");
 			System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
 			System.out.println();
 			System.out.print("Enter Your Choice: ");
@@ -40,9 +41,12 @@ public class RRPSS implements Serializable {
 					startOrderApp();
 					break;
 				case 3:
-					startSalesReport();
+					startMenuApp();
 					break;
 				case 4:
+					startSalesReport();
+					break;
+				case 5:
 					System.out.println("Exited");
 					return;
 				default:
@@ -64,7 +68,13 @@ public class RRPSS implements Serializable {
 		orderApp.orderAppOptions();
 		System.out.print("====End of Order Option=====");
 	}
-
+	
+	public void startMenuApp() {
+		System.out.print("========Menu Option=========");
+		orderApp.openMenuApp();
+		System.out.print("=====End of Menu Option=====");
+	}
+	
 	public void startSalesReport() {
 		System.out.print("=====Sales Report Option====");
 		orderApp.salesReportOptions();
