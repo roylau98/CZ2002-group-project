@@ -1,189 +1,111 @@
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.util.Arrays;
 import java.util.HashMap;
 
 /**
  * Represents a table object in the restaurant.
  *
  * @author
- * @since 2021-10-19
+ * @since 2021-10-22
  */
 public class Table {
     /**
-     * Unique identifier for the table instance.
-     */
-    private int tableID;
-
-    /**
-     * Maximum number of seats at the table
+     * Capacity of the table.
      */
     private int capacity;
 
     /**
-     * Stores all reservation for the table instance using HashMap.
-     * The key used is the date of reservation, while the value is an array of Reservation object.
+     * Record of the table's availability for reservations as a map.
+     * Records are accessed by a LocalDate key, which will retrieve an array of boolean values that indicate the table's availability.
+     * A true value indicates that the table is available for reservation, while a false value indicates that it is not.
      * The array length is 24, in order to mimic 24 hours in a day which the customer can book.
      */
-    private HashMap<LocalDate, Reservation[]> reservationsMap;
+    private HashMap<LocalDate, Boolean[]> availabilityRecord;
 
     /**
-     * Class constructor
-     *
-     * @param tableID  unique identifier for the table
-     * @param capacity maximum number of seats at teh table
+     * Class constructor.
+     * @param capacity Capacity of the table.
      */
-    public Table(int tableID, int capacity) {
-        this.tableID = tableID;
+    public Table(int capacity) {
         this.capacity = capacity;
-        this.reservationsMap = new HashMap<>();
-    }
-
-    /**
-     * Gets the tableID
-     *
-     * @return the tableID
-     */
-    public int getTableID() {
-        return tableID;
-    }
-
-    /**
-     * Sets the tableID
-     *
-     * @param tableID the table ID
-     */
-    public void setTableID(int tableID) {
-        this.tableID = tableID;
+        this.availabilityRecord = new HashMap<>();
     }
 
     /**
      * Gets the capacity of the table.
-     *
-     * @return Capcaity of the table.
+     * @return Capacity of the table.
      */
     public int getCapacity() {
         return capacity;
     }
 
     /**
-     * Sets the capacity of the table
-     *
-     * @param capacity capacity of the table
+     * Sets the capacity of the table.
+     * @param capacity Capacity of the table.
      */
     public void setCapacity(int capacity) {
         this.capacity = capacity;
     }
 
     /**
-     * Gets the HashMap containing all reservation of the Table instance.
-     *
-     * @return HashMap containing all reservations.
-     */
-    public HashMap<LocalDate, Reservation[]> getReservations() {
-        return reservationsMap;
-    }
-
-    /**
-     * Sets the list of reservations at the table
-     *
-     * @param reservations updated list of reservations in a HashMap
-     */
-    public void setReservations(HashMap<LocalDate, Reservation[]> reservations) {
-        this.reservationsMap = reservations;
-    }
-
-    /**
-     * Determines if a table is available for reservation at a particular date and time.
-     *
-     * @param date date to be checked
-     * @param time time to be checked
+     * Determines if the table is available for reservation at the specified date and time.
+     * @param date Reservation date.
+     * @param time Reservation time.
      * @return true if the table is available, false otherwise
      */
-    public boolean isAvailableAt(LocalDate date, LocalTime time) {
-        if (!reservationsMap.containsKey(date))
+    public boolean checkAvailabilityAt(LocalDate date, LocalTime time) {
+        if (!availabilityRecord.containsKey(date))
             return true;
         else
-            return reservationsMap.get(date)[time.getHour()] == null;
+            return availabilityRecord.get(date)[time.getHour()];
     }
 
     /**
-     * Inserts a reservation into this table's records.
-     *
-     * @param r Reservation that will be added
+     * Records that the table is now available for reservations at the specified date and time.
+     * @param date Reservation date.
+     * @param time Reservation time.
      */
-    public void insertReservation(Reservation r) {
-        r.setTableNo(this.tableID);
-        if (reservationsMap.containsKey(r.getDate())) {
-            reservationsMap.get(r.getDate())[r.getHour()] = r;
-        } else {
-            Reservation[] reservationsArray = new Reservation[24];
+    public void markAsAvailableAt(LocalDate date, LocalTime time) {
+        if (!availabilityRecord.containsKey(date))
+            return;
+        availabilityRecord.get(date)[time.getHour()] = true;
+        mapCleanup();
+    }
+
+    /**
+     * Records that the table is now unavailable for reservations at the specified date and time.
+     * @param date Reservation date.
+     * @param time Reservation time.
+     */
+    public void markAsUnavailableAt(LocalDate date, LocalTime time) {
+        if (!availabilityRecord.containsKey(date)) {
+            Boolean[] a = new Boolean[24];
+            Arrays.fill(a, true);
+            availabilityRecord.put(date, a);
+        }
+        availabilityRecord.get(date)[time.getHour()] = false;
+    }
+
+    private void mapCleanup() {
+        for (LocalDate date : availabilityRecord.keySet()) {
+            if (date.isBefore(LocalDate.now()))
+                availabilityRecord.remove(date);
+            boolean noRecords = true;
             for (int i = 0; i < 24; i++) {
-                reservationsArray[i] = null;
+                if (!availabilityRecord.get(date)[i])
+                    noRecords = false;
             }
-            reservationsArray[r.getHour()] = r;
-            reservationsMap.put(r.getDate(), reservationsArray);
+            if (noRecords)
+                availabilityRecord.remove(date);
         }
-        System.out.println("Reservation successfully added");
     }
 
-    /**
-     * Removes a reservation from this table's records.
-     *
-     * @param date date of the reservation
-     * @param time time of the reservation
-     * @see #removeKeyValuePair(LocalDate)
-     */
-    public void removeReservation(LocalDate date, LocalTime time) {
-        int bookingHour = time.getHour();
-
-        reservationsMap.get(date)[bookingHour] = null;
-        System.out.println("Reservation successfully cancelled");
-        removeKeyValuePair(date);
-    }
-
-    /**
-     * Attempts to find a reservation at the table that matches the details provided exactly
-     *
-     * @param datetime  date and time of the reservation
-     * @param name      name of the customer that made the reservation
-     * @param contactNo contact number of the customer
-     * @param noOfPax   number of persons
-     * @return reservation object if found, null otherwise
-     */
-    public Reservation comparesReservation(LocalDateTime datetime, String name, String contactNo, int noOfPax) {
-        LocalDate bookingDate = datetime.toLocalDate();
-        LocalTime bookingTime = datetime.toLocalTime();
-        int bookingHour = bookingTime.getHour();
-
-        if (reservationsMap.containsKey(bookingDate)) {
-            Reservation r = reservationsMap.get(bookingDate)[bookingHour];
-            if (r != null && r.getCustomer().getName().equals(name) && r.getCustomer().getContactNo().equals(contactNo) && r.getNoOfPax() == noOfPax) {
-                return r;
-            }
-        }
-        return null;
-    }
-
-    /**
-     * Cleans the HashMap by removing unnecessary entries.
-     * Keys of type LocalDate which do not contain any reservations are removed.
-     *
-     * @param date date
-     */
-    private void removeKeyValuePair(LocalDate date) {
-        boolean isNotEmpty = false;
-        Reservation[] reservationOnDate = reservationsMap.get(date);
-
-        for (int i = 0; i < 24; i++) {
-            if (reservationOnDate[i] != null) {
-                isNotEmpty = true;
-                break;
-            }
-        }
-
-        if (!isNotEmpty) {
-            reservationsMap.remove(date);
-        }
+    @Override
+    public String toString() {
+        return "Table{" +
+                "capacity=" + capacity +
+                ", availabilityRecord=" + availabilityRecord +
+                '}';
     }
 }

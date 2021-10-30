@@ -29,6 +29,15 @@ public class Person {
     }
 
     /**
+     * Copy constructor.
+     * @param p Person to be cloned.
+     */
+    public Person(Person p) {
+        this.name = String.valueOf(p.name);
+        this.gender = p.gender;
+    }
+
+    /**
      * Gets the name of the person
      *
      * @return name of the person
@@ -64,12 +73,12 @@ public class Person {
         this.gender = gender;
     }
 
-    @Override
     /**
      * Checks and compares Person objects
      * @param obj
      * @return true if the Person object is the same, else false
      */
+    @Override
     public boolean equals(Object obj) {
         if (!(obj instanceof Person)) {
             return false;
@@ -79,16 +88,23 @@ public class Person {
         if (this.gender != ((Person) obj).gender)
             return false;
         return true;
-        //return super.equals(obj);
     }
 
-    @Override
     /**
      * Generates a hash for an instance of the Person class.
      * All Person with the exact same attributes will generate the same hashCode.
      * @return hashCode for the person instance.
      */
+    @Override
     public int hashCode() {
         return Objects.hash(name, gender);
+    }
+
+    @Override
+    public String toString() {
+        return "Person{" +
+                "name='" + name + '\'' +
+                ", gender=" + gender +
+                '}';
     }
 }

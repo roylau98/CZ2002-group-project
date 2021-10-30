@@ -1,125 +1,146 @@
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.LocalTime;
-import java.util.ArrayList;
+import java.util.Scanner;
 
-/**
- * Application class for reservation
- * Handles reservation addition, removal, updating and finding.
- *
- * @author
- * @since 2021-10-19
- */
 public class ReservationApp {
-    /**
-     * A list of all tables in the restaurant.
-     */
-    private static ArrayList<Table> listOfTables = new ArrayList<>();
+    private static final Scanner scanner = new Scanner(System.in);
 
-    /**
-     * Adds a reservation to the table's records
-     *
-     * @param r The reservation object
-     */
-    public static void addReservation(Reservation r) {
-        if (r.getDate().isBefore(LocalDate.now()) || (r.getDate().isEqual(LocalDate.now()) && r.getTime().isBefore(LocalTime.now()))) {
-            System.out.println("Reservation time selected is before current time");
-            return;
-        }
-        for (Table t : listOfTables) {
-            if (r.getNoOfPax() > t.getCapacity()) {
-                continue;
-            }
-            if (t.isAvailableAt(r.getDate(), r.getTime())) {
-                t.insertReservation(r);
-                return;
-            }
-        }
-        System.out.println("No available table found");
-    }
-
-    /**
-     * Finds the reservation based on the customer's name, contactNo, date and time of reservation,
-     * and the number of pax.
-     *
-     * @param dt        preferred date and time for the reservation
-     * @param name      customer's name
-     * @param contactNo customer's contact number
-     * @param noOfPax   number of persons
-     * @return reservation object
-     */
-    public static Reservation findReservation(LocalDateTime dt, String name, String contactNo, int noOfPax) {
-        for (Table t : listOfTables) {
-            Reservation r = t.comparesReservation(dt, name, contactNo, noOfPax);
-            if (r != null)
-                return r;
-        }
-        return null;
-    }
-
-    /**
-     * Cancels the reservation
-     *
-     * @param r The reservation object
-     */
-    private static void cancelReservation(Reservation r) {
-        if (r == null) {
-            System.out.println("Reservation cannot be found");
-            return;
-        }
-        Table restaurantTable = listOfTables.get(r.getTableNo());
-        restaurantTable.removeReservation(r.getDate(), r.getTime());
-    }
-
-    /**
-     * Update the reservation
-     *
-     * @param oldReservation To remove the old reservation object
-     * @param newReservation To add the new reservation object
-     */
-    public static void updateReservation(Reservation oldReservation, Reservation newReservation) {
-        if (oldReservation == null) {
-            System.out.println("Previous reservation not found, New reservation not added");
-            return;
-        }
-        System.out.println("Reservation updated by performing the actions below");
-        cancelReservation(oldReservation);
-        addReservation(newReservation);
-    }
-
-    // for testing of RestaurantApp's functionality
     public static void main(String[] args) {
-        Customer c1 = new Customer("James", Sex.MALE, "123", false);
-        Customer c2 = new Customer("John", Sex.MALE, "456", false);
-        Customer c3 = new Customer("Mark", Sex.MALE, "789", false);
-        Table t1 = new Table(0, 2);
-        Table t2 = new Table(1, 2);
-        Table t3 = new Table(2, 4);
-        Table t4 = new Table(3, 4);
-        ReservationApp.listOfTables.add(t1);
-        ReservationApp.listOfTables.add(t2);
-        ReservationApp.listOfTables.add(t3);
-        ReservationApp.listOfTables.add(t4);
+        ReservationMgr.addTables();
+        System.out.println("Welcome to the ReservationApp.");
+        boolean cont = true;
+        while (true) {
+            System.out.println("Please select one of the options below:\n" +
+                    "1. Make a new reservation\n" +
+                    "2. Cancel an existing reservation\n" +
+                    "3. Amend an existing reservation\n" +
+                    "4. View the list of reservations\n" +
+                    "5. View the list of tables\n" +
+                    "6. Exit this application and return to the main menu");
+            int choice = scanner.nextInt();
+            scanner.nextLine();
+            switch (choice) {
+                case 1:
+                    makeReservation();
+                    break;
+                case 2:
+                    cancelReservation();
+                    break;
+                case 3:
+                    updateReservation();
+                    break;
+                case 4:
+                    ReservationMgr.viewAllReservations();
+                    break;
+                case 5:
+                    ReservationMgr.viewAllTables();
+                    break;
+                case 6:
+                    cont = false;
+                    break;
+            }
+        }
+    }
 
-        Reservation r1 = new Reservation(LocalDate.of(2021, 10, 30), LocalTime.of(14, 0), 2, c1);
-        Reservation r2 = new Reservation(LocalDate.of(2021, 10, 30), LocalTime.of(14, 0), 2, c2);
-        Reservation r3 = new Reservation(LocalDate.of(2021, 10, 30), LocalTime.of(14, 0), 2, c3);
-//		Reservation r3 = new Reservation(LocalDateTime.of(2021, 10, 19, 13, 0), 2, c1);
-//		Reservation r4 = new Reservation(LocalDateTime.of(2021, 10, 19, 13, 0), 2, c2);
+    private static void makeReservation() {
+        System.out.println("Please enter the following details below:");
+        LocalDate date = askUserForDate();
+        LocalTime time = askUserForTime();
+        int noOfPax = askUserForPax();
+        Customer customer = askUserForCustomerDetails();
+        ReservationMgr.makeReservation(new Reservation(date, time, noOfPax, customer));
+    }
 
-        ReservationApp.addReservation(r1);
-        ReservationApp.addReservation(r2);
-//		ReservationApp.addReservation(r3);
-//		ReservationApp.addReservation(r4);
+    private static void cancelReservation() {
+        ReservationMgr.viewAllReservations();
+        System.out.println("Which reservation would you like to cancel?");
+        int temp = scanner.nextInt();
+        scanner.nextLine();
+        ReservationMgr.cancelReservation(temp);
+    }
 
-        Reservation s1 = ReservationApp.findReservation(LocalDateTime.of(2021, 10, 30, 14, 0), "James", "123", 2);
-        Reservation s2 = ReservationApp.findReservation(LocalDateTime.of(2021, 10, 30, 14, 0), "Mark", "123", 2);
-        ReservationApp.updateReservation(r2, r3);
-        ReservationApp.cancelReservation(r3);
+    private static void updateReservation() {
+        ReservationMgr.viewAllReservations();
+        System.out.println("Which reservation would you like to amend?");
+        int reservationNoToUpdate = scanner.nextInt();
+        scanner.nextLine();
 
-//		ReservationApp.cancelReservation(r2);
-//		ReservationApp.cancelReservation(r3);
-//		ReservationApp.cancelReservation(r4);
-//		System.out.println(listOfTables.get(0).getReservations().toString());
+        System.out.println("What would you like to amend?\n" +
+                "1. Date of reservation\n" +
+                "2. Time of reservation\n" +
+                "3. Number of persons\n" +
+                "4. Customer details");
+        int choice = scanner.nextInt();
+        scanner.nextLine();
+
+        switch (choice) {
+            case 1:
+                LocalDate date = askUserForDate();
+                ReservationMgr.updateReservation(reservationNoToUpdate, date);
+                break;
+            case 2:
+                LocalTime time = askUserForTime();
+                ReservationMgr.updateReservation(reservationNoToUpdate, time);
+                break;
+            case 3:
+                int noOfPax = askUserForPax();
+                ReservationMgr.updateReservation(reservationNoToUpdate, noOfPax);
+                break;
+            case 4:
+                Customer updatedCustomer = askUserForCustomerDetails();
+                ReservationMgr.updateReservation(reservationNoToUpdate, updatedCustomer);
+                break;
+        }
+    }
+
+    private static LocalDate askUserForDate() {
+        System.out.print("Year: ");
+        int year = scanner.nextInt();
+        scanner.nextLine();
+
+        System.out.print("Month: ");
+        int month = scanner.nextInt();
+        scanner.nextLine();
+
+        System.out.print("Date: ");
+        int date = scanner.nextInt();
+        scanner.nextLine();
+
+        return LocalDate.of(year, month, date);
+    }
+
+    private static LocalTime askUserForTime() {
+        System.out.print("Hour: ");
+        int hour = scanner.nextInt();
+        scanner.nextLine();
+
+        return LocalTime.of(hour, 0);
+    }
+
+    private static int askUserForPax() {
+        System.out.print("Number of persons: ");
+        int noOfPax = scanner.nextInt();
+        scanner.nextLine();
+
+        return noOfPax;
+    }
+
+    private static Customer askUserForCustomerDetails() {
+        System.out.print("Name: ");
+        String name = scanner.nextLine();
+
+        System.out.print("Gender (Male/Female): ");
+        char entry = scanner.nextLine().charAt(0);
+        boolean isMale = entry == 'M' || entry == 'm';
+        Sex gender = isMale ? Sex.MALE : Sex.FEMALE;
+
+        System.out.print("Contact number: ");
+        String contactNumber = scanner.nextLine();
+
+        System.out.print("Member (Yes/No): ");
+        entry = scanner.nextLine().charAt(0);
+        boolean isMember = entry == 'Y' || entry == 'y';
+
+        return new Customer(name, gender, contactNumber, isMember);
     }
 }
