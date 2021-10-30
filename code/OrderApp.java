@@ -56,6 +56,7 @@ public class OrderApp implements Serializable {
 			System.out.println("(3)Remove Order");
 			System.out.println("(4)Update Order");
 			System.out.println("(5)Charge Bill");
+			System.out.println("(6)Exit");
 			System.out.println();
 			System.out.println("Enter Option");
 			choice = sc.nextInt();
@@ -90,7 +91,7 @@ public class OrderApp implements Serializable {
 					System.out.println("Invalid Option. Try again!");
 			}
 
-		} while(choice != -1);
+		} while(choice != 6);
 
 	}
 	
@@ -113,6 +114,8 @@ public class OrderApp implements Serializable {
 		while (true) {
 			System.out.println("Enter menu item choice. Or -1 to Quit");
 			choice = sc.nextInt(); // have not accounted for arrayOutOfBounds Error
+			if(choice==-1)
+				return;
 			try 
 			{
 				MenuItem selectedMenuItem = menuApp.getMenuItem(choice-1);
@@ -166,6 +169,8 @@ public class OrderApp implements Serializable {
 					while (choice != -1) {
 						System.out.println("Enter menuItem choice. Or -1 to Quit");
 						choice = sc.nextInt(); // have not accounted for arrayOutOfBounds Error
+						if(choice==-1)
+							return;
 						try 
 						{
 							MenuItem selectedMenuItem = menuApp.getMenuItem(choice-1);
@@ -186,6 +191,8 @@ public class OrderApp implements Serializable {
 					while (choice != -1) {
 						System.out.println("Enter choice. Or -1 to Quit");
 						choice = sc.nextInt(); // have not accounted for arrayOutOfBounds Error
+						if(choice==-1)
+							return;
 						try 
 						{
 							selectedOrder.removeItemFromOrder(choice);
