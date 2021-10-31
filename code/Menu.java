@@ -23,7 +23,7 @@ public class Menu implements Serializable {
 
 
 	
-    /** 
+    /**
      * Constructs an {@code Menu} object and
      * initialize the attributes {@code MenuItem} .
      */
@@ -40,30 +40,58 @@ public class Menu implements Serializable {
 		
 		
 		while (choice != 6 ){
-		System.out.println("========Menu Option=========");
-		System.out.println("What do you want to do?");
-		System.out.println("(1) Print Menu");
-		System.out.println("(2) Choose Menu Item");
-		System.out.println("(3) Add Menu Item");
-		System.out.println("(4) Remove Menu Item");
-		System.out.println("(5) Update Menu Item");
-		System.out.println("(6) Exit");
-		System.out.println("----------------------");
-		System.out.print("Enter Your Choice: ");
-		choice = sc.nextInt();
-		System.out.println("----------------------");
-		System.out.println();
+			
+		try {
+			System.out.println("========Menu Option=========");
+			System.out.println("What do you want to do?");
+			System.out.println("(1) Print Menu");
+			System.out.println("(2) Choose Menu Item");
+			System.out.println("(3) Add Menu Item");
+			System.out.println("(4) Remove Menu Item");
+			System.out.println("(5) Update Menu Item");
+			System.out.println("(6) Exit");
+			System.out.println("----------------------");
+			System.out.print("Enter Your Choice: ");
+			choice = sc.nextInt();
+			System.out.println("----------------------");
+			System.out.println();
+		}
+		catch(InputMismatchException e)
+		{
+		    sc.nextLine();
+		}
 		switch (choice) {
 			case 1:
 				printListOfMenuItems();
 				break;
 			case 2:
-				System.out.println("Choosing Menu Item......");
-				System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>");
-				System.out.println();
-				System.out.println("Type index of Item");
-				int indexNo = sc.nextInt();
-				getMenuItem(indexNo-1);
+				while(true)
+				{
+					try 
+					{
+						
+						System.out.println("Choosing Menu Item......");
+						System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>");
+						printListOfMenuItems();
+						System.out.println();
+						System.out.println("Type index of Item");
+						int indexNo = sc.nextInt();
+						getMenuItem(indexNo-1);
+						break;
+					}
+					catch(InputMismatchException e)
+		            		{
+						System.out.println("Invalid option");
+		                		sc.nextLine();
+		            		}
+					catch(IndexOutOfBoundsException e)  
+	                		{  
+						System.out.println("Invalid option");  
+						sc.nextLine();
+						
+	                		} 
+				}
+				break;
 			case 3:
 				addMenuItem();
 				break;
@@ -193,10 +221,12 @@ public class Menu implements Serializable {
 		String name;
 		String description;
 		double price;
+		int c = 0;
 
 		AlaCarteItemType type = null;
 		
 		do {
+			try {
 			System.out.println("Adding Menu Item......");
 			System.out.println(">>>>>>>>>>>>>>>>>>>>>>");
 			System.out.println();
@@ -209,35 +239,57 @@ public class Menu implements Serializable {
 			choice=sc.nextInt();
 			System.out.println("----------------------------------------");
 			System.out.println();
+			}
+			catch(InputMismatchException e)
+			{
+
+				sc.nextLine();
+			 }
+				
 				switch(choice) {
 				
 					case 1:
-						System.out.println("Please select the type of Ala Carte:");
-						System.out.println("1) Main Course");
-						System.out.println("2) Appertizer");
-						System.out.println("3) Drinks");
-						System.out.println("4) Desserts");
-						System.out.println("------------------------------------");
-						System.out.print("Enter Your Option: ");
-						int c =sc.nextInt();
-						System.out.println("------------------------------------");
-						System.out.println();
-						switch(c) {
-							case 1:
-								type= AlaCarteItemType.MAIN_COURSE;
+						while(true) {
+							try {
+								System.out.println("Please select the type of Ala Carte:");
+								System.out.println("1) Main Course");
+								System.out.println("2) Appertizer");
+								System.out.println("3) Drinks");
+								System.out.println("4) Desserts");
+								System.out.println("------------------------------------");
+								System.out.print("Enter Your Option: ");
+								c =sc.nextInt();
+								System.out.println("------------------------------------");
+								System.out.println();
+								
+								switch(c) 
+								{
+									case 1:
+										type= AlaCarteItemType.MAIN_COURSE;
+										break;
+									case 2:
+										type= AlaCarteItemType.APPERTIZER;
+										break;
+									case 3:
+										type= AlaCarteItemType.DRINKS;
+										break;
+									case 4:
+										type= AlaCarteItemType.DESSERT;
+										break;
+									default:
+										
+								}
 								break;
-							case 2:
-								type= AlaCarteItemType.APPERTIZER;
-								break;
-							case 3:
-								type= AlaCarteItemType.DRINKS;
-								break;
-							case 4:
-								type= AlaCarteItemType.DESSERT;
-								break;
+							}
+							catch(InputMismatchException e)
+							{
+								System.out.println("Wrong Option!!!!!");
+								sc.nextLine();
+							}
+								
 						}
-						sc.nextLine(); //buffer
-						
+						 //buffer
+						sc.nextLine();
 						System.out.println("<<<New Item Details>>>");
 						System.out.println("----------------------");
 						System.out.println();
@@ -304,17 +356,31 @@ public class Menu implements Serializable {
 		int choice=0;
 		String name;
 		int indexNo;
-
-		printListOfMenuItems();
-		System.out.println("Please type index of menu item to remove:");
-		indexNo = sc.nextInt();
-		if (indexNo > listOfMenuItems.size()) {
-			System.out.println("No such item");
-		}
-		else {
-			listOfMenuItems.remove(indexNo-1);
-			sortListOfMenuItems();
-			System.out.println("item removed");
+		while(true) {
+			try {
+				printListOfMenuItems();
+				System.out.println("Please type index of menu item to remove:");
+				indexNo = sc.nextInt();
+				if (indexNo > listOfMenuItems.size()) {
+					System.out.println("No such item");
+				}
+				else {
+					listOfMenuItems.remove(indexNo-1);
+					sortListOfMenuItems();
+					System.out.println("item removed");
+				}
+				break;
+			}
+			catch(InputMismatchException e)
+			{
+					System.out.println("Wrong Option!!!!!");
+			    		sc.nextLine();
+			}
+			catch(IndexOutOfBoundsException e)  
+			{  
+					System.out.println("Wrong Option!!!!!"); 
+		        } 
+			
 		}
 
 	}
@@ -328,15 +394,27 @@ public class Menu implements Serializable {
 	public void updateMenuItem() {
 		sc = new Scanner(System.in);
 		int indexNo;
-		System.out.println("Please type index of item to be updated:");
-		indexNo = sc.nextInt();
-
-		if (indexNo > listOfMenuItems.size()) {
-			System.out.println("No such item in Menu");
+		
+		while(true) {
+		try {
+			System.out.println("Please type index of item to be updated:");
+			indexNo = sc.nextInt();
+	
+			if (indexNo > listOfMenuItems.size()) {
+				System.out.println("No such item in Menu");
+			}
+			else {
+				listOfMenuItems.get(indexNo-1).updateContents();
+				sortListOfMenuItems();
+				}
+			break;
 		}
-		else {
-			listOfMenuItems.get(indexNo-1).updateContents();
-			sortListOfMenuItems();
+		catch(InputMismatchException e)
+		{
+			System.out.println("Wrong Option!!!!!");
+		    	sc.nextLine();
+		}
+		
 		}
 
 	}
@@ -369,4 +447,3 @@ public class Menu implements Serializable {
 		return -1;
 	}
 }
-
