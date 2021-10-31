@@ -8,6 +8,18 @@ import java.util.Scanner;
 public class ReservationApp implements Serializable {
     private transient Scanner scanner;
     private final ReservationMgr reservationMgr = new ReservationMgr();
+    private static final int MAX_TABLE_CAPACITY = 25;
+    private static LocalDate localDate = LocalDate.now();
+    private static LocalTime localTime = LocalTime.now();
+	private static int currentYear = localDate.getYear();
+	private static int currentMonth = localDate.getMonthValue();
+    private static Month currentMonthEnum = localDate.getMonth();
+    private static int currentDate = localDate.getDayOfMonth();
+	private static int currentHour = localTime.getHour();
+    private static int year = 0;
+	private static int month = 0;
+	private static int date = 0;
+	private static int hour = 0;
 
     public void startReservationApp() {
         scanner = new Scanner(System.in);
@@ -125,150 +137,166 @@ public class ReservationApp implements Serializable {
     }
 
     private LocalDate askUserForDate() {
-        boolean error = true;
         boolean cont = true;
-        LocalDate localDate = LocalDate.now();
-        int year = 0;
-        int month = 0;
-        int date = 0;
-        while (cont) {
-            int currentYear = localDate.getYear();
-            do {
-                try {
-                    System.out.print("Year: ");
-                    year = scanner.nextInt();
-                    scanner.nextLine();
-                    error = false;
-                }
-                catch (InputMismatchException e){
-                    System.out.println("Invalid input. (Valid values: " + currentYear + " onwards)");
-                    scanner.nextLine();
-                    error = true;
-                }
-            } while (error);
-            if (year < currentYear) {
-                System.out.println("Invalid value. (Valid values: " + currentYear + " onwards)");
-                cont = true;
-            }
-            else {
-                cont = false;
-            }
-        }
-        cont = true;
-        while (cont) {
-            int currentMonth = localDate.getMonthValue();
-            Month currentMonthEnum = localDate.getMonth();
-            do {
-                try {
-                    System.out.println("Month (Jan:1, Feb:2, Mar:3, Apr:4, May:5, Jun:6, Jul:7, Aug:8, Sep:9, Oct:10, Nov:11, Dec:12): " );
-                    month = scanner.nextInt();
-                    scanner.nextLine();
-                    error = false;
-                }
-                catch (InputMismatchException e){
-                    System.out.println("Invalid input. (Valid values: " + currentMonthEnum + " onwards)");
-                    scanner.nextLine();
-                    error = true;
-                }
-            } while (error);
-            if (month < currentMonth) {
-                System.out.println("Invalid value. (Valid values: " + currentMonthEnum + " onwards)");
-                cont = true;
-            }
-            else {
-                cont = false;
-            }
-        }
-        cont = true;
-        while (cont) {
-            int currentDate = localDate.getDayOfMonth(); // day 1 == 1;
-            int maxDay = localDate.lengthOfMonth();
-            do {
-                try {
-                    System.out.print("Date: ");
-                    date = scanner.nextInt();
-                    scanner.nextLine();
-                    error = false;
-                }
-                catch (InputMismatchException e){
-                    System.out.println("Invalid input. (Valid values: From " + currentDate + " onwards to " + maxDay + ")");
-                    scanner.nextLine();
-                    error = true;
-                }
-            } while (error);
-            if (date < currentDate || date > maxDay) {
-                System.out.println("Invalid value. (Valid values: From " + currentDate + " onwards to " + maxDay + ")");
-                cont = true;
-            }
-            else {
-                cont = false;
-            }
-        }
+        boolean error = true;
+    	while (cont) {
+	    	do {
+		    	try {
+			        System.out.print("Year: ");
+			        year = scanner.nextInt();
+			        scanner.nextLine();
+			        error = false;
+		    	}
+		    	catch (InputMismatchException e){
+		    		System.out.println("Invalid input. (Valid values: " + currentYear + " onwards)");
+		    		scanner.nextLine();
+		    		error = true;
+		    	}
+	    	} while (error);
+	    	if (year < currentYear) {
+	        	System.out.println("Invalid value. (Valid values: " + currentYear + " onwards)");
+	        	cont = true;
+	        }
+	    	else {
+	    		cont = false;
+	    	}
+    	}
+    	cont = true;
+    	while (cont) {
+	    	do {
+		    	try {
+			        System.out.println("Month (Jan:1, Feb:2, Mar:3, Apr:4, May:5, Jun:6, Jul:7, Aug:8, Sep:9, Oct:10, Nov:11, Dec:12): " );
+			        month = scanner.nextInt();
+			        scanner.nextLine();
+			        error = false;
+		    	}
+		    	catch (InputMismatchException e){
+		    		System.out.println("Invalid input. (Valid values: " + currentMonthEnum + " onwards)");
+		    		scanner.nextLine();
+		    		error = true;
+		    	}
+	    	} while (error);
+	    	if (month < currentMonth && year == currentYear) {
+	        	System.out.println("Invalid value. (Valid values: " + currentMonthEnum + " onwards)");
+	        	cont = true;
+	        }
+	    	else {
+	    		cont = false;
+	    	}
+    	}
+    	cont = true;
+    	LocalDate lastDayOfMonth = LocalDate.of(year, month, 1);
+    	int maxDay = lastDayOfMonth.getMonth().length(lastDayOfMonth.isLeapYear());
+    	while (cont) {
+	    	do {
+	    		
+		    	try {
+			        System.out.print("Date: ");
+			        date = scanner.nextInt();
+			        scanner.nextLine();
+			        error = false;
+		    	}
+		    	catch (InputMismatchException e){
+		    		System.out.println("Invalid input. (Valid values: From 1 onwards to " + maxDay + ")");
+		    		scanner.nextLine();
+		    		error = true;
+		    	}
+	    	} while (error);
+	    	
+			if (year == currentYear && month == currentMonth){
+				if (date < currentDate || date > maxDay) {
+					System.out.println("Invalid value. (Valid values: From " + currentDate + " onwards to " + maxDay + ")");
+					cont = true;
+				}
+				else {
+					cont = false;
+				}
+			}
+			else {
+				if (date < 1 || date > maxDay) {
+					System.out.println("Invalid value. (Valid values: From 1 - " + maxDay + ")");
+					cont = true;
+				}
+				else {
+					cont = false;
+				}
+			}
+    	}
         return LocalDate.of(year, month, date);
     }
 
     private LocalTime askUserForTime() {
-        boolean error = true;
         boolean cont = true;
-        LocalTime localTime = LocalTime.now();
-        int hour = 0;
-        while (cont) {
-            int currentHour = localTime.getHour();
-            do {
-                try {
-                    System.out.print("Hour: ");
-                    hour = scanner.nextInt();
-                    scanner.nextLine();
-                    error = false;
-                }
-                catch (InputMismatchException e){
-                    System.out.println("Invalid input. (Valid values: " + currentHour + " onwards)");
-                    scanner.nextLine();
-                    error = true;
-                }
-            } while (error);
-            if (hour < currentHour || hour > 23) {
-                System.out.println("Invalid value. (Valid values: " + currentHour + " - 23)");
-                cont = true;
-            }
-            else {
-                cont = false;
-            }
-        }
+        boolean error = true;
+    	cont = true;
+    	while (cont) {
+	    	do {
+		    	try {
+			        System.out.print("Hour: ");
+			        hour = scanner.nextInt();
+			        scanner.nextLine();
+			        error = false;
+		    	}
+		    	catch (InputMismatchException e){
+		    		System.out.println("Invalid input. (Enter an integer)");
+		    		scanner.nextLine();
+		    		error = true;
+		    	}
+	    	} while (error);
+	    	if (hour <= currentHour || hour > 23) {
+				if (year == currentYear && month == currentMonth && date == currentDate) {
+			       	System.out.println("Invalid value. (Valid values: " + (currentHour + 1) + " - 23)");
+			        cont = true;
+			        }
+			    else {
+			   		cont = false;
+			   	}
+		    }
+	    	else {
+	    		if (hour < 0 || hour > 23) {
+	    			System.out.println("Invalid value. (Valid values: 0 - 23)");
+			        cont = true;
+	    		}
+	    		else {
+	    			cont = false;
+	    		}
+	    	}
+    	}
         return LocalTime.of(hour, 0);
     }
 
     private int askUserForPax() {
-        boolean error = true;
         boolean cont = true;
-        int MAX_TABLE_SIZE = 50;
-        int noOfPax = 0;
-        while (cont) {
-            do {
-                try {
-                    System.out.print("Number of persons: ");
-                    noOfPax = scanner.nextInt();
-                    scanner.nextLine();
-                    error = false;
-                }
-                catch (InputMismatchException e){
-                    System.out.println("Invalid input. (Valid values: Enter a number from 1 to " + MAX_TABLE_SIZE +")");
-                    scanner.nextLine();
-                    error = true;
-                }
-            } while (error);
-            if (noOfPax < 1 || noOfPax > MAX_TABLE_SIZE) {
-                System.out.println("Invalid value. (Valid values: 1 - " + MAX_TABLE_SIZE + " )");
-                cont = true;
-            }
-            else {
-                cont = false;
-            }
-        }
+        boolean error = true;
+    	int noOfPax = 0;
+    	while (cont) {
+	    	do {
+		    	try {
+			        System.out.print("Number of persons: ");
+			        noOfPax = scanner.nextInt();
+			        scanner.nextLine();
+			        error = false;
+		    	}
+		    	catch (InputMismatchException e){
+		    		System.out.println("Invalid input. (Valid values: Enter a number from 1 to " + MAX_TABLE_CAPACITY +")");
+		    		scanner.nextLine();
+		    		error = true;
+		    	}
+	    	} while (error);
+	    	if (noOfPax < 1 || noOfPax > MAX_TABLE_CAPACITY) {
+	        	System.out.println("Invalid value. (Valid values: 1 - " + MAX_TABLE_CAPACITY + ")");
+	        	cont = true;
+	        }
+	    	else {
+	    		cont = false;
+	    	}
+    	}
         return noOfPax;
     }
 
     private Customer askUserForCustomerDetails() {
+        boolean cont = true;
+        boolean error = true;
         System.out.print("Name: ");
         String name = scanner.nextLine();
         char entry;
@@ -277,45 +305,45 @@ public class ReservationApp implements Serializable {
         boolean isMember = false;
         boolean cont = true;
         boolean error = true;
-
+        
         while (cont) {
-            System.out.print("Gender (Male/Female): ");
+        	System.out.print("Gender (M/F): ");
             entry = scanner.nextLine().charAt(0);
             if (entry == 'M' || entry == 'm' || entry == 'F' || entry == 'f') {
-                boolean isMale = entry == 'M' || entry == 'm';
-                gender = isMale ? Sex.MALE : Sex.FEMALE;
-                cont = false;
+            	boolean isMale = entry == 'M' || entry == 'm';
+            	gender = isMale ? Sex.MALE : Sex.FEMALE;
+            	cont = false;
             }
             else {
-                cont = true;
+            	cont = true;
             }
         }
-        do {
-            try {
-                System.out.print("Contact number: ");
-                contactNumber_int = scanner.nextInt();
-                scanner.nextLine();
-                error = false;
-            }
-            catch (InputMismatchException e){
-                System.out.println("Invalid input. (Valid values: Enter a number from 1 to 9)");
-                scanner.nextLine();
-                error = true;
-            }
-        } while (error);
-        String contactNumber = Integer.toString(contactNumber_int);
-
-        while (cont) {
-            System.out.print("Member (Yes/No): ");
-            entry = scanner.nextLine().charAt(0);
+	    do {
+		   	try {
+		   		System.out.print("Contact number: ");
+		           contactNumber_int = scanner.nextInt();
+		        scanner.nextLine();
+		        error = false;
+		   	}
+		   	catch (InputMismatchException e){
+		   		System.out.println("Invalid input. (Valid values: Enter a number from 1 to 9)");
+		   		scanner.nextLine();
+		   		error = true;
+		   	}
+	    } while (error);
+	    String contactNumber = Integer.toString(contactNumber_int);
+	    
+	    while (cont) {
+	    	System.out.print("Member (Y/N): ");
+	        entry = scanner.nextLine().charAt(0);
             if (entry == 'Y' || entry == 'y' || entry == 'N' || entry == 'n') {
-                isMember = entry == 'Y' || entry == 'y';
-                cont = false;
+            	isMember = entry == 'Y' || entry == 'y';
+            	cont = false;
             }
             else {
-                cont = true;
+            	cont = true;
             }
-        }
+        }  
 
         return new Customer(name, gender, contactNumber, isMember);
     }
