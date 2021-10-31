@@ -47,57 +47,64 @@ public class OrderApp implements Serializable {
 
 	public void orderAppOptions() {
 		sc = new Scanner(System.in);
-		int choice;
+		int choice = 0;
 		int input;
 
 		do {
-			System.out.println("========Order Option========");
-			System.out.println("(1)View Order");
-			System.out.println("(2)Create new Order");
-			System.out.println("(3)Remove Order");
-			System.out.println("(4)Update Item In Order");
-			System.out.println("(5)Charge Bill");
-			System.out.println("(6)Exit");
-			System.out.println("----------------------------");
-			System.out.print("Enter Your Option: ");
-			choice = sc.nextInt();
-			System.out.println("----------------------------");
-			System.out.println();
-			switch (choice) {
-				case 1:
-					System.out.println("View Order......");
-					System.out.print("Enter orderID: ");
-					input = sc.nextInt();
-					viewOrder(input);
-					break;
-				case 2:
-					System.out.println("Creating Order......");
-					createOrder();
-					break;
-				case 3:
-					System.out.println("Removing Order......");
-					System.out.print("Enter orderID: ");
-					input = sc.nextInt();
-					removeOrder(input);
-					break;
-				case 4:
-					System.out.println("Updating Order......");
-					System.out.print("Enter orderID: ");
-					input = sc.nextInt();
-					updateOrder(input);
-					break;
+			try {
+				System.out.println("========Order Option========");
+				System.out.println("(1)View Order");
+				System.out.println("(2)Create new Order");
+				System.out.println("(3)Remove Order");
+				System.out.println("(4)Update Item In Order");
+				System.out.println("(5)Charge Bill");
+				System.out.println("(6)Exit");
+				System.out.println("----------------------------");
+				System.out.print("Enter Your Option: ");
+				choice = sc.nextInt();
+				System.out.println("----------------------------");
+				System.out.println();
+				switch (choice) {
+					case 1:
+						System.out.println("View Order......");
+						System.out.print("Enter orderID: ");
+						input = sc.nextInt();
+						viewOrder(input);
+						break;
+					case 2:
+						System.out.println("Creating Order......");
+						createOrder();
+						break;
+					case 3:
+						System.out.println("Removing Order......");
+						System.out.print("Enter orderID: ");
+						input = sc.nextInt();
+						removeOrder(input);
+						break;
+					case 4:
+						System.out.println("Updating Order......");
+						System.out.print("Enter orderID: ");
+						input = sc.nextInt();
+						updateOrder(input);
+						break;
+						
+					case 5:
+						System.out.println("Charge Bill......");
+						System.out.print("Enter orderID: ");
+						input = sc.nextInt();
+						chargeBill(input);
+						break;
 					
-				case 5:
-					System.out.println("Charge Bill......");
-					System.out.print("Enter orderID: ");
-					input = sc.nextInt();
-					chargeBill(input);
-					break;
-				
-					
-				default:
-					System.out.println("Invalid Option. Try again!");
+						
+					default:
+						System.out.println("Invalid Option. Try again!");
+				}
 			}
+			catch(InputMismatchException e)
+	        	{
+				System.out.println("Invalid Option. Try again!");
+	           		sc.nextLine();
+	        	}
 
 		} while(choice != 6);
 
@@ -168,24 +175,43 @@ public class OrderApp implements Serializable {
 		}
 		else {
 			int choice;
-			System.out.println("Update Order Option");
-			System.out.println("===================");
-			System.out.println("1) Add menuItem");
-			System.out.println("2) Remove menuItem");
-			System.out.println("-1) Quit");
-			System.out.println("===================");
-			System.out.print("Enter Your Choice: ");
-			choice = sc.nextInt();
-			System.out.println("===================");
+			while(true)
+			{
+				try {
+				System.out.println("Update Order Option");
+				System.out.println("===================");
+				System.out.println("1) Add menuItem");
+				System.out.println("2) Remove menuItem");
+				System.out.println("-1) Quit");
+				System.out.println("===================");
+				System.out.print("Enter Your Choice: ");
+				choice = sc.nextInt();
+				System.out.println("===================");
+				break;
+				}
+				catch(InputMismatchException e)
+		        	{
+					System.out.println("Wrong Option!!!!!");
+		            		sc.nextLine();
+		        	}
+			}
 
 			while (choice != -1) {
 
 				if (choice ==1) {
 					menuApp.printListOfMenuItems();
 					while (choice != -1) {
-						System.out.println("Enter menuItem choice. Or -1 to Quit");
-						System.out.print("Enter Your Choice: ");
-						choice = sc.nextInt(); // have not accounted for arrayOutOfBounds Error
+						try 
+						{
+							System.out.println("Enter menuItem choice. Or -1 to Quit");
+							System.out.print("Enter Your Choice: ");
+							choice = sc.nextInt(); // have not accounted for arrayOutOfBounds Error
+						}
+						catch(InputMismatchException e)
+				        	{
+							System.out.println("Wrong Option!!!!!");
+				            		sc.nextLine();
+				        	}
 						if(choice==-1)
 							return;
 						try 
@@ -207,9 +233,17 @@ public class OrderApp implements Serializable {
 					}
 
 					while (choice != -1) {
-						System.out.println("Enter choice. Or -1 to Quit");
-						System.out.print("Enter Your Choice: ");
-						choice = sc.nextInt(); // have not accounted for arrayOutOfBounds Error
+						try 
+						{
+							System.out.println("Enter choice. Or -1 to Quit");
+							System.out.print("Enter Your Choice: ");
+							choice = sc.nextInt(); // have not accounted for arrayOutOfBounds Error
+						}
+						catch(InputMismatchException e)
+				        	{
+							System.out.println("Wrong Option!!!!!");
+				            		sc.nextLine();
+				        	}
 						if(choice==-1)
 							return;
 						try 
@@ -279,7 +313,7 @@ public class OrderApp implements Serializable {
 				}
 				System.out.println("---------------------------------------------");
 				System.out.println("Total Price: $ "+selectedOrder.getTotalPriceOfOrder());
-				;
+				
 				System.out.println("=============================================");
 				System.out.println();
 				break;
