@@ -37,42 +37,56 @@ public class Menu implements Serializable {
 	public void menuOptions() {
 		sc = new Scanner(System.in);
 		int choice = 0;
+		
+		
+		while (choice != 6 ){
+		System.out.println("========Menu Option=========");
+		System.out.println("What do you want to do?");
+		System.out.println("(1) Print Menu");
+		System.out.println("(2) Choose Menu Item");
+		System.out.println("(3) Add Menu Item");
+		System.out.println("(4) Remove Menu Item");
+		System.out.println("(5) Update Menu Item");
+		System.out.println("(6) Exit");
+		System.out.println("----------------------");
+		System.out.print("Enter Your Choice: ");
+		choice = sc.nextInt();
+		System.out.println("----------------------");
+		System.out.println();
+		switch (choice) {
+			case 1:
+				printListOfMenuItems();
+				break;
+			case 2:
+				System.out.println("Choosing Menu Item......");
+				System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>");
+				System.out.println();
+				System.out.println("Type index of Item");
+				int indexNo = sc.nextInt();
+				getMenuItem(indexNo-1);
+			case 3:
+				addMenuItem();
+				break;
+			case 4:
+				System.out.println("Removing Menu Item......");
+				System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>");
+				System.out.println();
+				removeMenuItem();
+				break;
+			case 5:
+				System.out.println("Updating Menu Item......");
+				System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>");
+				System.out.println();
+				updateMenuItem();
+				break;
 
-		while (choice != 6 ) {
-			System.out.println("What do you want to do?");
-			System.out.println("1) print Menu");
-			System.out.println("2) choose menu item");
-			System.out.println("3) add menu item");
-			System.out.println("4) remove menu item");
-			System.out.println("5) update menu item");
-			System.out.println("6) Exit");
-			System.out.println();
-			System.out.print("Enter Your Choice");
-			choice = sc.nextInt();
-			switch (choice) {
-				case 1:
-					printListOfMenuItems();
-					break;
-				case 2:
-					System.out.println("Type index of item");
-					int indexNo = sc.nextInt();
-					getMenuItem(indexNo-1);
-				case 3:
-					addMenuItem();
-					break;
-				case 4:
-					removeMenuItem();
-					break;
-				case 5:
-					updateMenuItem();
-					break;
-				case 6:
-					System.out.println("Exited!");
-					break;
+			case 6:
+				System.out.println("Exited!");
+				break;
 
-				default:
-					System.out.println("Invalid option");
-			}
+			default:
+				System.out.println("Invalid option");
+		        }
 		}
 	}
 
@@ -105,9 +119,11 @@ public class Menu implements Serializable {
 	 * Prints all the items in the Menu according to its order
 	 */
 	public void printListOfMenuItems() {
-		System.out.println("MENU ITEMS");
+		System.out.println("====== MENU ======");
+		System.out.println();
 		printMenuItemsByCat(new AlaCarteItem());
 		printMenuItemsByCat(new PromotionalSet());
+		System.out.println();
 	}
 	
 	/**
@@ -118,10 +134,12 @@ public class Menu implements Serializable {
 		System.out.println("---"+ alaCarteItemType +"---");
 		for (int i=0; i< listOfMenuItems.size(); i++) {
 			if (((AlaCarteItem)listOfMenuItems.get(i)).getItemType() == alaCarteItemType) {
-				System.out.println("Index: "+(i+1));
+				System.out.println("Index No.   : "+(i+1));
 				listOfMenuItems.get(i).print();
+				System.out.println();
 			}
 		}
+		
 	}
 	/**
 	 * Prints PromotionalSet in the Menu (Overload)
@@ -131,8 +149,9 @@ public class Menu implements Serializable {
 		System.out.println("---PromotionalSets---");
 		for (int i=0; i< listOfMenuItems.size(); i++) {
 			if (listOfMenuItems.get(i) instanceof PromotionalSet) {
-				System.out.println("Index: "+(i+1));
+				System.out.println("Index No.   : "+(i+1));
 				listOfMenuItems.get(i).print();
+				System.out.println();
 			}
 		}
 	}
@@ -178,22 +197,31 @@ public class Menu implements Serializable {
 		AlaCarteItemType type = null;
 		
 		do {
+			System.out.println("Adding Menu Item......");
+			System.out.println(">>>>>>>>>>>>>>>>>>>>>>");
+			System.out.println();
 			System.out.println("Please select the type of item to add:");
 			System.out.println("1) Ala Carte");
 			System.out.println("2) Promotion Package");
 			System.out.println("3) Exit");
-			
+			System.out.println("----------------------------------------");
+			System.out.print("Enter Your Option: ");
 			choice=sc.nextInt();
-			
+			System.out.println("----------------------------------------");
+			System.out.println();
 				switch(choice) {
 				
 					case 1:
-						System.out.println("Please select :");
+						System.out.println("Please select the type of Ala Carte:");
 						System.out.println("1) Main Course");
 						System.out.println("2) Appertizer");
 						System.out.println("3) Drinks");
 						System.out.println("4) Desserts");
+						System.out.println("------------------------------------");
+						System.out.print("Enter Your Option: ");
 						int c =sc.nextInt();
+						System.out.println("------------------------------------");
+						System.out.println();
 						switch(c) {
 							case 1:
 								type= AlaCarteItemType.MAIN_COURSE;
@@ -210,17 +238,21 @@ public class Menu implements Serializable {
 						}
 						sc.nextLine(); //buffer
 						
-						
+						System.out.println("<<<New Item Details>>>");
+						System.out.println("----------------------");
+						System.out.println();
 						System.out.println("Enter the new name :");
 						name=sc.nextLine();
 						
 						System.out.println("Enter the new price:");
+						System.out.print("$ ");
 						price = sc.nextDouble();
 						
 						while(price<=0)
 						{
 							System.out.println("Error: price must not lower or equal to 0!");
 							System.out.println("Enter the new price:");
+							System.out.print("$ ");
 							price = sc.nextDouble();
 						}
 						
@@ -228,7 +260,7 @@ public class Menu implements Serializable {
 						sc.nextLine();
 						System.out.println("Enter the new description:");
 						description = sc.nextLine();
-						
+						System.out.println("----------------------");
 						AlaCarteItem temp = new AlaCarteItem(name,description,price,type);
 
 						if (isMenuItemExist(temp) == true) {
@@ -237,7 +269,8 @@ public class Menu implements Serializable {
 						else {
 							listOfMenuItems.add(temp);
 							sortListOfMenuItems();
-							System.out.println("Added!");
+							System.out.println("New Menu Item Added!");
+							System.out.println();
 						}
 						break;
 						
