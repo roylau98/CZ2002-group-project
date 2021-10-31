@@ -95,10 +95,10 @@ public class Invoice implements Serializable {
 		}
 		calculateFinalPrice();
 		System.out.println("-------------------------------------------------");
-		System.out.println("Order's Total Price : "+getTotalPrice());
-		System.out.printf("Taxes               : %.2f\n",(getFinalPrice()-getTotalPrice()));
+		System.out.printf("Order's Total Price : $%.2f\n",getTotalPrice());
+		System.out.printf("Taxes               : $%.2f\n",(getFinalPrice()-getTotalPrice()));
 		System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
-		System.out.printf("Order's Final Price : %.2f\n",getFinalPrice());
+		System.out.printf("Order's Final Price : $%.2f\n",getFinalPrice());
 		System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
 		System.out.println();
 		System.out.println("          THANK YOU FOR DINING WITH US           ");
