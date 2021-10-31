@@ -1,8 +1,5 @@
-import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.Scanner;
+import java.util.*;
+import java.io.*;
 /**
  * Manages the {@link AlaCarteItem} and {@link PromotionalSet} of the {@link Menu}. 
  * <p> 
@@ -38,44 +35,45 @@ public class Menu implements Serializable {
      * A function used to do 
      */
 	public void menuOptions() {
-		System.out.println("What do you want to do?");
-		System.out.println("1) print Menu");
-		System.out.println("2) choose menu item");
-		System.out.println("3) add menu item");
-		System.out.println("4) remove menu item");
-		System.out.println("5) update menu item");
-		System.out.println("6) Exit");
-		int choice = 0;
 		sc = new Scanner(System.in);
+		int choice = 0;
 
-		while (choice < 1 || choice > 6 )
+		while (choice != 6 ) {
+			System.out.println("What do you want to do?");
+			System.out.println("1) print Menu");
+			System.out.println("2) choose menu item");
+			System.out.println("3) add menu item");
+			System.out.println("4) remove menu item");
+			System.out.println("5) update menu item");
+			System.out.println("6) Exit");
+			System.out.println();
+			System.out.print("Enter Your Choice");
 			choice = sc.nextInt();
-		switch (choice) {
-			case 1:
-				printListOfMenuItems();
-				break;
-			case 2:
-				System.out.println("Type index of item");
-				int indexNo = sc.nextInt();
-				getMenuItem(indexNo-1);
-			case 3:
-				addMenuItem();
-				break;
-			case 4:
-				removeMenuItem();
-				break;
-			case 5:
-				updateMenuItem();
-				break;
+			switch (choice) {
+				case 1:
+					printListOfMenuItems();
+					break;
+				case 2:
+					System.out.println("Type index of item");
+					int indexNo = sc.nextInt();
+					getMenuItem(indexNo-1);
+				case 3:
+					addMenuItem();
+					break;
+				case 4:
+					removeMenuItem();
+					break;
+				case 5:
+					updateMenuItem();
+					break;
+				case 6:
+					System.out.println("Exited!");
+					break;
 
-			case 6:
-				System.out.println("Exited!");
-				break;
-
-			default:
-				System.out.println("Invalid option");
+				default:
+					System.out.println("Invalid option");
+			}
 		}
-
 	}
 
 	//-------------------------------------------------------------------------------------------------------------

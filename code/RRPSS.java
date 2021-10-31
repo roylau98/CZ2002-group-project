@@ -1,56 +1,85 @@
-import java.io.Serializable;
-import java.util.Scanner;
+import javax.xml.crypto.Data;
+import java.util.*;
+import java.io.*;
 
 public class RRPSS implements Serializable {
 
 	private OrderApp orderApp;
 	private ReservationApp reservationApp;
-	private Menu menuApp;
 	private transient Scanner sc = new Scanner(System.in);
 
 	public RRPSS() {
 		orderApp = new OrderApp();
 		reservationApp = new ReservationApp();
-		menuApp = new Menu();
 	}
 
 	public void rrpsOptions() {
-		System.out.println("What do you want?");
-		sc = new Scanner(System.in);
-		int choice = sc.nextInt();
+		int choice=0;
+		
+		
+		while(choice!=4)
+		{
+			System.out.println("~~~~~Welcome to Krusty Krab~~~~~");
+			System.out.println();
+			System.out.println("What do you want?");
+			System.out.println("(1) Reservation");
+			System.out.println("(2) Order");
+			System.out.println("(3) Edit Menu   (Admin)");
+			System.out.println("(4) Sales Report(Admin)");
+			System.out.println("(5) Exit");
+			System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+			System.out.println();
+			System.out.print("Enter Your Choice: ");
 
-		switch (choice) {
-			case 1:
-				startReservationApp();
-				break;
-			case 2:
-				startOrderApp();
-				break;
-			case 3:
-				menuApp.menuOptions();
-				break;
-			case 4:
-				startSalesReport();
-				break;
-			case 5:
-				System.out.println("Exited");
-				return;
-			default:
-				System.out.println("Invalid option. Try again!");
+			sc = new Scanner(System.in);
+			choice = sc.nextInt();
+
+			switch (choice) {
+				case 1:
+					startReservationApp();
+					break;
+				case 2:
+					startOrderApp();
+					break;
+				case 3:
+					startMenuApp();
+					break;
+				case 4:
+					startSalesReport();
+					break;
+				case 5:
+					System.out.println("Exited");
+					return;
+				default:
+					System.out.println("Invalid option. Try again!");
+			}
 		}
+		
 
 	}
 
 	public void startReservationApp() {
-		reservationApp.startReservationApp();
+		System.out.println("======Reservation Option======");
+		//reservationApp.
+		System.out.println("==End of Reservation Option===");
 	}
 
 	public void startOrderApp() {
+		System.out.println("========Order Option========");
 		orderApp.orderAppOptions();
+		System.out.println("====End of Order Option=====");
 	}
-
+	
+	public void startMenuApp() {
+		System.out.println("========Menu Option=========");
+		orderApp.openMenuApp();
+		System.out.println("=====End of Menu Option=====");
+	}
+	
 	public void startSalesReport() {
+		System.out.println("=====Sales Report Option====");
 		orderApp.salesReportOptions();
+		System.out.println("=End of SalesReport Option==");
 	}
 
 	public static void main(String args[]) {
@@ -58,26 +87,36 @@ public class RRPSS implements Serializable {
 		int choice = -1;
 		RRPSS main = null;
 		Database database = new Database();
-
+		
 		while (choice != 3) {
+			System.out.println("***Krusty Krab Restaurant Reservation and Point of Sale System Manager***");
+			System.out.println();
 			System.out.println("What do you want?");
 			System.out.println("1.) Create New RRPSS System");
 			System.out.println("2.) Load existing RRPSS System");
 			System.out.println("3.) Exit");
+			System.out.println();
+			System.out.println("*************************************************************************");
+			System.out.println();
+			System.out.print("Enter Your Choice: ");
 			choice = sc.nextInt();
 
 			switch (choice) {
 				case 1:
 					main = new RRPSS();
-					main.rrpsOptions();//
-					System.out.println("Saving system state...");
-					database.save(main,"file1.ser");
-					break;
-				case 2:
-					main = ( (RRPSS) database.load("file1.ser") );
+					System.out.println("New RRPSS created !");
+					System.out.println();
 					main.rrpsOptions();
 					System.out.println("Saving system state...");
-					database.save(main,"file1.ser");
+					database.save(main,"file1.txt");
+					break;
+				case 2:
+					main = ( (RRPSS) database.load("file1.txt") );
+					System.out.println("System state loaded !");
+					System.out.println();
+					main.rrpsOptions();
+					System.out.println("Saving system state...");
+					database.save(main,"file1.txt");
 					break;
 				case 3:
 					System.out.println("Exited");
@@ -85,8 +124,9 @@ public class RRPSS implements Serializable {
 				default:
 					System.out.println("Wrong input. Try again!");
 			}
-
+ 
 		}
+	        
 
 	}
 }

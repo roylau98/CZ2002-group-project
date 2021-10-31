@@ -13,12 +13,6 @@ import java.io.*;
 
 public class OrderApp implements Serializable {
 
-	//Pls add these func to order class(or i can add after u finish the order class)
-	//void addMenuItems(MenuItems items)
-	//void addPromoItems(Promotion promo)
-	//void removeItems(int index)
-	//void printAllItemsInOrder()
-	//void printPrice()
 
 
 	private transient Scanner sc = new Scanner(System.in);
@@ -57,6 +51,13 @@ public class OrderApp implements Serializable {
 		int input;
 
 		do {
+			System.out.println("(1)View Order");
+			System.out.println("(2)Create new Order");
+			System.out.println("(3)Remove Order");
+			System.out.println("(4)Update Order");
+			System.out.println("(5)Charge Bill");
+			System.out.println("(6)Exit");
+			System.out.println();
 			System.out.println("Enter Option");
 			choice = sc.nextInt();
 
@@ -84,14 +85,19 @@ public class OrderApp implements Serializable {
 					input = sc.nextInt();
 					chargeBill(input);
 					break;
+				
+					
 				default:
 					System.out.println("Invalid Option. Try again!");
 			}
 
-		} while(choice != -1);
+		} while(choice != 6);
 
 	}
-
+	
+	public void openMenuApp(){
+		menuApp.menuOptions();
+	}
 	//-----------------------------------------------------------------------------------------------------------
 	/**
 	 * A Do-While loop to create an order and add items of AlaCarteItem and add PromotionalSet to it 
@@ -108,11 +114,13 @@ public class OrderApp implements Serializable {
 		while (true) {
 			System.out.println("Enter menu item choice. Or -1 to Quit");
 			choice = sc.nextInt(); // have not accounted for arrayOutOfBounds Error
+			if(choice==-1)
+				break;
 			try 
 			{
 				MenuItem selectedMenuItem = menuApp.getMenuItem(choice-1);
 				customerOrder.addItemToOrder(selectedMenuItem);
-				break;
+				
 			}
 			catch(IndexOutOfBoundsException e)
 			{
@@ -161,6 +169,8 @@ public class OrderApp implements Serializable {
 					while (choice != -1) {
 						System.out.println("Enter menuItem choice. Or -1 to Quit");
 						choice = sc.nextInt(); // have not accounted for arrayOutOfBounds Error
+						if(choice==-1)
+							return;
 						try 
 						{
 							MenuItem selectedMenuItem = menuApp.getMenuItem(choice-1);
@@ -181,6 +191,8 @@ public class OrderApp implements Serializable {
 					while (choice != -1) {
 						System.out.println("Enter choice. Or -1 to Quit");
 						choice = sc.nextInt(); // have not accounted for arrayOutOfBounds Error
+						if(choice==-1)
+							return;
 						try 
 						{
 							selectedOrder.removeItemFromOrder(choice);
@@ -211,38 +223,17 @@ public class OrderApp implements Serializable {
 	 * 
 	 */
 	public void removeOrder(int orderID) {
-		sc = new Scanner(System.in);
-		int index;
 		Order currOrder;
 
 		for(int i = 0; i< listOfOrders.size(); i++)
 		{
-			if(listOfOrders.get(i).getOrderID()==orderID) {
+			if(listOfOrders.get(i).getOrderID() == orderID) {
 				currOrder = listOfOrders.get(i);
-				ArrayList<MenuItem> currOrderItemList = currOrder.getListOfItemsOrdered();
-				do {
-					System.out.println("==============Your Current Ordered Items=============");
-					for (int j=0; j < currOrderItemList.size(); j++) {
-						System.out.println(j+") "+currOrderItemList.get(j).getName() + currOrderItemList.get(j).getPrice());
-					}
-					currOrder.getTotalPriceOfOrder();
-					System.out.println("=============================================");
-					System.out.println("Please select the item to remove (Enter -1 to exit)");
-					index = sc.nextInt();
-					currOrder.removeItemFromOrder(index);
-
-				}while(index!=-1);
-
-
-				System.out.println("==============Your Updated Order=============");
-				for (int j=0; i < currOrderItemList.size(); j++) {
-					System.out.println(j+") "+currOrderItemList.get(j).getName() + currOrderItemList.get(j).getPrice());
-				}
-				currOrder.getTotalPriceOfOrder();
-				System.out.println("=============================================");
+				System.out.println("Order removed");
 				break;
 			}
 		}
+
 	}
 	//-----------------------------------------------------------------------------------------------------------------------
 	/**
