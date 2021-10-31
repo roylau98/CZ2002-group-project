@@ -94,11 +94,11 @@ public class Order implements Serializable {
 	}
 
 	public void addItemToOrder(MenuItem itemToBeAdded) {
-		calculatePriceOfOrder();
+		
 		itemsOrdered.add(itemToBeAdded);
 	}
 	public void removeItemFromOrder(int index) {
-		calculatePriceOfOrder();
+	
 		itemsOrdered.remove(index);
 	}
 
