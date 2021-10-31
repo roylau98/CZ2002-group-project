@@ -1,5 +1,5 @@
 import java.util.*;
-
+import java.io.*;
 /**
  * Manages the {@link AlaCarteItem} and {@link PromotionalSet} of the {@link Menu}. 
  * <p> 
@@ -11,9 +11,9 @@ import java.util.*;
  * 
  */
 
-public class Menu {
+public class Menu implements Serializable {
 
-	Scanner sc = new Scanner(System.in);
+	private transient Scanner sc = new Scanner(System.in);
 
     /**
      * ArrayList of MenuItem which consists of AlaCarteItem and PromotionalSet, implemented in {@link ArrayList} data structure.
@@ -43,6 +43,7 @@ public class Menu {
 		System.out.println("5) update menu item");
 		System.out.println("6) Exit");
 		int choice = 0;
+		sc = new Scanner(System.in);
 		choice = sc.nextInt();
 		while (choice != 6 )
 		switch (choice) {
@@ -166,7 +167,7 @@ public class Menu {
 	 * 
 	 */
 	public void addMenuItem() {
-		
+		sc = new Scanner(System.in);
 		int choice=0;
 		String name;
 		String description;
@@ -264,7 +265,7 @@ public class Menu {
 	 * 
 	 */
 	public void removeMenuItem() {
-		
+		sc = new Scanner(System.in);
 		int choice=0;
 		String name;
 		int indexNo;
@@ -290,7 +291,7 @@ public class Menu {
 	 * 
 	 */
 	public void updateMenuItem() {
-
+		sc = new Scanner(System.in);
 		int indexNo;
 		System.out.println("Please type index of item to be updated:");
 		indexNo = sc.nextInt();

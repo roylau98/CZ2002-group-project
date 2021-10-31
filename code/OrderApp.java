@@ -1,4 +1,5 @@
 import java.util.*;
+import java.io.*;
 /**
  * Manages all the {@link Order} objects of the whole restaurants, 
  * basically the "manager" of {@link RRPSS} to {@link Order} objects
@@ -10,7 +11,7 @@ import java.util.*;
  * 
  */
 
-public class OrderApp {
+public class OrderApp implements Serializable {
 
 	//Pls add these func to order class(or i can add after u finish the order class)
 	//void addMenuItems(MenuItems items)
@@ -20,7 +21,7 @@ public class OrderApp {
 	//void printPrice()
 
 
-	Scanner sc = new Scanner(System.in);
+	private transient Scanner sc = new Scanner(System.in);
 	/**
          * List of Order implemented in {@link ArrayList} data structure.
          * Each entry consists of a reference to existing {@link Order}object.
@@ -51,6 +52,7 @@ public class OrderApp {
 	}
 
 	public void orderAppOptions() {
+		sc = new Scanner(System.in);
 		int choice;
 		int input;
 
@@ -97,7 +99,7 @@ public class OrderApp {
 	 */
 
 	public void createOrder() {
-
+		sc = new Scanner(System.in);
 		int choice=999;
 
 		Order customerOrder = new Order();
@@ -129,6 +131,7 @@ public class OrderApp {
 	 * 
 	 */
 	public void updateOrder(int orderID) {
+		sc = new Scanner(System.in);
 		Order selectedOrder = null;
 		for (int i=0; i<listOfOrders.size(); i++) {
 			if (listOfOrders.get(i).getOrderID() == orderID) {
@@ -208,6 +211,7 @@ public class OrderApp {
 	 * 
 	 */
 	public void removeOrder(int orderID) {
+		sc = new Scanner(System.in);
 		int index;
 		Order currOrder;
 

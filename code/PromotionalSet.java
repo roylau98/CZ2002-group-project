@@ -9,7 +9,9 @@ import java.util.Scanner;
  *@see         HashMap
  */
 public class PromotionalSet extends MenuItem {
-	
+
+	private transient Scanner sc = new Scanner(System.in);
+
 	/**
 	 * HashMap that is used to keep track of the items in PromotionalSet
 	 */
@@ -97,7 +99,7 @@ public class PromotionalSet extends MenuItem {
 	public void updateContents() {
 		super.updateContents();
 
-		Scanner sc = new Scanner(System.in);
+		sc = new Scanner(System.in);
 		int choice;
 		String inputForString;
 		int inputForInt;

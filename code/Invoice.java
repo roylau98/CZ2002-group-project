@@ -1,5 +1,6 @@
 import java.time.LocalDateTime;
 import java.util.*;
+import java.io.*;
 
 /**
  * Stores information of a order invoices in the restaurant.
@@ -20,7 +21,7 @@ import java.util.*;
  * @author 
  */
 
-public class Invoice {
+public class Invoice implements Serializable {
 
 	private double gst;
 	private double serviceCharge;

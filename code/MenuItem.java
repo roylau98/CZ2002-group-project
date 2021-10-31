@@ -1,10 +1,12 @@
+import java.io.Serializable;
 import java.util.Scanner;
+import java.io.*;
 /**
  * An abstract class for {@link AlaCarteItem} and {@link PromotionalSet} used to store information about an item 
  *
  * @author 
  */
-public abstract class MenuItem {
+public abstract class MenuItem implements Serializable {
 	
 	/**
 	 * Name of item
@@ -20,6 +22,8 @@ public abstract class MenuItem {
 	 * Price of item
 	 */
 	private double price;
+
+	private transient Scanner sc = new Scanner(System.in);
 	
 	/**
 	 * Constructs a item with specified name, price, description.
@@ -96,7 +100,7 @@ public abstract class MenuItem {
 	 *
 	 */
 	public void updateContents() {
-		Scanner sc = new Scanner(System.in);
+		sc = new Scanner(System.in);
 		int choice=-1;
 		String inputForString;
 		double inputForDouble;

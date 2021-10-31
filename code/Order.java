@@ -1,14 +1,16 @@
+import java.io.Serializable;
 import java.util.UUID;
 import java.time.LocalDateTime;
 import java.util.*;
+import java.io.*;
 
-public class Order {
+public class Order implements Serializable {
 
 	private int orderID;
 	private LocalDateTime dateTimeOrderCreated;
 	private ArrayList<MenuItem> itemsOrdered;
 	private Customer customer;
-	private Staff orderCreatedBy;
+	//private Staff orderCreatedBy;
 	private Boolean completedStatus;
 	private double totalPriceOfOrder;
 	private Invoice orderInvoice;
@@ -19,7 +21,7 @@ public class Order {
 		dateTimeOrderCreated = LocalDateTime.now();
 		itemsOrdered = new ArrayList<MenuItem>();
 		customer = null;
-		orderCreatedBy = null;
+		//orderCreatedBy = null;
 		completedStatus = false;
 		totalPriceOfOrder = 0;
 		orderInvoice = null;

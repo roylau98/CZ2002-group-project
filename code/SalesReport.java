@@ -1,19 +1,17 @@
 import java.time.*;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.Scanner;
+import java.util.*;
+import java.io.*;
 
-public class SalesReport {
+public class SalesReport implements Serializable{
 
 	private ArrayList<Invoice> listOfSales;
+	private transient Scanner sc = new Scanner(System.in);
 
 	public SalesReport() {
 		listOfSales = new ArrayList<>();
 	}
 
 	public void options() {
-		Scanner sc = new Scanner(System.in);
 		int choice = 999;
 		int input;
 
@@ -24,6 +22,7 @@ public class SalesReport {
 				"4) Exit");
 		while (choice != -1) {
 			System.out.println("Enter your choice");
+			sc = new Scanner(System.in);
 			choice = sc.nextInt();
 
 			switch (choice) {

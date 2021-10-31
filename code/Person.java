@@ -1,12 +1,12 @@
 import java.util.Objects;
-
+import java.io.*;
 /**
  * A parent class for Customer and Staff class
  *
  * @author
  * @since 2021-10-19
  */
-public class Person {
+public class Person implements Serializable {
     /**
      * Person name
      */

@@ -1,5 +1,6 @@
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.io.*;
 
 /**
  * Represents a Reservation object to reserve a table.
@@ -8,7 +9,7 @@ import java.time.LocalTime;
  * @author
  * @since 2021-10-19
  */
-public class Reservation {
+public class Reservation implements Serializable {
     /**
      * Date reserved.
      */

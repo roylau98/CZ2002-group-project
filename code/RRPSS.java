@@ -1,9 +1,12 @@
+import javax.xml.crypto.Data;
 import java.util.*;
+import java.io.*;
 
-public class RRPSS {
+public class RRPSS implements Serializable {
 
 	private OrderApp orderApp;
 	private ReservationApp reservationApp;
+	private transient Scanner sc = new Scanner(System.in);
 
 	public RRPSS() {
 		orderApp = new OrderApp();
@@ -11,22 +14,22 @@ public class RRPSS {
 	}
 
 	public void rrpsOptions() {
-		Scanner sc = new Scanner(System.in);
 		System.out.println("What do you want?");
+		sc = new Scanner(System.in);
 		int choice = sc.nextInt();
 
 		switch (choice) {
 			case 1:
-
-			case 2:
-
-			case 3:
-
-			case 4:
+				startReservationApp();
 				break;
-			case 5:
+			case 2:
+				startOrderApp();
+				break;
+			case 3:
+				startSalesReport();
+				break;
+			case 4:
 				System.out.println("Exited");
-
 				return;
 			default:
 				System.out.println("Invalid option. Try again!");
@@ -37,17 +40,49 @@ public class RRPSS {
 	public void startReservationApp() {
 
 	}
+
 	public void startOrderApp() {
 		orderApp.orderAppOptions();
 	}
-
 
 	public void startSalesReport() {
 		orderApp.salesReportOptions();
 	}
 
 	public static void main(String args[]) {
-		RRPSS main = new RRPSS();
-		main.rrpsOptions();
+		Scanner sc = new Scanner(System.in);
+		int choice = -1;
+		RRPSS main = null;
+		Database database = new Database();
+
+		while (choice != 3) {
+			System.out.println("What do you want?");
+			System.out.println("1.) Create New RRPSS System");
+			System.out.println("2.) Load existing RRPSS System");
+			System.out.println("3.) Exit");
+			choice = sc.nextInt();
+
+			switch (choice) {
+				case 1:
+					main = new RRPSS();
+					main.rrpsOptions();
+					System.out.println("Saving system state...");
+					database.save(main,"file1.txt");
+					break;
+				case 2:
+					main = ( (RRPSS) database.load("file1.txt") );
+					main.rrpsOptions();
+					System.out.println("Saving system state...");
+					database.save(main,"file1.txt");
+					break;
+				case 3:
+					System.out.println("Exited");
+					return;
+				default:
+					System.out.println("Wrong input. Try again!");
+			}
+
+		}
+
 	}
 }
