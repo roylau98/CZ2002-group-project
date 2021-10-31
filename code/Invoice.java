@@ -80,13 +80,32 @@ public class Invoice implements Serializable {
     	 * Print the Invoice of this order
      	 */
 	public void printInvoice() {
+		System.out.println();
+		System.out.println("=================================================");
+		System.out.println("              THE KRUSTY KRAB                    ");
+		System.out.println("         Bikini Bottom,Pacific Ocean             ");
+		System.out.println("                                                 ");
+		System.out.println("                                                 ");
+		System.out.println("Order ID: " + this.order.getOrderID());
 		System.out.println("TimeStamp: " + getTimestamp());
+		System.out.println("-------------------------------------------------");
+		System.out.println("No.\tItem Name\tPrice");
 		for (int i = 0; i< listOfSoldItems.size(); i++) {
-			System.out.println((i+1)+" "+listOfSoldItems.get(i).getName()+" "+listOfSoldItems.get(i).getPrice());
+			System.out.println((i+1)+".\t"+listOfSoldItems.get(i).getName()+"\t\t$"+listOfSoldItems.get(i).getPrice());
 		}
 		calculateFinalPrice();
+		System.out.println("-------------------------------------------------");
 		System.out.println("Order's Total Price : "+getTotalPrice());
-		System.out.println("Order's Final Price : "+getFinalPrice());
+		System.out.printf("Taxes               : %.2f\n",(getFinalPrice()-getTotalPrice()));
+		System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+		System.out.printf("Order's Final Price : %.2f\n",getFinalPrice());
+		System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+		System.out.println();
+		System.out.println("          THANK YOU FOR DINING WITH US           ");
+		System.out.println("                PLEASE COME AGAIN                ");
+		System.out.println();
+		System.out.println("=================================================");
+		System.out.println();
 		order.setOrderAsCompleted();
 	}
 	
@@ -114,6 +133,7 @@ public class Invoice implements Serializable {
     	 * Calculate and return the final price that take accounts of GST,service charge
      	 */
 	public double calculateFinalPrice() {
+		totalPrice=0;
 		for (int i = 0; i<order.getListOfItemsOrdered().size(); i++) {
 			totalPrice = totalPrice + order.getListOfItemsOrdered().get(i).getPrice();
 		}
