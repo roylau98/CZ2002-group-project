@@ -1,9 +1,10 @@
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.Scanner;
 
-public class ReservationApp {
-    private final Scanner scanner = new Scanner(System.in);
+public class ReservationApp implements Serializable {
+    private transient Scanner scanner;
     private final ReservationMgr reservationMgr = new ReservationMgr();
 
     public void startReservationApp() {
@@ -46,22 +47,7 @@ public class ReservationApp {
                     break;
             }
         }
-        //serialise();
     }
-
-//    private void serialise() {
-//        try {
-//            FileOutputStream fileOutputStream
-//                    = new FileOutputStream("Reservations.txt");
-//            ObjectOutputStream objectOutputStream
-//                    = new ObjectOutputStream(fileOutputStream);
-//            objectOutputStream.writeObject(reservationMgr);
-//            objectOutputStream.flush();
-//            objectOutputStream.close();
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-//    }
 
     private void makeReservation() {
         System.out.println("Please enter the following details below:");

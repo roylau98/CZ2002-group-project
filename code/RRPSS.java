@@ -42,7 +42,7 @@ public class RRPSS implements Serializable {
 	}
 
 	public void startReservationApp() {
-
+		reservationApp.startReservationApp();
 	}
 
 	public void startOrderApp() {
@@ -69,7 +69,7 @@ public class RRPSS implements Serializable {
 			switch (choice) {
 				case 1:
 					main = new RRPSS();
-					main.rrpsOptions();
+					main.rrpsOptions();//
 					System.out.println("Saving system state...");
 					database.save(main,"file1.ser");
 					break;

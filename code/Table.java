@@ -1,8 +1,9 @@
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.Arrays;
 import java.util.HashMap;
-import java.io.*;
+
 /**
  * Represents a table object in the restaurant.
  *
@@ -20,7 +21,7 @@ public class Table implements Serializable {
      * A true value indicates that the table is available for reservation, while a false value indicates that it is not.
      * The array length is 24, in order to mimic 24 hours in a day which the customer can book.
      */
-    private HashMap<LocalDate, Boolean[]> availabilityRecord;
+    private final HashMap<LocalDate, Boolean[]> availabilityRecord;
 
     /**
      * Class constructor.

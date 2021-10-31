@@ -47,8 +47,9 @@ public class Menu implements Serializable {
 		System.out.println("6) Exit");
 		int choice = 0;
 		sc = new Scanner(System.in);
-		choice = sc.nextInt();
-		while (choice != 6 )
+
+		while (choice < 1 || choice > 6 )
+			choice = sc.nextInt();
 		switch (choice) {
 			case 1:
 				printListOfMenuItems();
