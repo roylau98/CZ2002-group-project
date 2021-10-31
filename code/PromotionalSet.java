@@ -100,7 +100,7 @@ public class PromotionalSet extends MenuItem {
 	 */
 	@Override
 	public void updateContents() {
-		//super.updateContents();
+		super.updateContents();
 
 		sc = new Scanner(System.in);
 		int choice;
