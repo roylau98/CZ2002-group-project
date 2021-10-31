@@ -2,6 +2,7 @@ import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
+import java.util.Comparator;
 
 /**
  * Manager of all reservations and tables.
@@ -136,5 +137,18 @@ public class ReservationMgr implements Serializable {
         }
         System.out.println("No tables are available for reservation at " + date + time);
         return false;
+    }
+
+    public void removeOutdatedReservations() {
+        allReservations.sort(Comparator.comparing(Reservation::getDate).thenComparing(Reservation::getTime));
+        for (Reservation r : allReservations) {
+            if (r.getDate().isBefore(LocalDate.now())) {
+                Table table = allTables.get(r.getTableNo());
+                table.markAsAvailableAt(r.getDate(), r.getTime());
+                allReservations.remove(r);
+            } else {
+                break;
+            }
+        }
     }
 }

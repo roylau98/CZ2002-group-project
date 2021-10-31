@@ -7,6 +7,8 @@ public class ReservationApp {
     private final ReservationMgr reservationMgr = new ReservationMgr();
 
     public void startReservationApp() {
+        scanner = new Scanner(System.in);
+        reservationMgr.removeOutdatedReservations();
         System.out.println("Welcome to the ReservationApp.");
         boolean cont = true;
         while (cont) {
@@ -18,7 +20,6 @@ public class ReservationApp {
                     "5. View the list of tables\n" +
                     "6. Check table availability\n" +
                     "7. Exit this application and return to the main menu");
-
             int choice = scanner.nextInt();
             scanner.nextLine();
             switch (choice) {

@@ -1,16 +1,17 @@
-import javax.xml.crypto.Data;
-import java.util.*;
-import java.io.*;
+import java.io.Serializable;
+import java.util.Scanner;
 
 public class RRPSS implements Serializable {
 
 	private OrderApp orderApp;
 	private ReservationApp reservationApp;
+	private Menu menuApp;
 	private transient Scanner sc = new Scanner(System.in);
 
 	public RRPSS() {
 		orderApp = new OrderApp();
 		reservationApp = new ReservationApp();
+		menuApp = new Menu();
 	}
 
 	public void rrpsOptions() {
@@ -26,9 +27,12 @@ public class RRPSS implements Serializable {
 				startOrderApp();
 				break;
 			case 3:
-				startSalesReport();
+				menuApp.menuOptions();
 				break;
 			case 4:
+				startSalesReport();
+				break;
+			case 5:
 				System.out.println("Exited");
 				return;
 			default:
@@ -67,13 +71,13 @@ public class RRPSS implements Serializable {
 					main = new RRPSS();
 					main.rrpsOptions();
 					System.out.println("Saving system state...");
-					database.save(main,"file1.txt");
+					database.save(main,"file1.ser");
 					break;
 				case 2:
-					main = ( (RRPSS) database.load("file1.txt") );
+					main = ( (RRPSS) database.load("file1.ser") );
 					main.rrpsOptions();
 					System.out.println("Saving system state...");
-					database.save(main,"file1.txt");
+					database.save(main,"file1.ser");
 					break;
 				case 3:
 					System.out.println("Exited");
