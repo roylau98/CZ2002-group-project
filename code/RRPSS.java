@@ -28,12 +28,12 @@ public class RRPSS implements Serializable {
 			System.out.println("(4) Sales Report(Admin)");
 			System.out.println("(5) Exit");
 			System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
-			System.out.println();
+			
 			System.out.print("Enter Your Choice: ");
-
 			sc = new Scanner(System.in);
 			choice = sc.nextInt();
-
+			System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+			System.out.println();
 			switch (choice) {
 				case 1:
 					startReservationApp();
@@ -43,6 +43,7 @@ public class RRPSS implements Serializable {
 					break;
 				case 3:
 					startMenuApp();
+					
 					break;
 				case 4:
 					startSalesReport();
@@ -65,15 +66,15 @@ public class RRPSS implements Serializable {
 	}
 
 	public void startOrderApp() {
-		System.out.println("========Order Option========");
+		
 		orderApp.orderAppOptions();
-		System.out.println("====End of Order Option=====");
+		
 	}
 	
 	public void startMenuApp() {
-		System.out.println("========Menu Option=========");
+		
 		orderApp.openMenuApp();
-		System.out.println("=====End of Menu Option=====");
+		
 	}
 	
 	public void startSalesReport() {
@@ -92,20 +93,22 @@ public class RRPSS implements Serializable {
 			System.out.println("***Krusty Krab Restaurant Reservation and Point of Sale System Manager***");
 			System.out.println();
 			System.out.println("What do you want?");
-			System.out.println("1.) Create New RRPSS System");
-			System.out.println("2.) Load existing RRPSS System");
-			System.out.println("3.) Exit");
-			System.out.println();
+			System.out.println("(1) Create New RRPSS System");
+			System.out.println("(2) Load existing RRPSS System");
+			System.out.println("(3) Exit");
+			
 			System.out.println("*************************************************************************");
-			System.out.println();
+			
 			System.out.print("Enter Your Choice: ");
 			choice = sc.nextInt();
-
+			System.out.println("*************************************************************************");
+			System.out.println();	
 			switch (choice) {
 				case 1:
 					main = new RRPSS();
 					System.out.println("New RRPSS created !");
 					System.out.println();
+					
 					main.rrpsOptions();
 					System.out.println("Saving system state...");
 					database.save(main,"file1.txt");
