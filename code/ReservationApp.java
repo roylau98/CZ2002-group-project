@@ -17,7 +17,7 @@ public class ReservationApp {
                     "4. View the list of reservations\n" +
                     "5. View the list of tables\n" +
                     "6. Check table availability\n" +
-                    "7. Exit this application and return to the main menu" + "testing");
+                    "7. Exit this application and return to the main menu");
 
             int choice = scanner.nextInt();
             scanner.nextLine();
