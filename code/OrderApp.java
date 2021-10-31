@@ -51,37 +51,45 @@ public class OrderApp implements Serializable {
 		int input;
 
 		do {
+			System.out.println("========Order Option========");
 			System.out.println("(1)View Order");
 			System.out.println("(2)Create new Order");
 			System.out.println("(3)Remove Order");
-			System.out.println("(4)Update Order");
+			System.out.println("(4)Update Item In Order");
 			System.out.println("(5)Charge Bill");
 			System.out.println("(6)Exit");
-			System.out.println();
-			System.out.println("Enter Option");
+			System.out.println("----------------------------");
+			System.out.print("Enter Your Option: ");
 			choice = sc.nextInt();
-
+			System.out.println("----------------------------");
+			System.out.println();
 			switch (choice) {
 				case 1:
-					System.out.println("Enter orderID");
+					System.out.println("View Order......");
+					System.out.print("Enter orderID: ");
 					input = sc.nextInt();
 					viewOrder(input);
 					break;
 				case 2:
+					System.out.println("Creating Order......");
 					createOrder();
 					break;
 				case 3:
-					System.out.println("Enter orderID");
+					System.out.println("Removing Order......");
+					System.out.print("Enter orderID: ");
 					input = sc.nextInt();
 					removeOrder(input);
 					break;
 				case 4:
-					System.out.println("Enter orderID");
+					System.out.println("Updating Order......");
+					System.out.print("Enter orderID: ");
 					input = sc.nextInt();
 					updateOrder(input);
 					break;
+					
 				case 5:
-					System.out.println("Enter orderID");
+					System.out.println("Charge Bill......");
+					System.out.print("Enter orderID: ");
 					input = sc.nextInt();
 					chargeBill(input);
 					break;
@@ -118,7 +126,7 @@ public class OrderApp implements Serializable {
 				break;
 			try 
 			{
-				MenuItem selectedMenuItem = menuApp.getMenuItem(choice-1);
+				MenuItem selectedMenuItem = menuApp.getMenuItem(choice);
 				customerOrder.addItemToOrder(selectedMenuItem);
 				
 			}
@@ -128,6 +136,10 @@ public class OrderApp implements Serializable {
 			}
 		}
 		customerOrder.setOrderID(orderIDtracker);
+		viewOrder(orderIDtracker);
+		System.out.print("Please take note that this is your orderID: ");
+		System.out.println(customerOrder.getOrderID());
+		System.out.println();
 		orderIDtracker++;
 		listOfOrders.add(customerOrder);
 	}
@@ -156,11 +168,15 @@ public class OrderApp implements Serializable {
 		}
 		else {
 			int choice;
-
+			System.out.println("Update Order Option");
+			System.out.println("===================");
 			System.out.println("1) Add menuItem");
 			System.out.println("2) Remove menuItem");
 			System.out.println("-1) Quit");
+			System.out.println("===================");
+			System.out.print("Enter Your Choice: ");
 			choice = sc.nextInt();
+			System.out.println("===================");
 
 			while (choice != -1) {
 
@@ -168,12 +184,13 @@ public class OrderApp implements Serializable {
 					menuApp.printListOfMenuItems();
 					while (choice != -1) {
 						System.out.println("Enter menuItem choice. Or -1 to Quit");
+						System.out.print("Enter Your Choice: ");
 						choice = sc.nextInt(); // have not accounted for arrayOutOfBounds Error
 						if(choice==-1)
 							return;
 						try 
 						{
-							MenuItem selectedMenuItem = menuApp.getMenuItem(choice-1);
+							MenuItem selectedMenuItem = menuApp.getMenuItem(choice);
 							selectedOrder.addItemToOrder(selectedMenuItem);
 						}
 						catch(IndexOutOfBoundsException e)
@@ -181,21 +198,23 @@ public class OrderApp implements Serializable {
 							System.out.println("Invalid choice!");
 						}
 					}
+					viewOrder(orderID);
 				}
 				else if (choice == 2) {
 					ArrayList<MenuItem> listOfItemsInCurrOrder = selectedOrder.getListOfItemsOrdered();
 					for(int i=0; i<listOfItemsInCurrOrder.size(); i++) {
-						System.out.println(i+") "+listOfItemsInCurrOrder.get(i).getName());
+						System.out.println((i+1)+") "+listOfItemsInCurrOrder.get(i).getName());
 					}
 
 					while (choice != -1) {
 						System.out.println("Enter choice. Or -1 to Quit");
+						System.out.print("Enter Your Choice: ");
 						choice = sc.nextInt(); // have not accounted for arrayOutOfBounds Error
 						if(choice==-1)
 							return;
 						try 
 						{
-							selectedOrder.removeItemFromOrder(choice);
+							selectedOrder.removeItemFromOrder(choice-1);
 						}
 						catch(IndexOutOfBoundsException e)
 						{
@@ -253,12 +272,16 @@ public class OrderApp implements Serializable {
 
 				selectedOrder = listOfOrders.get(i);
 				System.out.println("==============Your Current Order=============");
+				System.out.println("No.\tItem\tPrice");
 				for(int j = 0; j< selectedOrder.getListOfItemsOrdered().size(); j++) {
-					MenuItem currItem = selectedOrder.getListOfItemsOrdered().get(i);
-					System.out.println(currItem.getName() + " " + currItem.getPrice());
+					MenuItem currItem = selectedOrder.getListOfItemsOrdered().get(j);
+					System.out.println((j+1)+")\t"+currItem.getName() + "\t$" + currItem.getPrice());
 				}
-				selectedOrder.getTotalPriceOfOrder();
+				System.out.println("---------------------------------------------");
+				System.out.println("Total Price: $ "+selectedOrder.getTotalPriceOfOrder());
+				;
 				System.out.println("=============================================");
+				System.out.println();
 				break;
 			}
 		}
