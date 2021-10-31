@@ -1,4 +1,5 @@
 import java.io.Serializable;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 import java.io.*;
 /**
@@ -106,9 +107,20 @@ public abstract class MenuItem implements Serializable {
 		double inputForDouble;
 
 		while (choice !=1 || choice !=0) {
-			System.out.println("Update Item Name? 1-Yes, 0-N");
-			
-			choice = sc.nextInt();
+			while(true)
+			{
+				try 
+				{
+					System.out.println("Update Item Name? 1-Yes, 0-N");
+					choice = sc.nextInt();
+					break;
+				}
+				catch(InputMismatchException e)
+		        	{
+					System.out.println("Wrong Option!!!!!");
+		            		sc.nextLine();
+		        	}
+			}
 			if (choice == 1) {
 				System.out.println("Enter the name of the item :");
 				inputForString = sc.next();
@@ -124,8 +136,20 @@ public abstract class MenuItem implements Serializable {
 		}
 
 		while (choice !=1 || choice !=0) {
-			System.out.println("Update Item Description? 1-Yes, 0-N");
-			choice = sc.nextInt();
+			while(true)
+			{
+				try 
+				{
+					System.out.println("Update Item Description? 1-Yes, 0-N");
+					choice = sc.nextInt();
+					break;
+				}
+				catch(InputMismatchException e)
+		        	{
+					System.out.println("Wrong Option!!!!!");
+		           		sc.nextLine();
+		        	}
+			}
 			if (choice == 1) {
 				System.out.println("Enter the description of the item :");
 				inputForString = sc.next();
@@ -141,8 +165,20 @@ public abstract class MenuItem implements Serializable {
 		}
 
 		while (choice !=0) {
-			System.out.println("Update Item Price? 1-Yes, 0-N");
-			choice = sc.nextInt();
+			while(true)
+			{
+				try 
+				{
+					System.out.println("Update Item Price? 1-Yes, 0-N");
+					choice = sc.nextInt();
+					break;
+				}
+				catch(InputMismatchException e)
+		        	{
+					System.out.println("Wrong Option!!!!!");
+		            		sc.nextLine();
+		       		}
+			}
 			if (choice == 1) {
 				System.out.println("Enter the price of the item :");
 				System.out.print("$ ");
