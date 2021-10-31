@@ -223,38 +223,17 @@ public class OrderApp implements Serializable {
 	 * 
 	 */
 	public void removeOrder(int orderID) {
-		sc = new Scanner(System.in);
-		int index;
 		Order currOrder;
 
 		for(int i = 0; i< listOfOrders.size(); i++)
 		{
-			if(listOfOrders.get(i).getOrderID()==orderID) {
+			if(listOfOrders.get(i).getOrderID() == orderID) {
 				currOrder = listOfOrders.get(i);
-				ArrayList<MenuItem> currOrderItemList = currOrder.getListOfItemsOrdered();
-				do {
-					System.out.println("==============Your Current Ordered Items=============");
-					for (int j=0; j < currOrderItemList.size(); j++) {
-						System.out.println(j+") "+currOrderItemList.get(j).getName() + currOrderItemList.get(j).getPrice());
-					}
-					currOrder.getTotalPriceOfOrder();
-					System.out.println("=============================================");
-					System.out.println("Please select the item to remove (Enter -1 to exit)");
-					index = sc.nextInt();
-					currOrder.removeItemFromOrder(index);
-
-				}while(index!=-1);
-
-
-				System.out.println("==============Your Updated Order=============");
-				for (int j=0; i < currOrderItemList.size(); j++) {
-					System.out.println(j+") "+currOrderItemList.get(j).getName() + currOrderItemList.get(j).getPrice());
-				}
-				currOrder.getTotalPriceOfOrder();
-				System.out.println("=============================================");
+				System.out.println("Order removed");
 				break;
 			}
 		}
+
 	}
 	//-----------------------------------------------------------------------------------------------------------------------
 	/**
