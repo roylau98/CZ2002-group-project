@@ -17,7 +17,7 @@ import java.util.*;
  * 	<li>{@code finalPrice}: The amount that customer will pay. This final price take accounts the GST,service charge
  * </ul>
  *  
- * @author Chua Zi Jian
+ * @author 
  */
 
 public class Invoice {
@@ -26,6 +26,7 @@ public class Invoice {
 	private double serviceCharge;
 	private double totalPrice;
 	private double finalPrice;
+	private double memberDiscount;
 	private Order order;
 	private ArrayList<MenuItem> listOfSoldItems;
 	private LocalDateTime timestamp;
@@ -39,6 +40,7 @@ public class Invoice {
 		serviceCharge = 0.02;
 		totalPrice = 0;
 		finalPrice = 0;
+		memberDiscount = 0;
 		order = null;
 		listOfSoldItems = null;
 		timestamp = LocalDateTime.now();
@@ -55,6 +57,11 @@ public class Invoice {
 		this.totalPrice = 0;
 		this.finalPrice = 0;
 		this.order = order;
+		
+		if((this.order.getCustomer()).getMembershipStatus()==true)
+			memberDiscount=0.1; 
+		else
+			memberDiscount=0;
 		listOfSoldItems = order.getListOfItemsOrdered();
 		timestamp = LocalDateTime.now();
 	}
@@ -109,7 +116,7 @@ public class Invoice {
 		for (int i = 0; i<order.getListOfItemsOrdered().size(); i++) {
 			totalPrice = totalPrice + order.getListOfItemsOrdered().get(i).getPrice();
 		}
-		finalPrice = (totalPrice * (1+serviceCharge)) * (1+gst) ;
+		finalPrice = (totalPrice * (1+serviceCharge)) * (1+gst) *(1-memberDiscount);
 		return finalPrice;
 	}
 

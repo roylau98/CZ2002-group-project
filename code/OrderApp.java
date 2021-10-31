@@ -6,7 +6,7 @@ import java.util.*;
  * This class provides various methods to create,update(add/remove MenuItem) of the order,
  * and view individual order details and bills.
  * <p>
- * @author Chua Zi Jian
+ * @author 
  * 
  */
 
@@ -103,11 +103,19 @@ public class OrderApp {
 		Order customerOrder = new Order();
 		//TODO
 		menuApp.printListOfMenuItems();
-		while (choice != -1) {
+		while (true) {
 			System.out.println("Enter menu item choice. Or -1 to Quit");
 			choice = sc.nextInt(); // have not accounted for arrayOutOfBounds Error
-			MenuItem selectedMenuItem = menuApp.getMenuItem(choice-1);
-			customerOrder.addItemToOrder(selectedMenuItem);
+			try 
+			{
+				MenuItem selectedMenuItem = menuApp.getMenuItem(choice-1);
+				customerOrder.addItemToOrder(selectedMenuItem);
+				break;
+			}
+			catch(IndexOutOfBoundsException e)
+			{
+				System.out.println("Invalid choice!");
+			}
 		}
 		customerOrder.setOrderID(orderIDtracker);
 		orderIDtracker++;
@@ -150,8 +158,15 @@ public class OrderApp {
 					while (choice != -1) {
 						System.out.println("Enter menuItem choice. Or -1 to Quit");
 						choice = sc.nextInt(); // have not accounted for arrayOutOfBounds Error
-						MenuItem selectedMenuItem = menuApp.getMenuItem(choice-1);
-						selectedOrder.addItemToOrder(selectedMenuItem);
+						try 
+						{
+							MenuItem selectedMenuItem = menuApp.getMenuItem(choice-1);
+							selectedOrder.addItemToOrder(selectedMenuItem);
+						}
+						catch(IndexOutOfBoundsException e)
+						{
+							System.out.println("Invalid choice!");
+						}
 					}
 				}
 				else if (choice == 2) {
@@ -163,7 +178,14 @@ public class OrderApp {
 					while (choice != -1) {
 						System.out.println("Enter choice. Or -1 to Quit");
 						choice = sc.nextInt(); // have not accounted for arrayOutOfBounds Error
-						selectedOrder.removeItemFromOrder(choice);
+						try 
+						{
+							selectedOrder.removeItemFromOrder(choice);
+						}
+						catch(IndexOutOfBoundsException e)
+						{
+							System.out.println("Invalid choice!");
+						}
 					}
 
 				}
@@ -263,6 +285,7 @@ public class OrderApp {
 				selectedOrder.createInvoice(selectedOrder);
 				bill = selectedOrder.getInvoice();
 				bill.printInvoice();
+				salesReport.addInvoice(bill);
 				return;
 			}
 		}
@@ -274,9 +297,12 @@ public class OrderApp {
 		return listOfOrders;
 	}
 
-	public void getSalesReport() {
-		salesReport.createListOfInvoices(this.listOfOrders);
+	public void salesReportOptions() {
+		salesReport.options();
 	}
 
+	public SalesReport getSalesReport() {
+		return salesReport;
+	}
 
 }

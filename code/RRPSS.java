@@ -42,9 +42,8 @@ public class RRPSS {
 	}
 
 
-	public void printSalesReport() {
-		orderApp.getSalesReport();
-
+	public void startSalesReport() {
+		orderApp.salesReportOptions();
 	}
 
 	public static void main(String args[]) {
