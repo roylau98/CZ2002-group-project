@@ -23,7 +23,7 @@ public class Menu implements Serializable {
 
 
 	
-    /**
+    /** 
      * Constructs an {@code Menu} object and
      * initialize the attributes {@code MenuItem} .
      */
