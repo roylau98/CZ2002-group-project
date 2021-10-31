@@ -83,6 +83,7 @@ public class Order implements Serializable {
 	}
 
 	public void calculatePriceOfOrder() {
+		totalPriceOfOrder=0;
 		for(int i = 0; i< itemsOrdered.size(); i++) {
 			totalPriceOfOrder = totalPriceOfOrder+itemsOrdered.get(i).getPrice();
 		}
@@ -93,9 +94,11 @@ public class Order implements Serializable {
 	}
 
 	public void addItemToOrder(MenuItem itemToBeAdded) {
+		calculatePriceOfOrder();
 		itemsOrdered.add(itemToBeAdded);
 	}
 	public void removeItemFromOrder(int index) {
+		calculatePriceOfOrder();
 		itemsOrdered.remove(index);
 	}
 
