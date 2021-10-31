@@ -3,13 +3,13 @@ import java.time.LocalTime;
 import java.util.Scanner;
 
 public class ReservationApp {
-    private static final Scanner scanner = new Scanner(System.in);
+    private final Scanner scanner = new Scanner(System.in);
+    private final ReservationMgr reservationMgr = new ReservationMgr();
 
-    public static void main(String[] args) {
-        ReservationMgr.addTables();
+    public void startReservationApp() {
         System.out.println("Welcome to the ReservationApp.");
         boolean cont = true;
-        while (true) {
+        while (cont) {
             System.out.println("Please select one of the options below:\n" +
                     "1. Make a new reservation\n" +
                     "2. Cancel an existing reservation\n" +
@@ -30,37 +30,55 @@ public class ReservationApp {
                     updateReservation();
                     break;
                 case 4:
-                    ReservationMgr.viewAllReservations();
+                    reservationMgr.viewAllReservations();
                     break;
                 case 5:
-                    ReservationMgr.viewAllTables();
+                    reservationMgr.viewAllTables();
                     break;
                 case 6:
+                    reservationMgr.checkAvailabilityAt(askUserForDate(), askUserForTime(), askUserForPax());
+                    break;
+                case 7:
                     cont = false;
                     break;
             }
         }
+        //serialise();
     }
 
-    private static void makeReservation() {
+//    private void serialise() {
+//        try {
+//            FileOutputStream fileOutputStream
+//                    = new FileOutputStream("Reservations.txt");
+//            ObjectOutputStream objectOutputStream
+//                    = new ObjectOutputStream(fileOutputStream);
+//            objectOutputStream.writeObject(reservationMgr);
+//            objectOutputStream.flush();
+//            objectOutputStream.close();
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//    }
+
+    private void makeReservation() {
         System.out.println("Please enter the following details below:");
         LocalDate date = askUserForDate();
         LocalTime time = askUserForTime();
         int noOfPax = askUserForPax();
         Customer customer = askUserForCustomerDetails();
-        ReservationMgr.makeReservation(new Reservation(date, time, noOfPax, customer));
+        reservationMgr.makeReservation(new Reservation(date, time, noOfPax, customer));
     }
 
-    private static void cancelReservation() {
-        ReservationMgr.viewAllReservations();
+    private void cancelReservation() {
+        reservationMgr.viewAllReservations();
         System.out.println("Which reservation would you like to cancel?");
         int temp = scanner.nextInt();
         scanner.nextLine();
-        ReservationMgr.cancelReservation(temp);
+        reservationMgr.cancelReservation(temp);
     }
 
-    private static void updateReservation() {
-        ReservationMgr.viewAllReservations();
+    private void updateReservation() {
+        reservationMgr.viewAllReservations();
         System.out.println("Which reservation would you like to amend?");
         int reservationNoToUpdate = scanner.nextInt();
         scanner.nextLine();
@@ -76,24 +94,24 @@ public class ReservationApp {
         switch (choice) {
             case 1:
                 LocalDate date = askUserForDate();
-                ReservationMgr.updateReservation(reservationNoToUpdate, date);
+                reservationMgr.updateReservation(reservationNoToUpdate, date);
                 break;
             case 2:
                 LocalTime time = askUserForTime();
-                ReservationMgr.updateReservation(reservationNoToUpdate, time);
+                reservationMgr.updateReservation(reservationNoToUpdate, time);
                 break;
             case 3:
                 int noOfPax = askUserForPax();
-                ReservationMgr.updateReservation(reservationNoToUpdate, noOfPax);
+                reservationMgr.updateReservation(reservationNoToUpdate, noOfPax);
                 break;
             case 4:
                 Customer updatedCustomer = askUserForCustomerDetails();
-                ReservationMgr.updateReservation(reservationNoToUpdate, updatedCustomer);
+                reservationMgr.updateReservation(reservationNoToUpdate, updatedCustomer);
                 break;
         }
     }
 
-    private static LocalDate askUserForDate() {
+    private LocalDate askUserForDate() {
         System.out.print("Year: ");
         int year = scanner.nextInt();
         scanner.nextLine();
@@ -109,7 +127,7 @@ public class ReservationApp {
         return LocalDate.of(year, month, date);
     }
 
-    private static LocalTime askUserForTime() {
+    private LocalTime askUserForTime() {
         System.out.print("Hour: ");
         int hour = scanner.nextInt();
         scanner.nextLine();
@@ -117,7 +135,7 @@ public class ReservationApp {
         return LocalTime.of(hour, 0);
     }
 
-    private static int askUserForPax() {
+    private int askUserForPax() {
         System.out.print("Number of persons: ");
         int noOfPax = scanner.nextInt();
         scanner.nextLine();
@@ -125,7 +143,7 @@ public class ReservationApp {
         return noOfPax;
     }
 
-    private static Customer askUserForCustomerDetails() {
+    private Customer askUserForCustomerDetails() {
         System.out.print("Name: ");
         String name = scanner.nextLine();
 
