@@ -16,7 +16,9 @@ public class ReservationApp {
                     "3. Amend an existing reservation\n" +
                     "4. View the list of reservations\n" +
                     "5. View the list of tables\n" +
-                    "6. Exit this application and return to the main menu");
+                    "6. Check table availability\n" +
+                    "7. Exit this application and return to the main menu" + "testing");
+
             int choice = scanner.nextInt();
             scanner.nextLine();
             switch (choice) {

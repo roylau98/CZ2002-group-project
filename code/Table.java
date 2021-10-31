@@ -14,7 +14,6 @@ public class Table {
      * Capacity of the table.
      */
     private int capacity;
-
     /**
      * Record of the table's availability for reservations as a map.
      * Records are accessed by a LocalDate key, which will retrieve an array of boolean values that indicate the table's availability.
