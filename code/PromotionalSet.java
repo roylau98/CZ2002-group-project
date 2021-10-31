@@ -1,4 +1,5 @@
 import java.util.HashMap;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 /**
  * Stores information about a PromotionalSet inherit from{@link MenuItem} class to used in context of a menu.
@@ -100,17 +101,28 @@ public class PromotionalSet extends MenuItem {
 	 */
 	@Override
 	public void updateContents() {
-		super.updateContents();
+		//super.updateContents();
 
 		sc = new Scanner(System.in);
 		int choice;
 		String inputForString;
 		int inputForInt;
-
-		System.out.println("Update Set contents? 1-Yes, 0-N");
-		choice = sc.nextInt();
+		while(true) {
+			try {
+				System.out.println("Update Set contents? 1-Yes, 0-N");
+				choice = sc.nextInt();
+				break;
+			}
+			catch(InputMismatchException e)
+	        	{
+				System.out.println("Wrong Option!!!!!");
+	            		sc.nextLine();
+	        	}
+		}
+		
 		if (choice == 1) {
 			while(choice != 4) {
+				try {
 				System.out.println("(1) Add promotional Item");
 				System.out.println("(2) Remove promotional Item");
 				System.out.println("(3) Change promotional Item quantity");
@@ -120,6 +132,12 @@ public class PromotionalSet extends MenuItem {
 				choice = sc.nextInt();
 				System.out.println("------------------------------------");
 				System.out.println();
+				}
+				catch(InputMismatchException e)
+		        	{
+					
+		           		 sc.nextLine();
+		        	}
 				switch (choice) {
 					case 1:
 						System.out.println("Enter the name of the item to add:");
@@ -159,3 +177,4 @@ public class PromotionalSet extends MenuItem {
 	
 
 }
+
