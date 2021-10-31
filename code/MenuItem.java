@@ -90,9 +90,9 @@ public abstract class MenuItem implements Serializable {
 	 * Print the details(name,description,price) of this MenuItem
 	 */
 	public void print() {
-		System.out.println("Name: "+getName());
-		System.out.println("Description: "+getDescription());
-		System.out.println("Price: "+getPrice());
+		System.out.println("Name        : "+getName());
+		System.out.println("Description : "+getDescription());
+		System.out.println("Price       : $ "+getPrice());
 	}
 	
 	/**
@@ -107,8 +107,10 @@ public abstract class MenuItem implements Serializable {
 
 		while (choice !=1 || choice !=0) {
 			System.out.println("Update Item Name? 1-Yes, 0-N");
+			
 			choice = sc.nextInt();
 			if (choice == 1) {
+				System.out.println("Enter the name of the item :");
 				inputForString = sc.next();
 				updateName(inputForString);
 				break;
@@ -125,6 +127,7 @@ public abstract class MenuItem implements Serializable {
 			System.out.println("Update Item Description? 1-Yes, 0-N");
 			choice = sc.nextInt();
 			if (choice == 1) {
+				System.out.println("Enter the description of the item :");
 				inputForString = sc.next();
 				updateDescription(inputForString);
 				break;
@@ -141,8 +144,8 @@ public abstract class MenuItem implements Serializable {
 			System.out.println("Update Item Price? 1-Yes, 0-N");
 			choice = sc.nextInt();
 			if (choice == 1) {
-				inputForDouble = sc.nextDouble();
-				updatePrice(inputForDouble);
+				System.out.println("Enter the price of the item :");
+				System.out.print("$ ");
 				try {
 					inputForDouble = sc.nextDouble();
 					if (inputForDouble<=0)
