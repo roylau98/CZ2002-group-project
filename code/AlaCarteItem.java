@@ -4,7 +4,7 @@ import java.util.*;
  * This class stores the name, price, description and type of AlaCarteItem {@link Menu},
  * inherit various method from abstract class {@link MenuItem} such as get(),update(),
  * 
- * @author Chua Zi Jian
+ * @author 
  * 
  */
 public class AlaCarteItem extends MenuItem {
@@ -63,39 +63,63 @@ public class AlaCarteItem extends MenuItem {
 		int choice=-1;
 
 		while (choice !=1 || choice !=0) {
-			System.out.println("Update Item Type? 1-Yes, 0-N");
-			sc = new Scanner(System.in);
-			choice = sc.nextInt();
-
+			while(true)
+			{
+				try 
+				{
+					System.out.println("Update Item Type? 1-Yes, 0-N");
+					sc = new Scanner(System.in);
+					choice = sc.nextInt();
+					break;
+				}
+				catch(InputMismatchException e)
+		        	{
+					System.out.println("Wrong Option!!!!!");
+		           		sc.nextLine();
+		        	}
+			}
 			int i=0;
-			for (AlaCarteItemType type : AlaCarteItemType.values()) {
-				System.out.println(i+") "+type);
-				i++;
-			}
-
-			System.out.println("Type option: ");
-			sc = new Scanner(System.in);
-			choice = sc.nextInt();
-
-			switch (choice) {
-				case 1:
-					setItemType(AlaCarteItemType.MAIN_COURSE);
+			while(true)
+			{
+				try 
+				{
+			
+					for (AlaCarteItemType type : AlaCarteItemType.values()) {
+						System.out.println(i+") "+type);
+						i++;
+					}
+					
+					System.out.println("Type option: ");
+					sc = new Scanner(System.in);
+					choice = sc.nextInt();
+		
+					switch (choice) {
+						case 1:
+							setItemType(AlaCarteItemType.MAIN_COURSE);
+							break;
+						case 2:
+							setItemType(AlaCarteItemType.APPERTIZER);
+							break;
+						case 3:
+							setItemType(AlaCarteItemType.DRINKS);
+							break;
+						case 4:
+							setItemType(AlaCarteItemType.DESSERT);
+							break;
+						default:
+							System.out.println("Wrong input. Try again");
+					}
 					break;
-				case 2:
-					setItemType(AlaCarteItemType.APPERTIZER);
-					break;
-				case 3:
-					setItemType(AlaCarteItemType.DRINKS);
-					break;
-				case 4:
-					setItemType(AlaCarteItemType.DESSERT);
-					break;
-				default:
-					System.out.println("Wrong input. Try again");
-			}
+				}
+			catch(InputMismatchException e)
+		    	{
+				
+				sc.nextLine();
+		    	}
  
 		}
 
+	}
 	}
 
 }
