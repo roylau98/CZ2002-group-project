@@ -16,7 +16,6 @@ public class RRPSS implements Serializable {
 	public void rrpsOptions() {
 		int choice=0;
 		
-		
 		while(choice!=4)
 		{
 			System.out.println("~~~~~Welcome to Krusty Krab~~~~~");
@@ -36,9 +35,9 @@ public class RRPSS implements Serializable {
 				System.out.println();
 			}
 			catch(InputMismatchException e)
-			{
-				sc.nextLine();
-			}
+            		{
+               			sc.nextLine();
+            		}
 			switch (choice) {
 				case 1:
 					startReservationApp();
@@ -66,7 +65,7 @@ public class RRPSS implements Serializable {
 
 	public void startReservationApp() {
 		System.out.println("======Reservation Option======");
-		//reservationApp.
+		reservationApp.startReservationApp();
 		System.out.println("==End of Reservation Option===");
 	}
 
@@ -125,10 +124,17 @@ public class RRPSS implements Serializable {
 					database.save(main,"file1.txt");
 					break;
 				case 2:
+					
+					System.out.println("Loading system state...");
 					main = ( (RRPSS) database.load("file1.txt") );
-					System.out.println("System state loaded !");
-					System.out.println();
-					main.rrpsOptions();
+					try 
+					{
+						main.rrpsOptions();
+					}
+					catch(NullPointerException e)
+					{
+						continue;
+					}
 					System.out.println("Saving system state...");
 					database.save(main,"file1.txt");
 					break;
