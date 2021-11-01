@@ -2,6 +2,9 @@ import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.Timer;
+import java.util.TimerTask;
 
 /**
  * Manager of all reservations and tables.
@@ -13,19 +16,33 @@ public class ReservationMgr implements Serializable {
     /**
      * Collection of all tables in the restaurant.
      */
-    private static ArrayList<Table> allTables = new ArrayList<>();
+    private ArrayList<Table> allTables;
 
     /**
      * Collection of all reservations in the restaurant.
      */
-    private static ArrayList<Reservation> allReservations = new ArrayList<>();
+    private ArrayList<Reservation> allReservations;
+
+    public ReservationMgr() {
+        this.allTables = new ArrayList<>();
+        this.allReservations = new ArrayList<>();
+        allTables.add(new Table(2));
+        allTables.add(new Table(2));
+        allTables.add(new Table(4));
+        allTables.add(new Table(4));
+        createScheduler();
+    }
+
+    public int checkArrayListReservationSize(){
+        return allReservations.size();
+    }
 
     /**
      * Makes a reservation. Finds a suitable table that can contain the number of persons.
      * Reservation will be added to the collection and asks the table to be marked as unavailable at the specified date and time.
      * @param r Reservation.
      */
-    public static boolean makeReservation(Reservation r) {
+    public boolean makeReservation(Reservation r) {
         if (r.getDate().isBefore(LocalDate.now()) || (r.getDate().isEqual(LocalDate.now()) && r.getTime().isBefore(LocalTime.now()))) {
             System.out.println("Reservation time selected is before current time");
             return false;
@@ -50,7 +67,7 @@ public class ReservationMgr implements Serializable {
      * Removes the reservation from the collection and asks the table to be marked as available for other reservations at the specified date and time.
      * @param reservationNo Reservation number.
      */
-    public static void cancelReservation(int reservationNo) {
+    public void cancelReservation(int reservationNo) {
         Reservation r = allReservations.get(reservationNo);
         allTables.get(r.getTableNo()).
                 markAsAvailableAt(r.getDate(), r.getTime());
@@ -58,25 +75,25 @@ public class ReservationMgr implements Serializable {
         System.out.println("Reservation has been cancelled");
     }
 
-    public static void updateReservation(int reservationNo, LocalDate newDate) {
+    public void updateReservation(int reservationNo, LocalDate newDate) {
         Reservation deepCopy = new Reservation(allReservations.get(reservationNo));
         deepCopy.setDate(newDate);
         updateReservation(reservationNo, deepCopy);
     }
 
-    public static void updateReservation(int reservationNo, LocalTime newTime) {
+    public void updateReservation(int reservationNo, LocalTime newTime) {
         Reservation deepCopy = new Reservation(allReservations.get(reservationNo));
         deepCopy.setTime(newTime);
         updateReservation(reservationNo, deepCopy);
     }
 
-    public static void updateReservation(int reservationNo, int newNoOfPax) {
+    public void updateReservation(int reservationNo, int newNoOfPax) {
         Reservation deepCopy = new Reservation(allReservations.get(reservationNo));
         deepCopy.setNoOfPax(newNoOfPax);
         updateReservation(reservationNo, deepCopy);
     }
 
-    public static void updateReservation(int reservationNo, Customer newCust) {
+    public void updateReservation(int reservationNo, Customer newCust) {
         allReservations.get(reservationNo).setCustomer(newCust);
         System.out.println("Customer details updated");
     }
@@ -86,7 +103,7 @@ public class ReservationMgr implements Serializable {
      * @param oldReservationNo Reservation number of the outdated reservation to be removed.
      * @param newReservation Updated reservation to be added.
      */
-    private static void updateReservation(int oldReservationNo, Reservation newReservation) {
+    private void updateReservation(int oldReservationNo, Reservation newReservation) {
         System.out.println("Reservation updated by performing the actions below");
         Reservation oldReservation = allReservations.get(oldReservationNo);
         cancelReservation(oldReservationNo);
@@ -100,7 +117,7 @@ public class ReservationMgr implements Serializable {
     /**
      * Prints a list of all active reservations to the console.
      */
-    public static void viewAllReservations() {
+    public void viewAllReservations() {
         System.out.println("---List of all reservations---");
         for (Reservation r : allReservations)
             System.out.println("Reservation " + allReservations.indexOf(r) + ": " + r.toString());
@@ -110,17 +127,68 @@ public class ReservationMgr implements Serializable {
     /**
      * Prints a list of all the tables and their respective availabilities to the console.
      */
-    public static void viewAllTables() {
+    public void viewAllTables() {
         System.out.println("---List of all tables---");
         for (Table t : allTables)
             System.out.println("Table " + allTables.indexOf(t) + ": " + t.toString());
         System.out.println("----------");
     }
 
-    public static void addTables() {
-        allTables.add(new Table(2));
-        allTables.add(new Table(2));
-        allTables.add(new Table(4));
-        allTables.add(new Table(4));
+    public boolean checkAvailabilityAt(LocalDate date, LocalTime time, int noOfPax) {
+        for (Table t : allTables) {
+            if (noOfPax > t.getCapacity())
+                continue;
+            if (t.checkAvailabilityAt(date, time))
+                System.out.println("Table " + allTables.indexOf(t) + " is available for reservation at " + date + time);
+                return true;
+        }
+        System.out.println("No tables are available for reservation at " + date + time);
+        return false;
+    }
+
+    public void removeOutdatedReservations() {
+        allReservations.sort(Comparator.comparing(Reservation::getDate).thenComparing(Reservation::getTime));
+        for (Reservation r : allReservations) {
+            if (r.getDate().isBefore(LocalDate.now())) {
+                Table table = allTables.get(r.getTableNo());
+                table.markAsAvailableAt(r.getDate(), r.getTime());
+                allReservations.remove(r);
+            } else {
+                break;
+            }
+        }
+    }
+
+    public void removeNoShowReservations() {
+        ArrayList<Integer> temp = new ArrayList<Integer>();
+        int i;
+        for (Reservation r : allReservations) {
+            if (LocalTime.now().isAfter(r.getTime().plusMinutes(15)) && !r.isArrived()) {
+                System.out.println("Reservation " + r + " has expired and will be automatically removed.");
+                temp.add(allReservations.indexOf(r));
+            }
+        }
+
+        for (i=0; i<temp.size(); i++) {
+            Reservation toRemove = allReservations.get(temp.get(i));
+            Table table = allTables.get(toRemove.getTableNo());
+            table.markAsAvailableAt(toRemove.getDate(), toRemove.getTime());
+            allReservations.remove(toRemove);
+        }
+    }
+
+    public void createScheduler() {
+        //returns 0 to 59;
+        Timer timerSchedule = new Timer();
+        TimerTask taskToRun = new ExpiredReservationsRemover(this);
+
+        int minutesNow = LocalTime.now().getMinute();
+        int offset;
+        if (minutesNow < 15) {
+            offset = (15 - minutesNow) * 1000;
+        } else {
+            offset = (75 - minutesNow) * 1000;
+        }
+        timerSchedule.scheduleAtFixedRate(taskToRun, offset, 3600000);
     }
 }
