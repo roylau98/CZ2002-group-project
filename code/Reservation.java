@@ -40,7 +40,7 @@ public class Reservation implements Serializable {
      */
     private int tableNo;
 
-    private boolean arrived;
+    private boolean custArrived;
 
     /**
      * Class constructor.
@@ -56,7 +56,7 @@ public class Reservation implements Serializable {
         this.noOfPax = noOfPax;
         this.customer = customer;
         this.hour = time.getHour();
-        this.arrived = false;
+        this.custArrived = false;
     }
 
     /**
@@ -70,7 +70,7 @@ public class Reservation implements Serializable {
         this.noOfPax = r.noOfPax;
         this.tableNo = r.tableNo;
         this.customer = new Customer(r.customer);
-        this.arrived = r.arrived;
+        this.custArrived = r.custArrived;
     }
 
     /**
@@ -146,12 +146,12 @@ public class Reservation implements Serializable {
         this.customer = customer;
     }
 
-    public boolean isArrived() {
-        return arrived;
+    public boolean getCustArrived() {
+        return custArrived;
     }
 
-    public void setArrived(boolean arrived) {
-        this.arrived = arrived;
+    public void setCustArrived(boolean custArrived) {
+        this.custArrived = custArrived;
     }
 
     @Override

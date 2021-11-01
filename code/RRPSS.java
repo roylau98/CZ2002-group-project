@@ -1,11 +1,11 @@
-import javax.xml.crypto.Data;
-import java.util.*;
-import java.io.*;
+import java.io.Serializable;
+import java.util.Scanner;
 
 public class RRPSS implements Serializable {
 
 	private OrderApp orderApp;
 	private ReservationApp reservationApp;
+
 	private transient Scanner sc = new Scanner(System.in);
 
 	public RRPSS() {
@@ -146,7 +146,5 @@ public class RRPSS implements Serializable {
 			}
  
 		}
-	        
-
 	}
 }

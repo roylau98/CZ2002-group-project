@@ -9,7 +9,6 @@ public class ExpiredReservationsRemover extends TimerTask {
 
     @Override
     public void run() {
-        System.out.println("Debug: ExpiredReservationsRemover.run() executed.");
         reservationMgr.removeNoShowReservations();
     }
 }

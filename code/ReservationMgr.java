@@ -43,10 +43,12 @@ public class ReservationMgr implements Serializable {
      * @param r Reservation.
      */
     public boolean makeReservation(Reservation r) {
+        /*
         if (r.getDate().isBefore(LocalDate.now()) || (r.getDate().isEqual(LocalDate.now()) && r.getTime().isBefore(LocalTime.now()))) {
             System.out.println("Reservation time selected is before current time");
             return false;
         }
+        */
         for (Table t : allTables) {
             if (r.getNoOfPax() > t.getCapacity())
                 continue;
@@ -126,7 +128,7 @@ public class ReservationMgr implements Serializable {
 
     /**
      * Prints a list of all the tables and their respective availabilities to the console.
-     */
+      */
     public void viewAllTables() {
         System.out.println("---List of all tables---");
         for (Table t : allTables)
@@ -139,7 +141,7 @@ public class ReservationMgr implements Serializable {
             if (noOfPax > t.getCapacity())
                 continue;
             if (t.checkAvailabilityAt(date, time))
-                System.out.println("Table " + allTables.indexOf(t) + " is available for reservation at " + date + time);
+                System.out.println("Table " + allTables.indexOf(t) + " is available for reservation at " + date + " " + time);
                 return true;
         }
         System.out.println("No tables are available for reservation at " + date + time);
@@ -163,7 +165,7 @@ public class ReservationMgr implements Serializable {
         ArrayList<Integer> temp = new ArrayList<Integer>();
         int i;
         for (Reservation r : allReservations) {
-            if (LocalTime.now().isAfter(r.getTime().plusMinutes(15)) && !r.isArrived()) {
+            if (LocalTime.now().isAfter(r.getTime().plusMinutes(15)) && !r.getCustArrived()) {
                 System.out.println("Reservation " + r + " has expired and will be automatically removed.");
                 temp.add(allReservations.indexOf(r));
             }
@@ -185,10 +187,21 @@ public class ReservationMgr implements Serializable {
         int minutesNow = LocalTime.now().getMinute();
         int offset;
         if (minutesNow < 15) {
-            offset = (15 - minutesNow) * 1000;
+            offset = (15 - minutesNow) * 1000 * 60;
         } else {
-            offset = (75 - minutesNow) * 1000;
+            offset = (75 - minutesNow) * 1000 * 60;
         }
         timerSchedule.scheduleAtFixedRate(taskToRun, offset, 3600000);
+    }
+
+    public boolean customerArrivedAt(int tableNo) {
+        for (Reservation r : allReservations) {
+            if (r.getTableNo() == tableNo && r.getDate().isEqual(LocalDate.now()) && r.getTime().equals(LocalTime.now())) {
+                r.setCustArrived(true);
+                return true;
+//                return r.getCustomer();
+            }
+        }
+        return false;
     }
 }
