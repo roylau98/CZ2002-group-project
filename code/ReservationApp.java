@@ -20,7 +20,7 @@ public class ReservationApp implements Serializable {
 	private static int month = 0;
 	private static int date = 0;
 	private static int hour = 0;
-
+	
     public void startReservationApp() {
         scanner = new Scanner(System.in);
         reservationMgr.removeOutdatedReservations();
@@ -152,7 +152,7 @@ public class ReservationApp implements Serializable {
                     scanner.nextLine();
     			}
     		} while (error);
-	        if ((reservationMgr.checkArrayListReservationSize()-1) < reservationNoToUpdate || reservationNoToUpdate < 0) {
+	        if (((reservationMgr.checkArrayListReservationSize()-1) < reservationNoToUpdate) || reservationNoToUpdate < 0) {
 	        	System.out.println("Invalid input. Try again.");
 	        	cont = true;
 	        }
@@ -251,8 +251,10 @@ public class ReservationApp implements Serializable {
 	    	} while (error);
 	    	if (month < currentMonth && year == currentYear) {
 	        	System.out.println("Invalid value. (Valid values: " + currentMonthEnum + " onwards)");
-	        	cont = true;
 	        }
+	    	else if (month < 0 || month > 12) {
+	    		System.out.println("Invalid Value. (Valud values: 1 - 12");
+	    	}
 	    	else {
 	    		cont = false;
 	    	}
@@ -316,24 +318,15 @@ public class ReservationApp implements Serializable {
 		    		error = true;
 		    	}
 	    	} while (error);
-	    	if (hour <= currentHour || hour > 23) {
-				if (year == currentYear && month == currentMonth && date == currentDate) {
-			       	System.out.println("Invalid value. (Valid values: " + (currentHour + 1) + " - 23)");
-			        cont = true;
-			        }
-			    else {
-			   		cont = false;
-			   	}
+	    	if (hour < 0 || hour > 23) {
+	    		System.out.println("Invalid value. (Valid values: 0 - 23)");
+	    	}
+	    	else if (year == currentYear && month == currentMonth && date == currentDate && hour <= currentHour){
+		    	System.out.println("Invalid value. (Valid values: " + (currentHour + 1) + " - 23)");
 		    }
 	    	else {
-	    		if (hour < 0 || hour > 23) {
-	    			System.out.println("Invalid value. (Valid values: 0 - 23)");
-			        cont = true;
-	    		}
-	    		else {
-	    			cont = false;
-	    		}
-	    	}
+			   	cont = false;
+			}
     	}
         return LocalTime.of(hour, 0);
     }
