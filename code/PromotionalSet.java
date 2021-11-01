@@ -101,7 +101,7 @@ public class PromotionalSet extends MenuItem {
 	 */
 	@Override
 	public void updateContents() {
-		//super.updateContents();
+		super.updateContents();
 
 		sc = new Scanner(System.in);
 		int choice;
@@ -116,34 +116,51 @@ public class PromotionalSet extends MenuItem {
 			catch(InputMismatchException e)
 	        	{
 				System.out.println("Wrong Option!!!!!");
-	            		sc.nextLine();
+	           		sc.nextLine();
 	        	}
 		}
 		
 		if (choice == 1) {
 			while(choice != 4) {
-				try {
-				System.out.println("(1) Add promotional Item");
-				System.out.println("(2) Remove promotional Item");
-				System.out.println("(3) Change promotional Item quantity");
-				System.out.println("(4) Quit");
-				System.out.println("------------------------------------");
-				System.out.print("Enter Your Option: ");
-				choice = sc.nextInt();
-				System.out.println("------------------------------------");
-				System.out.println();
+				while(true)
+				{
+					try {
+					System.out.println("(1) Add promotional Item");
+					System.out.println("(2) Remove promotional Item");
+					System.out.println("(3) Change promotional Item quantity");
+					System.out.println("(4) Quit");
+					System.out.println("------------------------------------");
+					System.out.print("Enter Your Option: ");
+					choice = sc.nextInt();
+					System.out.println("------------------------------------");
+					System.out.println();
+					break;
+					}
+					catch(InputMismatchException e)
+			        	{
+						System.out.println("Wrong choice. Try again!");
+			            		sc.nextLine();
+			        	}
 				}
-				catch(InputMismatchException e)
-		        	{
-					
-		           		 sc.nextLine();
-		        	}
 				switch (choice) {
 					case 1:
 						System.out.println("Enter the name of the item to add:");
 						inputForString = sc.next();
-						System.out.println("Enter the quantity:");
-						inputForInt = sc.nextInt();
+						while(true)
+						{
+							try {
+								System.out.println("Enter the quantity:");
+								inputForInt = sc.nextInt();
+								break;
+							}
+							catch(InputMismatchException e)
+					        	{
+								System.out.println("Error:quantity cannot be a string");
+					            		sc.nextLine();
+					        	}
+							
+						}
+						
 						addItemToPromotionalSet(inputForString,inputForInt);
 						System.out.println("Updated!");
 						break;
@@ -177,4 +194,3 @@ public class PromotionalSet extends MenuItem {
 	
 
 }
-
