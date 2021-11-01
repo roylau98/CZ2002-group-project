@@ -70,9 +70,7 @@ public class RRPSS implements Serializable {
 	}
 
 	public void startOrderApp() {
-		
-		orderApp.orderAppOptions();
-		
+		orderApp.orderAppOptions(reservationApp);
 	}
 	
 	public void startMenuApp() {

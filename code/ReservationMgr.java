@@ -26,10 +26,10 @@ public class ReservationMgr implements Serializable {
     public ReservationMgr() {
         this.allTables = new ArrayList<>();
         this.allReservations = new ArrayList<>();
-        allTables.add(new Table(2));
-        allTables.add(new Table(2));
-        allTables.add(new Table(4));
-        allTables.add(new Table(4));
+        allTables.add(new Table(1,2));
+        allTables.add(new Table(2,2));
+        allTables.add(new Table(3,4));
+        allTables.add(new Table(4,4));
         createScheduler();
     }
 
@@ -54,7 +54,7 @@ public class ReservationMgr implements Serializable {
                 continue;
             if (t.checkAvailabilityAt(r.getDate(), r.getTime())) {
                 t.markAsUnavailableAt(r.getDate(), r.getTime());
-                r.setTableNo(allTables.indexOf(t));
+                r.setTableNo(t.getTableID());
                 allReservations.add(r);
                 System.out.println("Reservation made successfully at table number " + allTables.indexOf(t));
                 return true;
@@ -71,8 +71,7 @@ public class ReservationMgr implements Serializable {
      */
     public void cancelReservation(int reservationNo) {
         Reservation r = allReservations.get(reservationNo);
-        allTables.get(r.getTableNo()).
-                markAsAvailableAt(r.getDate(), r.getTime());
+        allTables.get(getIndexOfTable(r.getTableNo())).markAsAvailableAt(r.getDate(), r.getTime());
         allReservations.remove(reservationNo);
         System.out.println("Reservation has been cancelled");
     }
@@ -152,7 +151,7 @@ public class ReservationMgr implements Serializable {
         allReservations.sort(Comparator.comparing(Reservation::getDate).thenComparing(Reservation::getTime));
         for (Reservation r : allReservations) {
             if (r.getDate().isBefore(LocalDate.now())) {
-                Table table = allTables.get(r.getTableNo());
+                Table table = allTables.get(getIndexOfTable(r.getTableNo()));
                 table.markAsAvailableAt(r.getDate(), r.getTime());
                 allReservations.remove(r);
             } else {
@@ -173,7 +172,7 @@ public class ReservationMgr implements Serializable {
 
         for (i=0; i<temp.size(); i++) {
             Reservation toRemove = allReservations.get(temp.get(i));
-            Table table = allTables.get(toRemove.getTableNo());
+            Table table = allTables.get(getIndexOfTable(toRemove.getTableNo()));
             table.markAsAvailableAt(toRemove.getDate(), toRemove.getTime());
             allReservations.remove(toRemove);
         }
@@ -204,4 +203,37 @@ public class ReservationMgr implements Serializable {
         }
         return false;
     }
+
+    public ArrayList<Table> getAllTables() {
+        return allTables;
+    }
+
+    private int getIndexOfTable(int tableID) {
+        for (Table t: allTables) {
+            if (t.getTableID()==tableID) {
+                return allTables.indexOf(t);
+            }
+        }
+        return -1;
+    }
+
+    public boolean checkIfTableHasReservationNow(int tableNo) {
+        for (Reservation r: allReservations) {
+            if (r.getTableNo() == tableNo) {
+
+            }
+        }
+
+    }
+
+    public Reservation getReservationAtTableNow(int tableNo) {
+        for (Reservation r: allReservations) {
+            if (r.getTableNo() == tableNo) {
+
+            }
+        }
+
+    }
+
+
 }

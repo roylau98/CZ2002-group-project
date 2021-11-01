@@ -58,12 +58,11 @@ public class Order implements Serializable {
 		orderInvoice.setOrder(order);
 	}
 
-	public void assignTable() {
-
+	public void setTable(Table table) {
+		assignedTable = table;
 	}
 	public Table getTable() {
-		// TODO - implement Order.getTable
-		throw new UnsupportedOperationException();
+		return assignedTable;
 	}
 
 	public void setOrderID(int orderID) {
