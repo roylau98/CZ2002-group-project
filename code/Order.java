@@ -10,6 +10,7 @@ public class Order implements Serializable {
 	private LocalDateTime dateTimeOrderCreated;
 	private ArrayList<MenuItem> itemsOrdered;
 	private Customer customer;
+
 	//private Staff orderCreatedBy;
 	private Boolean completedStatus;
 	private double totalPriceOfOrder;

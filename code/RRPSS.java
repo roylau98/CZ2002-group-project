@@ -5,6 +5,7 @@ public class RRPSS implements Serializable {
 
 	private OrderApp orderApp;
 	private ReservationApp reservationApp;
+
 	private transient Scanner sc = new Scanner(System.in);
 
 	public RRPSS() {

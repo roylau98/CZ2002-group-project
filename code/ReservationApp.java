@@ -100,8 +100,22 @@ public class ReservationApp implements Serializable {
     		System.out.println("No Reservations in system.");
     		return;
     	}
+
+        try {
+            reservationMgr.viewAllReservations();
+            System.out.println("Which reservation would you like to cancel?");
+            int reservationNumber = scanner.nextInt();
+            scanner.nextLine();
+            reservationMgr.cancelReservation(reservationNumber);
+        } catch (InputMismatchException | IndexOutOfBoundsException e) {
+            System.out.println("Invalid input entered.");
+            cancelReservation();
+        }
+
+        /*
     	boolean cont = true;
     	boolean error = true;
+
     	while (cont) {
     		int temp = 0;
     		do {
@@ -126,7 +140,7 @@ public class ReservationApp implements Serializable {
 	           	cont = false;
 	           	reservationMgr.cancelReservation(temp);
 	        }
-    	}
+    	}*/
     }
 
     private void updateReservation() {
