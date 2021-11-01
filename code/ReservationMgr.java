@@ -61,13 +61,15 @@ public class ReservationMgr implements Serializable {
      * @param reservationNo Reservation number.
      */
     public void cancelReservation(int reservationNo) {
-        Reservation r = allReservations.get(reservationNo);
-        allTables.get(r.getTableNo()).
-                markAsAvailableAt(r.getDate(), r.getTime());
-        allReservations.remove(reservationNo);
-        System.out.println("Reservation has been cancelled");
+	    Reservation r = allReservations.get(reservationNo);
+	    allTables.get(r.getTableNo()).markAsAvailableAt(r.getDate(), r.getTime());
+	    allReservations.remove(reservationNo);
+	    System.out.println("Reservation has been cancelled");
     }
-
+    
+    public int checkArrayListReservationSize(){
+    	return allReservations.size();
+    }
     public void updateReservation(int reservationNo, LocalDate newDate) {
         Reservation deepCopy = new Reservation(allReservations.get(reservationNo));
         deepCopy.setDate(newDate);
