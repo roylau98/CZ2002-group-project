@@ -20,11 +20,7 @@ public class ReservationApp implements Serializable {
 	private static int month = 0;
 	private static int date = 0;
 	private static int hour = 0;
-	
-	public static void main(String[] args) {
-		ReservationApp reservationApp = new ReservationApp();
-		reservationApp.startReservationApp();
-	}
+
     public void startReservationApp() {
         scanner = new Scanner(System.in);
         reservationMgr.removeOutdatedReservations();
