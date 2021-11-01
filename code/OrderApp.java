@@ -223,6 +223,8 @@ public class OrderApp implements Serializable {
 			}
 		}
 		customerOrder.setOrderID(orderIDtracker);
+
+		customerOrder.getTable();
 		orderIDtracker++;
 		viewOrder(orderIDtracker);
 		System.out.print("Please take note that this is your orderID: ");
@@ -230,6 +232,11 @@ public class OrderApp implements Serializable {
 		System.out.println();
 		listOfOrders.add(customerOrder);
 		customerOrder.setStaff(staffApp.selectStaff());
+		customerOrder.setCustomer();
+
+		customerOrder.assignTable();
+
+
 	}
 	//------------------------------------------------------------------------------------------------------------
 	/**

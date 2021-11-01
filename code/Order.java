@@ -43,6 +43,9 @@ public class Order implements Serializable {
 	public Customer getCustomer() {
 		return customer;
 	}
+	public void setCustomer(Customer customer) {
+		this.customer = customer;
+	}
 	public Table getAssignedTable() {
 		return assignedTable;
 	}
@@ -56,8 +59,7 @@ public class Order implements Serializable {
 	}
 
 	public void assignTable() {
-		// TODO - implement Order.assignTable
-		throw new UnsupportedOperationException();
+
 	}
 	public Table getTable() {
 		// TODO - implement Order.getTable
@@ -106,8 +108,5 @@ public class Order implements Serializable {
 		orderCreatedBy = s;
 	}
 
-	public void assignTable() {
-
-	}
 
 }
