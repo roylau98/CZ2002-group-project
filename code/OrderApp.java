@@ -26,12 +26,17 @@ public class OrderApp implements Serializable {
          * 
          */
 	private Menu menuApp;
+
+	private StaffApp staffApp;
 	/**
 	 *
 	 */
 	private SalesReport salesReport;
 
 	private int orderIDtracker;
+
+
+
 
 	
 	/**
@@ -43,6 +48,7 @@ public class OrderApp implements Serializable {
 		menuApp = new Menu();
 		salesReport = new SalesReport();
 		orderIDtracker = 0;
+		staffApp = new StaffApp();
 	}
 
 	public void orderAppOptions() {
@@ -187,7 +193,7 @@ public class OrderApp implements Serializable {
 		int choice=999;
 
 		Order customerOrder = new Order();
-		//TODO
+
 		menuApp.printListOfMenuItems();
 		while (true) 
 		{
@@ -209,7 +215,7 @@ public class OrderApp implements Serializable {
 			try 
 			{
 				MenuItem selectedMenuItem = menuApp.getMenuItem(choice);
-				customerOrder.addItemToOrder(selectedMenuItem);	
+				customerOrder.addItemToOrder(selectedMenuItem);
 			}
 			catch(IndexOutOfBoundsException e)
 			{
@@ -217,12 +223,13 @@ public class OrderApp implements Serializable {
 			}
 		}
 		customerOrder.setOrderID(orderIDtracker);
+		orderIDtracker++;
 		viewOrder(orderIDtracker);
 		System.out.print("Please take note that this is your orderID: ");
 		System.out.println(customerOrder.getOrderID());
 		System.out.println();
-		orderIDtracker++;
 		listOfOrders.add(customerOrder);
+		customerOrder.setStaff(staffApp.selectStaff());
 	}
 	//------------------------------------------------------------------------------------------------------------
 	/**
@@ -449,5 +456,7 @@ public class OrderApp implements Serializable {
 	public SalesReport getSalesReport() {
 		return salesReport;
 	}
+
+
 
 }

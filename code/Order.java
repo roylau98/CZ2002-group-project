@@ -10,7 +10,7 @@ public class Order implements Serializable {
 	private LocalDateTime dateTimeOrderCreated;
 	private ArrayList<MenuItem> itemsOrdered;
 	private Customer customer;
-	//private Staff orderCreatedBy;
+	private Staff orderCreatedBy;
 	private Boolean completedStatus;
 	private double totalPriceOfOrder;
 	private Invoice orderInvoice;
@@ -21,7 +21,7 @@ public class Order implements Serializable {
 		dateTimeOrderCreated = LocalDateTime.now();
 		itemsOrdered = new ArrayList<MenuItem>();
 		customer = null;
-		//orderCreatedBy = null;
+		orderCreatedBy = null;
 		completedStatus = false;
 		totalPriceOfOrder = 0;
 		orderInvoice = null;
@@ -102,6 +102,12 @@ public class Order implements Serializable {
 		itemsOrdered.remove(index);
 	}
 
+	public void setStaff(Staff s) {
+		orderCreatedBy = s;
+	}
 
+	public void assignTable() {
+
+	}
 
 }
