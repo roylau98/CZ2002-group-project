@@ -20,7 +20,11 @@ public class ReservationApp implements Serializable {
 	private static int month = 0;
 	private static int date = 0;
 	private static int hour = 0;
-
+	
+	public static void main(String[] args) {
+		ReservationApp reservationApp = new ReservationApp();
+		reservationApp.startReservationApp();
+	}
     public void startReservationApp() {
         scanner = new Scanner(System.in);
         reservationMgr.removeOutdatedReservations();
@@ -95,26 +99,99 @@ public class ReservationApp implements Serializable {
     }
 
     private void cancelReservation() {
-        reservationMgr.viewAllReservations();
-        System.out.println("Which reservation would you like to cancel?");
-        int temp = scanner.nextInt();
-        scanner.nextLine();
-        reservationMgr.cancelReservation(temp);
+    	if (reservationMgr.checkArrayListReservationSize() == 0) {
+    		System.out.println("No Reservations in system.");
+    		return;
+    	}
+    	boolean cont = true;
+    	boolean error = true;
+    	while (cont) {
+    		int temp = 0;
+    		do {
+    			try {
+    				reservationMgr.viewAllReservations();
+    	            System.out.println("Which reservation would you like to cancel?");
+    	            temp = scanner.nextInt();
+    	            scanner.nextLine();
+    	            error = false;
+    			}
+    			catch (InputMismatchException e) {
+    				System.out.println("Invalid input for options. Enter integers.");
+                    error = true;
+                    scanner.nextLine();
+    			}
+    		} while (error);
+    		if ((reservationMgr.checkArrayListReservationSize()-1) < temp || temp < 0) {
+		       	System.out.println("Invalid input. Try again.");
+		       	cont = true;
+	        }
+	        else {
+	           	cont = false;
+	           	reservationMgr.cancelReservation(temp);
+	        }
+    	}
     }
 
     private void updateReservation() {
-        reservationMgr.viewAllReservations();
-        System.out.println("Which reservation would you like to amend?");
-        int reservationNoToUpdate = scanner.nextInt();
-        scanner.nextLine();
-
-        System.out.println("What would you like to amend?\n" +
-                "1. Date of reservation\n" +
-                "2. Time of reservation\n" +
-                "3. Number of persons\n" +
-                "4. Customer details");
-        int choice = scanner.nextInt();
-        scanner.nextLine();
+    	if (reservationMgr.checkArrayListReservationSize() == 0) {
+    		System.out.println("No Reservations in system.");
+    		return;
+    	}
+    	boolean cont = true;
+    	boolean error = true;
+    	int choice = 0;
+    	int reservationNoToUpdate = 0;
+    	while (cont) {
+    		do {
+    			try {
+    				reservationMgr.viewAllReservations();
+    		        System.out.println("Which reservation would you like to amend?");
+    		        reservationNoToUpdate = scanner.nextInt();
+    		        scanner.nextLine();
+    		        error = false;
+    			}
+    			catch (InputMismatchException e) {
+    				System.out.println("Invalid input for options. Enter integers.");
+                    error = true;
+                    scanner.nextLine();
+    			}
+    		} while (error);
+	        if ((reservationMgr.checkArrayListReservationSize()-1) < reservationNoToUpdate || reservationNoToUpdate < 0) {
+	        	System.out.println("Invalid input. Try again.");
+	        	cont = true;
+	        }
+	        else {
+	        	cont = false;
+	        }
+    	}
+    	cont = true;
+    	error = true;
+    	while (cont) {
+    		do {
+    			try {
+    				System.out.println("What would you like to amend?\n" +
+    		                "1. Date of reservation\n" +
+    		                "2. Time of reservation\n" +
+    		                "3. Number of persons\n" +
+    		                "4. Customer details");
+	    		    choice = scanner.nextInt();
+	    		    scanner.nextLine();
+	    		    error = false;
+    			}
+    			catch (InputMismatchException e) {
+    				System.out.println("Invalid input for options. Enter integers.");
+                    error = true;
+                    scanner.nextLine();
+    			}
+    		} while (error);
+		    
+		    if (choice < 1 || choice > 4) {
+		    	System.out.println("Invalid value. (Valid value: 1 - 4)\n");
+		    }
+		    else {
+		    	cont = false;
+		    }
+	    }
 
         switch (choice) {
             case 1:
@@ -303,8 +380,6 @@ public class ReservationApp implements Serializable {
         int contactNumber_int = 0;
         Sex gender = Sex.MALE;
         boolean isMember = false;
-        boolean cont = true;
-        boolean error = true;
         
         while (cont) {
         	System.out.print("Gender (M/F): ");
