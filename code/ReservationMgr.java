@@ -163,7 +163,7 @@ public class ReservationMgr implements Serializable {
         ArrayList<Integer> temp = new ArrayList<Integer>();
         int i;
         for (Reservation r : allReservations) {
-            if (LocalTime.now().isAfter(r.getTime().plusMinutes(15)) && !r.isArrived()) {
+            if (LocalTime.now().isAfter(r.getTime().plusMinutes(15)) && !r.getCustArrived()) {
                 System.out.println("Reservation " + r + " has expired and will be automatically removed.");
                 temp.add(allReservations.indexOf(r));
             }

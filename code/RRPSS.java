@@ -1,6 +1,5 @@
-import javax.xml.crypto.Data;
-import java.util.*;
-import java.io.*;
+import java.io.Serializable;
+import java.util.Scanner;
 
 public class RRPSS implements Serializable {
 
@@ -126,7 +125,5 @@ public class RRPSS implements Serializable {
 			}
  
 		}
-	        
-
 	}
 }
