@@ -106,7 +106,8 @@ public abstract class MenuItem implements Serializable {
 		String inputForString;
 		double inputForDouble;
 
-		while (choice !=1 || choice !=0) {
+		while (choice !=1 || choice !=0) 
+		{
 			while(true)
 			{
 				try 
@@ -118,24 +119,28 @@ public abstract class MenuItem implements Serializable {
 				catch(InputMismatchException e)
 		        	{
 					System.out.println("Wrong Option!!!!!");
-		            		sc.nextLine();
+		           		sc.nextLine();
 		        	}
 			}
-			if (choice == 1) {
+			if (choice == 1) 
+			{
 				System.out.println("Enter the name of the item :");
 				inputForString = sc.next();
 				updateName(inputForString);
 				break;
 			}
-			else if (choice == 0) {
+			else if (choice == 0) 
+			{
 				break;
 			}
-			else {
+			else 
+			{
 				System.out.println("Wrong input. Try again");
 			}
 		}
 
-		while (choice !=1 || choice !=0) {
+		while (choice !=1 || choice !=0) 
+		{
 			while(true)
 			{
 				try 
@@ -147,24 +152,28 @@ public abstract class MenuItem implements Serializable {
 				catch(InputMismatchException e)
 		        	{
 					System.out.println("Wrong Option!!!!!");
-		           		sc.nextLine();
+		            		sc.nextLine();
 		        	}
 			}
-			if (choice == 1) {
+			if (choice == 1) 
+			{
 				System.out.println("Enter the description of the item :");
 				inputForString = sc.next();
 				updateDescription(inputForString);
 				break;
 			}
-			else if (choice == 0) {
+			else if (choice == 0) 
+			{
 				break;
 			}
-			else {
+			else 
+			{
 				System.out.println("Wrong input. Try again");
 			}
 		}
 
-		while (choice !=0) {
+		while (choice !=1 ||choice !=0) 
+		{
 			while(true)
 			{
 				try 
@@ -177,27 +186,54 @@ public abstract class MenuItem implements Serializable {
 		        	{
 					System.out.println("Wrong Option!!!!!");
 		            		sc.nextLine();
-		       		}
+		        	}
 			}
-			if (choice == 1) {
-				System.out.println("Enter the price of the item :");
-				System.out.print("$ ");
-				try {
-					inputForDouble = sc.nextDouble();
-					if (inputForDouble<=0)
-						throw new Exception("Error: price must not lower or equal to 0!" );
-					updatePrice(inputForDouble);
-					break;
-				}
-				catch (Exception e) 
+			if (choice == 1) 
+			{
+				while(true)
 				{
-					System.out.println( e.getMessage() );
+					try 
+					{
+						System.out.println("Enter the new price:");
+						System.out.print("$ ");
+						price = sc.nextDouble();
+						break;
+					}
+					catch(InputMismatchException e)
+		            		{
+						System.out.println("Error: price must not be a string!");
+						sc.nextLine();
+		           		}
 				}
-			}
-			else if (choice == 0) {
+				
+				
+				while(price<=0)
+				{
+					System.out.println("Error: price must not lower or equal to 0!");
+					while(true) 
+					{
+						try 
+						{
+							System.out.println("Enter the new price:");
+							System.out.print("$ ");
+							price = sc.nextDouble();
+							break;
+						}
+						catch(InputMismatchException e)
+			            		{
+							System.out.println("Error: price must not be a string!");
+			                
+			            		}
+					}
+				}
 				break;
 			}
-			else {
+			else if (choice == 0) 
+			{
+				break;
+			}
+			else 
+			{
 				System.out.println("Wrong input. Try again");
 			}
 		}
