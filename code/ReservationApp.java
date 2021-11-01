@@ -208,33 +208,35 @@ public class ReservationApp implements Serializable {
     }
 
     private LocalTime askUserForTime() {
-        boolean error = true;
-        boolean cont = true;
-        LocalTime localTime = LocalTime.now();
-        int hour = 0;
-        while (cont) {
-            int currentHour = localTime.getHour();
-            do {
-                try {
-                    System.out.print("Hour: ");
-                    hour = scanner.nextInt();
-                    scanner.nextLine();
-                    error = false;
-                }
-                catch (InputMismatchException e){
-                    System.out.println("Invalid input. (Valid values: " + currentHour + " onwards)");
-                    scanner.nextLine();
-                    error = true;
-                }
-            } while (error);
-            if (hour < currentHour || hour > 23) {
-                System.out.println("Invalid value. (Valid values: " + currentHour + " - 23)");
-                cont = true;
-            }
-            else {
-                cont = false;
-            }
-        }
+//        boolean error = true;
+//        boolean cont = true;
+//        LocalTime localTime = LocalTime.now();
+//        int hour = 0;
+//        while (cont) {
+//            int currentHour = localTime.getHour();
+//            do {
+//                try {
+//                    System.out.print("Hour: ");
+//                    hour = scanner.nextInt();
+//                    scanner.nextLine();
+//                    error = false;
+//                }
+//                catch (InputMismatchException e){
+//                    System.out.println("Invalid input. (Valid values: " + currentHour + " onwards)");
+//                    scanner.nextLine();
+//                    error = true;
+//                }
+//            } while (error);
+//            if (hour < currentHour || hour > 23) {
+//                System.out.println("Invalid value. (Valid values: " + currentHour + " - 23)");
+//                cont = true;
+//            }
+//            else {
+//                cont = false;
+//            }
+//        }
+        int hour = scanner.nextInt();
+        scanner.nextLine();
         return LocalTime.of(hour, 0);
     }
 

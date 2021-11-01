@@ -1,6 +1,6 @@
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.io.*;
 
 /**
  * Represents a Reservation object to reserve a table.
@@ -40,6 +40,8 @@ public class Reservation implements Serializable {
      */
     private int tableNo;
 
+    private boolean arrived;
+
     /**
      * Class constructor.
      *
@@ -54,6 +56,7 @@ public class Reservation implements Serializable {
         this.noOfPax = noOfPax;
         this.customer = customer;
         this.hour = time.getHour();
+        this.arrived = false;
     }
 
     /**
@@ -67,6 +70,7 @@ public class Reservation implements Serializable {
         this.noOfPax = r.noOfPax;
         this.tableNo = r.tableNo;
         this.customer = new Customer(r.customer);
+        this.arrived = r.arrived;
     }
 
     /**
@@ -140,6 +144,14 @@ public class Reservation implements Serializable {
 
     public void setCustomer(Customer customer) {
         this.customer = customer;
+    }
+
+    public boolean isArrived() {
+        return arrived;
+    }
+
+    public void setArrived(boolean arrived) {
+        this.arrived = arrived;
     }
 
     @Override
