@@ -6,17 +6,17 @@ import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class ReservationApp implements Serializable {
-    private transient Scanner scanner;
-    private final ReservationMgr reservationMgr = new ReservationMgr();
-    private static final int MAX_TABLE_CAPACITY = 25;
-    private static LocalDate localDate = LocalDate.now();
-    private static LocalTime localTime = LocalTime.now();
+	private transient Scanner scanner;
+	private final ReservationMgr reservationMgr = new ReservationMgr();
+	private static final int MAX_TABLE_CAPACITY = 25;
+	private static LocalDate localDate = LocalDate.now();
+	private static LocalTime localTime = LocalTime.now();
 	private static int currentYear = localDate.getYear();
 	private static int currentMonth = localDate.getMonthValue();
-    private static Month currentMonthEnum = localDate.getMonth();
-    private static int currentDate = localDate.getDayOfMonth();
+	private static Month currentMonthEnum = localDate.getMonth();
+	private static int currentDate = localDate.getDayOfMonth();
 	private static int currentHour = localTime.getHour();
-    private static int year = 0;
+	private static int year = 0;
 	private static int month = 0;
 	private static int date = 0;
 	private static int hour = 0;
