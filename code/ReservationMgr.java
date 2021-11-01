@@ -30,6 +30,11 @@ public class ReservationMgr implements Serializable {
         allTables.add(new Table(2));
         allTables.add(new Table(4));
         allTables.add(new Table(4));
+        createScheduler();
+    }
+
+    public int checkArrayListReservationSize(){
+        return allReservations.size();
     }
 
     /**
@@ -152,5 +157,38 @@ public class ReservationMgr implements Serializable {
                 break;
             }
         }
+    }
+
+    public void removeNoShowReservations() {
+        ArrayList<Integer> temp = new ArrayList<Integer>();
+        int i;
+        for (Reservation r : allReservations) {
+            if (LocalTime.now().isAfter(r.getTime().plusMinutes(15)) && !r.isArrived()) {
+                System.out.println("Reservation " + r + " has expired and will be automatically removed.");
+                temp.add(allReservations.indexOf(r));
+            }
+        }
+
+        for (i=0; i<temp.size(); i++) {
+            Reservation toRemove = allReservations.get(temp.get(i));
+            Table table = allTables.get(toRemove.getTableNo());
+            table.markAsAvailableAt(toRemove.getDate(), toRemove.getTime());
+            allReservations.remove(toRemove);
+        }
+    }
+
+    public void createScheduler() {
+        //returns 0 to 59;
+        Timer timerSchedule = new Timer();
+        TimerTask taskToRun = new ExpiredReservationsRemover(this);
+
+        int minutesNow = LocalTime.now().getMinute();
+        int offset;
+        if (minutesNow < 15) {
+            offset = (15 - minutesNow) * 1000;
+        } else {
+            offset = (75 - minutesNow) * 1000;
+        }
+        timerSchedule.scheduleAtFixedRate(taskToRun, offset, 3600000);
     }
 }
