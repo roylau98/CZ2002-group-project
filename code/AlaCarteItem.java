@@ -4,7 +4,7 @@ import java.util.*;
  * This class stores the name, price, description and type of AlaCarteItem {@link Menu},
  * inherit various method from abstract class {@link MenuItem} such as get(),update(),
  * 
- * @author 
+ * @author Chua Zi Jian
  * 
  */
 public class AlaCarteItem extends MenuItem {
@@ -62,7 +62,8 @@ public class AlaCarteItem extends MenuItem {
 
 		int choice=-1;
 
-		while (choice !=1 || choice !=0) {
+		while (choice !=1 || choice !=0) 
+		{
 			while(true)
 			{
 				try 
@@ -75,7 +76,7 @@ public class AlaCarteItem extends MenuItem {
 				catch(InputMismatchException e)
 		        	{
 					System.out.println("Wrong Option!!!!!");
-		           		sc.nextLine();
+		            		sc.nextLine();
 		        	}
 			}
 			int i=0;
@@ -84,7 +85,8 @@ public class AlaCarteItem extends MenuItem {
 				try 
 				{
 			
-					for (AlaCarteItemType type : AlaCarteItemType.values()) {
+					for (AlaCarteItemType type : AlaCarteItemType.values()) 
+					{
 						System.out.println(i+") "+type);
 						i++;
 					}
@@ -93,7 +95,8 @@ public class AlaCarteItem extends MenuItem {
 					sc = new Scanner(System.in);
 					choice = sc.nextInt();
 		
-					switch (choice) {
+					switch (choice) 
+					{
 						case 1:
 							setItemType(AlaCarteItemType.MAIN_COURSE);
 							break;
@@ -111,15 +114,14 @@ public class AlaCarteItem extends MenuItem {
 					}
 					break;
 				}
-			catch(InputMismatchException e)
-		    	{
-				
-				sc.nextLine();
-		    	}
+				catch(InputMismatchException e)
+		    		{
+		        		sc.nextLine();
+		    		}
  
-		}
+			}
 
-	}
+		}
 	}
 
 }
