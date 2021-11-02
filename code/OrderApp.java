@@ -194,6 +194,13 @@ public class OrderApp implements Serializable {
 
 		Order customerOrder = new Order();
 
+		customerOrder.setTable(assignTable(reservationApp));
+		customerOrder.setCustomer(reservationApp.getReservationMgr().getReservationAtTableNow(customerOrder.getTable().getTableID()).getCustomer());
+		reservationApp.getReservationMgr().customerArrivedAt(customerOrder.getTable().getTableID());
+		customerOrder.setOrderID(orderIDtracker);
+		orderIDtracker++;
+		customerOrder.setStaff(staffApp.selectStaff());
+
 		menuApp.printListOfMenuItems();
 		while (true) 
 		{
@@ -222,21 +229,10 @@ public class OrderApp implements Serializable {
 				System.out.println("Invalid choice!");
 			}
 		}
-		customerOrder.setOrderID(orderIDtracker);
-		orderIDtracker++;
-		customerOrder.setTable(assignTable(reservationApp));
-		reservationApp.getReservationMgr().customerArrivedAt(customerOrder.getTable().getTableID());
-		customerOrder.setStaff(staffApp.selectStaff());
-		customerOrder.setCustomer(reservationApp.getReservationMgr().getReservationAtTableNow(customerOrder.getTable().getTableID()).getCustomer());
 
 		viewOrder(orderIDtracker);
 		System.out.print("Please take note that this is your orderID: "+customerOrder.getOrderID());
 		listOfOrders.add(customerOrder);
-
-
-
-
-
 	}
 	//------------------------------------------------------------------------------------------------------------
 	/**
