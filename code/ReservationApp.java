@@ -225,7 +225,18 @@ public class ReservationApp implements Serializable {
     }
 
     private LocalDate askUserForDate() {
-        boolean cont = true;
+		System.out.print("Year: ");
+		year = scanner.nextInt();
+		scanner.nextLine();
+		System.out.println("Month (Jan:1, Feb:2, Mar:3, Apr:4, May:5, Jun:6, Jul:7, Aug:8, Sep:9, Oct:10, Nov:11, Dec:12): " );
+		month = scanner.nextInt();
+		scanner.nextLine();
+		System.out.print("Date: ");
+		date = scanner.nextInt();
+		scanner.nextLine();
+
+		/*
+		boolean cont = true;
         boolean error = true;
     	while (cont) {
 	    	do {
@@ -312,6 +323,7 @@ public class ReservationApp implements Serializable {
 				}
 			}
     	}
+*/
         return LocalDate.of(year, month, date);
     }
 

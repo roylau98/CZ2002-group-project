@@ -1,5 +1,7 @@
-import java.util.*;
-import java.io.*;
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.InputMismatchException;
+import java.util.Scanner;
 /**
  * Manages all the {@link Order} objects of the whole restaurants, 
  * basically the "manager" of {@link RRPSS} to {@link Order} objects
@@ -165,7 +167,7 @@ public class OrderApp implements Serializable {
 					if(input==-1)
 						System.out.println("Exited!");
 					else
-						chargeBill(input);
+						chargeBill(reservationMgr, input);
 					break;
 					
 						
@@ -193,8 +195,19 @@ public class OrderApp implements Serializable {
 		int choice=999;
 
 		Order customerOrder = new Order();
-		customerOrder.setTable(reservationMgr.assignTableToOrder());
-		if (customerOrder.getTable()==null) {
+		int tableNo = -1;
+
+		try {
+			System.out.println("Which table is ordering now?");
+			reservationMgr.viewTablesWithReservationsNow();
+			tableNo = sc.nextInt();
+			sc.nextLine();
+			customerOrder.setAssignedTable(tableNo);
+		} catch (InputMismatchException | ArrayIndexOutOfBoundsException e) {
+			System.out.println("Invalid input");
+		}
+		customerOrder.setCustomer(reservationMgr.getCustomerAt(tableNo));
+		if (customerOrder.getCustomer() == null) {
 			System.out.println("Failed to create Order! Exiting");
 			return;
 		}
@@ -431,7 +444,7 @@ public class OrderApp implements Serializable {
 	 * @param 	orderID	The ID that is used to indicate existing {@link Order} object   
 	 * 
 	 */
-	public void chargeBill(int orderID) {
+	public void chargeBill(ReservationMgr reservationMgr, int orderID) {
 		Order selectedOrder;
 		Invoice bill;
 

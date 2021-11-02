@@ -31,6 +31,13 @@ public class ReservationMgr implements Serializable {
         createScheduler();
     }
 
+    private void addTables() {
+        allTables.add(new Table(2));
+        allTables.add(new Table(2));
+        allTables.add(new Table(4));
+        allTables.add(new Table(4));
+    }
+
     public int checkArrayListReservationSize(){
         return allReservations.size();
     }
@@ -52,7 +59,7 @@ public class ReservationMgr implements Serializable {
                 continue;
             if (t.checkAvailabilityAt(r.getDate(), r.getTime())) {
                 t.markAsUnavailableAt(r.getDate(), r.getTime());
-                r.setTableNo(t.getTableID());
+                r.setTableNo(allTables.indexOf(t));
                 allReservations.add(r);
                 System.out.println("Reservation made successfully at table number " + allTables.indexOf(t));
                 return true;
@@ -69,7 +76,7 @@ public class ReservationMgr implements Serializable {
      */
     public void cancelReservation(int reservationNo) {
         Reservation r = allReservations.get(reservationNo);
-        allTables.get(getIndexOfTable(r.getTableNo())).markAsAvailableAt(r.getDate(), r.getTime());
+        allTables.get(r.getTableNo()).markAsAvailableAt(r.getDate(), r.getTime());
         allReservations.remove(reservationNo);
         System.out.println("Reservation has been cancelled");
     }
@@ -170,7 +177,7 @@ public class ReservationMgr implements Serializable {
 
         for (i=0; i<temp.size(); i++) {
             Reservation toRemove = allReservations.get(temp.get(i));
-            Table table = allTables.get(getIndexOfTable(toRemove.getTableNo()));
+            Table table = allTables.get(toRemove.getTableNo());
             table.markAsAvailableAt(toRemove.getDate(), toRemove.getTime());
             allReservations.remove(toRemove);
         }
@@ -191,7 +198,17 @@ public class ReservationMgr implements Serializable {
         timerSchedule.scheduleAtFixedRate(taskToRun, offset, 3600000);
     }
 
-    public Customer customerArrivedAt(int tableNo) {
+    public void viewTablesWithReservationsNow() {
+        System.out.println("---List of tables with reservations now---");
+        for (Table t : allTables) {
+            // tables with a reservation now are not available for another reservation
+            if (!t.checkAvailabilityAt(LocalDate.now(), LocalTime.now()))
+                System.out.println("Table " + allTables.indexOf(t) + ": " + t.toString());
+        }
+        System.out.println("----------");
+    }
+
+    public Customer getCustomerAt(int tableNo) {
         for (Reservation r : allReservations) {
             if (r.getTableNo() == tableNo && r.getDate().isEqual(LocalDate.now()) && r.getTime().equals(LocalTime.now())) {
                 r.setCustArrived(true);
@@ -201,57 +218,12 @@ public class ReservationMgr implements Serializable {
         return null;
     }
 
-    public ArrayList<Table> getAllTables() {
-        return allTables;
-    }
-
-    private int getIndexOfTable(int tableID) {
-        for (Table t: allTables) {
-            if (t.getTableID()==tableID) {
-                return allTables.indexOf(t);
+    public void removeAfterPayment(int tableNo) {
+        for (Reservation r : allReservations) {
+            if (r.getTableNo() == tableNo && r.getDate().isEqual(LocalDate.now()) && r.getTime().getHour() == LocalTime.now().getHour()) {
+                allTables.get(r.getTableNo()).markAsAvailableAt(r.getDate(), r.getTime());
+                allReservations.remove(r);
             }
         }
-        return -1;
     }
-
-    public boolean checkIfTableHasReservationNow(int tableNo) {
-
-        for (Reservation r: allReservations) {
-            if (r.getTableNo() == tableNo) {
-
-            }
-        }
-
-    }
-
-    public Reservation getReservationAtTableNow(int tableNo) {
-        for (Reservation r: allReservations) {
-            if (r.getTableNo() == tableNo) {
-
-            }
-        }
-
-    }
-
-    public Table assignTableToOrder() {
-        sc = new Scanner(System.in);
-        int choice;
-
-        System.out.println("Choose the following tables");
-        for (int i = 0; i < allTables.size(); i++) {
-            if (checkIfTableHasReservationNow(allTables.get(i).getTableID())) {
-                System.out.println("Index: "+i+"\tTableID: "+allTables.get(i).getTableID());
-            }
-        }
-        System.out.println("Type -1 to Quit");
-        System.out.println("Enter the index: ");
-        choice = sc.nextInt();
-        if (choice == -1) {
-            return null;
-        }
-        return allTables.get(choice);
-
-    }
-
-
 }

@@ -7,7 +7,8 @@ public class StaffApp {
 
     public StaffApp() {
         listOfStaff = new ArrayList<>();
-        sc = new Scanner(System.in);
+        listOfStaff.add(new Staff("Patrick", Sex.MALE, 1, "Manager"));
+        listOfStaff.add(new Staff("SpongeBob", Sex.MALE, 2, "Worker"));
     }
 
     public Staff selectStaff() {

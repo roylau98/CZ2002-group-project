@@ -11,8 +11,7 @@ import java.util.HashMap;
  * @since 2021-10-22
  */
 public class Table implements Serializable {
-
-    private int tableID;
+    
     /**
      * Capacity of the table.
      */
@@ -29,14 +28,9 @@ public class Table implements Serializable {
      * Class constructor.
      * @param capacity Capacity of the table.
      */
-    public Table(int tableID, int capacity) {
-        this.tableID = tableID;
+    public Table(int capacity) {
         this.capacity = capacity;
         this.availabilityRecord = new HashMap<>();
-    }
-
-    public int getTableID() {
-        return tableID;
     }
 
     /**

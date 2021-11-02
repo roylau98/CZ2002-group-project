@@ -1,8 +1,6 @@
 import java.io.Serializable;
-import java.util.UUID;
 import java.time.LocalDateTime;
-import java.util.*;
-import java.io.*;
+import java.util.ArrayList;
 
 public class Order implements Serializable {
 
@@ -46,9 +44,6 @@ public class Order implements Serializable {
 	public void setCustomer(Customer customer) {
 		this.customer = customer;
 	}
-	public Table getAssignedTable() {
-		return assignedTable;
-	}
 
 	public Invoice getInvoice() {
 		return orderInvoice;
@@ -56,13 +51,6 @@ public class Order implements Serializable {
 	public void createInvoice(Order order) {
 		orderInvoice = new Invoice();
 		orderInvoice.setOrder(order);
-	}
-
-	public void setTable(Table table) {
-		assignedTable = table;
-	}
-	public Table getTable() {
-		return assignedTable;
 	}
 
 	public void setOrderID(int orderID) {
@@ -77,6 +65,14 @@ public class Order implements Serializable {
 	}
 	public void setOrderAsCompleted() {
 		this.completedStatus = true;
+	}
+
+	public int getAssignedTable() {
+		return assignedTable;
+	}
+
+	public void setAssignedTable(int assignedTable) {
+		this.assignedTable = assignedTable;
 	}
 
 	public ArrayList<MenuItem> getListOfItemsOrdered() {
