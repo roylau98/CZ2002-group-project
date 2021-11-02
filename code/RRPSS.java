@@ -1,6 +1,6 @@
 import java.io.Serializable;
-import java.util.Scanner;
 import java.util.InputMismatchException;
+import java.util.Scanner;
 
 public class RRPSS implements Serializable {
 
