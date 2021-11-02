@@ -51,7 +51,7 @@ public class OrderApp implements Serializable {
 		staffApp = new StaffApp();
 	}
 
-	public void orderAppOptions(ReservationApp reservationApp) {
+	public void orderAppOptions(ReservationMgr reservationMgr) {
 		sc = new Scanner(System.in);
 		int choice = 0;
 		int input = 0;
@@ -101,7 +101,7 @@ public class OrderApp implements Serializable {
 					break;
 				case 2:
 					System.out.println("Creating Order......");
-					createOrder(reservationApp);
+					createOrder(reservationMgr);
 					break;
 				case 3:
 					while(true)
@@ -188,15 +188,18 @@ public class OrderApp implements Serializable {
 	 * 
 	 */
 
-	public void createOrder(ReservationApp reservationApp) {
+	public void createOrder(ReservationMgr reservationMgr) {
 		sc = new Scanner(System.in);
 		int choice=999;
 
 		Order customerOrder = new Order();
-
-		customerOrder.setTable(assignTable(reservationApp));
-		customerOrder.setCustomer(reservationApp.getReservationMgr().getReservationAtTableNow(customerOrder.getTable().getTableID()).getCustomer());
-		reservationApp.getReservationMgr().customerArrivedAt(customerOrder.getTable().getTableID());
+		customerOrder.setTable(reservationMgr.assignTableToOrder());
+		if (customerOrder.getTable()==null) {
+			System.out.println("Failed to create Order! Exiting");
+			return;
+		}
+		// customerOrder.setCustomer(reservationMgr.getReservationAtTableNow(customerOrder.getTable().getTableID()).getCustomer());
+		// reservationApp.getReservationMgr().customerArrivedAt(customerOrder.getTable().getTableID());
 		customerOrder.setOrderID(orderIDtracker);
 		orderIDtracker++;
 		customerOrder.setStaff(staffApp.selectStaff());
@@ -461,22 +464,6 @@ public class OrderApp implements Serializable {
 	}
 
 
-	public Table assignTable(ReservationApp reservationApp) {
-		sc = new Scanner(System.in);
-		int choice;
-		ArrayList<Table> listOfTables = reservationApp.getReservationMgr().getAllTables();
-		System.out.println("Choose the following tables");
-		for (int i = 0; i < listOfTables.size(); i++) {
-			if (reservationApp.getReservationMgr().checkIfTableHasReservationNow(listOfTables.get(i).getTableID())) {
-				System.out.println("Index: "+i+"\tTableID: "+listOfTables.get(i).getTableID());
-			}
-		}
-		System.out.println("Enter the index: ");
-		choice = sc.nextInt();
 
-		return listOfTables.get(choice);
-
-
-	}
 
 }

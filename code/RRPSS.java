@@ -71,7 +71,7 @@ public class RRPSS implements Serializable {
 	}
 
 	public void startOrderApp() {
-		orderApp.orderAppOptions(reservationApp);
+		orderApp.orderAppOptions(reservationApp.getReservationMgr());
 	}
 	
 	public void startMenuApp() {
