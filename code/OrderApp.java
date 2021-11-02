@@ -26,12 +26,17 @@ public class OrderApp implements Serializable {
          * 
          */
 	private Menu menuApp;
+
+	private StaffApp staffApp;
 	/**
 	 *
 	 */
 	private SalesReport salesReport;
 
 	private int orderIDtracker;
+
+
+
 
 	
 	/**
@@ -43,59 +48,138 @@ public class OrderApp implements Serializable {
 		menuApp = new Menu();
 		salesReport = new SalesReport();
 		orderIDtracker = 0;
+		staffApp = new StaffApp();
 	}
 
-	public void orderAppOptions() {
+	public void orderAppOptions(ReservationApp reservationApp) {
 		sc = new Scanner(System.in);
-		int choice;
-		int input;
+		int choice = 0;
+		int input = 0;
 
 		do {
-			System.out.println("(1)View Order");
-			System.out.println("(2)Create new Order");
-			System.out.println("(3)Remove Order");
-			System.out.println("(4)Update Order");
-			System.out.println("(5)Charge Bill");
-			System.out.println("(6)Exit");
-			System.out.println();
-			System.out.println("Enter Option");
-			choice = sc.nextInt();
-
-			switch (choice) {
+			try 
+			{
+				System.out.println("========Order Option========");
+				System.out.println("(1)View Order");
+				System.out.println("(2)Create new Order");
+				System.out.println("(3)Remove Order");
+				System.out.println("(4)Update Item In Order");
+				System.out.println("(5)Charge Bill");
+				System.out.println("(6)Exit");
+				System.out.println("----------------------------");
+				System.out.print("Enter Your Option: ");
+				choice = sc.nextInt();
+				System.out.println("----------------------------");
+				System.out.println();
+			}
+			catch(InputMismatchException e)
+		        {
+		            	sc.nextLine();
+		        }
+			switch (choice) 
+			{
 				case 1:
-					System.out.println("Enter orderID");
-					input = sc.nextInt();
-					viewOrder(input);
+					while(true)
+					{
+						try 
+						{
+							System.out.println("View Order......");
+							System.out.print("Enter orderID or -1 to exit: ");
+							input = sc.nextInt();
+							break;
+						}
+						catch(InputMismatchException e)
+				        	{
+							System.out.println("Invalid Option.");
+				           		sc.nextLine();
+				        	}	
+					}
+					if(input==-1)
+						System.out.println("Exited!");
+					else
+						viewOrder(input);
 					break;
 				case 2:
-					createOrder();
+					System.out.println("Creating Order......");
+					createOrder(reservationApp);
 					break;
 				case 3:
-					System.out.println("Enter orderID");
-					input = sc.nextInt();
-					removeOrder(input);
+					while(true)
+					{
+						try 
+						{
+							System.out.println("Removing Order......");
+							System.out.print("Enter orderID or -1 to exit: ");
+							input = sc.nextInt();
+							break;
+						}
+						catch(InputMismatchException e)
+					       	{
+							System.out.println("Invalid Option.");
+				           		sc.nextLine();
+					       	}	
+					}
+					if(input==-1)
+						System.out.println("Exited!");
+					else
+						removeOrder(input);
 					break;
 				case 4:
-					System.out.println("Enter orderID");
-					input = sc.nextInt();
-					updateOrder(input);
+					while(true)
+					{
+						try 
+						{
+							System.out.println("Updating Order......");
+							System.out.print("Enter orderID or -1 to exit: ");
+							input = sc.nextInt();
+							break;
+						}
+						catch(InputMismatchException e)
+					       	{
+							System.out.println("Invalid Option.");
+					      		sc.nextLine();
+					        }	
+					}
+					if(input==-1)
+						System.out.println("Exited!");
+					else
+						updateOrder(input);
 					break;
+						
 				case 5:
-					System.out.println("Enter orderID");
-					input = sc.nextInt();
-					chargeBill(input);
+					while(true)
+					{
+						try 
+						{
+							System.out.println("Charge Bill......");
+							System.out.print("Enter orderID or -1 to exit: ");
+							input = sc.nextInt();
+							break;
+						}
+						catch(InputMismatchException e)
+					       	{
+							System.out.println("Invalid Option.");
+					       		sc.nextLine();
+					        }	
+					}
+					if(input==-1)
+						System.out.println("Exited!");
+					else
+						chargeBill(input);
 					break;
-				
 					
+						
 				default:
 					System.out.println("Invalid Option. Try again!");
 			}
+			
 
 		} while(choice != 6);
 
 	}
 	
-	public void openMenuApp(){
+	public void openMenuApp()
+	{
 		menuApp.menuOptions();
 	}
 	//-----------------------------------------------------------------------------------------------------------
@@ -104,31 +188,50 @@ public class OrderApp implements Serializable {
 	 * 
 	 */
 
-	public void createOrder() {
+	public void createOrder(ReservationApp reservationApp) {
 		sc = new Scanner(System.in);
 		int choice=999;
 
 		Order customerOrder = new Order();
-		//TODO
+
+		customerOrder.setTable(assignTable(reservationApp));
+		customerOrder.setCustomer(reservationApp.getReservationMgr().getReservationAtTableNow(customerOrder.getTable().getTableID()).getCustomer());
+		reservationApp.getReservationMgr().customerArrivedAt(customerOrder.getTable().getTableID());
+		customerOrder.setOrderID(orderIDtracker);
+		orderIDtracker++;
+		customerOrder.setStaff(staffApp.selectStaff());
+
 		menuApp.printListOfMenuItems();
-		while (true) {
-			System.out.println("Enter menu item choice. Or -1 to Quit");
-			choice = sc.nextInt(); // have not accounted for arrayOutOfBounds Error
+		while (true) 
+		{
+			while(true)
+			{
+				try {
+					System.out.println("Enter menu item choice. Or -1 to Quit");
+					choice = sc.nextInt(); // have not accounted for arrayOutOfBounds Error
+					break;
+				}
+				catch(InputMismatchException e)
+				{
+					System.out.println("Invalid choice!");
+					sc.nextLine();
+				}
+			}
 			if(choice==-1)
 				break;
 			try 
 			{
-				MenuItem selectedMenuItem = menuApp.getMenuItem(choice-1);
+				MenuItem selectedMenuItem = menuApp.getMenuItem(choice);
 				customerOrder.addItemToOrder(selectedMenuItem);
-				
 			}
 			catch(IndexOutOfBoundsException e)
 			{
 				System.out.println("Invalid choice!");
 			}
 		}
-		customerOrder.setOrderID(orderIDtracker);
-		orderIDtracker++;
+
+		viewOrder(orderIDtracker);
+		System.out.print("Please take note that this is your orderID: "+customerOrder.getOrderID());
 		listOfOrders.add(customerOrder);
 	}
 	//------------------------------------------------------------------------------------------------------------
@@ -138,42 +241,76 @@ public class OrderApp implements Serializable {
 	 * @param 	orderID	The ID that is used to indicate existing {@link Order} object   
 	 * 
 	 */
-	public void updateOrder(int orderID) {
+	public void updateOrder(int orderID) 
+	{
 		sc = new Scanner(System.in);
 		Order selectedOrder = null;
-		for (int i=0; i<listOfOrders.size(); i++) {
-			if (listOfOrders.get(i).getOrderID() == orderID) {
+		for (int i=0; i<listOfOrders.size(); i++) 
+		{
+			if (listOfOrders.get(i).getOrderID() == orderID) 
+			{
 				selectedOrder = listOfOrders.get(i);
 				break;
 			}
 		}
 
-		if (selectedOrder == null) {
+		if (selectedOrder == null) 
+		{
 			System.out.println("No such order");
 		}
-		else if (selectedOrder.isCompleted() == true) {
+		else if (selectedOrder.isCompleted() == true) 
+		{
 			System.out.println("Order is already completed and paid");
 		}
-		else {
+		else 
+		{
 			int choice;
+			while(true)
+			{
+				try 
+				{
+					System.out.println("Update Order Option");
+					System.out.println("===================");
+					System.out.println("1) Add menuItem");
+					System.out.println("2) Remove menuItem");
+					System.out.println("-1) Quit");
+					System.out.println("===================");
+					System.out.print("Enter Your Choice: ");
+					choice = sc.nextInt();
+					System.out.println("===================");
+					break;
+				}
+				catch(InputMismatchException e)
+		        	{
+					System.out.println("Wrong Option!!!!!");
+		            		sc.nextLine();
+		        	}
+			}
 
-			System.out.println("1) Add menuItem");
-			System.out.println("2) Remove menuItem");
-			System.out.println("-1) Quit");
-			choice = sc.nextInt();
+			while (choice != -1) 
+			{
 
-			while (choice != -1) {
-
-				if (choice ==1) {
+				if (choice ==1) 
+				{
 					menuApp.printListOfMenuItems();
-					while (choice != -1) {
-						System.out.println("Enter menuItem choice. Or -1 to Quit");
-						choice = sc.nextInt(); // have not accounted for arrayOutOfBounds Error
+					while (choice != -1) 
+					{
+						try 
+						{
+							System.out.println("Enter menuItem choice. Or -1 to Quit");
+							System.out.print("Enter Your Choice: ");
+							choice = sc.nextInt(); // have not accounted for arrayOutOfBounds Error
+						}
+						catch(InputMismatchException e)
+				        	{
+							System.out.println("Wrong Option!!!!!");
+				            		sc.nextLine();
+				        	}
 						if(choice==-1)
 							return;
 						try 
 						{
-							MenuItem selectedMenuItem = menuApp.getMenuItem(choice-1);
+							MenuItem selectedMenuItem = menuApp.getMenuItem(choice);
 							selectedOrder.addItemToOrder(selectedMenuItem);
 						}
 						catch(IndexOutOfBoundsException e)
@@ -181,21 +318,33 @@ public class OrderApp implements Serializable {
 							System.out.println("Invalid choice!");
 						}
 					}
+					viewOrder(orderID);
 				}
-				else if (choice == 2) {
+				else if (choice == 2) 
+				{
 					ArrayList<MenuItem> listOfItemsInCurrOrder = selectedOrder.getListOfItemsOrdered();
-					for(int i=0; i<listOfItemsInCurrOrder.size(); i++) {
-						System.out.println(i+") "+listOfItemsInCurrOrder.get(i).getName());
+					for(int i=0; i<listOfItemsInCurrOrder.size(); i++) 
+					{
+						System.out.println((i+1)+") "+listOfItemsInCurrOrder.get(i).getName());
 					}
 
 					while (choice != -1) {
-						System.out.println("Enter choice. Or -1 to Quit");
-						choice = sc.nextInt(); // have not accounted for arrayOutOfBounds Error
+						try 
+						{
+							System.out.println("Enter choice. Or -1 to Quit");
+							System.out.print("Enter Your Choice: ");
+							choice = sc.nextInt(); // have not accounted for arrayOutOfBounds Error
+						}
+						catch(InputMismatchException e)
+				        	{
+							System.out.println("Wrong Option!!!!!");
+				            		sc.nextLine();
+				        	}
 						if(choice==-1)
 							return;
 						try 
 						{
-							selectedOrder.removeItemFromOrder(choice);
+							selectedOrder.removeItemFromOrder(choice-1);
 						}
 						catch(IndexOutOfBoundsException e)
 						{
@@ -204,10 +353,12 @@ public class OrderApp implements Serializable {
 					}
 
 				}
-				else if (choice == -1) {
+				else if (choice == -1) 
+				{
 					break;
 				}
-				else {
+				else 
+				{
 					System.out.println("Invalid input. Try again!");
 				}
 			}
@@ -227,13 +378,14 @@ public class OrderApp implements Serializable {
 
 		for(int i = 0; i< listOfOrders.size(); i++)
 		{
-			if(listOfOrders.get(i).getOrderID() == orderID) {
+			if(listOfOrders.get(i).getOrderID() == orderID) 
+			{
 				currOrder = listOfOrders.get(i);
 				System.out.println("Order removed");
-				break;
+				return;
 			}
 		}
-
+		System.out.println("No such order");
 	}
 	//-----------------------------------------------------------------------------------------------------------------------
 	/**
@@ -245,7 +397,7 @@ public class OrderApp implements Serializable {
 	public void viewOrder(int orderID) {
 
 		Order selectedOrder;
-
+		
 		for(int i = 0; i< listOfOrders.size(); i++)
 		{
 			if(listOfOrders.get(i).getOrderID()==orderID)
@@ -253,15 +405,21 @@ public class OrderApp implements Serializable {
 
 				selectedOrder = listOfOrders.get(i);
 				System.out.println("==============Your Current Order=============");
-				for(int j = 0; j< selectedOrder.getListOfItemsOrdered().size(); j++) {
-					MenuItem currItem = selectedOrder.getListOfItemsOrdered().get(i);
-					System.out.println(currItem.getName() + " " + currItem.getPrice());
+				System.out.println("No.\tItem\tPrice");
+				for(int j = 0; j< selectedOrder.getListOfItemsOrdered().size(); j++) 
+				{
+					MenuItem currItem = selectedOrder.getListOfItemsOrdered().get(j);
+					System.out.println((j+1)+")\t"+currItem.getName() + "\t$" + currItem.getPrice());
 				}
-				selectedOrder.getTotalPriceOfOrder();
+				System.out.println("---------------------------------------------");
+				System.out.println("Total Price: $ "+selectedOrder.getTotalPriceOfOrder());
+				
 				System.out.println("=============================================");
-				break;
+				System.out.println();
+				return;
 			}
 		}
+		System.out.println("No such order");
 	}
 	//-----------------------------------------------------------------------------------------------------------------------
 	/**
@@ -274,8 +432,10 @@ public class OrderApp implements Serializable {
 		Order selectedOrder;
 		Invoice bill;
 
-		for(int i = 0; i< listOfOrders.size(); i++) {
-			if(listOfOrders.get(i).getOrderID()==orderID) {
+		for(int i = 0; i< listOfOrders.size(); i++) 
+		{
+			if(listOfOrders.get(i).getOrderID()==orderID) 
+			{
 				selectedOrder = listOfOrders.get(i);
 				selectedOrder.createInvoice(selectedOrder);
 				bill = selectedOrder.getInvoice();
@@ -298,6 +458,25 @@ public class OrderApp implements Serializable {
 
 	public SalesReport getSalesReport() {
 		return salesReport;
+	}
+
+
+	public Table assignTable(ReservationApp reservationApp) {
+		sc = new Scanner(System.in);
+		int choice;
+		ArrayList<Table> listOfTables = reservationApp.getReservationMgr().getAllTables();
+		System.out.println("Choose the following tables");
+		for (int i = 0; i < listOfTables.size(); i++) {
+			if (reservationApp.getReservationMgr().checkIfTableHasReservationNow(listOfTables.get(i).getTableID())) {
+				System.out.println("Index: "+i+"\tTableID: "+listOfTables.get(i).getTableID());
+			}
+		}
+		System.out.println("Enter the index: ");
+		choice = sc.nextInt();
+
+		return listOfTables.get(choice);
+
+
 	}
 
 }

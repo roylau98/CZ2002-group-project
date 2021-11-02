@@ -1,5 +1,6 @@
 import java.io.Serializable;
 import java.util.Scanner;
+import java.util.InputMismatchException;
 
 public class RRPSS implements Serializable {
 
@@ -16,7 +17,6 @@ public class RRPSS implements Serializable {
 	public void rrpsOptions() {
 		int choice=0;
 		
-		
 		while(choice!=4)
 		{
 			System.out.println("~~~~~Welcome to Krusty Krab~~~~~");
@@ -28,12 +28,17 @@ public class RRPSS implements Serializable {
 			System.out.println("(4) Sales Report(Admin)");
 			System.out.println("(5) Exit");
 			System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
-			System.out.println();
-			System.out.print("Enter Your Choice: ");
-
-			sc = new Scanner(System.in);
-			choice = sc.nextInt();
-
+			try {
+				System.out.print("Enter Your Choice: ");
+				sc = new Scanner(System.in);
+				choice = sc.nextInt();
+				System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+				System.out.println();
+			}
+			catch(InputMismatchException e)
+            		{
+               			sc.nextLine();
+            		}
 			switch (choice) {
 				case 1:
 					startReservationApp();
@@ -43,6 +48,7 @@ public class RRPSS implements Serializable {
 					break;
 				case 3:
 					startMenuApp();
+					
 					break;
 				case 4:
 					startSalesReport();
@@ -60,20 +66,18 @@ public class RRPSS implements Serializable {
 
 	public void startReservationApp() {
 		System.out.println("======Reservation Option======");
-		//reservationApp.
+		reservationApp.startReservationApp();
 		System.out.println("==End of Reservation Option===");
 	}
 
 	public void startOrderApp() {
-		System.out.println("========Order Option========");
-		orderApp.orderAppOptions();
-		System.out.println("====End of Order Option=====");
+		orderApp.orderAppOptions(reservationApp);
 	}
 	
 	public void startMenuApp() {
-		System.out.println("========Menu Option=========");
+		
 		orderApp.openMenuApp();
-		System.out.println("=====End of Menu Option=====");
+		
 	}
 	
 	public void startSalesReport() {
@@ -89,32 +93,47 @@ public class RRPSS implements Serializable {
 		Database database = new Database();
 		
 		while (choice != 3) {
-			System.out.println("***Krusty Krab Restaurant Reservation and Point of Sale System Manager***");
-			System.out.println();
-			System.out.println("What do you want?");
-			System.out.println("1.) Create New RRPSS System");
-			System.out.println("2.) Load existing RRPSS System");
-			System.out.println("3.) Exit");
-			System.out.println();
-			System.out.println("*************************************************************************");
-			System.out.println();
-			System.out.print("Enter Your Choice: ");
-			choice = sc.nextInt();
+			try {
+				System.out.println("***Krusty Krab Restaurant Reservation and Point of Sale System Manager***");
+				System.out.println();
+				System.out.println("What do you want?");
+				System.out.println("(1) Create New RRPSS System");
+				System.out.println("(2) Load existing RRPSS System");
+				System.out.println("(3) Exit");
 
+				System.out.println("*************************************************************************");
+
+				System.out.print("Enter Your Choice: ");
+				choice = sc.nextInt();
+				System.out.println("*************************************************************************");
+				System.out.println();
+			}
+			catch(InputMismatchException e)
+			{
+				sc.nextLine();
+			}
 			switch (choice) {
 				case 1:
 					main = new RRPSS();
 					System.out.println("New RRPSS created !");
 					System.out.println();
+					
 					main.rrpsOptions();
 					System.out.println("Saving system state...");
 					database.save(main,"file1.txt");
 					break;
 				case 2:
+					
+					System.out.println("Loading system state...");
 					main = ( (RRPSS) database.load("file1.txt") );
-					System.out.println("System state loaded !");
-					System.out.println();
-					main.rrpsOptions();
+					try 
+					{
+						main.rrpsOptions();
+					}
+					catch(NullPointerException e)
+					{
+						continue;
+					}
 					System.out.println("Saving system state...");
 					database.save(main,"file1.txt");
 					break;

@@ -10,8 +10,7 @@ public class Order implements Serializable {
 	private LocalDateTime dateTimeOrderCreated;
 	private ArrayList<MenuItem> itemsOrdered;
 	private Customer customer;
-
-	//private Staff orderCreatedBy;
+	private Staff orderCreatedBy;
 	private Boolean completedStatus;
 	private double totalPriceOfOrder;
 	private Invoice orderInvoice;
@@ -22,7 +21,7 @@ public class Order implements Serializable {
 		dateTimeOrderCreated = LocalDateTime.now();
 		itemsOrdered = new ArrayList<MenuItem>();
 		customer = null;
-		//orderCreatedBy = null;
+		orderCreatedBy = null;
 		completedStatus = false;
 		totalPriceOfOrder = 0;
 		orderInvoice = null;
@@ -44,6 +43,9 @@ public class Order implements Serializable {
 	public Customer getCustomer() {
 		return customer;
 	}
+	public void setCustomer(Customer customer) {
+		this.customer = customer;
+	}
 	public Table getAssignedTable() {
 		return assignedTable;
 	}
@@ -56,13 +58,11 @@ public class Order implements Serializable {
 		orderInvoice.setOrder(order);
 	}
 
-	public void assignTable() {
-		// TODO - implement Order.assignTable
-		throw new UnsupportedOperationException();
+	public void setTable(Table table) {
+		assignedTable = table;
 	}
 	public Table getTable() {
-		// TODO - implement Order.getTable
-		throw new UnsupportedOperationException();
+		return assignedTable;
 	}
 
 	public void setOrderID(int orderID) {
@@ -84,6 +84,7 @@ public class Order implements Serializable {
 	}
 
 	public void calculatePriceOfOrder() {
+		totalPriceOfOrder=0;
 		for(int i = 0; i< itemsOrdered.size(); i++) {
 			totalPriceOfOrder = totalPriceOfOrder+itemsOrdered.get(i).getPrice();
 		}
@@ -94,12 +95,17 @@ public class Order implements Serializable {
 	}
 
 	public void addItemToOrder(MenuItem itemToBeAdded) {
+		
 		itemsOrdered.add(itemToBeAdded);
 	}
 	public void removeItemFromOrder(int index) {
+	
 		itemsOrdered.remove(index);
 	}
 
+	public void setStaff(Staff s) {
+		orderCreatedBy = s;
+	}
 
 
 }

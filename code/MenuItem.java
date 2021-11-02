@@ -1,4 +1,5 @@
 import java.io.Serializable;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 import java.io.*;
 /**
@@ -90,9 +91,9 @@ public abstract class MenuItem implements Serializable {
 	 * Print the details(name,description,price) of this MenuItem
 	 */
 	public void print() {
-		System.out.println("Name: "+getName());
-		System.out.println("Description: "+getDescription());
-		System.out.println("Price: "+getPrice());
+		System.out.println("Name        : "+getName());
+		System.out.println("Description : "+getDescription());
+		System.out.println("Price       : $ "+getPrice());
 	}
 	
 	/**
@@ -105,60 +106,134 @@ public abstract class MenuItem implements Serializable {
 		String inputForString;
 		double inputForDouble;
 
-		while (choice !=1 || choice !=0) {
-			System.out.println("Update Item Name? 1-Yes, 0-N");
-			choice = sc.nextInt();
-			if (choice == 1) {
+		while (choice !=1 || choice !=0) 
+		{
+			while(true)
+			{
+				try 
+				{
+					System.out.println("Update Item Name? 1-Yes, 0-N");
+					choice = sc.nextInt();
+					break;
+				}
+				catch(InputMismatchException e)
+		        	{
+					System.out.println("Wrong Option!!!!!");
+		           		sc.nextLine();
+		        	}
+			}
+			if (choice == 1) 
+			{
+				System.out.println("Enter the name of the item :");
 				inputForString = sc.next();
 				updateName(inputForString);
 				break;
 			}
-			else if (choice == 0) {
+			else if (choice == 0) 
+			{
 				break;
 			}
-			else {
+			else 
+			{
 				System.out.println("Wrong input. Try again");
 			}
 		}
 
-		while (choice !=1 || choice !=0) {
-			System.out.println("Update Item Description? 1-Yes, 0-N");
-			choice = sc.nextInt();
-			if (choice == 1) {
+		while (choice !=1 || choice !=0) 
+		{
+			while(true)
+			{
+				try 
+				{
+					System.out.println("Update Item Description? 1-Yes, 0-N");
+					choice = sc.nextInt();
+					break;
+				}
+				catch(InputMismatchException e)
+		        	{
+					System.out.println("Wrong Option!!!!!");
+		            		sc.nextLine();
+		        	}
+			}
+			if (choice == 1) 
+			{
+				System.out.println("Enter the description of the item :");
 				inputForString = sc.next();
 				updateDescription(inputForString);
 				break;
 			}
-			else if (choice == 0) {
+			else if (choice == 0) 
+			{
 				break;
 			}
-			else {
+			else 
+			{
 				System.out.println("Wrong input. Try again");
 			}
 		}
 
-		while (choice !=0) {
-			System.out.println("Update Item Price? 1-Yes, 0-N");
-			choice = sc.nextInt();
-			if (choice == 1) {
-				inputForDouble = sc.nextDouble();
-				updatePrice(inputForDouble);
-				try {
-					inputForDouble = sc.nextDouble();
-					if (inputForDouble<=0)
-						throw new Exception("Error: price must not lower or equal to 0!" );
-					updatePrice(inputForDouble);
+		while (choice !=1 ||choice !=0) 
+		{
+			while(true)
+			{
+				try 
+				{
+					System.out.println("Update Item Price? 1-Yes, 0-N");
+					choice = sc.nextInt();
 					break;
 				}
-				catch (Exception e) 
-				{
-					System.out.println( e.getMessage() );
-				}
+				catch(InputMismatchException e)
+		        	{
+					System.out.println("Wrong Option!!!!!");
+		            		sc.nextLine();
+		        	}
 			}
-			else if (choice == 0) {
+			if (choice == 1) 
+			{
+				while(true)
+				{
+					try 
+					{
+						System.out.println("Enter the new price:");
+						System.out.print("$ ");
+						price = sc.nextDouble();
+						break;
+					}
+					catch(InputMismatchException e)
+		            		{
+						System.out.println("Error: price must not be a string!");
+						sc.nextLine();
+		           		}
+				}
+				
+				
+				while(price<=0)
+				{
+					System.out.println("Error: price must not lower or equal to 0!");
+					while(true) 
+					{
+						try 
+						{
+							System.out.println("Enter the new price:");
+							System.out.print("$ ");
+							price = sc.nextDouble();
+							break;
+						}
+						catch(InputMismatchException e)
+			            		{
+							System.out.println("Error: price must not be a string!");
+			                
+			            		}
+					}
+				}
 				break;
 			}
-			else {
+			else if (choice == 0) 
+			{
+				break;
+			}
+			else 
+			{
 				System.out.println("Wrong input. Try again");
 			}
 		}

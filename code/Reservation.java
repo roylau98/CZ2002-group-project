@@ -57,6 +57,7 @@ public class Reservation implements Serializable {
         this.customer = customer;
         this.hour = time.getHour();
         this.custArrived = false;
+        this.tableNo = -1;
     }
 
     /**

@@ -1,4 +1,5 @@
 import java.util.HashMap;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 /**
  * Stores information about a PromotionalSet inherit from{@link MenuItem} class to used in context of a menu.
@@ -22,6 +23,8 @@ public class PromotionalSet extends MenuItem {
 	 */
 	PromotionalSet() {
 		super("unknown", "unknown", 0);
+		items = new HashMap<>();
+		items.put(null,1);
 	}
 	
 	/**
@@ -29,7 +32,8 @@ public class PromotionalSet extends MenuItem {
 	 */
 	PromotionalSet(String name, String description, double price) {
 		super(name, description, price);
-		items = new HashMap<>();
+		this.items = new HashMap<>();
+		items.put(null,1);
 	}
 	
 	/**
@@ -39,8 +43,8 @@ public class PromotionalSet extends MenuItem {
 	 * @param quantity	The quantity of that certain item to be added in
 	 */
 	public void addItemToPromotionalSet(String itemName, int quantity) {
-		items.putIfAbsent(itemName,quantity);
-		System.out.println("item added!");
+		this.items.putIfAbsent(itemName,quantity);
+		System.out.println("Item Added!");
 	}
 	
 	/**
@@ -51,10 +55,10 @@ public class PromotionalSet extends MenuItem {
 	public void removeItemFromPromotionalSet(String itemName) {
 		if (items.containsKey(itemName)) {
 			items.remove(itemName);
-			System.out.println("item removed!");
+			System.out.println("Item Removed!");
 		}
 		else {
-			System.out.println("No such item in promotional set");
+			System.out.println("No such item in Promotional Set");
 		}
 	}
 	
@@ -67,10 +71,10 @@ public class PromotionalSet extends MenuItem {
 	public void updateItemInPromotionalSet(String itemName, int updatedQuantity) {
 		if (items.containsKey(itemName)) {
 			items.replace(itemName,updatedQuantity);
-			System.out.println("item updated!");
+			System.out.println("Item Updated!");
 		}
 		else {
-			System.out.println("No such item in promotional set");
+			System.out.println("No such item in Promotional Set");
 		}
 	}
 	/**
@@ -103,25 +107,62 @@ public class PromotionalSet extends MenuItem {
 		int choice;
 		String inputForString;
 		int inputForInt;
-
-		System.out.println("Update Set contents? 1-Yes, 0-N");
-		choice = sc.nextInt();
-		if (choice == 1) {
-			System.out.println("1.) Add promotional Item");
-			System.out.println("2.) Remove promotional Item");
-			System.out.println("3.) Change promotional Item quantity");
-			System.out.println("4.) Quit");
-
-			while(choice != 4) {
+		while(true) {
+			try {
+				System.out.println("Update Set contents? 1-Yes, 0-N");
 				choice = sc.nextInt();
+				break;
+			}
+			catch(InputMismatchException e)
+	        	{
+				System.out.println("Wrong Option!!!!!");
+	           		sc.nextLine();
+	        	}
+		}
+		
+		if (choice == 1) {
+			while(choice != 4) {
+				while(true)
+				{
+					try {
+					System.out.println("(1) Add promotional Item");
+					System.out.println("(2) Remove promotional Item");
+					System.out.println("(3) Change promotional Item quantity");
+					System.out.println("(4) Quit");
+					System.out.println("------------------------------------");
+					System.out.print("Enter Your Option: ");
+					choice = sc.nextInt();
+					System.out.println("------------------------------------");
+					System.out.println();
+					break;
+					}
+					catch(InputMismatchException e)
+			        	{
+						System.out.println("Wrong choice. Try again!");
+			            		sc.nextLine();
+			        	}
+				}
 				switch (choice) {
 					case 1:
 						System.out.println("Enter the name of the item to add:");
 						inputForString = sc.next();
-						System.out.println("Enter the quantity:");
-						inputForInt = sc.nextInt();
+						while(true)
+						{
+							try {
+								System.out.println("Enter the quantity:");
+								inputForInt = sc.nextInt();
+								break;
+							}
+							catch(InputMismatchException e)
+					        	{
+								System.out.println("Error:quantity cannot be a string");
+					            		sc.nextLine();
+					        	}
+							
+						}
+						
 						addItemToPromotionalSet(inputForString,inputForInt);
-						System.out.println("updated!");
+						System.out.println("Updated!");
 						break;
 
 					case 2:
@@ -150,5 +191,6 @@ public class PromotionalSet extends MenuItem {
 			System.out.println("Wrong input, returning!");
 		}
 	}
+	
 
 }
