@@ -1,10 +1,7 @@
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.Timer;
-import java.util.TimerTask;
+import java.util.*;
 
 /**
  * Manager of all reservations and tables.
@@ -13,6 +10,7 @@ import java.util.TimerTask;
  * @since 2021-10-23
  */
 public class ReservationMgr implements Serializable {
+    private transient Scanner sc;
     /**
      * Collection of all tables in the restaurant.
      */
@@ -218,6 +216,7 @@ public class ReservationMgr implements Serializable {
     }
 
     public boolean checkIfTableHasReservationNow(int tableNo) {
+
         for (Reservation r: allReservations) {
             if (r.getTableNo() == tableNo) {
 
@@ -232,6 +231,26 @@ public class ReservationMgr implements Serializable {
 
             }
         }
+
+    }
+
+    public Table assignTableToOrder() {
+        sc = new Scanner(System.in);
+        int choice;
+
+        System.out.println("Choose the following tables");
+        for (int i = 0; i < allTables.size(); i++) {
+            if (checkIfTableHasReservationNow(allTables.get(i).getTableID())) {
+                System.out.println("Index: "+i+"\tTableID: "+allTables.get(i).getTableID());
+            }
+        }
+        System.out.println("Type -1 to Quit");
+        System.out.println("Enter the index: ");
+        choice = sc.nextInt();
+        if (choice == -1) {
+            return null;
+        }
+        return allTables.get(choice);
 
     }
 
