@@ -194,14 +194,13 @@ public class ReservationMgr implements Serializable {
         timerSchedule.scheduleAtFixedRate(taskToRun, offset, 3600000);
     }
 
-    public boolean customerArrivedAt(int tableNo) {
+    public Customer customerArrivedAt(int tableNo) {
         for (Reservation r : allReservations) {
             if (r.getTableNo() == tableNo && r.getDate().isEqual(LocalDate.now()) && r.getTime().equals(LocalTime.now())) {
                 r.setCustArrived(true);
-                return true;
-//                return r.getCustomer();
+                return r.getCustomer();
             }
         }
-        return false;
+        return null;
     }
 }
