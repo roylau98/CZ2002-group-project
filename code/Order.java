@@ -12,7 +12,7 @@ public class Order implements Serializable {
 	private Boolean completedStatus;
 	private double totalPriceOfOrder;
 	private Invoice orderInvoice;
-	private Table assignedTable;
+	private int assignedTable;
 
 	public Order() {
 		orderID = 9999;
@@ -23,7 +23,7 @@ public class Order implements Serializable {
 		completedStatus = false;
 		totalPriceOfOrder = 0;
 		orderInvoice = null;
-		assignedTable = null;
+		assignedTable = -1;
 	}
 
 	/**

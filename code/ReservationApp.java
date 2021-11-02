@@ -333,34 +333,38 @@ public class ReservationApp implements Serializable {
     }
 
     private LocalTime askUserForTime() {
-        boolean cont = true;
-        boolean error = true;
-    	cont = true;
-    	while (cont) {
-	    	do {
-		    	try {
-			        System.out.print("Hour: ");
-			        hour = scanner.nextInt();
-			        scanner.nextLine();
-			        error = false;
-		    	}
-		    	catch (InputMismatchException e){
-		    		System.out.println("Invalid input. (Enter an integer)");
-		    		scanner.nextLine();
-		    		error = true;
-		    	}
-	    	} while (error);
-	    	if (hour < 0 || hour > 23) {
-	    		System.out.println("Invalid value. (Valid values: 0 - 23)");
-	    	}
-	    	else if (year == currentYear && month == currentMonth && date == currentDate && hour <= currentHour){
-		    	System.out.println("Invalid value. (Valid values: " + (currentHour + 1) + " - 23)");
-		    }
-	    	else {
-			   	cont = false;
-			}
-    	}
-        return LocalTime.of(hour, 0);
+		System.out.print("Hour: ");
+		hour = scanner.nextInt();
+		scanner.nextLine();
+
+//        boolean cont = true;
+//        boolean error = true;
+//    	cont = true;
+//    	while (cont) {
+//	    	do {
+//		    	try {
+//			        System.out.print("Hour: ");
+//			        hour = scanner.nextInt();
+//			        scanner.nextLine();
+//			        error = false;
+//		    	}
+//		    	catch (InputMismatchException e){
+//		    		System.out.println("Invalid input. (Enter an integer)");
+//		    		scanner.nextLine();
+//		    		error = true;
+//		    	}
+//	    	} while (error);
+//	    	if (hour < 0 || hour > 23) {
+//	    		System.out.println("Invalid value. (Valid values: 0 - 23)");
+//	    	}
+//	    	else if (year == currentYear && month == currentMonth && date == currentDate && hour <= currentHour){
+//		    	System.out.println("Invalid value. (Valid values: " + (currentHour + 1) + " - 23)");
+//		    }
+//	    	else {
+//			   	cont = false;
+//			}
+//    	}
+		return LocalTime.of(hour, 0);
     }
 
     private int askUserForPax() {

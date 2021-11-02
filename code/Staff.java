@@ -3,7 +3,7 @@ import java.util.Scanner;
 public class Staff extends Person {
 	private int employeeID;
 	private String jobTitle;
-	private Scanner sc;
+	private transient Scanner sc;
 
 	public Staff() {
 		super("", Sex.MALE);
@@ -43,8 +43,6 @@ public class Staff extends Person {
 		System.out.println("What is the staff's name: ");
 		inputString = sc.next();
 	}
-
-
 
 
 }

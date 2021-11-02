@@ -1,7 +1,8 @@
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class StaffApp {
+public class StaffApp implements Serializable {
     private ArrayList<Staff> listOfStaff;
     private transient Scanner sc;
 
@@ -12,7 +13,7 @@ public class StaffApp {
     }
 
     public Staff selectStaff() {
-
+        sc = new Scanner(System.in);
         System.out.println("Please select the following staff");
 
         for (int i = 0; i < listOfStaff.size(); i++) {

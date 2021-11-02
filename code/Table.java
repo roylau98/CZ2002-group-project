@@ -56,6 +56,7 @@ public class Table implements Serializable {
      * @return true if the table is available, false otherwise
      */
     public boolean checkAvailabilityAt(LocalDate date, LocalTime time) {
+        //
         if (!availabilityRecord.containsKey(date))
             return true;
         else

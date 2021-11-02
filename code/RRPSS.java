@@ -88,10 +88,20 @@ public class RRPSS implements Serializable {
 
 	public static void main(String args[]) {
 		Scanner sc = new Scanner(System.in);
-		int choice = -1;
+		//int choice = -1;
 		RRPSS main = null;
 		Database database = new Database();
-		
+		try
+		{
+			main = ( (RRPSS) database.load("file1.txt"));
+		}
+		catch(NullPointerException e)
+		{
+			main = new RRPSS();
+		}
+		main.rrpsOptions();
+		database.save(main,"file1.txt");
+		/*
 		while (choice != 3) {
 			try {
 				System.out.println("***Krusty Krab Restaurant Reservation and Point of Sale System Manager***");
@@ -144,6 +154,6 @@ public class RRPSS implements Serializable {
 					System.out.println("Wrong input. Try again!");
 			}
  
-		}
+		}*/
 	}
 }

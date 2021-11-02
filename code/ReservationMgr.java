@@ -24,10 +24,7 @@ public class ReservationMgr implements Serializable {
     public ReservationMgr() {
         this.allTables = new ArrayList<>();
         this.allReservations = new ArrayList<>();
-        allTables.add(new Table(1,2));
-        allTables.add(new Table(2,2));
-        allTables.add(new Table(3,4));
-        allTables.add(new Table(4,4));
+        addTables();
         createScheduler();
     }
 
@@ -156,7 +153,7 @@ public class ReservationMgr implements Serializable {
         allReservations.sort(Comparator.comparing(Reservation::getDate).thenComparing(Reservation::getTime));
         for (Reservation r : allReservations) {
             if (r.getDate().isBefore(LocalDate.now())) {
-                Table table = allTables.get(getIndexOfTable(r.getTableNo()));
+                Table table = allTables.get(r.getTableNo());
                 table.markAsAvailableAt(r.getDate(), r.getTime());
                 allReservations.remove(r);
             } else {
@@ -210,7 +207,7 @@ public class ReservationMgr implements Serializable {
 
     public Customer getCustomerAt(int tableNo) {
         for (Reservation r : allReservations) {
-            if (r.getTableNo() == tableNo && r.getDate().isEqual(LocalDate.now()) && r.getTime().equals(LocalTime.now())) {
+            if (r.getTableNo() == tableNo && r.getDate().isEqual(LocalDate.now()) && r.getTime().getHour() == LocalTime.now().getHour()) {
                 r.setCustArrived(true);
                 return r.getCustomer();
             }
