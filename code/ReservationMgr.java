@@ -11,7 +11,6 @@ import java.util.*;
  * @since 2021-10-23
  */
 public class ReservationMgr implements Serializable {
-    private transient Scanner sc;
     /**
      * Collection of all tables in the restaurant.
      */
@@ -144,21 +143,8 @@ public class ReservationMgr implements Serializable {
         return false;
     }
 
-    public void removeOutdatedReservations() {
-        allReservations.sort(Comparator.comparing(Reservation::getDate).thenComparing(Reservation::getTime));
-        for (ListIterator<Reservation> it = allReservations.listIterator(); it.hasNext(); ) {
-            Reservation r = it.next();
-            if (r.getDate().isBefore(LocalDate.now())) {
-                Table table = allTables.get(r.getTableNo());
-                table.markAsAvailableAt(r.getDate(), r.getTime());
-                it.remove();
-            } else {
-                break;
-            }
-        }
-    }
-
     public void removeNoShowReservations() {
+        allReservations.sort(Comparator.comparing(Reservation::getDate).thenComparing(Reservation::getTime));
         for (ListIterator<Reservation> it = allReservations.listIterator(); it.hasNext(); ) {
             Reservation r = it.next();
             LocalDateTime now = LocalDateTime.now();
