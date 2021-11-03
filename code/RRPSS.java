@@ -91,15 +91,20 @@ public class RRPSS implements Serializable {
 		//int choice = -1;
 		RRPSS main = null;
 		Database database = new Database();
-		try
+		main = ( (RRPSS) database.load("file1.txt"));
+		while(true)
 		{
-			main = ( (RRPSS) database.load("file1.txt"));
+			try
+			{
+				main.rrpsOptions();
+				break;
+			}
+			catch(NullPointerException e)
+			{
+				System.out.println("Creating New RRPSS......");
+				main = new RRPSS();
+			}
 		}
-		catch(NullPointerException e)
-		{
-			main = new RRPSS();
-		}
-		main.rrpsOptions();
 		database.save(main,"file1.txt");
 		/*
 		while (choice != 3) {
