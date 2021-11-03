@@ -1,5 +1,6 @@
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.*;
 
@@ -160,8 +161,12 @@ public class ReservationMgr implements Serializable {
     public void removeNoShowReservations() {
         for (ListIterator<Reservation> it = allReservations.listIterator(); it.hasNext(); ) {
             Reservation r = it.next();
-            if (LocalTime.now().isAfter(r.getTime().plusMinutes(15)) && !r.getCustArrived()) {
-                System.out.println("Reservation " + r + " has expired and will be automatically removed.");
+            LocalDateTime now = LocalDateTime.now();
+            LocalDateTime reservationDateTime = LocalDateTime.of(r.getDate(), r.getTime());
+            if (now.isAfter(reservationDateTime.plusMinutes(15)) && !r.getCustArrived()) {
+                System.out.println(r + " has expired and will be automatically removed.");
+                Table t = allTables.get(r.getTableNo());
+                t.markAsAvailableAt(r.getDate(), r.getTime());
                 it.remove();
             }
         }
