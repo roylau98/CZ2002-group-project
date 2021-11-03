@@ -64,24 +64,14 @@ public class RRPSS implements Serializable {
 
     public static void main(String args[]) {
         Scanner sc = new Scanner(System.in);
-        RRPSS main;
+        RRPSS rrpssApp;
         Database database = new Database();
-        main = (RRPSS) database.load("file.txt");
-        if (main == null) {
+        rrpssApp = (RRPSS) database.load("file.txt");
+        if (rrpssApp == null) {
             System.out.println("Creating New RRPSS......");
-            main = new RRPSS();
+            rrpssApp = new RRPSS();
         }
-        main.rrpsOptions();
-        /*
-        while(true) {
-            try {
-                main.rrpsOptions();
-                break;
-            } catch (NullPointerException e) {
-                System.out.println("Creating New RRPSS......");
-                main = new RRPSS();
-            }
-        }*/
-        database.save(main,"file.txt");
+        rrpssApp.rrpsOptions();
+        database.save(rrpssApp,"file.txt");
     }
 }
