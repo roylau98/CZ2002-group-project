@@ -1,4 +1,3 @@
-import java.time.*;
 import java.util.*;
 import java.io.*;
 
@@ -119,7 +118,12 @@ public class SalesReport implements Serializable{
 	}
 
 	public void addInvoice(Invoice tobeAdded) {
-		listOfSales.add(tobeAdded);
+		if (tobeAdded == null) {
+			return;
+		}
+		else {
+			listOfSales.add(tobeAdded);
+		}
 	}
 
 	public ArrayList<Invoice> getListOfSalesInSelectedTimeFrame(int month, int year) {

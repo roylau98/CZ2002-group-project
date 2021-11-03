@@ -78,22 +78,6 @@ public class OrderMgr implements Serializable {
 		return selectedOrder;
 	}
 
-	public void updateOrder(int orderID)
-	{
-		sc = new Scanner(System.in);
-		Order selectedOrder = null;
-		for (int i=0; i<listOfOrders.size(); i++)
-		{
-			if (listOfOrders.get(i).getOrderID() == orderID)
-			{
-				selectedOrder = listOfOrders.get(i);
-				selectedOrder = updatedOrder;
-				break;
-			}
-		}
-
-	}
-
 	public void printItemsInOrder(int orderID) {
 		Order selectedOrder = getOrder(orderID);
 
@@ -135,6 +119,7 @@ public class OrderMgr implements Serializable {
 	 * @param 	orderID	The ID that is used to indicate existing {@link Order} object   
 	 * 
 	 */
+
 	public void viewOrder(int orderID) {
 
 		Order selectedOrder;
@@ -153,7 +138,7 @@ public class OrderMgr implements Serializable {
 					System.out.println((j+1)+")\t"+currItem.getName() + "\t$" + currItem.getPrice());
 				}
 				System.out.println("---------------------------------------------");
-				System.out.println("Total Price: $ "+selectedOrder.getTotalPriceOfOrder();
+				System.out.println("Total Price: $ "+selectedOrder.getTotalPriceOfOrder());
 				System.out.println("=============================================");
 				System.out.println();
 				return;
@@ -168,7 +153,7 @@ public class OrderMgr implements Serializable {
 	 * @param 	orderID	The ID that is used to indicate existing {@link Order} object   
 	 * 
 	 */
-	public void chargeBill(ReservationMgr reservationMgr, int orderID) {
+	public Invoice chargeBill(ReservationMgr reservationMgr, int orderID) {
 		Order selectedOrder;
 		Invoice bill;
 
@@ -180,34 +165,13 @@ public class OrderMgr implements Serializable {
 				selectedOrder.createInvoice(selectedOrder);
 				bill = selectedOrder.getInvoice();
 				bill.printInvoice();
-				salesReport.addInvoice(bill);
 				reservationMgr.removeReservationAfterPayment(listOfOrders.get(i).getAssignedTable());
-				return;
+				return bill;
 			}
 		}
 
 		System.out.println("No such order");
-	}
-
-	public ArrayList<Order> getListOfOrders() {
-		return listOfOrders;
-	}
-
-
-	public SalesReport getSalesReport() {
-		return salesReport;
-	}
-
-	public void openMenuApp()
-	{
-		menuApp.menuOptions();
-	}
-
-	public Menu getMenuApp() {
-		return menuApp;
-	}
-	public StaffApp getStaffApp() {
-		return StaffApp;
+		return null;
 	}
 
 }

@@ -102,7 +102,7 @@ public class OrderApp implements Serializable {
 	}
 	
 	public void openMenuApp() {
-		orderMgr.openMenuApp();
+		menuApp.menuOptions();
 	}
 	//-----------------------------------------------------------------------------------------------------------
 	/**
@@ -200,7 +200,7 @@ public class OrderApp implements Serializable {
 
 				if (choice ==1)
 				{
-					orderMgr.getMenuApp().printListOfMenuItems();
+					menuApp.printListOfMenuItems();
 					while (choice != -1)
 					{
 						try
@@ -219,7 +219,7 @@ public class OrderApp implements Serializable {
 						}
 						try
 						{
-							orderMgr.addItemsInOrder(orderID,orderMgr.getMenuApp().getMenuItem(choice));
+							orderMgr.addItemsInOrder(orderID,menuApp.getMenuItem(choice));
 						}
 						// need rework on catch
 						catch(IndexOutOfBoundsException e)
@@ -303,12 +303,7 @@ public class OrderApp implements Serializable {
 
 	}
 	//-----------------------------------------------------------------------------------------------------------------------
-	/**
-	 * A function that printout the existing items in order by using orderID
-	 * 
-	 * @param 	orderID	The ID that is used to indicate existing {@link Order} object   
-	 * 
-	 */
+
 	public void showOrder() {
 		sc = new Scanner(System.in);
 		int input = 999;
@@ -361,9 +356,8 @@ public class OrderApp implements Serializable {
 		if(input==-1) {
 			System.out.println("Exited!");
 		}
-
 		else {
-			orderMgr.chargeBill(reservationMgr, input);
+			salesReportApp.addInvoice(orderMgr.chargeBill(reservationMgr, input));
 		}
 
 
