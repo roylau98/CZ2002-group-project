@@ -457,7 +457,7 @@ public class OrderApp implements Serializable {
 				bill = selectedOrder.getInvoice();
 				bill.printInvoice();
 				salesReport.addInvoice(bill);
-				reservationMgr.removeAfterPayment(listOfOrders.get(i).getAssignedTable());
+				reservationMgr.removeReservationAfterPayment(listOfOrders.get(i).getAssignedTable());
 				return;
 			}
 		}
