@@ -1,5 +1,4 @@
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 /**
@@ -17,6 +16,9 @@ public class OrderApp implements Serializable {
 	private transient Scanner sc = new Scanner(System.in);
 
 	private OrderMgr orderMgr;
+	private StaffApp staffApp;
+	private SalesReport salesReportApp;
+	private Menu menuApp;
 
 	/**
          * Constructs an {@code OrderApp} object and
@@ -24,6 +26,9 @@ public class OrderApp implements Serializable {
          */
 	public OrderApp() {
 		orderMgr = new OrderMgr();
+		staffApp = new StaffApp();
+		salesReportApp = new SalesReport();
+		menuApp = new Menu();
 	}
 
 	public void orderAppOptions(ReservationMgr reservationMgr) {
@@ -83,7 +88,7 @@ public class OrderApp implements Serializable {
 					break;
 						
 				case 5:
-					chargeBill(reservationMgr);
+					billOrder(reservationMgr);
 					break;
 					
 						
@@ -112,8 +117,40 @@ public class OrderApp implements Serializable {
 		System.out.println("Creating Order......");
 		int tableNo = -1;
 
+		try {
+			System.out.println("Which table is ordering now?");
+			reservationMgr.viewTablesWithReservationsNow();
+			tableNo = sc.nextInt();
+			sc.nextLine();
+		}
+		// update error checking e.g throwable in viewTablesWithReservationsNow()....
+		catch (InputMismatchException | ArrayIndexOutOfBoundsException e) {
+			System.out.println("Invalid input");
+		}
 
-		orderMgr.createOrder(reservationMgr);
+		int newOrderID = orderMgr.createOrder(reservationMgr.getCustomerAt(tableNo), tableNo, staffApp.selectStaff());
+		if (newOrderID == -1) {
+			System.out.println("Order Creation Failed!");
+			return;
+		}
+		System.out.println("Order created, orderID: "+newOrderID);
+
+		choice = 999;
+		while (choice !=1 || choice != -1) {
+			System.out.println("Add items? 1-Yes, -1-No");
+			choice = sc.nextInt();
+			if (choice == 1) {
+				updateOrder(newOrderID);
+			}
+			else if (choice==-1) {
+				return;
+			}
+			else {
+				System.out.println("Wrong choice. Try again!");
+			}
+		}
+
+
 	}
 	//------------------------------------------------------------------------------------------------------------
 	/**
@@ -124,23 +161,12 @@ public class OrderApp implements Serializable {
 	 */
 	public void updateOrder(int orderID) {
 		sc = new Scanner(System.in);
-		Order selectedOrder = null;
 
-
-		for (int i=0; i<listOfOrders.size(); i++)
-		{
-			if (listOfOrders.get(i).getOrderID() == orderID)
-			{
-				selectedOrder = listOfOrders.get(i);
-				break;
-			}
-		}
-
-		if (selectedOrder == null)
+		if (orderMgr.getOrder(orderID) == null)
 		{
 			System.out.println("No such order");
 		}
-		else if (selectedOrder.isCompleted() == true)
+		else if (orderMgr.getOrder(orderID).isCompleted() == true)
 		{
 			System.out.println("Order is already completed and paid");
 		}
@@ -163,10 +189,10 @@ public class OrderApp implements Serializable {
 					break;
 				}
 				catch(InputMismatchException e)
-		        	{
+				{
 					System.out.println("Wrong Option!!!!!");
-		            		sc.nextLine();
-		        	}
+					sc.nextLine();
+				}
 			}
 
 			while (choice != -1)
@@ -174,7 +200,7 @@ public class OrderApp implements Serializable {
 
 				if (choice ==1)
 				{
-					menuApp.printListOfMenuItems();
+					orderMgr.getMenuApp().printListOfMenuItems();
 					while (choice != -1)
 					{
 						try
@@ -184,32 +210,28 @@ public class OrderApp implements Serializable {
 							choice = sc.nextInt(); // have not accounted for arrayOutOfBounds Error
 						}
 						catch(InputMismatchException e)
-				        	{
+						{
 							System.out.println("Wrong Option!!!!!");
-				            		sc.nextLine();
-				        	}
-						if(choice==-1)
+							sc.nextLine();
+						}
+						if(choice==-1) {
 							return;
+						}
 						try
 						{
-							MenuItem selectedMenuItem = menuApp.getMenuItem(choice);
-							selectedOrder.addItemToOrder(selectedMenuItem);
+							orderMgr.addItemsInOrder(orderID,orderMgr.getMenuApp().getMenuItem(choice));
 						}
+						// need rework on catch
 						catch(IndexOutOfBoundsException e)
 						{
 							System.out.println("Invalid choice!");
 						}
 					}
-					showOrder();
+					orderMgr.viewOrder(orderID);
 				}
 				else if (choice == 2)
 				{
-					ArrayList<MenuItem> listOfItemsInCurrOrder = selectedOrder.getListOfItemsOrdered();
-					for(int i=0; i<listOfItemsInCurrOrder.size(); i++)
-					{
-						System.out.println((i+1)+") "+listOfItemsInCurrOrder.get(i).getName());
-					}
-
+					orderMgr.printItemsInOrder(orderID);
 					while (choice != -1) {
 						try
 						{
@@ -218,16 +240,19 @@ public class OrderApp implements Serializable {
 							choice = sc.nextInt(); // have not accounted for arrayOutOfBounds Error
 						}
 						catch(InputMismatchException e)
-				        	{
+						{
 							System.out.println("Wrong Option!!!!!");
-				            		sc.nextLine();
-				        	}
-						if(choice==-1)
+							sc.nextLine();
+						}
+						if (choice==-1) {
 							return;
+						}
+
 						try
 						{
-							selectedOrder.removeItemFromOrder(choice-1);
+							orderMgr.removeItemsInOrder(orderID,choice);
 						}
+						// need rework on catch
 						catch(IndexOutOfBoundsException e)
 						{
 							System.out.println("Invalid choice!");
@@ -249,12 +274,7 @@ public class OrderApp implements Serializable {
 
 	}
 	//--------------------------------------------------------------------------------------------------------------------
-	/**
-	 * A Do-While loop to update existing order (removing more items of AlaCarteItem and add PromotionalSet to it) by orderID
-	 * 
-	 * @param 	orderID	The ID that is used to indicate existing {@link Order} object   
-	 * 
-	 */
+
 	public void deleteOrder() {
 		sc = new Scanner(System.in);
 		int input=999;
@@ -309,7 +329,7 @@ public class OrderApp implements Serializable {
 		}
 		else {
 			orderMgr.viewOrder(input);
-
+		}
 	}
 	//-----------------------------------------------------------------------------------------------------------------------
 	/**
@@ -318,9 +338,10 @@ public class OrderApp implements Serializable {
 	 * @param 	orderID	The ID that is used to indicate existing {@link Order} object   
 	 * 
 	 */
-	public void chargeBill(ReservationMgr reservationMgr) {
+	public void billOrder(ReservationMgr reservationMgr) {
 
 		sc = new Scanner(System.in);
+		int input;
 
 		while(true)
 		{
@@ -337,10 +358,20 @@ public class OrderApp implements Serializable {
 				sc.nextLine();
 			}
 		}
-		if(input==-1)
+		if(input==-1) {
 			System.out.println("Exited!");
-		else
+		}
+
+		else {
 			orderMgr.chargeBill(reservationMgr, input);
+		}
+
+
 	}
+
+	public void salesReportOptions() {
+		salesReportApp.options();
+	}
+
 
 }

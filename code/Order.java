@@ -74,6 +74,9 @@ public class Order implements Serializable {
 	public void setAssignedTable(int assignedTable) {
 		this.assignedTable = assignedTable;
 	}
+	public Staff getStaff() {
+		return orderCreatedBy;
+	}
 
 	public ArrayList<MenuItem> getListOfItemsOrdered() {
 		return itemsOrdered;
@@ -91,11 +94,9 @@ public class Order implements Serializable {
 	}
 
 	public void addItemToOrder(MenuItem itemToBeAdded) {
-		
 		itemsOrdered.add(itemToBeAdded);
 	}
 	public void removeItemFromOrder(int index) {
-	
 		itemsOrdered.remove(index);
 	}
 

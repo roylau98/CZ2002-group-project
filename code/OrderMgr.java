@@ -16,14 +16,11 @@ import java.util.Scanner;
 public class OrderMgr implements Serializable {
 
 	private transient Scanner sc = new Scanner(System.in);
-	private Menu menuApp;
 	/**
          * List of Order implemented in {@link ArrayList} data structure.
          * Each entry consists of a reference to existing {@link Order}object.
          */
 	private ArrayList<Order> listOfOrders;
-	private StaffApp staffApp;
-	private SalesReport salesReport;
 	private int orderIDtracker;
 
 	/**
@@ -32,77 +29,32 @@ public class OrderMgr implements Serializable {
          */
 	public OrderMgr() {
 		listOfOrders = new ArrayList<>();
-		salesReport = new SalesReport();
 		orderIDtracker = 0;
-		staffApp = new StaffApp();
-		menuApp = new Menu();
 	}
 
-	public void assignTableForOrder(ReservationMgr reservationMgr) {
-		try {
-			System.out.println("Which table is ordering now?");
-			reservationMgr.viewTablesWithReservationsNow();
-			tableNo = sc.nextInt();
-			sc.nextLine();
-			customerOrder.setAssignedTable(tableNo);
-		}
-		catch (InputMismatchException | ArrayIndexOutOfBoundsException e) {
-			System.out.println("Invalid input");
-		}
-	}
-
-
-	public void createOrder(ReservationMgr reservationMgr) {
-		sc = new Scanner(System.in);
-		int choice=999;
+	public int createOrder(Customer customer, int tableNo, Staff staff) {
 
 		Order customerOrder = new Order();
-		int tableNo = -1;
 
-		customerOrder.setCustomer(reservationMgr.getCustomerAt(tableNo));
+		customerOrder.setCustomer(customer);
 		if (customerOrder.getCustomer() == null) {
-			System.out.println("Failed to create Order! Exiting");
-			return;
+			System.out.println("No Customer. Failed to create Order! Exiting");
+			return -1;
 		}
-		// customerOrder.setCustomer(reservationMgr.getReservationAtTableNow(customerOrder.getTable().getTableID()).getCustomer());
-		// reservationApp.getReservationMgr().customerArrivedAt(customerOrder.getTable().getTableID());
+		customerOrder.setStaff(staff);
+		if (customerOrder.getStaff() == null) {
+			System.out.println("No Staff. Failed to create Order! Exiting");
+			return -1;
+		}
+
 		customerOrder.setOrderID(orderIDtracker);
 		orderIDtracker++;
-		customerOrder.setStaff(staffApp.selectStaff());
-
-		menuApp.printListOfMenuItems();
-		while (true)
-		{
-			while(true)
-			{
-				try {
-					System.out.println("Enter menu item choice. Or -1 to Quit");
-					choice = sc.nextInt(); // have not accounted for arrayOutOfBounds Error
-					break;
-				}
-				catch(InputMismatchException e)
-				{
-					System.out.println("Invalid choice!");
-					sc.nextLine();
-				}
-			}
-			if(choice==-1)
-				break;
-			try
-			{
-				MenuItem selectedMenuItem = menuApp.getMenuItem(choice);
-				customerOrder.addItemToOrder(selectedMenuItem);
-			}
-			catch(IndexOutOfBoundsException e)
-			{
-				System.out.println("Invalid choice!");
-			}
-		}
-
-		viewOrder(orderIDtracker);
-		System.out.print("Please take note that this is your orderID: "+customerOrder.getOrderID());
 		listOfOrders.add(customerOrder);
+
+		return customerOrder.getOrderID();
+
 	}
+
 
 
 	//------------------------------------------------------------------------------------------------------------
@@ -126,7 +78,7 @@ public class OrderMgr implements Serializable {
 		return selectedOrder;
 	}
 
-	public void updateOrder(int orderID,Order updatedOrder)
+	public void updateOrder(int orderID)
 	{
 		sc = new Scanner(System.in);
 		Order selectedOrder = null;
@@ -140,9 +92,26 @@ public class OrderMgr implements Serializable {
 			}
 		}
 
-		
-
 	}
+
+	public void printItemsInOrder(int orderID) {
+		Order selectedOrder = getOrder(orderID);
+
+		for (int i =0; i < selectedOrder.getListOfItemsOrdered().size(); i++) {
+			System.out.println(i+") "+ selectedOrder.getListOfItemsOrdered().get(i).getName() + selectedOrder.getListOfItemsOrdered().get(i).getPrice());
+		}
+	}
+
+	public void addItemsInOrder(int orderID, MenuItem menuItem) {
+		Order order = getOrder(orderID);
+		order.addItemToOrder(menuItem);
+	}
+
+	public void removeItemsInOrder(int orderID, int index) {
+		Order selectedOrder = getOrder(orderID);
+		selectedOrder.removeItemFromOrder(index);
+	}
+
 	//--------------------------------------------------------------------------------------------------------------------
 	/**
 	 * A Do-While loop to update existing order (removing more items of AlaCarteItem and add PromotionalSet to it) by orderID
@@ -151,18 +120,13 @@ public class OrderMgr implements Serializable {
 	 * 
 	 */
 	public void removeOrder(int orderID) {
-		Order currOrder;
-
-		for(int i = 0; i< listOfOrders.size(); i++)
-		{
-			if(listOfOrders.get(i).getOrderID() == orderID) 
-			{
-				currOrder = listOfOrders.get(i);
-				System.out.println("Order removed");
-				return;
-			}
+		Order currOrder = getOrder(orderID);
+		if (currOrder == null) {
+			System.out.println("No such order");
 		}
-		System.out.println("No such order");
+		else {
+			System.out.println("Order removed");
+		}
 	}
 	//-----------------------------------------------------------------------------------------------------------------------
 	/**
@@ -229,9 +193,6 @@ public class OrderMgr implements Serializable {
 		return listOfOrders;
 	}
 
-	public void salesReportOptions() {
-		salesReport.options();
-	}
 
 	public SalesReport getSalesReport() {
 		return salesReport;
@@ -242,5 +203,11 @@ public class OrderMgr implements Serializable {
 		menuApp.menuOptions();
 	}
 
+	public Menu getMenuApp() {
+		return menuApp;
+	}
+	public StaffApp getStaffApp() {
+		return StaffApp;
+	}
 
 }
