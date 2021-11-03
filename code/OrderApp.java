@@ -327,12 +327,7 @@ public class OrderApp implements Serializable {
 		}
 	}
 	//-----------------------------------------------------------------------------------------------------------------------
-	/**
-	 * A function that printout the bills in order by using orderID
-	 * 
-	 * @param 	orderID	The ID that is used to indicate existing {@link Order} object   
-	 * 
-	 */
+
 	public void billOrder(ReservationMgr reservationMgr) {
 
 		sc = new Scanner(System.in);

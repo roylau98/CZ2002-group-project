@@ -88,11 +88,23 @@ public class OrderMgr implements Serializable {
 
 	public void addItemsInOrder(int orderID, MenuItem menuItem) {
 		Order order = getOrder(orderID);
+		if (menuItem == null) {
+			return;
+		}
+		if (order == null) {
+			return;
+		}
 		order.addItemToOrder(menuItem);
 	}
 
 	public void removeItemsInOrder(int orderID, int index) {
 		Order selectedOrder = getOrder(orderID);
+		if (selectedOrder == null) {
+			return;
+		}
+		if (index < 0 || index >= selectedOrder.getListOfItemsOrdered().size()) {
+			return;
+		}
 		selectedOrder.removeItemFromOrder(index);
 	}
 
