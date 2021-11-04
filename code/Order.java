@@ -3,7 +3,6 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 public class Order implements Serializable {
-
 	private int orderID;
 	private LocalDateTime dateTimeOrderCreated;
 	private ArrayList<MenuItem> itemsOrdered;
@@ -24,6 +23,18 @@ public class Order implements Serializable {
 		totalPriceOfOrder = 0;
 		orderInvoice = null;
 		assignedTable = -1;
+	}
+
+	public Order(int orderID, Customer customer, Staff orderCreatedBy, int assignedTable) {
+		this.orderID = orderID;
+		this.dateTimeOrderCreated = LocalDateTime.now();
+		this.itemsOrdered = new ArrayList<MenuItem>();
+		this.customer = customer;
+		this.orderCreatedBy = orderCreatedBy;
+		this.completedStatus = false;
+		this.totalPriceOfOrder = 0;
+		this.orderInvoice = null;
+		this.assignedTable = assignedTable;
 	}
 
 	/**

@@ -15,7 +15,6 @@ public class ReservationMgr implements Serializable {
      * Collection of all tables in the restaurant.
      */
     private ArrayList<Table> allTables;
-
     /**
      * Collection of all reservations in the restaurant.
      */
@@ -35,7 +34,7 @@ public class ReservationMgr implements Serializable {
         allTables.add(new Table(4));
     }
 
-    public int checkArrayListReservationSize(){
+    public int getTotalNoOfReservations(){
         return allReservations.size();
     }
 

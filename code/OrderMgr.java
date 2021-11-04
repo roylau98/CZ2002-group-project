@@ -1,6 +1,5 @@
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.InputMismatchException;
 import java.util.Scanner;
 /**
  * Manages all the {@link Order} objects of the whole restaurants, 
@@ -14,13 +13,14 @@ import java.util.Scanner;
  */
 
 public class OrderMgr implements Serializable {
-
 	private transient Scanner sc = new Scanner(System.in);
+
 	/**
          * List of Order implemented in {@link ArrayList} data structure.
          * Each entry consists of a reference to existing {@link Order}object.
          */
 	private ArrayList<Order> listOfOrders;
+
 	private int orderIDtracker;
 
 	/**
@@ -33,39 +33,18 @@ public class OrderMgr implements Serializable {
 	}
 
 	public int createOrder(Customer customer, int tableNo, Staff staff) {
-
-		Order customerOrder = new Order();
-
-		customerOrder.setCustomer(customer);
-		if (customerOrder.getCustomer() == null) {
-			System.out.println("No Customer. Failed to create Order! Exiting");
-			return -1;
-		}
-		customerOrder.setStaff(staff);
-		if (customerOrder.getStaff() == null) {
-			System.out.println("No Staff. Failed to create Order! Exiting");
-			return -1;
-		}
-
-		customerOrder.setOrderID(orderIDtracker);
-		orderIDtracker++;
-		listOfOrders.add(customerOrder);
-
-		return customerOrder.getOrderID();
-
+		Order o = new Order(orderIDtracker++, customer, staff, tableNo);
+		listOfOrders.add(o);
+		return o.getOrderID();
 	}
 
-
-
-	//------------------------------------------------------------------------------------------------------------
 	/**
 	 * A Do-While loop to update existing order (adding more items of AlaCarteItem and add PromotionalSet to it) by orderID
 	 * 
 	 * @param 	orderID	The ID that is used to indicate existing {@link Order} object   
 	 * 
 	 */
-	public Order getOrder(int orderID)
-	{
+	public Order getOrder(int orderID) {
 		Order selectedOrder = null;
 		for (int i=0; i<listOfOrders.size(); i++) 
 		{
@@ -80,7 +59,6 @@ public class OrderMgr implements Serializable {
 
 	public void printItemsInOrder(int orderID) {
 		Order selectedOrder = getOrder(orderID);
-
 		for (int i =0; i < selectedOrder.getListOfItemsOrdered().size(); i++) {
 			System.out.println(i+") "+ selectedOrder.getListOfItemsOrdered().get(i).getName() + selectedOrder.getListOfItemsOrdered().get(i).getPrice());
 		}
@@ -133,9 +111,7 @@ public class OrderMgr implements Serializable {
 	 */
 
 	public void viewOrder(int orderID) {
-
 		Order selectedOrder;
-
 		for(int i = 0; i< listOfOrders.size(); i++)
 		{
 			if(listOfOrders.get(i).getOrderID()==orderID)
@@ -158,7 +134,7 @@ public class OrderMgr implements Serializable {
 		}
 		System.out.println("No such order");
 	}
-	//-----------------------------------------------------------------------------------------------------------------------
+
 	/**
 	 * A function that printout the bills in order by using orderID
 	 * 
@@ -169,10 +145,8 @@ public class OrderMgr implements Serializable {
 		Order selectedOrder;
 		Invoice bill;
 
-		for(int i = 0; i< listOfOrders.size(); i++) 
-		{
-			if(listOfOrders.get(i).getOrderID()==orderID) 
-			{
+		for (int i = 0; i < listOfOrders.size(); i++) {
+			if (listOfOrders.get(i).getOrderID() == orderID) {
 				selectedOrder = listOfOrders.get(i);
 				selectedOrder.createInvoice(selectedOrder);
 				bill = selectedOrder.getInvoice();
@@ -185,5 +159,4 @@ public class OrderMgr implements Serializable {
 		System.out.println("No such order");
 		return null;
 	}
-
 }

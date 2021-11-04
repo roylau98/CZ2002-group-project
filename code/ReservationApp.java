@@ -96,7 +96,7 @@ public class ReservationApp implements Serializable {
     }
 
     private void cancelReservation() {
-    	if (reservationMgr.checkArrayListReservationSize() == 0) {
+    	if (reservationMgr.getTotalNoOfReservations() == 0) {
     		System.out.println("No Reservations in system.");
     		return;
     	}
@@ -114,7 +114,7 @@ public class ReservationApp implements Serializable {
     }
 
     private void updateReservation() {
-    	if (reservationMgr.checkArrayListReservationSize() == 0) {
+    	if (reservationMgr.getTotalNoOfReservations() == 0) {
     		System.out.println("No Reservations in system.");
     		return;
     	}
@@ -137,7 +137,7 @@ public class ReservationApp implements Serializable {
                     scanner.nextLine();
     			}
     		} while (error);
-	        if (((reservationMgr.checkArrayListReservationSize()-1) < reservationNoToUpdate) || reservationNoToUpdate < 0) {
+	        if (((reservationMgr.getTotalNoOfReservations()-1) < reservationNoToUpdate) || reservationNoToUpdate < 0) {
 	        	System.out.println("Invalid input. Try again.");
 	        	cont = true;
 	        }

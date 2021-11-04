@@ -8,13 +8,11 @@ import java.util.Scanner;
  * This class provides various methods to create,update(add/remove MenuItem) of the order,
  * and view individual order details and bills.
  * <p>
- * @author 
- * 
+ * @author
  */
 
 public class OrderApp implements Serializable {
 	private transient Scanner sc = new Scanner(System.in);
-
 	private OrderMgr orderMgr;
 	private StaffApp staffApp;
 	private SalesReport salesReportApp;
@@ -31,11 +29,18 @@ public class OrderApp implements Serializable {
 		menuApp = new Menu();
 	}
 
+	public void openMenuApp() {
+		menuApp.menuOptions();
+	}
+
+	public void salesReportOptions() {
+		salesReportApp.options();
+	}
+
 	public void orderAppOptions(ReservationMgr reservationMgr) {
 		sc = new Scanner(System.in);
 		int choice = 0;
 		int input = 0;
-
 		do {
 			try {
 				System.out.println("========Order Option========");
@@ -53,12 +58,10 @@ public class OrderApp implements Serializable {
 			} catch(InputMismatchException e) {
 				sc.nextLine();
 			}
-
 			switch (choice) {
 				case 1:
 					showOrder();
 					break;
-
 				case 2:
 					newOrder(reservationMgr);
 					break;
@@ -66,269 +69,157 @@ public class OrderApp implements Serializable {
 					deleteOrder();
 					break;
 				case 4:
-					while(true)
-					{
-						try 
-						{
-							System.out.println("Updating Order......");
-							System.out.print("Enter orderID or -1 to exit: ");
-							input = sc.nextInt();
-							break;
-						}
-						catch(InputMismatchException e)
-					       	{
-							System.out.println("Invalid Option.");
-					      		sc.nextLine();
-					        }	
-					}
-					if(input==-1)
-						System.out.println("Exited!");
-					else
-						updateOrder(input);
+					updateOrder();
 					break;
-						
 				case 5:
 					billOrder(reservationMgr);
 					break;
-					
-						
 				default:
 					System.out.println("Invalid Option. Try again!");
+					break;
 			}
-			
-
-		} while(choice != 6);
-
+		} while (choice != 6);
 	}
-	
-	public void openMenuApp() {
-		menuApp.menuOptions();
-	}
-	//-----------------------------------------------------------------------------------------------------------
+
 	/**
-	 * A Do-While loop to create an order and add items of AlaCarteItem and add PromotionalSet to it 
-	 * 
+	 * A Do-While loop to create an order and add items of AlaCarteItem and add PromotionalSet to it
 	 */
-
-	public void newOrder(ReservationMgr reservationMgr) {
-		sc = new Scanner(System.in);
-		int choice=999;
-
+	private void newOrder(ReservationMgr reservationMgr) {
 		System.out.println("Creating Order......");
-		int tableNo = -1;
-
+		System.out.println("Which table is this new order for?");
+		// update error checking e.g throwable in viewTablesWithReservationsNow()....
+		reservationMgr.viewTablesWithReservationsNow();
+		int tableNo;
 		try {
-			System.out.println("Which table is ordering now?");
-			reservationMgr.viewTablesWithReservationsNow();
 			tableNo = sc.nextInt();
 			sc.nextLine();
-		}
-		// update error checking e.g throwable in viewTablesWithReservationsNow()....
-		catch (InputMismatchException | ArrayIndexOutOfBoundsException e) {
-			System.out.println("Invalid input");
-		}
-
-		int newOrderID = orderMgr.createOrder(reservationMgr.getCustomerAt(tableNo), tableNo, staffApp.selectStaff());
-		if (newOrderID == -1) {
-			System.out.println("Order Creation Failed!");
+		} catch (InputMismatchException e) {
+			System.out.println("Invalid input received.");
 			return;
 		}
-		System.out.println("Order created, orderID: "+newOrderID);
-
-		choice = 999;
-		while (choice !=1 || choice != -1) {
-			System.out.println("Add items? 1-Yes, -1-No");
-			choice = sc.nextInt();
-			if (choice == 1) {
-				updateOrder(newOrderID);
-			}
-			else if (choice==-1) {
-				return;
-			}
-			else {
-				System.out.println("Wrong choice. Try again!");
-			}
+		Customer c = reservationMgr.getCustomerAt(tableNo);
+		if (c == null) {
+			System.out.println("Invalid input received.");
+			return;
 		}
-
-
+		int newOrderID = orderMgr.createOrder(c, tableNo, staffApp.selectStaff());
+		System.out.println("Order created, orderID: " + newOrderID);
+		updateOrder(newOrderID);
 	}
-	//------------------------------------------------------------------------------------------------------------
+
+	private void updateOrder() {
+		System.out.println("Updating Order......");
+		System.out.print("What is the orderID of the order you would like to update? ");
+		int orderID;
+		try {
+			orderID = sc.nextInt();
+			sc.nextLine();
+		} catch (InputMismatchException e) {
+			System.out.println("Invalid input received.");
+			return;
+		}
+		updateOrder(orderID);
+	}
+
 	/**
 	 * A Do-While loop to update existing order (adding more items of AlaCarteItem and add PromotionalSet to it) by orderID
-	 * 
-	 * @param 	orderID	The ID that is used to indicate existing {@link Order} object   
-	 * 
+	 * @param 	orderID	The ID that is used to indicate existing {@link Order} object
 	 */
-	public void updateOrder(int orderID) {
-		sc = new Scanner(System.in);
-
-		if (orderMgr.getOrder(orderID) == null)
-		{
+	private void updateOrder(int orderID) {
+		if (orderMgr.getOrder(orderID) == null) {
 			System.out.println("No such order");
+			return;
 		}
-		else if (orderMgr.getOrder(orderID).isCompleted() == true)
-		{
+		if (orderMgr.getOrder(orderID).isCompleted()) {
 			System.out.println("Order is already completed and paid");
+			return;
 		}
-		else
-		{
-			int choice;
-			while(true)
-			{
-				try
-				{
-					System.out.println("Update Order Option");
-					System.out.println("===================");
-					System.out.println("1) Add menuItem");
-					System.out.println("2) Remove menuItem");
-					System.out.println("-1) Quit");
-					System.out.println("===================");
+
+		System.out.println("Update Order Option");
+		System.out.println("===================");
+		System.out.println("1) Add menuItem");
+		System.out.println("2) Remove menuItem");
+		System.out.println("3) Quit");
+		System.out.println("===================");
+		System.out.print("Enter Your Choice: ");
+		int choice = 0;
+		try {
+			choice = sc.nextInt();
+			sc.nextLine();
+		} catch (InputMismatchException e) {
+			System.out.println("Invalid input received.");
+			return;
+		}
+		System.out.println("===================");
+
+		switch (choice) {
+			case 1:
+				menuApp.printListOfMenuItems();
+				while (choice != -1) {
+					System.out.println("Enter menuItem choice. Or -1 to Quit");
 					System.out.print("Enter Your Choice: ");
-					choice = sc.nextInt();
-					System.out.println("===================");
-					break;
-				}
-				catch(InputMismatchException e)
-				{
-					System.out.println("Wrong Option!!!!!");
-					sc.nextLine();
-				}
-			}
-
-			while (choice != -1)
-			{
-
-				if (choice ==1)
-				{
-					menuApp.printListOfMenuItems();
-					while (choice != -1)
-					{
-						try
-						{
-							System.out.println("Enter menuItem choice. Or -1 to Quit");
-							System.out.print("Enter Your Choice: ");
-							choice = sc.nextInt(); // have not accounted for arrayOutOfBounds Error
-						}
-						catch(InputMismatchException e)
-						{
-							System.out.println("Wrong Option!!!!!");
-							sc.nextLine();
-						}
-						if(choice==-1) {
-							return;
-						}
-						try
-						{
-							orderMgr.addItemsInOrder(orderID,menuApp.getMenuItem(choice));
-						}
-						// need rework on catch
-						catch(IndexOutOfBoundsException e)
-						{
-							System.out.println("Invalid choice!");
-						}
+					try {
+						choice = sc.nextInt();
+						sc.nextLine();
+						orderMgr.addItemsInOrder(orderID, menuApp.getMenuItem(choice));
+					} catch (InputMismatchException | IndexOutOfBoundsException e) {
+						System.out.println("Wrong Option!!!!!");
+						return;
 					}
-					orderMgr.viewOrder(orderID);
 				}
-				else if (choice == 2)
-				{
-					orderMgr.printItemsInOrder(orderID);
-					while (choice != -1) {
-						try
-						{
-							System.out.println("Enter choice. Or -1 to Quit");
-							System.out.print("Enter Your Choice: ");
-							choice = sc.nextInt(); // have not accounted for arrayOutOfBounds Error
-						}
-						catch(InputMismatchException e)
-						{
-							System.out.println("Wrong Option!!!!!");
-							sc.nextLine();
-						}
-						if (choice==-1) {
-							return;
-						}
-
-						try
-						{
-							orderMgr.removeItemsInOrder(orderID,choice);
-						}
-						// need rework on catch
-						catch(IndexOutOfBoundsException e)
-						{
-							System.out.println("Invalid choice!");
-						}
+				orderMgr.viewOrder(orderID);
+				break;
+			case 2:
+				orderMgr.printItemsInOrder(orderID);
+				while (choice != -1) {
+					System.out.println("Enter choice. Or -1 to Quit");
+					System.out.print("Enter Your Choice: ");
+					try {
+						choice = sc.nextInt();
+						sc.nextLine();
+						orderMgr.removeItemsInOrder(orderID, choice);
+					} catch (InputMismatchException | IndexOutOfBoundsException e) {
+						System.out.println("Wrong Option!!!!!");
+						return;
 					}
-
 				}
-				else if (choice == -1)
-				{
-					break;
-				}
-				else
-				{
-					System.out.println("Invalid input. Try again!");
-				}
-			}
-
-		}
-
-	}
-	//--------------------------------------------------------------------------------------------------------------------
-
-	public void deleteOrder() {
-		sc = new Scanner(System.in);
-		int input=999;
-		while(true)
-		{
-			try
-			{
-				System.out.println("Removing Order......");
-				System.out.print("Enter orderID or -1 to exit: ");
-				input = sc.nextInt();
 				break;
-			}
-			catch(InputMismatchException e)
-			{
-				System.out.println("Invalid Option.");
-				sc.nextLine();
-			}
-		}
-		if(input==-1) {
-			System.out.println("Exited!");
-		}
-
-		else {
-			orderMgr.removeOrder(input);
-		}
-
-	}
-	//-----------------------------------------------------------------------------------------------------------------------
-
-	public void showOrder() {
-		sc = new Scanner(System.in);
-		int input = 999;
-		while (true) {
-			try {
-				System.out.println("View Order......");
-				System.out.print("Enter orderID or -1 to exit: ");
-				input = sc.nextInt();
+			case 3:
 				break;
-			} catch (InputMismatchException e) {
-				System.out.println("Invalid Option.");
-				sc.nextLine();
-			}
-		}
-
-		if (input == -1) {
-			System.out.println("Exited!");
-		}
-		else {
-			orderMgr.viewOrder(input);
+			default:
+				System.out.println("Invalid input received.");
+				break;
 		}
 	}
-	//-----------------------------------------------------------------------------------------------------------------------
 
-	public void billOrder(ReservationMgr reservationMgr) {
+	private void deleteOrder() {
+		System.out.println("Removing Order......");
+		System.out.print("Enter orderID or -1 to exit: ");
+		int orderID = 0;
+		try {
+			orderID = sc.nextInt();
+			sc.nextLine();
+			orderMgr.removeOrder(orderID);
+		} catch (InputMismatchException | IndexOutOfBoundsException e) {
+			System.out.println("Invalid input received.");
+		}
+	}
+
+	private void showOrder() {
+		System.out.println("View Order......");
+		System.out.print("Enter orderID or -1 to exit: ");
+		int orderID = 0;
+		try {
+			orderID = sc.nextInt();
+			sc.nextLine();
+			orderMgr.viewOrder(orderID);
+		} catch (InputMismatchException | ArrayIndexOutOfBoundsException e) {
+			System.out.println("Invalid Option.");
+			return;
+		}
+	}
+
+	private void billOrder(ReservationMgr reservationMgr) {
 
 		sc = new Scanner(System.in);
 		int input;
@@ -357,10 +248,4 @@ public class OrderApp implements Serializable {
 
 
 	}
-
-	public void salesReportOptions() {
-		salesReportApp.options();
-	}
-
-
 }

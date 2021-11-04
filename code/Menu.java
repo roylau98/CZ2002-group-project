@@ -1,5 +1,5 @@
+import java.io.Serializable;
 import java.util.*;
-import java.io.*;
 /**
  * Manages the {@link AlaCarteItem} and {@link PromotionalSet} of the {@link Menu}. 
  * <p> 
@@ -471,7 +471,7 @@ public class Menu implements Serializable {
          * @return {@link AlaCarteItem} object of given index.
 	 */
 	public MenuItem getMenuItem(int indexNo) {
-		if (indexNo < 0 || indexNo >= listOfMenuItems.size()) {
+		if (indexNo < 0 || indexNo > listOfMenuItems.size()) {
 			return null;
 		}
 		return listOfMenuItems.get(indexNo-1);
