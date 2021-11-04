@@ -14,11 +14,11 @@ public class ReservationMgr implements Serializable {
     /**
      * Collection of all tables in the restaurant.
      */
-    private ArrayList<Table> allTables;
+    private final ArrayList<Table> allTables;
     /**
      * Collection of all reservations in the restaurant.
      */
-    private ArrayList<Reservation> allReservations;
+    private final ArrayList<Reservation> allReservations;
 
     public ReservationMgr() {
         this.allTables = new ArrayList<>();

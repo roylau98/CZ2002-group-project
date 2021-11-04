@@ -115,5 +115,7 @@ public class Order implements Serializable {
 		orderCreatedBy = s;
 	}
 
-
+	public int getNumberOfItemsOrdered() {
+		return itemsOrdered.size();
+	}
 }

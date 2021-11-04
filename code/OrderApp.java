@@ -53,20 +53,21 @@ public class OrderApp implements Serializable {
 				System.out.println("----------------------------");
 				System.out.print("Enter Your Option: ");
 				choice = sc.nextInt();
+				sc.nextLine();
 				System.out.println("----------------------------");
 				System.out.println();
-			} catch(InputMismatchException e) {
-				sc.nextLine();
+			} catch (InputMismatchException e) {
+				System.out.println("Invalid input received.");
 			}
 			switch (choice) {
 				case 1:
-					showOrder();
+					viewOrder();
 					break;
 				case 2:
 					newOrder(reservationMgr);
 					break;
 				case 3:
-					deleteOrder();
+					removeOrder();
 					break;
 				case 4:
 					updateOrder();
@@ -75,10 +76,18 @@ public class OrderApp implements Serializable {
 					billOrder(reservationMgr);
 					break;
 				default:
-					System.out.println("Invalid Option. Try again!");
+					System.out.println("Invalid input received.");
 					break;
 			}
 		} while (choice != 6);
+	}
+
+	private void viewOrder() {
+		if (orderMgr.getTotalNoOfOrders() == 0) {
+			System.out.println("No orders have been made.");
+			return;
+		}
+		orderMgr.viewOrder(askUserForOrderID());
 	}
 
 	/**
@@ -107,34 +116,28 @@ public class OrderApp implements Serializable {
 		updateOrder(newOrderID);
 	}
 
-	private void updateOrder() {
-		System.out.println("Updating Order......");
-		System.out.print("What is the orderID of the order you would like to update? ");
-		int orderID;
-		try {
-			orderID = sc.nextInt();
-			sc.nextLine();
-		} catch (InputMismatchException e) {
-			System.out.println("Invalid input received.");
+	private void removeOrder() {
+		if (orderMgr.getTotalNoOfOrders() == 0) {
+			System.out.println("No orders have been made.");
 			return;
 		}
+		orderMgr.removeOrder(askUserForOrderID());
+	}
+
+	private void updateOrder() {
+		if (orderMgr.getTotalNoOfOrders() == 0) {
+			System.out.println("No orders have been made.");
+			return;
+		}
+		int orderID = askUserForOrderID();
 		updateOrder(orderID);
 	}
 
-	/**
-	 * A Do-While loop to update existing order (adding more items of AlaCarteItem and add PromotionalSet to it) by orderID
-	 * @param 	orderID	The ID that is used to indicate existing {@link Order} object
-	 */
 	private void updateOrder(int orderID) {
-		if (orderMgr.getOrder(orderID) == null) {
-			System.out.println("No such order");
-			return;
-		}
 		if (orderMgr.getOrder(orderID).isCompleted()) {
-			System.out.println("Order is already completed and paid");
+			System.out.println("Order " + orderID + " is complete and payment has been made.");
 			return;
 		}
-
 		System.out.println("Update Order Option");
 		System.out.println("===================");
 		System.out.println("1) Add menuItem");
@@ -142,7 +145,7 @@ public class OrderApp implements Serializable {
 		System.out.println("3) Quit");
 		System.out.println("===================");
 		System.out.print("Enter Your Choice: ");
-		int choice = 0;
+		int choice;
 		try {
 			choice = sc.nextInt();
 			sc.nextLine();
@@ -151,101 +154,93 @@ public class OrderApp implements Serializable {
 			return;
 		}
 		System.out.println("===================");
-
 		switch (choice) {
 			case 1:
-				menuApp.printListOfMenuItems();
-				while (choice != -1) {
-					System.out.println("Enter menuItem choice. Or -1 to Quit");
-					System.out.print("Enter Your Choice: ");
-					try {
-						choice = sc.nextInt();
-						sc.nextLine();
-						orderMgr.addItemsInOrder(orderID, menuApp.getMenuItem(choice));
-					} catch (InputMismatchException | IndexOutOfBoundsException e) {
-						System.out.println("Wrong Option!!!!!");
-						return;
-					}
-				}
-				orderMgr.viewOrder(orderID);
+				addToOrder(orderID);
 				break;
 			case 2:
-				orderMgr.printItemsInOrder(orderID);
-				while (choice != -1) {
-					System.out.println("Enter choice. Or -1 to Quit");
-					System.out.print("Enter Your Choice: ");
-					try {
-						choice = sc.nextInt();
-						sc.nextLine();
-						orderMgr.removeItemsInOrder(orderID, choice);
-					} catch (InputMismatchException | IndexOutOfBoundsException e) {
-						System.out.println("Wrong Option!!!!!");
-						return;
-					}
-				}
+				removeFromOrder(orderID);
 				break;
 			case 3:
-				break;
+				return;
 			default:
 				System.out.println("Invalid input received.");
 				break;
 		}
 	}
 
-	private void deleteOrder() {
-		System.out.println("Removing Order......");
-		System.out.print("Enter orderID or -1 to exit: ");
-		int orderID = 0;
-		try {
-			orderID = sc.nextInt();
-			sc.nextLine();
-			orderMgr.removeOrder(orderID);
-		} catch (InputMismatchException | IndexOutOfBoundsException e) {
-			System.out.println("Invalid input received.");
-		}
-	}
-
-	private void showOrder() {
-		System.out.println("View Order......");
-		System.out.print("Enter orderID or -1 to exit: ");
-		int orderID = 0;
-		try {
-			orderID = sc.nextInt();
-			sc.nextLine();
-			orderMgr.viewOrder(orderID);
-		} catch (InputMismatchException | ArrayIndexOutOfBoundsException e) {
-			System.out.println("Invalid Option.");
+	private void addToOrder(int orderID) {
+		if (menuApp.getNumberOfMenuItems() == 0) {
+			System.out.println("No items are on the menu.");
 			return;
 		}
+		menuApp.printListOfMenuItems();
+		System.out.println("Which item would you like to order?");
+		orderMgr.addItemsInOrder(orderID, menuApp.getMenuItem(askUserForMenuItemNo()));
+		orderMgr.viewOrder(orderID);
+	}
+
+	private void removeFromOrder(int orderID) {
+		orderMgr.printItemsInOrder(orderID);
+		if (orderMgr.getOrder(orderID).getNumberOfItemsOrdered() == 0) {
+			System.out.println("No items ordered so far.");
+			return;
+		}
+		System.out.println("Which item would you like to remove?");
+		int itemNo;
+		try {
+			itemNo = sc.nextInt();
+			sc.nextLine();
+		} catch (InputMismatchException e) {
+			System.out.println("Invalid input received.");
+			return;
+		}
+		if (itemNo < 0 || itemNo >= orderMgr.getOrder(orderID).getNumberOfItemsOrdered()) {
+			System.out.println("Invalid input received.");
+			return;
+		}
+		orderMgr.removeItemsInOrder(orderID, itemNo);
 	}
 
 	private void billOrder(ReservationMgr reservationMgr) {
-
-		sc = new Scanner(System.in);
-		int input;
-
-		while(true)
-		{
-			try
-			{
-				System.out.println("Charge Bill......");
-				System.out.print("Enter orderID or -1 to exit: ");
-				input = sc.nextInt();
-				break;
-			}
-			catch(InputMismatchException e)
-			{
-				System.out.println("Invalid Option.");
-				sc.nextLine();
-			}
+		if (orderMgr.getTotalNoOfOrders() == 0) {
+			System.out.println("No orders have been made.");
+			return;
 		}
-		if(input==-1) {
-			System.out.println("Exited!");
-		}
-		else {
-			salesReportApp.addInvoice(orderMgr.chargeBill(reservationMgr, input));
-		}
+		salesReportApp.addInvoice(orderMgr.chargeBill(reservationMgr, askUserForOrderID()));
+	}
 
+	private int askUserForOrderID() {
+		System.out.print("Enter an OrderID: ");
+		int orderID;
+		try {
+			orderID = sc.nextInt();
+			sc.nextLine();
+		} catch (InputMismatchException e) {
+			System.out.println("Invalid input received.");
+			return askUserForOrderID();
+		}
+		if (!orderMgr.validateOrderID(orderID)) {
+			System.out.println("Invalid input received.");
+			return askUserForOrderID();
+		}
+		return orderID;
+	}
 
+	private int askUserForMenuItemNo() {
+		System.out.print("Enter a menu item number: ");
+		int menuItemNo;
+		try {
+			menuItemNo = sc.nextInt();
+			sc.nextLine();
+		} catch (InputMismatchException e) {
+			System.out.println("Invalid input received.");
+			return askUserForMenuItemNo();
+		}
+		if (!menuApp.validateMenuItemNo(menuItemNo)) {
+			System.out.println("Invalid input received.");
+			return askUserForMenuItemNo();
+		}
+		return menuItemNo;
 	}
 }

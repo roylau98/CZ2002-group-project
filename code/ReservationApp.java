@@ -421,5 +421,4 @@ public class ReservationApp implements Serializable {
 	public ReservationMgr getReservationMgr() {
 		return reservationMgr;
 	}
-
 }

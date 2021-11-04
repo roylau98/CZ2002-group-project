@@ -19,7 +19,7 @@ public class OrderMgr implements Serializable {
          * List of Order implemented in {@link ArrayList} data structure.
          * Each entry consists of a reference to existing {@link Order}object.
          */
-	private ArrayList<Order> listOfOrders;
+	private final ArrayList<Order> listOfOrders;
 
 	private int orderIDtracker;
 
@@ -30,6 +30,18 @@ public class OrderMgr implements Serializable {
 	public OrderMgr() {
 		listOfOrders = new ArrayList<>();
 		orderIDtracker = 0;
+	}
+
+	public boolean validateOrderID(int orderID) {
+		for (Order o : listOfOrders) {
+			if (o.getOrderID() == orderID)
+				return true;
+		}
+		return false;
+	}
+
+	public int getTotalNoOfOrders() {
+		return listOfOrders.size();
 	}
 
 	public int createOrder(Customer customer, int tableNo, Staff staff) {

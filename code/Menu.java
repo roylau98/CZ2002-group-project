@@ -54,6 +54,7 @@ public class Menu implements Serializable {
 				System.out.println("----------------------");
 				System.out.print("Enter Your Choice: ");
 				choice = sc.nextInt();
+				sc.nextLine();
 				System.out.println("----------------------");
 				System.out.println();
 			}
@@ -490,5 +491,13 @@ public class Menu implements Serializable {
 			}
 		}
 		return -1;
+	}
+
+	public boolean validateMenuItemNo(int menuItemNo) {
+		return menuItemNo >= 1 && menuItemNo <= listOfMenuItems.size();
+	}
+
+	public int getNumberOfMenuItems() {
+		return listOfMenuItems.size();
 	}
 }
