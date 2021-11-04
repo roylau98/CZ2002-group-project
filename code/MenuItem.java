@@ -99,7 +99,12 @@ public abstract class MenuItem implements Serializable {
 	 * A function to update the content(name,description,price) of this MenuItem
 	 *
 	 */
-	public void updateContents() {
+	public void updateContents(String name, String description, double price) {
+		updateName(name);
+		updateDescription(description);
+		updatePrice(price);
+
+
 		sc = new Scanner(System.in);
 		int choice=-1;
 		String inputForString;

@@ -5,11 +5,14 @@ import java.util.Scanner;
 public class RRPSS implements Serializable {
     private OrderApp orderApp;
     private ReservationApp reservationApp;
+    private MenuApp menuApp;
     private transient Scanner sc = new Scanner(System.in);
+
 
     public RRPSS() {
         orderApp = new OrderApp();
         reservationApp = new ReservationApp();
+        menuApp = new MenuApp();
     }
 
     public void rrpsOptions() {
@@ -46,7 +49,7 @@ public class RRPSS implements Serializable {
                     orderApp.orderAppOptions(reservationApp.getReservationMgr());
                     break;
                 case 3:
-                    orderApp.openMenuApp();
+                    menuApp.menuOptions();
                     break;
                 case 4:
                     System.out.println("=====Sales Report Option====");

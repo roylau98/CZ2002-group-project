@@ -16,7 +16,7 @@ public class OrderApp implements Serializable {
 	private OrderMgr orderMgr;
 	private StaffApp staffApp;
 	private SalesReport salesReportApp;
-	private Menu menuApp;
+	private MenuMgr menuMgrApp;
 
 	/**
          * Constructs an {@code OrderApp} object and
@@ -26,11 +26,7 @@ public class OrderApp implements Serializable {
 		orderMgr = new OrderMgr();
 		staffApp = new StaffApp();
 		salesReportApp = new SalesReport();
-		menuApp = new Menu();
-	}
-
-	public void openMenuApp() {
-		menuApp.menuOptions();
+		menuMgrApp = new MenuMgr();
 	}
 
 	public void salesReportOptions() {
@@ -162,13 +158,13 @@ public class OrderApp implements Serializable {
 	}
 
 	private void addToOrder(int orderID) {
-		if (menuApp.getNumberOfMenuItems() == 0) {
+		if (menuMgrApp.getNumberOfMenuItems() == 0) {
 			System.out.println("No items are on the menu.");
 			return;
 		}
-		menuApp.printListOfMenuItems();
+		menuMgrApp.printListOfMenuItems();
 		System.out.println("Which item would you like to order?");
-		orderMgr.addItemsInOrder(orderID, menuApp.getMenuItem(askUserForMenuItemNo()));
+		orderMgr.addItemsInOrder(orderID, menuMgrApp.getMenuItem(askUserForMenuItemNo()));
 		orderMgr.viewOrder(orderID);
 	}
 
@@ -229,7 +225,7 @@ public class OrderApp implements Serializable {
 			System.out.println("Invalid input received.");
 			return askUserForMenuItemNo();
 		}
-		if (!menuApp.validateMenuItemNo(menuItemNo)) {
+		if (!menuMgrApp.validateMenuItemNo(menuItemNo)) {
 			System.out.println("Invalid input received.");
 			return askUserForMenuItemNo();
 		}

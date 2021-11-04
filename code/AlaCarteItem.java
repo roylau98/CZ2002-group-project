@@ -2,7 +2,7 @@ import java.util.InputMismatchException;
 import java.util.Scanner;
 /**
  * Stores information about a AlaCarteItem inherit from{@link MenuItem} class to used in context of a menu.
- * This class stores the name, price, description and type of AlaCarteItem {@link Menu},
+ * This class stores the name, price, description and type of AlaCarteItem {@link MenuMgr},
  * inherit various method from abstract class {@link MenuItem} such as get(),update(),
  * 
  * @author Chua Zi Jian
