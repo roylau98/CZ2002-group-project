@@ -1,4 +1,3 @@
-import java.awt.*;
 import java.io.Serializable;
 import java.util.*;
 /**
@@ -15,15 +14,11 @@ import java.util.*;
 public class MenuMgr implements Serializable {
 
 	private transient Scanner sc = new Scanner(System.in);
-
     /**
      * ArrayList of MenuItem which consists of AlaCarteItem and PromotionalSet, implemented in {@link ArrayList} data structure.
      * Each entry consists of a reference to existing {@link AlaCarteItem}/{@link PromotionalSet}object.
      */
 	private ArrayList<MenuItem> listOfMenuItems;
-
-
-	
     /**
      * Constructs an {@code Menu} object and
      * initialize the attributes {@code MenuItem} .
@@ -64,7 +59,6 @@ public class MenuMgr implements Serializable {
 		printMenuItemsByCat(new PromotionalSet());
 		System.out.println();
 	}
-	
 	/**
 	 * Prints a certain type of AlaCarteItems in the Menu (Overload)
 	 * @param alaCarteItemType	the type of the AlaCarte
@@ -81,7 +75,6 @@ public class MenuMgr implements Serializable {
 			}
 			catch(ClassCastException e){}
 		}
-		
 	}
 	/**
 	 * Prints PromotionalSet in the Menu (Overload)
@@ -122,17 +115,21 @@ public class MenuMgr implements Serializable {
 	/**
 	 *  Function to create new AlaCarteItem
 	 */
-	public void createNewAlaCarteItem(String name, String description, double price, AlaCarteItemType type) {
+	public int createNewAlaCarteItem(String name, String description, double price, AlaCarteItemType type) {
 		MenuItem newItem = new AlaCarteItem(name, description, price, type);
 		listOfMenuItems.add(newItem);
+		sortListOfMenuItems();
+		return getIndexOfMenuItem(newItem);
 	}
 	/**
 	 *  Function to create new PromotionalSet
 	 */
-	public void createNewPromoSetItem(String name, String description, double price) {
+	public int createNewPromoSetItem(String name, String description, double price) {
 		MenuItem newItem = new PromotionalSet();
 		newItem.updateContents(name,description,price);
 		listOfMenuItems.add(newItem);
+		sortListOfMenuItems();
+		return getIndexOfMenuItem(newItem);
 	}
 	/**
 	 *  Function to remove existing MenuItem
@@ -143,11 +140,30 @@ public class MenuMgr implements Serializable {
 	/**
 	 * Update the details of existing items in Menu
 	 */
-	public void updateMenuItem(int index) {
+	public void updateMenuItem(int index, String name, String description, double price) {
 		MenuItem itemToBeUpdated = getMenuItem(index);
-		itemToBeUpdated.updateContents();
+		itemToBeUpdated.updateContents(name, description, price);
 		sortListOfMenuItems();
 	}
+
+	public void updateAlaCarteItemSpecificDetails(int index, AlaCarteItemType newType) {
+		MenuItem item = getMenuItem(index);
+		((AlaCarteItem)item).setItemType(newType);
+	}
+	public void addItemToPromoSetContent(int index,String name,int quantity) {
+		MenuItem item = getMenuItem(index);
+		((PromotionalSet)item).addItemToPromotionalSet(name,quantity);
+	}
+	public void updateItemToPromoSetContent(int index,String name,int quantity) {
+		MenuItem item = getMenuItem(index);
+		((PromotionalSet)item).updateItemInPromotionalSet(name,quantity);
+	}
+
+	public void removeItemToPromoSetContent(int index, String name) {
+		MenuItem item = getMenuItem(index);
+		((PromotionalSet)item).removeItemFromPromotionalSet(name);
+	}
+
 	/**
 	 * Return a existing {@link MenuItem}object by using the INDEX(actual index plus 1) of ArrayList 
 	 * 
@@ -159,6 +175,14 @@ public class MenuMgr implements Serializable {
 			return null;
 		}
 		return listOfMenuItems.get(indexNo);
+	}
+	public int getIndexOfMenuItem(MenuItem item) {
+		for (int i=0; i < listOfMenuItems.size(); i++) {
+			if (listOfMenuItems.get(i).equals(item)) {
+				return i;
+			}
+		}
+		return -1;
 	}
 	/**
 	 * Return the index no. of a existing {@link MenuItem}object  

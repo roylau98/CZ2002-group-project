@@ -1,6 +1,7 @@
 import java.util.*;
+import java.io.Serializable;
 
-public class MenuApp {
+public class MenuApp implements Serializable{
     private transient Scanner sc;
     private MenuMgr menuMgr;
     public MenuApp () {
@@ -67,6 +68,7 @@ public class MenuApp {
             String name;
             String description;
             double price;
+            int index;
             switch (choice) {
                 case 1:
                     System.out.println("Enter the name of the new AlaCarteItem");
@@ -76,7 +78,8 @@ public class MenuApp {
                     System.out.println("Enter the Price of the new AlaCarteItem");
                     price = askUserForMenuItemPrice();
                     int inputForAlaCarteItemType = askUserForAlaCarteItemType();
-                    menuMgr.createNewAlaCarteItem(name,description,price,menuMgr.chooseAlaCarteItemType(inputForAlaCarteItemType));
+                    index = menuMgr.createNewAlaCarteItem(name,description,price,menuMgr.chooseAlaCarteItemType(inputForAlaCarteItemType));
+                    System.out.println("Index: "+index);
                     return;
                 case 2:
                     System.out.println("Enter the name of the new PromotionalSet");
@@ -85,8 +88,9 @@ public class MenuApp {
                     description = askUserForMenuItemStringInput();
                     System.out.println("Enter the Price of the new PromotionalSet");
                     price = askUserForMenuItemPrice();
-                    menuMgr.createNewPromoSetItem(name,description,price);
-
+                    index = menuMgr.createNewPromoSetItem(name,description,price);
+                    updatePromoSetContents(index);
+                    System.out.println("Index: "+index);
                     return;
                 default:
                     System.out.println("Invalid input. Try again!");
@@ -107,6 +111,9 @@ public class MenuApp {
         menuMgr.removeMenuItem(indexOfItemToBeRemoved);
     }
     public void updateMenuItem() {
+        String name;
+        String description;
+        double price;
         if (menuMgr.getNumberOfMenuItems() == 0) {
             System.out.println("There is no menuItems to update");
             return;
@@ -117,7 +124,68 @@ public class MenuApp {
         if (indexOfMenuItemToBeUpdated == -1) {
             return;
         }
-        menuMgr.updateMenuItem(indexOfMenuItemToBeUpdated);
+        if (yesOrNo("Update Name Of MenuItem?")) {
+            name = askUserForMenuItemStringInput();
+        }
+        else {
+            name = menuMgr.getMenuItem(indexOfMenuItemToBeUpdated).getName();
+        }
+        if (yesOrNo("Update Description Of MenuItem?")) {
+            description = askUserForMenuItemStringInput();
+        }
+        else {
+            description = menuMgr.getMenuItem(indexOfMenuItemToBeUpdated).getName();
+        }
+        if (yesOrNo("Update Price Of MenuItem?")) {
+            price = askUserForMenuItemPrice();
+        }
+        else {
+            price = menuMgr.getMenuItem(indexOfMenuItemToBeUpdated).getPrice();
+        }
+        menuMgr.updateMenuItem(indexOfMenuItemToBeUpdated,name,description,price);
+
+        if (menuMgr.getMenuItem(indexOfMenuItemToBeUpdated) instanceof AlaCarteItem) {
+            if(yesOrNo("Update AlaCarteItemType?")) {
+               menuMgr.updateAlaCarteItemSpecificDetails(indexOfMenuItemToBeUpdated,menuMgr.chooseAlaCarteItemType(askUserForAlaCarteItemType()));
+            }
+        }
+        if (menuMgr.getMenuItem(indexOfMenuItemToBeUpdated) instanceof PromotionalSet) {
+            updatePromoSetContents(indexOfMenuItemToBeUpdated);
+        }
+    }
+
+    private void updatePromoSetContents(int indexOfMenuItemToBeUpdated) {
+        String stringInput;
+        int intInput;
+        if (menuMgr.getMenuItem(indexOfMenuItemToBeUpdated) instanceof PromotionalSet) {
+            int choice;
+            do {
+                choice = askUserForChoiceInUpdatingPromoSetContents();
+                switch (choice) {
+                    case 1:
+                        System.out.println("Enter the name of the promotional item to be added: ");
+                        stringInput = askUserForMenuItemStringInput();
+                        System.out.println("Enter the quantity of the promotional item to be added: ");
+                        intInput = askUserForQuantity();
+                        menuMgr.addItemToPromoSetContent(indexOfMenuItemToBeUpdated,stringInput,intInput);
+                        break;
+                    case 2:
+                        System.out.println("Enter the name of the promotional item to be removed: ");
+                        stringInput = askUserForMenuItemStringInput();
+                        menuMgr.removeItemToPromoSetContent(indexOfMenuItemToBeUpdated, stringInput);
+                        break;
+                    case 3:
+                        System.out.println("Enter the name of the promotional item to be updated: ");
+                        stringInput = askUserForMenuItemStringInput();
+                        System.out.println("Enter the quantity of the promotional item to be updated: ");
+                        intInput = askUserForQuantity();
+                        menuMgr.updateItemToPromoSetContent(indexOfMenuItemToBeUpdated,stringInput,intInput);
+                        break;
+                    case 4:
+                        return;
+                }
+            } while (choice!=4);
+        }
     }
 
     private int askUserForMenuItemIndex() {
@@ -128,7 +196,7 @@ public class MenuApp {
             index = sc.nextInt();
             sc.nextLine();
         } catch (InputMismatchException e) {
-            System.out.println("Invalid input received.");
+            System.out.println("Invalid input type received.");
             return askUserForMenuItemIndex();
         }
         if (index == -1) {
@@ -144,11 +212,13 @@ public class MenuApp {
     private String askUserForMenuItemStringInput() {
         sc = new Scanner(System.in);
         String inputForName;
+        System.out.println("Enter your string input:");
         try {
             inputForName = sc.nextLine();
         }
         catch (InputMismatchException e) {
             sc.nextLine();
+            System.out.println("Invalid input type. Try again!");
             return askUserForMenuItemStringInput();
         }
         return inputForName;
@@ -156,16 +226,31 @@ public class MenuApp {
     private double askUserForMenuItemPrice() {
         sc = new Scanner(System.in);
         double inputForPrice;
+        System.out.println("Enter your price input:");
         try {
             inputForPrice = sc.nextDouble();
         }
         catch (InputMismatchException e) {
             sc.nextLine();
+            System.out.println("Invalid input type. Try again!");
             return askUserForMenuItemPrice();
         }
         return inputForPrice;
     }
-
+    private int askUserForQuantity() {
+        sc = new Scanner(System.in);
+        int input;
+        System.out.println("Enter your input quantity:");
+        try {
+            input = sc.nextInt();
+        }
+        catch (InputMismatchException e) {
+            sc.nextLine();
+            System.out.println("Invalid input type. Try again!");
+            return askUserForQuantity();
+        }
+        return input;
+    }
     private int askUserForAlaCarteItemType() {
         sc = new Scanner(System.in);
         int inputForAlaCarteItemType;
@@ -182,27 +267,53 @@ public class MenuApp {
         }
         catch (InputMismatchException e) {
             sc.nextLine();
+            System.out.println("Invalid input type. Try again!");
             return askUserForAlaCarteItemType();
         }
     }
     private Boolean yesOrNo (String UpdateThis) {
         sc = new Scanner(System.in);
         int choice=999;
-        while (choice != 1 || choice != 0) {
-            System.out.println(UpdateThis);
-            try {
-                choice = sc.nextInt();
-            }
-            catch (InputMismatchException e) {
-                System.out.println("Wrong input type. Try again!");
-            }
+
+        System.out.println(UpdateThis+" 1-Yes, 0-No");
+        try {
+            choice = sc.nextInt();
+        }
+        catch (InputMismatchException e) {
+            System.out.println("Invalid input type. Try again!");
         }
         if (choice == 1) {
             return true;
         }
-        else {
+        else if (choice == 0) {
             return false;
         }
+        else {
+            return yesOrNo(UpdateThis);
+        }
+    }
+
+    private int askUserForChoiceInUpdatingPromoSetContents() {
+        sc = new Scanner(System.in);
+        int choice=999;
+        System.out.println("(1) Add promotional Item");
+        System.out.println("(2) Remove promotional Item");
+        System.out.println("(3) Change promotional Item quantity");
+        System.out.println("(4) Quit");
+        System.out.println("------------------------------------");
+        System.out.print("Enter Your Option: ");
+        try {
+            choice = sc.nextInt();
+        }
+        catch (InputMismatchException e) {
+            System.out.println("Invalid input type. Try again!");
+        }
+        if (choice < 1 || choice > 4) {
+            System.out.println("There are only 4 options. Try again!");
+            return askUserForChoiceInUpdatingPromoSetContents();
+        }
+        return choice;
+
     }
 
 }
