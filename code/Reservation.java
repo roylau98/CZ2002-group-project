@@ -5,33 +5,33 @@ import java.time.LocalTime;
 /**
  * Represents a Reservation object to reserve a table.
  * It reserves a table at a particular date and time for a customer.
- *
+ * Reservation object also tracks the number of pax coming, and if the customer arrived during his reservation timing.
  * @author
  * @since 2021-10-19
  */
 public class Reservation implements Serializable {
     /**
-     * Date reserved.
+     * Date that the customer wants to make a reservation.
      */
     private LocalDate date;
 
     /**
-     * Time reserved.
+     * Time that the customer wants to make a reservation.
      */
     private LocalTime time;
 
     /**
-     * Hour reserved.
+     * The hour which the customer wants to make a reservation.
      */
     private int hour;
 
     /**
-     * Number of persons.
+     * Number of persons that are coming.
      */
     private int noOfPax;
 
     /**
-     * Customer that made the booking.
+     * The customer which made the reservation.
      */
     private Customer customer;
 
@@ -40,10 +40,13 @@ public class Reservation implements Serializable {
      */
     private int tableNo;
 
+    /**
+     * Tracks if Customer has arrived at his reservation timing.
+     */
     private boolean custArrived;
 
     /**
-     * Class constructor.
+     * Class constructor to create a new reservation.
      *
      * @param date     Date of reservation.
      * @param time     Time of reservation.
@@ -124,7 +127,7 @@ public class Reservation implements Serializable {
     }
 
     /**
-     * Gets the table number that that the reservation has been asssigned to.
+     * Gets the table number that the reservation has been assigned to.
      * @return Table number.
      */
     public int getTableNo() {
@@ -139,18 +142,34 @@ public class Reservation implements Serializable {
         this.tableNo = tableNo;
     }
 
+    /**
+     * Gets the customer that is making the reservation.
+     * @return Customer object
+     */
     public Customer getCustomer() {
         return customer;
     }
 
+    /**
+     * Sets the Customer that is making the reservation.
+     * @param customer The customer that is making the reservation.
+     */
     public void setCustomer(Customer customer) {
         this.customer = customer;
     }
 
+    /**
+     * Tracks if the customer has arrived at his reservation timing.
+     * @return boolean, true if customer arrived, else false
+     */
     public boolean getCustArrived() {
         return custArrived;
     }
 
+    /**
+     * Sets the attribute custArrived when a customer arrived at his reservation timing.
+     * @param custArrived true if custArrived, else false
+     */
     public void setCustArrived(boolean custArrived) {
         this.custArrived = custArrived;
     }

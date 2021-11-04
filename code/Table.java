@@ -25,7 +25,7 @@ public class Table implements Serializable {
     private final HashMap<LocalDate, Boolean[]> availabilityRecord;
 
     /**
-     * Class constructor.
+     * Class constructor for table.
      * @param capacity Capacity of the table.
      */
     public Table(int capacity) {
@@ -51,12 +51,14 @@ public class Table implements Serializable {
 
     /**
      * Determines if the table is available for reservation at the specified date and time.
+     * If the hashmap does not contain the key (date), then it is available since there are no bookings at that date.
+     * Otherwise, we will fetch the array associated with the date from the hashmap and returns true only if the time
+     * does not have a reservation.
      * @param date Reservation date.
      * @param time Reservation time.
      * @return true if the table is available, false otherwise
      */
     public boolean checkAvailabilityAt(LocalDate date, LocalTime time) {
-        //
         if (!availabilityRecord.containsKey(date))
             return true;
         else
@@ -65,6 +67,8 @@ public class Table implements Serializable {
 
     /**
      * Records that the table is now available for reservations at the specified date and time.
+     * It first checks to ensure that the date has a reservation before trying to mark the date and time as available.
+     * Lastly, it will attempt to cleanup the hashmap.
      * @param date Reservation date.
      * @param time Reservation time.
      */
@@ -77,6 +81,8 @@ public class Table implements Serializable {
 
     /**
      * Records that the table is now unavailable for reservations at the specified date and time.
+     * A new array will be created if the key (date) is not present in the hashmap, before marking the
+     * hour as unavailable.
      * @param date Reservation date.
      * @param time Reservation time.
      */
@@ -89,6 +95,10 @@ public class Table implements Serializable {
         availabilityRecord.get(date)[time.getHour()] = false;
     }
 
+    /**
+     * Cleans up the hashmap and removes the key, value pair.
+     * It will only remove when the date is passed or when there is no reservations on a particular date for this table.
+     */
     private void mapCleanup() {
         for (LocalDate date : availabilityRecord.keySet()) {
             if (date.isBefore(LocalDate.now()))
