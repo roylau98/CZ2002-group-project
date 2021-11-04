@@ -1,4 +1,5 @@
-import java.util.*;
+import java.util.InputMismatchException;
+import java.util.Scanner;
 /**
  * Stores information about a AlaCarteItem inherit from{@link MenuItem} class to used in context of a menu.
  * This class stores the name, price, description and type of AlaCarteItem {@link Menu},
@@ -101,7 +102,7 @@ public class AlaCarteItem extends MenuItem {
 							setItemType(AlaCarteItemType.MAIN_COURSE);
 							break;
 						case 2:
-							setItemType(AlaCarteItemType.APPERTIZER);
+							setItemType(AlaCarteItemType.APPETISER);
 							break;
 						case 3:
 							setItemType(AlaCarteItemType.DRINKS);

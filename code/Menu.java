@@ -275,7 +275,7 @@ public class Menu implements Serializable {
 										type= AlaCarteItemType.MAIN_COURSE;
 										break;
 									case 2:
-										type= AlaCarteItemType.APPERTIZER;
+										type= AlaCarteItemType.APPETISER;
 										break;
 									case 3:
 										type= AlaCarteItemType.DRINKS;

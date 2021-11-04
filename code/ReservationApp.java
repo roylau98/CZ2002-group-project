@@ -39,7 +39,7 @@ public class ReservationApp implements Serializable {
                                 "4. View the list of reservations\n" +
                                 "5. View the list of tables\n" +
                                 "6. Check availability at a specified date and time\n" +
-                                "7. Exit this application and return to the main menu");
+                                "7. Quit this application and return to the previous page");
                         choice = scanner.nextInt();
                         scanner.nextLine();
                         error = false;

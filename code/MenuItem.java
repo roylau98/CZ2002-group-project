@@ -1,7 +1,6 @@
 import java.io.Serializable;
 import java.util.InputMismatchException;
 import java.util.Scanner;
-import java.io.*;
 /**
  * An abstract class for {@link AlaCarteItem} and {@link PromotionalSet} used to store information about an item 
  *

@@ -1,6 +1,6 @@
+import java.io.Serializable;
 import java.time.LocalDateTime;
-import java.util.*;
-import java.io.*;
+import java.util.ArrayList;
 
 /**
  * Stores information of a order invoices in the restaurant.
@@ -82,8 +82,8 @@ public class Invoice implements Serializable {
 	public void printInvoice() {
 		System.out.println();
 		System.out.println("=================================================");
-		System.out.println("              THE KRUSTY KRAB                    ");
-		System.out.println("         Bikini Bottom,Pacific Ocean             ");
+		System.out.println("                THE KRUSTY KRAB                  ");
+		System.out.println("          Bikini Bottom, Pacific Ocean           ");
 		System.out.println("                                                 ");
 		System.out.println("                                                 ");
 		System.out.println("Order ID: " + this.order.getOrderID());

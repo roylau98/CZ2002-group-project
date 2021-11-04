@@ -42,19 +42,16 @@ public class OrderApp implements Serializable {
 		int choice = 0;
 		int input = 0;
 		do {
+			System.out.println("Please select one of the options below:\n" +
+					"1. View an existing order\n" +
+					"2. Make a new order\n" +
+					"3. Cancel an existing order\n" +
+					"4. Update an existing order\n" +
+					"5. Make payment for an order\n" +
+					"6. Quit this application and return to the previous page");
 			try {
-				System.out.println("========Order Option========");
-				System.out.println("(1)View Order");
-				System.out.println("(2)Create new Order");
-				System.out.println("(3)Remove Order");
-				System.out.println("(4)Update Item In Order");
-				System.out.println("(5)Charge Bill");
-				System.out.println("(6)Exit");
-				System.out.println("----------------------------");
-				System.out.print("Enter Your Option: ");
 				choice = sc.nextInt();
 				sc.nextLine();
-				System.out.println("----------------------------");
 				System.out.println();
 			} catch (InputMismatchException e) {
 				System.out.println("Invalid input received.");
@@ -94,7 +91,6 @@ public class OrderApp implements Serializable {
 	 * A Do-While loop to create an order and add items of AlaCarteItem and add PromotionalSet to it
 	 */
 	private void newOrder(ReservationMgr reservationMgr) {
-		System.out.println("Creating Order......");
 		System.out.println("Which table is this new order for?");
 		// update error checking e.g throwable in viewTablesWithReservationsNow()....
 		reservationMgr.viewTablesWithReservationsNow();
@@ -112,7 +108,7 @@ public class OrderApp implements Serializable {
 			return;
 		}
 		int newOrderID = orderMgr.createOrder(c, tableNo, staffApp.selectStaff());
-		System.out.println("Order created, orderID: " + newOrderID);
+		System.out.println("Order " + newOrderID + " has been created.");
 		updateOrder(newOrderID);
 	}
 
@@ -138,13 +134,10 @@ public class OrderApp implements Serializable {
 			System.out.println("Order " + orderID + " is complete and payment has been made.");
 			return;
 		}
-		System.out.println("Update Order Option");
-		System.out.println("===================");
-		System.out.println("1) Add menuItem");
-		System.out.println("2) Remove menuItem");
-		System.out.println("3) Quit");
-		System.out.println("===================");
-		System.out.print("Enter Your Choice: ");
+		System.out.println("How would you like to update your order?\n" +
+				"1. Add a menu item to the order\n" +
+				"2. Remove an item from the order\n" +
+				"3. Exit and return to the previous page");
 		int choice;
 		try {
 			choice = sc.nextInt();
@@ -153,7 +146,6 @@ public class OrderApp implements Serializable {
 			System.out.println("Invalid input received.");
 			return;
 		}
-		System.out.println("===================");
 		switch (choice) {
 			case 1:
 				addToOrder(orderID);

@@ -6,7 +6,7 @@ import java.io.Serializable;
  */
 public enum AlaCarteItemType implements Serializable {
 	MAIN_COURSE,
-	APPERTIZER,
+	APPETISER,
 	DRINKS,
 	DESSERT 
 }
