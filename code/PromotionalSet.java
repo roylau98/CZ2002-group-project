@@ -111,12 +111,12 @@ public class PromotionalSet extends MenuItem {
 			try {
 				System.out.println("Update Set contents? 1-Yes, 0-N");
 				choice = sc.nextInt();
+				sc.nextLine();
 				break;
 			}
 			catch(InputMismatchException e)
 	        	{
 				System.out.println("Wrong Option!!!!!");
-	           		sc.nextLine();
 	        	}
 		}
 		
@@ -132,6 +132,7 @@ public class PromotionalSet extends MenuItem {
 					System.out.println("------------------------------------");
 					System.out.print("Enter Your Option: ");
 					choice = sc.nextInt();
+					sc.nextLine();
 					System.out.println("------------------------------------");
 					System.out.println();
 					break;
@@ -139,7 +140,6 @@ public class PromotionalSet extends MenuItem {
 					catch(InputMismatchException e)
 			        	{
 						System.out.println("Wrong choice. Try again!");
-			            		sc.nextLine();
 			        	}
 				}
 				switch (choice) {
@@ -151,12 +151,12 @@ public class PromotionalSet extends MenuItem {
 							try {
 								System.out.println("Enter the quantity:");
 								inputForInt = sc.nextInt();
+								sc.nextLine();
 								break;
 							}
 							catch(InputMismatchException e)
 					        	{
 								System.out.println("Error:quantity cannot be a string");
-					            		sc.nextLine();
 					        	}
 							
 						}
@@ -177,6 +177,7 @@ public class PromotionalSet extends MenuItem {
 						inputForString = sc.next();
 						System.out.println("Type the updated quantity:");
 						inputForInt = sc.nextInt();
+						sc.nextLine();
 						updateItemInPromotionalSet(inputForString,inputForInt);
 						break;
 

@@ -30,10 +30,11 @@ public class RRPSS implements Serializable {
                 System.out.print("Enter Your Choice: ");
                 sc = new Scanner(System.in);
                 choice = sc.nextInt();
+                sc.nextLine();
                 System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
                 System.out.println();
             } catch (InputMismatchException e) {
-                sc.nextLine();
+                System.out.println("Invalid input");
             }
 
             switch (choice) {

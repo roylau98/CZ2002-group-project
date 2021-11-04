@@ -38,10 +38,13 @@ public class Staff extends Person {
 		int inputInput;
 		System.out.println("What is the staff's name: ");
 		inputString = sc.next();
+		sc.nextLine();
 		System.out.println("What is the staff's employee ID: ");
 		inputInput = sc.nextInt();
+		sc.nextLine();
 		System.out.println("What is the staff's name: ");
 		inputString = sc.next();
+		sc.nextLine();
 	}
 
 

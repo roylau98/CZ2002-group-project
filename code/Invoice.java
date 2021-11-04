@@ -59,7 +59,7 @@ public class Invoice implements Serializable {
 		this.finalPrice = 0;
 		this.order = order;
 		
-		if((this.order.getCustomer()).getMembershipStatus()==true)
+		if((this.order.getCustomer()).getMembershipStatus())
 			memberDiscount=0.1; 
 		else
 			memberDiscount=0;

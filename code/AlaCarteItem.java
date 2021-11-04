@@ -72,12 +72,12 @@ public class AlaCarteItem extends MenuItem {
 					System.out.println("Update Item Type? 1-Yes, 0-N");
 					sc = new Scanner(System.in);
 					choice = sc.nextInt();
+					sc.nextLine();
 					break;
 				}
 				catch(InputMismatchException e)
 		        	{
 					System.out.println("Wrong Option!!!!!");
-		            		sc.nextLine();
 		        	}
 			}
 			int i=0;
@@ -95,6 +95,7 @@ public class AlaCarteItem extends MenuItem {
 					System.out.println("Type option: ");
 					sc = new Scanner(System.in);
 					choice = sc.nextInt();
+					sc.nextLine();
 		
 					switch (choice) 
 					{

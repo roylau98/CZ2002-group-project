@@ -113,12 +113,12 @@ public abstract class MenuItem implements Serializable {
 				{
 					System.out.println("Update Item Name? 1-Yes, 0-N");
 					choice = sc.nextInt();
+					sc.nextLine();
 					break;
 				}
 				catch(InputMismatchException e)
 		        	{
 					System.out.println("Wrong Option!!!!!");
-		           		sc.nextLine();
 		        	}
 			}
 			if (choice == 1) 
@@ -146,12 +146,12 @@ public abstract class MenuItem implements Serializable {
 				{
 					System.out.println("Update Item Description? 1-Yes, 0-N");
 					choice = sc.nextInt();
+					sc.nextLine();
 					break;
 				}
 				catch(InputMismatchException e)
 		        	{
 					System.out.println("Wrong Option!!!!!");
-		            		sc.nextLine();
 		        	}
 			}
 			if (choice == 1) 
@@ -179,12 +179,12 @@ public abstract class MenuItem implements Serializable {
 				{
 					System.out.println("Update Item Price? 1-Yes, 0-N");
 					choice = sc.nextInt();
+					sc.nextLine();
 					break;
 				}
 				catch(InputMismatchException e)
 		        	{
 					System.out.println("Wrong Option!!!!!");
-		            		sc.nextLine();
 		        	}
 			}
 			if (choice == 1) 

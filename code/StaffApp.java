@@ -25,6 +25,7 @@ public class StaffApp implements Serializable {
 
         System.out.println("Please type the employee ID");
         int choice = sc.nextInt();
+        sc.nextLine();
 
         for (int i = 0; i < listOfStaff.size(); i++) {
             if (listOfStaff.get(i).getEmployeeID() == choice) {
@@ -43,6 +44,7 @@ public class StaffApp implements Serializable {
     public void removeStaff(int employeeID) {
         sc = new Scanner(System.in);
         int choice = sc.nextInt();
+        sc.nextLine();
         for (int i = 0; i < listOfStaff.size(); i++) {
             if (listOfStaff.get(i).getEmployeeID() == choice) {
                 listOfStaff.remove(i);

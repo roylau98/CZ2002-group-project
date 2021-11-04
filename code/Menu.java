@@ -60,7 +60,7 @@ public class Menu implements Serializable {
 			}
 			catch(InputMismatchException e)
 			{
-				sc.nextLine();
+				System.out.println("Invalid input");
 			}
 			switch (choice) {
 				case 1:
@@ -78,18 +78,17 @@ public class Menu implements Serializable {
 							System.out.println();
 							System.out.println("Type index of Item");
 							int indexNo = sc.nextInt();
+							sc.nextLine();
 							getMenuItem(indexNo-1);
 							break;
 						}
 						catch(InputMismatchException e)
 						{
 							System.out.println("Invalid option");
-							sc.nextLine();
 						}
 						catch(IndexOutOfBoundsException e)  
 						{  
-							System.out.println("Invalid option");  
-							sc.nextLine();
+							System.out.println("Invalid option");
 						} 
 					}
 					break;
@@ -243,12 +242,13 @@ public class Menu implements Serializable {
 				System.out.println("----------------------------------------");
 				System.out.print("Enter Your Option: ");
 				choice=sc.nextInt();
+				sc.nextLine();
 				System.out.println("----------------------------------------");
 				System.out.println();
 			}
 			catch(InputMismatchException e)
-            		{	
-                	sc.nextLine();
+            		{
+						System.out.println("Invalid input");
             		}
 				
 				switch(choice) {
@@ -266,6 +266,7 @@ public class Menu implements Serializable {
 								System.out.println("------------------------------------");
 								System.out.print("Enter Your Option: ");
 								c =sc.nextInt();
+								sc.nextLine();
 								System.out.println("------------------------------------");
 								System.out.println();
 								
@@ -291,7 +292,6 @@ public class Menu implements Serializable {
 							catch(InputMismatchException e)
 					            	{
 								System.out.println("Wrong Option!!!!!");
-					                	sc.nextLine();
 					            	}
 								
 						}
@@ -392,6 +392,7 @@ public class Menu implements Serializable {
 				printListOfMenuItems();
 				System.out.println("Please type index of menu item to remove Or -1 to Exit:");
 				indexNo = sc.nextInt();
+				sc.nextLine();
 				if(indexNo==-1)
 				{
 					System.out.println("Exited!");
@@ -438,6 +439,7 @@ public class Menu implements Serializable {
 			try {
 				System.out.println("Please type index of item to be updated Or -1 to exit:");
 				indexNo = sc.nextInt();
+				sc.nextLine();
 				if(indexNo==-1)
 				{
 					System.out.println("Exited!");

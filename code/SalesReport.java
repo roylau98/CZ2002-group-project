@@ -1,8 +1,8 @@
+import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.*;
-import java.io.*;
 
 public class SalesReport implements Serializable{
-
 	private ArrayList<Invoice> listOfSales;
 	private transient Scanner sc = new Scanner(System.in);
 
@@ -11,18 +11,20 @@ public class SalesReport implements Serializable{
 	}
 
 	public void options() {
-		int choice = 999;
-		int input;
-
-		System.out.println("Here are your choices: \n" +
-				"1)" +
-				"2)" +
-				"3)" +
-				"4) Exit");
+		System.out.println("Please select one of the options below:\n" +
+				"1. Make a new reservation\n" +
+				"2. Cancel an existing reservation\n" +
+				"3. Amend an existing reservation\n" +
+				"4. View the list of reservations\n" +
+				"5. View the list of tables\n" +
+				"6. Check availability at a specified date and time\n" +
+				"7. Quit this application and return to the previous page");
+		int choice = 0;
 		while (choice != -1) {
 			System.out.println("Enter your choice");
 			sc = new Scanner(System.in);
 			choice = sc.nextInt();
+			sc.nextLine();
 
 			switch (choice) {
 				case 1:
@@ -41,7 +43,19 @@ public class SalesReport implements Serializable{
 			}
 		}
 
+	}
 
+	private void print(LocalDate start, LocalDate end) {
+		HashMap<MenuItem, Integer> salesCount = new HashMap<>();
+		for (Invoice invoice : listOfSales) {
+			LocalDate invoiceDate = invoice.getTimestamp().toLocalDate();
+			if (invoiceDate.isBefore(start) || invoiceDate.isAfter(end))
+				continue;
+			for (MenuItem menuItem : invoice.getListOfSoldItems()) {
+				salesCount.putIfAbsent(menuItem, 1);
+				salesCount.replace(menuItem, salesCount.get(menuItem) + 1);
+			}
+		}
 	}
 
 	public double calculateRevenue(ArrayList<Invoice> selectedListOfSales) {
@@ -165,5 +179,4 @@ public class SalesReport implements Serializable{
 		});
 		return selectedListOfSales;
 	}
-
 }
