@@ -8,19 +8,16 @@ import java.util.Scanner;
 public class ReservationApp implements Serializable {
 	private transient Scanner scanner;
 	private final ReservationMgr reservationMgr = new ReservationMgr();
-	private static final int MAX_TABLE_CAPACITY = 25;
-	private static LocalDate localDate = LocalDate.now();
-	private static LocalTime localTime = LocalTime.now();
-	private static int currentYear = localDate.getYear();
-	private static int currentMonth = localDate.getMonthValue();
-	private static Month currentMonthEnum = localDate.getMonth();
-	private static int currentDate = localDate.getDayOfMonth();
-	private static int currentHour = localTime.getHour();
-	private static int year = 0;
-	private static int month = 0;
-	private static int date = 0;
-	private static int hour = 0;
+	private final int MAX_TABLE_CAPACITY = 10;
+	private int year = 0;
+	private int month = 0;
+	private int date = 0;
+	private int hour = 0;
 	
+	public static void main(String[] args) {
+		ReservationApp reservationApp = new ReservationApp();
+		reservationApp.startReservationApp();
+	}
     public void startReservationApp() {
         scanner = new Scanner(System.in);
         reservationMgr.removeOutdatedReservations();
@@ -210,6 +207,13 @@ public class ReservationApp implements Serializable {
     }
 
     private LocalDate askUserForDate() {
+    	LocalDate localDate = LocalDate.now();
+    	LocalTime localTime = LocalTime.now();
+    	int currentYear = localDate.getYear();
+    	int currentMonth = localDate.getMonthValue();
+    	Month currentMonthEnum = localDate.getMonth();
+    	int currentDate = localDate.getDayOfMonth();
+    	int currentHour = localTime.getHour();
         boolean cont = true;
         boolean error = true;
     	while (cont) {
@@ -244,16 +248,23 @@ public class ReservationApp implements Serializable {
 			        error = false;
 		    	}
 		    	catch (InputMismatchException e){
-		    		System.out.println("Invalid input. (Valid values: " + currentMonthEnum + " onwards)");
-		    		scanner.nextLine();
-		    		error = true;
+		    		if (currentYear == year) {
+			    		System.out.println("Invalid input. (Valid values: " + currentMonthEnum + " onwards)");
+			    		scanner.nextLine();
+			    		error = true;
+		    		}
+		    		else {
+		    			System.out.println("Invalid input. (Valid values: 1 - 12)");
+			    		scanner.nextLine();
+			    		error = true;
+		    		}
 		    	}
 	    	} while (error);
 	    	if (month < currentMonth && year == currentYear) {
 	        	System.out.println("Invalid value. (Valid values: " + currentMonthEnum + " onwards)");
 	        }
-	    	else if (month < 0 || month > 12) {
-	    		System.out.println("Invalid Value. (Valud values: 1 - 12");
+	    	else if (month < 1 || month > 12) {
+	    		System.out.println("Invalid Value. (Valud values: 1 - 12)");
 	    	}
 	    	else {
 	    		cont = false;
@@ -284,7 +295,12 @@ public class ReservationApp implements Serializable {
 					cont = true;
 				}
 				else {
-					cont = false;
+					if (currentHour == 23) {
+						System.out.println("Invalid value. (Valid values: From " + (currentDate+1) + " onwards to " + maxDay + ")");
+					}
+					else {
+						cont = false;
+					}
 				}
 			}
 			else {
@@ -301,6 +317,12 @@ public class ReservationApp implements Serializable {
     }
 
     private LocalTime askUserForTime() {
+    	LocalDate localDate = LocalDate.now();
+    	LocalTime localTime = LocalTime.now();
+    	int currentYear = localDate.getYear();
+    	int currentMonth = localDate.getMonthValue();
+    	int currentDate = localDate.getDayOfMonth();
+    	int currentHour = localTime.getHour();
         boolean cont = true;
         boolean error = true;
     	cont = true;
