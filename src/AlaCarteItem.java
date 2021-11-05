@@ -4,7 +4,8 @@ import java.util.Scanner;
  * This class stores the name, price, description and type of AlaCarteItem {@link MenuMgr},
  * inherit various method from abstract class {@link MenuItem} such as get(),update(),
  * 
- * @author Chua Zi Jian
+ * @author 
+ * @since 2021-10-22
  * 
  */
 public class AlaCarteItem extends MenuItem {
