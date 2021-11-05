@@ -3,7 +3,7 @@ import java.util.TimerTask;
 /**
  * Represents a TimerTask object which can be scheduled to be executed by a timer.
  * @author
- * @since 2021-10-30
+ * @since 2021-11-5
  */
 public class ExpiredReservationsRemover extends TimerTask {
     /**
