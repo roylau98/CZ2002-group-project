@@ -2,7 +2,8 @@ import java.io.Serializable;
 
 /**
  * Enumeration to indicate the type of {@link AlaCarteItem}
- * @author Chua Zi Jian
+ * @author 
+ * @since 2021-10-22
  */
 public enum AlaCarteItemType implements Serializable {
 	MAIN_COURSE,
