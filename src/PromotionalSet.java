@@ -6,7 +6,10 @@ import java.util.Scanner;
  * and uses HashMap to keep track of the items in PromotionalSet.
  * it also provide various method to add/remove/update the content of the PromotionalSet.
  *
- *@see         HashMap
+ * @see         HashMap
+ *
+ * @author
+ * @since 2021-11-5
  */
 public class PromotionalSet extends MenuItem {
 
@@ -27,6 +30,10 @@ public class PromotionalSet extends MenuItem {
 	
 	/**
 	 * Constructs a PromotionalSet with specific name, price, description and type.
+	 *
+	 * @param	name		name of the promotional set
+	 * @param	description	description of the promotional set
+	 * @param	price		price of the promotional set
 	 */
 	PromotionalSet(String name, String description, double price) {
 		super(name, description, price);
