@@ -4,12 +4,26 @@ import java.util.Scanner;
 
 public class MenuApp implements Serializable{
     private transient Scanner sc;
+    
+    /**
+    * Object Manager of the menu
+    */
     private MenuMgr menuMgr;
+    
+    /**
+    * Constructs an {@code MenuApp} object with known menuMgr
+    *@param menuMgr Object Manager of the menu
+    *
+    */
     public MenuApp (MenuMgr menuMgr) {
         
     	this.menuMgr=menuMgr;
         sc = new Scanner(System.in);
     }
+    
+    /**
+    * Interface of the MenuApp with several options available
+    */
     public void menuOptions() {
         sc = new Scanner(System.in);
         int choice = 999;
@@ -46,9 +60,17 @@ public class MenuApp implements Serializable{
             }
         } while (choice != 5);
     }
+    
+    /**
+    * Print the latest Menu in the restaurant
+    */
     public void printMenu() {
         menuMgr.printListOfMenuItems();
     }
+    
+    /**
+    * Add new {@code MenuItem} object into the Menu
+    */
     public void addMenuItem() {
         sc = new Scanner(System.in);
         int choice=0;
@@ -99,6 +121,10 @@ public class MenuApp implements Serializable{
             }
         } while (choice !=3);
     }
+    
+    /**
+    * Remove {@code MenuItem} object from the Menu
+    */
     public void removeMenuItem() {
         if (menuMgr.getNumberOfMenuItems() == 0) {
             System.out.println("There is no menuItems to remove");
@@ -112,6 +138,10 @@ public class MenuApp implements Serializable{
         }
         menuMgr.removeMenuItem(indexOfItemToBeRemoved);
     }
+    
+    /**
+    * Update the details of existing {@code MenuItem} in the Menu
+    */
     public void updateMenuItem() {
         String name;
         String description;
@@ -155,7 +185,10 @@ public class MenuApp implements Serializable{
             updatePromoSetContents(indexOfMenuItemToBeUpdated);
         }
     }
-
+    
+    /**
+    * Add new {@code PromotionalSets} object into the Menu
+    */
     private void updatePromoSetContents(int indexOfMenuItemToBeUpdated) {
         String stringInput;
         int intInput;
@@ -189,7 +222,10 @@ public class MenuApp implements Serializable{
             } while (choice!=4);
         }
     }
-
+    
+    /**
+    * Scanner to ask for user input(MenuItemIndex) with error checking
+    */
     private int askUserForMenuItemIndex() {
         sc = new Scanner(System.in);
         System.out.print("Enter an index or -1 to Quit: ");
@@ -210,7 +246,10 @@ public class MenuApp implements Serializable{
         }
         return index;
     }
-
+    
+    /**
+    * Scanner to ask for user input(MenuItemStringInput) with error checking
+    */
     private String askUserForMenuItemStringInput() {
         sc = new Scanner(System.in);
         String inputForName;
@@ -225,6 +264,10 @@ public class MenuApp implements Serializable{
         }
         return inputForName;
     }
+    
+    /**
+    * Scanner to ask for user input(MenuItemPrice) with error checking
+    */
     private double askUserForMenuItemPrice() {
         sc = new Scanner(System.in);
         double inputForPrice;
@@ -239,6 +282,10 @@ public class MenuApp implements Serializable{
         }
         return inputForPrice;
     }
+    
+    /**
+    * Scanner to ask for user input(Quantity) with error checking
+    */
     private int askUserForQuantity() {
         sc = new Scanner(System.in);
         int input;
@@ -253,6 +300,10 @@ public class MenuApp implements Serializable{
         }
         return input;
     }
+    
+    /**
+    * Scanner to ask for user input(AlaCarteItemType) with error checking
+    */
     private int askUserForAlaCarteItemType() {
         sc = new Scanner(System.in);
         int inputForAlaCarteItemType;
@@ -273,6 +324,10 @@ public class MenuApp implements Serializable{
             return askUserForAlaCarteItemType();
         }
     }
+    
+    /**
+    * Scanner to ask for user input(Boolean) with error checking
+    */
     private Boolean yesOrNo (String UpdateThis) {
         sc = new Scanner(System.in);
         int choice=999;
@@ -294,7 +349,10 @@ public class MenuApp implements Serializable{
             return yesOrNo(UpdateThis);
         }
     }
-
+    
+    /**
+    * Scanner to ask for user input for UpdatingPromoSetContents() with error checking
+    */
     private int askUserForChoiceInUpdatingPromoSetContents() {
         sc = new Scanner(System.in);
         int choice=999;
