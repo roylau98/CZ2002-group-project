@@ -6,6 +6,9 @@ import java.util.TimerTask;
  * @since 2021-10-30
  */
 public class ExpiredReservationsRemover extends TimerTask {
+    /**
+     * The same reservationMgr in our application 
+     */
     private ReservationMgr reservationMgr;
 
     /**
