@@ -4,20 +4,47 @@ import java.time.LocalTime;
 import java.time.Month;
 import java.util.InputMismatchException;
 import java.util.Scanner;
-
+/**
+ * Interface of the Reservation App which has the option of create/remove etc. Reservation
+ * <p>
+ * @author
+ * @since 2021-11-5
+ */
 public class ReservationApp implements Serializable {
 	private transient Scanner scanner;
+	/**
+    	* Object Manager of Reservation
+     	*/
 	private final ReservationMgr reservationMgr = new ReservationMgr();
+	/**
+     	* Capacity of table in restaurant
+     	*/
 	private final int MAX_TABLE_CAPACITY = 10;
+	/**
+     	* Year for reservation booking
+     	*/
 	private int year = 0;
+	/**
+     	* Month for reservation booking
+     	*/
 	private int month = 0;
+	/**
+     	* Date for reservation booking
+     	*/
 	private int date = 0;
+	/**
+     	* Hours for reservation booking
+     	*/
 	private int hour = 0;
 	
-	public static void main(String[] args) {
+	/*public static void main(String[] args) {
 		ReservationApp reservationApp = new ReservationApp();
 		reservationApp.startReservationApp();
-	}
+	}*/
+	
+	/**
+    	* Interface of the ReservationApp with several options available
+    	*/
     public void startReservationApp() {
         scanner = new Scanner(System.in);
         reservationMgr.removeNoShowReservations();
@@ -82,7 +109,10 @@ public class ReservationApp implements Serializable {
             }
         }
     }
-
+	
+    /**
+    * Create new Reservation 
+    */
     private void makeReservation() {
         System.out.println("Please enter the following details below:");
         LocalDate date = askUserForDate();
@@ -91,7 +121,10 @@ public class ReservationApp implements Serializable {
         Customer customer = askUserForCustomerDetails();
         reservationMgr.makeReservation(new Reservation(date, time, noOfPax, customer));
     }
-
+	
+    /**
+    * Cancel existing Reservation 
+    */
     private void cancelReservation() {
     	if (reservationMgr.getTotalNoOfReservations() == 0) {
     		System.out.println("No Reservations in system.");
@@ -125,7 +158,10 @@ public class ReservationApp implements Serializable {
 	        }
     	}
     }
-
+	
+    /**
+    * Update details of existing Reservation 
+    */
     private void updateReservation() {
     	if (reservationMgr.getTotalNoOfReservations() == 0) {
     		System.out.println("No Reservations in system.");
@@ -206,7 +242,9 @@ public class ReservationApp implements Serializable {
                 break;
         }
     }
-
+    /**
+    * Scanner to ask for user input (Date) with error checking
+    */
     private LocalDate askUserForDate() {
     	LocalDate localDate = LocalDate.now();
     	LocalTime localTime = LocalTime.now();
@@ -316,7 +354,10 @@ public class ReservationApp implements Serializable {
     	}
         return LocalDate.of(year, month, date);
     }
-
+	
+    /**
+    * Scanner to ask for user input (Time) with error checking
+    */
     private LocalTime askUserForTime() {
     	LocalDate localDate = LocalDate.now();
     	LocalTime localTime = LocalTime.now();
@@ -353,7 +394,10 @@ public class ReservationApp implements Serializable {
     	}
         return LocalTime.of(hour, 0);
     }
-
+	
+    /**
+    * Scanner to ask for user input (noOfPax) with error checking
+    */
     private int askUserForPax() {
         boolean cont = true;
         boolean error = true;
@@ -382,7 +426,10 @@ public class ReservationApp implements Serializable {
     	}
         return noOfPax;
     }
-
+	
+    /**
+    * Scanner to ask for user input (Customer Details) with error checking
+    */
     private Customer askUserForCustomerDetails() {
         boolean cont = true;
         boolean error = true;
