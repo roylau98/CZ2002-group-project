@@ -19,19 +19,48 @@ import java.util.ArrayList;
  * </ul>
  *  
  * @author 
+ * @since 2021-11-5
  */
 
 public class Invoice implements Serializable {
-
+	
+	/**
+     	* Goods service tax
+     	*/
 	private double gst;
+	/**
+    	* Service charge of the restaurant
+     	*/
 	private double serviceCharge;
+	/**
+     	* Total Price of the order(taxes excluded)
+     	*/
 	private double totalPrice;
+	/**
+     	* Total Price of the order(taxes included)
+     	*/
 	private double finalPrice;
+	/**
+     	* Discount for the customer who holds membership
+     	*/
 	private double memberDiscount;
+	/**
+     	* Order of the customer
+     	*/
 	private Order order;
+	/**
+     	* Menu Items that have been ordered by customer
+     	*/
 	private ArrayList<MenuItem> listOfSoldItems;
+	/**
+     	* Timestamp of the invoice
+     	*/
 	private LocalDateTime timestamp;
+	/**
+     	* Table no of this invoice
+     	*/
 	private int tableNo;
+	
 	
 	/**
     	 * Constructs an {@code Invoice} object with default value of GST,serviceCharge and order
@@ -67,7 +96,11 @@ public class Invoice implements Serializable {
 		timestamp = LocalDateTime.now();
 	}
 
-
+	/**
+    	 * Set a new Order object to this invoice 
+	 * @param	order	order from the customer
+	 *
+	 */
 	public void setOrder(Order order) {
 		this.order = order;
 		this.totalPrice = order.getTotalPriceOfOrder();
@@ -112,18 +145,24 @@ public class Invoice implements Serializable {
 	
 	/**
     	 * Return the final price that take accounts of GST,service charge 
+	 *
+	 * @return	finalPrice	total price of order with taxes included.
      	 */
 	public double getFinalPrice() {
 		return finalPrice;
 	}
 	/**
     	 * Return the total price of the ordered item(exclude GST,service charge )
+	 *
+	 * @return	totalPrice	total price of order with taxes excluded
      	 */	
 	public double getTotalPrice() {
 		return totalPrice;
 	}
 	/**
     	 *  Return the list of item ordered by the customer
+	 *
+	 * @return	listOfSoldItems	Menu items ordered in this order
      	 */
 	public ArrayList<MenuItem> getListOfSoldItems() {
 		return listOfSoldItems;
@@ -131,6 +170,8 @@ public class Invoice implements Serializable {
 
 	/**
     	 * Calculate and return the final price that take accounts of GST,service charge
+	 *
+	 * @return	finalPrice	total price of order with taxes included.
      	 */
 	public double calculateFinalPrice() {
 		totalPrice=0;
@@ -140,7 +181,12 @@ public class Invoice implements Serializable {
 		finalPrice = (totalPrice * (1+serviceCharge)) * (1+gst) *(1-memberDiscount);
 		return finalPrice;
 	}
-
+	
+	/**
+    	 * Return timestamp of this invoice.
+	 *
+	 * @return	LocalDateTime	timestamp of this invoice
+     	 */
 	public LocalDateTime getTimestamp() {
 		return timestamp;
 	}
