@@ -5,7 +5,7 @@ import java.util.Objects;
  * It is used in the Reservation class.
  *
  * @author
- * @since 2021-10-19
+ * @since 2021-11-5
  */
 public class Customer extends Person {
     /**
@@ -40,7 +40,7 @@ public class Customer extends Person {
     /**
      * Gets Customer Contact number
      *
-     * @return customer's contactNo
+     * @return  contactNo   customer's contactNo
      */
     public String getContactNo() {
         return contactNo;
@@ -58,7 +58,7 @@ public class Customer extends Person {
     /**
      * Gets customer membership status.
      *
-     * @return customer's membership status.
+     * @return  membershipStatus    customer's membership status.
      */
     public Boolean getMembershipStatus() {
         return membershipStatus;
@@ -77,7 +77,7 @@ public class Customer extends Person {
      * Checks and compares Customer objects
      *
      * @param obj Customer object
-     * @return true if the Customer object is the same, else false
+     * @return  boolean true if the Customer object is the same, else false
      */
     @Override
     public boolean equals(Object obj) {
@@ -97,7 +97,7 @@ public class Customer extends Person {
      * All customers with the exact same attributes will generate the same hashCode.
      * This is used in the mapping for HashMap.
      *
-     * @return hashCode for the customer instance.
+     * @return  int hashCode for the customer instance.
      */
     @Override
     public int hashCode() {
@@ -107,7 +107,7 @@ public class Customer extends Person {
     /**
      * Return a string with customer details. 
      *
-     * @return String with customer details.
+     * @return  String   String with customer details.
      */
     @Override
     public String toString() {
