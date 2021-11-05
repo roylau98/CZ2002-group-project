@@ -2,25 +2,36 @@ import java.io.Serializable;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 /**
- * Manages all the {@link Order} objects of the whole restaurants, 
- * basically the "manager" of {@link RRPSS} to {@link Order} objects
- * <p> 
- * This class provides various methods to create,update(add/remove MenuItem) of the order,
- * and view individual order details and bills.
+ * Interface of the Order App which has the option of create/remove etc. order
  * <p>
  * @author
+ * @since 2021-11-5
  */
 
 public class OrderApp implements Serializable {
 	private transient Scanner sc = new Scanner(System.in);
+	
+	/**
+        * Object Manager of Order
+        */
 	private OrderMgr orderMgr;
+	/**
+        * Object Manager of staff
+        */
 	private StaffApp staffApp;
+	/**
+        * Manager of Sales Report
+        */
 	private SalesReport salesReportApp;
+	/**
+        * Object Manager of MenuItem
+        */
 	private MenuMgr menuMgrApp;
 
 	/**
-         * Constructs an {@code OrderApp} object and
-         * initialize the attributes {@code Order}/{@code }/{@code } .
+         * Class Constructer
+	 *
+	 * @param	menuMgr		menu manager of this application
          */
 	public OrderApp(MenuMgr menuMgr) {
 		orderMgr = new OrderMgr();
@@ -28,11 +39,16 @@ public class OrderApp implements Serializable {
 		salesReportApp = new SalesReport();
 		menuMgrApp = menuMgr;
 	}
-
+	
+	/**
+        * Open Sales Report options
+        */
 	public void salesReportOptions() {
 		salesReportApp.options();
 	}
-
+	/**
+        * Open Order App options
+        */
 	public void orderAppOptions(ReservationMgr reservationMgr) {
 		sc = new Scanner(System.in);
 		int choice = 0;
@@ -74,7 +90,10 @@ public class OrderApp implements Serializable {
 			}
 		} while (choice != 6);
 	}
-
+	
+	/**
+        * View the specific order that has been created
+        */
 	private void viewOrder() {
 		if (orderMgr.getTotalNoOfOrders() == 0) {
 			System.out.println("No orders have been made.");
@@ -84,7 +103,9 @@ public class OrderApp implements Serializable {
 	}
 
 	/**
-	 * A Do-While loop to create an order and add items of AlaCarteItem and add PromotionalSet to it
+	 * Create a new order 
+	 *
+	 * @param	menuMgr		menu manager of this application
 	 */
 	private void newOrder(ReservationMgr reservationMgr) {
 		System.out.println("Which table is this new order for?");
@@ -107,7 +128,9 @@ public class OrderApp implements Serializable {
 		System.out.println("Order " + newOrderID + " has been created.");
 		updateOrder(newOrderID);
 	}
-
+	/**
+        * Remove a specific order from this app
+        */
 	private void removeOrder() {
 		if (orderMgr.getTotalNoOfOrders() == 0) {
 			System.out.println("No orders have been made.");
@@ -115,7 +138,9 @@ public class OrderApp implements Serializable {
 		}
 		orderMgr.removeOrder(askUserForOrderID());
 	}
-
+	/**
+        * Update a specific order from this app
+        */
 	private void updateOrder() {
 		if (orderMgr.getTotalNoOfOrders() == 0) {
 			System.out.println("No orders have been made.");
@@ -124,7 +149,12 @@ public class OrderApp implements Serializable {
 		int orderID = askUserForOrderID();
 		updateOrder(orderID);
 	}
-
+	
+	/**
+        * Update the details of a specific order from this app
+	*
+	* @param	orderID		the id of order to be updated
+        */
 	private void updateOrder(int orderID) {
 		if (orderMgr.getOrder(orderID).isCompleted()) {
 			System.out.println("Order " + orderID + " is complete and payment has been made.");
@@ -156,7 +186,12 @@ public class OrderApp implements Serializable {
 				break;
 		}
 	}
-
+	
+	/**
+        * Add menu item to a specific order from this app
+	*
+	* @param	orderID		the id of order for menu item to be added
+        */
 	private void addToOrder(int orderID) {
 		if (menuMgrApp.getNumberOfMenuItems() == 0) {
 			System.out.println("No items are on the menu.");
@@ -167,7 +202,12 @@ public class OrderApp implements Serializable {
 		orderMgr.addItemsInOrder(orderID, menuMgrApp.getMenuItem(askUserForMenuItemNo()));
 		orderMgr.viewOrder(orderID);
 	}
-
+	
+	/**
+        * Remove menu item from a specific order in this app
+	*
+	* @param	orderID		the id of order for menu item to be removed
+        */
 	private void removeFromOrder(int orderID) {
 		orderMgr.printItemsInOrder(orderID);
 		if (orderMgr.getOrder(orderID).getNumberOfItemsOrdered() == 0) {
@@ -189,7 +229,12 @@ public class OrderApp implements Serializable {
 		}
 		orderMgr.removeItemsInOrder(orderID, itemNo);
 	}
-
+	
+	/**
+        * Add invoice to Sales Report App
+	*
+	* @param	menuMgr		menu manager of this application
+        */
 	private void billOrder(ReservationMgr reservationMgr) {
 		if (orderMgr.getTotalNoOfOrders() == 0) {
 			System.out.println("No orders have been made.");
@@ -197,7 +242,9 @@ public class OrderApp implements Serializable {
 		}
 		salesReportApp.addInvoice(orderMgr.chargeBill(reservationMgr, askUserForOrderID()));
 	}
-
+	/**
+        * Scanner to ask for user input(OrderID) with error checking
+        */
 	private int askUserForOrderID() {
 		System.out.print("Enter an OrderID: ");
 		int orderID;
@@ -214,7 +261,10 @@ public class OrderApp implements Serializable {
 		}
 		return orderID;
 	}
-
+	
+	/**
+        * Scanner to ask for user input(MenuItemNo) with error checking
+        */
 	private int askUserForMenuItemNo() {
 		System.out.print("Enter a menu item number: ");
 		int menuItemNo;
