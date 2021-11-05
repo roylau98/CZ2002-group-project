@@ -162,7 +162,7 @@ public class Invoice implements Serializable {
 	/**
     	 *  Return the list of item ordered by the customer
 	 *
-	 * @return	listOfSoldItems	Menu items ordered in this order
+	 * @return	listOfSoldItems		Menu items ordered in this order
      	 */
 	public ArrayList<MenuItem> getListOfSoldItems() {
 		return listOfSoldItems;
@@ -185,7 +185,7 @@ public class Invoice implements Serializable {
 	/**
     	 * Return timestamp of this invoice.
 	 *
-	 * @return	LocalDateTime	timestamp of this invoice
+	 * @return			timestamp of this invoice
      	 */
 	public LocalDateTime getTimestamp() {
 		return timestamp;
