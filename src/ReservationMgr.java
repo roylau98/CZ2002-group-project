@@ -166,14 +166,17 @@ public class ReservationMgr implements Serializable {
     * @param    noOfPax no of pax for the reservation
     */
     public void checkAvailabilityAt(LocalDate date, LocalTime time, int noOfPax) {
+        boolean tableFound = false;
         for (Table t : allTables) {
             if (noOfPax > t.getCapacity())
                 continue;
             if (t.checkAvailabilityAt(date, time))
                 System.out.println("Table " + allTables.indexOf(t) + " is available for reservation at " + date + " " + time);
-                return;
+                tableFound = true;
         }
-        System.out.println("No tables are available for reservation at " + date + time);
+        if (!tableFound) {
+            System.out.println("No tables are available for reservation at " + date + " " + time);
+        }
     }
     /**
     * Remove the expired reservation

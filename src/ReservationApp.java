@@ -103,6 +103,7 @@ public class ReservationApp implements Serializable {
                     break;
                 case 6:
                     reservationMgr.checkAvailabilityAt(askUserForDate(), askUserForTime(), askUserForPax());
+					break;
                 case 7:
                     cont = false;
                     break;
