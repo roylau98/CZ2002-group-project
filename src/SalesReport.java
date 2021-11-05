@@ -1,15 +1,28 @@
 import java.io.Serializable;
 import java.util.*;
-
+/**
+ * Manage and print restaurant sales report daily or monthly.
+ * The sales report generated can either be a daily report or monthly report, based on the given user input.
+ * 
+ * 
+ * @author 
+ * @since 2021-11-5
+ */
 public class SalesReport implements Serializable{
-
+	/**
+     	* List of invoices
+     	*/
 	private ArrayList<Invoice> listOfSales;
 	private transient Scanner sc = new Scanner(System.in);
-
+	/**
+     	* Class constructer with default settings
+     	*/
 	public SalesReport() {
 		listOfSales = new ArrayList<>();
 	}
-
+	/**
+    	 *Open Sales Report App options
+     	*/
 	public void options() {
 		int choice = 999;
 		int input;
@@ -113,7 +126,9 @@ public class SalesReport implements Serializable{
 
 
 	}
-
+	/**
+     	* Calculate the revenue of all sales
+     	*/
 	public double calculateRevenue(ArrayList<Invoice> selectedListOfSales) {
 		double sum = 0;
 		for(int i = 0; i< selectedListOfSales.size(); i++) {
@@ -121,7 +136,9 @@ public class SalesReport implements Serializable{
 		}
 		return sum;
 	}
-
+	/**
+     	* Print the revenue of all sales
+     	*/
 	public void printAllSales() {
 		sortListOfSalesByAscendingLocalDateTime(listOfSales);
 		for(int i = 0; i< listOfSales.size(); i++) {
@@ -129,7 +146,9 @@ public class SalesReport implements Serializable{
 		}
 		System.out.println("Total revenue: " + calculateRevenue(listOfSales));
 	}
-
+	/**
+     	* Print the revenue of all sales by days
+     	*/
 	public void printSalesByDay() {
 		sortListOfSalesByAscendingLocalDateTime(listOfSales);
 		for(int i = 0; i< listOfSales.size(); i++) {
@@ -137,7 +156,9 @@ public class SalesReport implements Serializable{
 		}
 		System.out.println("Total revenue: " + calculateRevenue(listOfSales));
 	}
-
+	/**
+     	* Print the revenue of all sales by months
+     	*/
 	public void printSalesByMonth() {
 		sortListOfSalesByAscendingLocalDateTime(listOfSales);
 		int minYear = listOfSales.get(0).getTimestamp().getYear();
@@ -151,7 +172,12 @@ public class SalesReport implements Serializable{
 
 		System.out.println("Total revenue: " + calculateRevenue(listOfSales));
 	}
-
+	/**
+     	* Print the revenue of all sales in a selected month
+	*
+	* @param	month	selected month to print revenue report
+	* @param	year	selected year to print revenue report
+     	*/
 	public void printSalesInSelectedMonth(int month, int year) {
 		ArrayList<Invoice> selectedListOfSales = getListOfSalesInSelectedTimeFrame(month, year);
 		if (selectedListOfSales == null) {
@@ -163,7 +189,13 @@ public class SalesReport implements Serializable{
 		}
 		System.out.println("Total revenue in " + month + "/"+year + " = " + calculateRevenue(selectedListOfSales));
 	}
-
+	/**
+     	* Print the revenue of all sales in a selected day
+	*
+	* @param	day	selected day to print revenue report
+	* @param	month	selected month to print revenue report
+	* @param	year	selected year to print revenue report
+     	*/
 	public void printSalesInSelectedDay(int day, int month, int year) {
 		ArrayList<Invoice> selectedListOfSales = getListOfSalesInSelectedTimeFrame(day,month,year);
 		if (selectedListOfSales == null) {
@@ -175,7 +207,11 @@ public class SalesReport implements Serializable{
 		}
 		System.out.println("Total revenue in " + day+"/"+month+"/"+year + " = " + calculateRevenue(selectedListOfSales));
 	}
-
+	/**
+     	* Create list of invoices from all completed order
+	*
+	* @param	listOfOrders	list of all order created
+     	*/
 	public void createListOfInvoices(ArrayList<Order> listOfOrders ) {
 		Order currOrder;
 		for(int i = 0; i< listOfOrders.size(); i++) {
@@ -186,7 +222,11 @@ public class SalesReport implements Serializable{
 			else {}
 		}
 	}
-
+	/**
+     	* Add invoice into the list
+	*
+	* @param	tobeAdded	Invoice to be added
+     	*/
 	public void addInvoice(Invoice tobeAdded) {
 		if (tobeAdded == null) {
 			return;
@@ -195,7 +235,12 @@ public class SalesReport implements Serializable{
 			listOfSales.add(tobeAdded);
 		}
 	}
-
+	/**
+     	* Return the invoice in a selected month
+	*
+	* @param	month	selected month to return invoice
+	* @param	year	selected year to return invoice
+     	*/
 	public ArrayList<Invoice> getListOfSalesInSelectedTimeFrame(int month, int year) {
 		ArrayList<Invoice> selectedList = new ArrayList<>();
 		Invoice currSale;
@@ -210,7 +255,13 @@ public class SalesReport implements Serializable{
 		}
 		return selectedList;
 	}
-
+	/**
+     	* Return the invoice in a selected day
+	*
+	* @param	day	selected day to return invoice
+	* @param	month	selected month to return invoice
+	* @param	year	selected year to return invoice
+     	*/
 	public ArrayList<Invoice> getListOfSalesInSelectedTimeFrame(int day, int month, int year) {
 		ArrayList<Invoice> selectedList = new ArrayList<>();
 		Invoice currSale;
@@ -226,7 +277,11 @@ public class SalesReport implements Serializable{
 		}
 		return selectedList;
 	}
-
+	/**
+     	* Sort the list of the invoice according to the date and time
+	*
+	* @param	selectedListOfSales	list of invoice to be sorted
+     	*/
 	public ArrayList<Invoice> sortListOfSalesByAscendingLocalDateTime(ArrayList<Invoice> selectedListOfSales) {
 		Collections.sort(selectedListOfSales, new Comparator<Invoice>() {
 			public int compare(Invoice o1, Invoice o2) {
