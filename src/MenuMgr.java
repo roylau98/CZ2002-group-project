@@ -10,22 +10,25 @@ import java.util.Scanner;
  * provide accessor (get methods) of individual MenuItem
  * and various methods to add,remove,update MenuItem in the menu.
  * <p>
- * @author 
+ * @author
+ * @since 2021-11-5
  * 
  */
 
 public class MenuMgr implements Serializable {
 
 	private transient Scanner sc = new Scanner(System.in);
-    /**
-     * ArrayList of MenuItem which consists of AlaCarteItem and PromotionalSet, implemented in {@link ArrayList} data structure.
-     * Each entry consists of a reference to existing {@link AlaCarteItem}/{@link PromotionalSet}object.
-     */
+	
+        /**
+         * ArrayList of MenuItem which consists of AlaCarteItem and PromotionalSet, implemented in {@link ArrayList} data structure.
+         * Each entry consists of a reference to existing {@link AlaCarteItem}/{@link PromotionalSet}object.
+         */
 	private ArrayList<MenuItem> listOfMenuItems;
-    /**
-     * Constructs an {@code Menu} object and
-     * initialize the attributes {@code MenuItem} .
-     */
+	
+       /**
+        * Constructs an {@code Menu} object and
+        * initialize the attributes {@code MenuItem} .
+        */
 	public MenuMgr() {
 		listOfMenuItems = new ArrayList<MenuItem>();
 	}
@@ -52,6 +55,7 @@ public class MenuMgr implements Serializable {
 		listOfMenuItems.addAll(listOfAlaCarteItem);
 
 	}
+	
 	/**
 	 * Prints all the items in the Menu according to its order
 	 */
@@ -62,6 +66,7 @@ public class MenuMgr implements Serializable {
 		printMenuItemsByCat(new PromotionalSet());
 		System.out.println();
 	}
+	
 	/**
 	 * Prints a certain type of AlaCarteItems in the Menu (Overload)
 	 * @param alaCarteItemType	the type of the AlaCarte
@@ -79,6 +84,7 @@ public class MenuMgr implements Serializable {
 			catch(ClassCastException e){}
 		}
 	}
+	
 	/**
 	 * Prints PromotionalSet in the Menu (Overload)
 	 * @param item	an empty variable used to initiate the function
@@ -93,16 +99,22 @@ public class MenuMgr implements Serializable {
 			}
 		}
 	}
+	
+	/**
+	 * Prints AlaCarteItem in the Menu (Overload)
+	 * @param item	an empty variable used to initiate the function
+	 */
 	public void printMenuItemsByCat(AlaCarteItem item) {
 		Arrays.asList(AlaCarteItemType.values()).forEach(
 				alaCarteItemType -> printMenuItemsByCat(alaCarteItemType)
 		);
 	}
+	
 	/**
 	 * Return true/false of the existence of certain MenuItem
 	 *
-	 * @param menuItem	menu item to be checked whether it is inside the menu
-	 * @return true/false	the existence(boolean) of certain MenuItem
+	 * @param	menuItem	menu item to be checked whether it is inside the menu
+	 * @return			the existence(boolean) of certain MenuItem
 	 */
 	public Boolean isMenuItemExist(MenuItem menuItem) {
 		for (int i=0; i < listOfMenuItems.size(); i++) {
@@ -115,8 +127,16 @@ public class MenuMgr implements Serializable {
 		}
 		return false;
 	}
+	
 	/**
 	 *  Function to create new AlaCarteItem
+	 *
+	 * @param	name		name of new AlaCarteItem 
+	 * @param	description	description of new AlaCarteItem
+	 * @param	price		price of new AlaCarteItem
+	 * @param	type		the enumeration type of new AlaCarteItem
+	 *
+	 * @return			the index of this new AlaCarteItem
 	 */
 	public int createNewAlaCarteItem(String name, String description, double price, AlaCarteItemType type) {
 		MenuItem newItem = new AlaCarteItem(name, description, price, type);
@@ -124,8 +144,14 @@ public class MenuMgr implements Serializable {
 		sortListOfMenuItems();
 		return getIndexOfMenuItem(newItem);
 	}
+	
 	/**
 	 *  Function to create new PromotionalSet
+	 * @param	name		name of new PromotionalSet
+	 * @param	description	description of new PromotionalSet
+	 * @param	price		price of new PromotionalSet
+	 * 
+	 * @return			the index of this new PromotionalSet
 	 */
 	public int createNewPromoSetItem(String name, String description, double price) {
 		MenuItem newItem = new PromotionalSet();
@@ -134,34 +160,76 @@ public class MenuMgr implements Serializable {
 		sortListOfMenuItems();
 		return getIndexOfMenuItem(newItem);
 	}
+	
 	/**
 	 *  Function to remove existing MenuItem
+	 *
+	 * @param	index		index of menu item to be removed
 	 */
 	public void removeMenuItem(int index) {
 		listOfMenuItems.remove(index);
 	}
+	
 	/**
 	 * Update the details of existing items in Menu
+	 *
+	 * @param	index		index of the menu item to be updated
+	 * @param	name		updated name
+	 * @param	description	updated description 
+	 * @param	price		updated price 
+	 * 
 	 */
 	public void updateMenuItem(int index, String name, String description, double price) {
 		MenuItem itemToBeUpdated = getMenuItem(index);
 		itemToBeUpdated.updateContents(name, description, price);
 		sortListOfMenuItems();
 	}
-
+	
+	/**
+	 * Update the enumeration type of existing items in Menu
+	 *
+	 * @param	index		index of the menu item to be updated
+	 * @param	type		updated enumeration type
+	 * 
+	 */
 	public void updateAlaCarteItemSpecificDetails(int index, AlaCarteItemType newType) {
 		MenuItem item = getMenuItem(index);
 		((AlaCarteItem)item).setItemType(newType);
 	}
+	
+	/**
+	 *  Function to add a PromoSetContent
+	 *
+	 * @param	index		index of the menu item to be added to PromoSet
+	 * @param	name		name of new PromoSetContent 
+	 * @param	quantity	quantity of the certain menu item
+	 *
+	 */
 	public void addItemToPromoSetContent(int index,String name,int quantity) {
 		MenuItem item = getMenuItem(index);
 		((PromotionalSet)item).addItemToPromotionalSet(name,quantity);
 	}
+	
+	/**
+	 *  Function to update a PromoSetContent
+	 *
+	 * @param	index		index of the menu item to be updated to PromoSet
+	 * @param	name		name of new PromoSetContent 
+	 * @param	quantity	quantity of the certain menu item 
+	 *
+	 */
 	public void updateItemToPromoSetContent(int index,String name,int quantity) {
 		MenuItem item = getMenuItem(index);
 		((PromotionalSet)item).updateItemInPromotionalSet(name,quantity);
 	}
-
+	
+	/**
+	 *  Function to remove a PromoSetContent
+	 *
+	 * @param	index		index of the menu item to be removed in PromoSet
+	 * @param	name		name of PromoSetContent 
+	 *
+	 */
 	public void removeItemToPromoSetContent(int index, String name) {
 		MenuItem item = getMenuItem(index);
 		((PromotionalSet)item).removeItemFromPromotionalSet(name);
@@ -170,8 +238,8 @@ public class MenuMgr implements Serializable {
 	/**
 	 * Return a existing {@link MenuItem}object by using the INDEX(actual index plus 1) of ArrayList 
 	 * 
-	 * @param  indexNo   the INDEX(actual index plus 1) of alaCarte to be retrieved.
-	 * @return {@link AlaCarteItem} object of given index.
+	 * @param	indexNo   the index of menu item to be retrieved.
+	 * @return		  {@link MenuItem} object of given index.
 	 */
 	public MenuItem getMenuItem(int indexNo) {
 		if (indexNo < 0 || indexNo >= listOfMenuItems.size()) {
@@ -179,6 +247,13 @@ public class MenuMgr implements Serializable {
 		}
 		return listOfMenuItems.get(indexNo);
 	}
+	
+	/**
+	 * Return the index no. of existing {@link MenuItem}object 
+	 * 
+	 * @param		{@link MenuItem} object of given index.
+	 * @return		the index of menu item to be retrieved.
+	 */
 	public int getIndexOfMenuItem(MenuItem item) {
 		for (int i=0; i < listOfMenuItems.size(); i++) {
 			if (listOfMenuItems.get(i).equals(item)) {
@@ -187,6 +262,7 @@ public class MenuMgr implements Serializable {
 		}
 		return -1;
 	}
+	
 	/**
 	 * Return the index no. of a existing {@link MenuItem}object  
 	 * 
@@ -201,12 +277,33 @@ public class MenuMgr implements Serializable {
 		}
 		return -1;
 	}
+	
+	/**
+	 * Return the true if it is a valid menu item no.  
+	 * 
+	 * @param	menuItemNo	index of the menu item
+	 * @return			true if it is a valid menu item no. ,false otherwise
+	 */
 	public boolean validateMenuItemNo(int menuItemNo) {
 		return menuItemNo >= 0 && menuItemNo < listOfMenuItems.size();
 	}
+	
+	/**
+	 * Return the size of menu 
+	 * 
+	 * 
+	 * @return			size of the menu
+	 */
 	public int getNumberOfMenuItems() {
 		return listOfMenuItems.size();
 	}
+	
+	/**
+	 * Function for choosing enumeration type of AlaCarteItem
+	 * 
+	 * 
+	 * @return			the enumeration type of AlaCarteItem
+	 */
 	public AlaCarteItemType chooseAlaCarteItemType(int index) {
 		switch (index) {
 			case 1:
