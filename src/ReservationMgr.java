@@ -53,11 +53,14 @@ public class ReservationMgr implements Serializable {
      * @param r Reservation.
      */
     public boolean makeReservation(Reservation r) {
+        LocalDate date = r.getDate();
+        LocalTime time = r.getTime();
+        int noOfPax = r.getNoOfPax();
         for (Table t : allTables) {
-            if (r.getNoOfPax() > t.getCapacity())
+            if (noOfPax > t.getCapacity())
                 continue;
-            if (t.checkAvailabilityAt(r.getDate(), r.getTime())) {
-                t.markAsUnavailableAt(r.getDate(), r.getTime());
+            if (t.checkAvailabilityAt(date, time)) {
+                t.markAsUnavailableAt(date, time);
                 r.setTableNo(allTables.indexOf(t));
                 allReservations.add(r);
                 System.out.println("Reservation made successfully at table number " + allTables.indexOf(t));
@@ -75,7 +78,10 @@ public class ReservationMgr implements Serializable {
      */
     public void cancelReservation(int reservationNo) {
         Reservation r = allReservations.get(reservationNo);
-        allTables.get(r.getTableNo()).markAsAvailableAt(r.getDate(), r.getTime());
+        LocalDate date = r.getDate();
+        LocalTime time = r.getTime();
+        int tableNo = r.getNoOfPax();
+        allTables.get(tableNo).markAsAvailableAt(date, time);
         allReservations.remove(reservationNo);
         System.out.println("Reservation has been cancelled");
     }
@@ -185,12 +191,17 @@ public class ReservationMgr implements Serializable {
         allReservations.sort(Comparator.comparing(Reservation::getDate).thenComparing(Reservation::getTime));
         for (ListIterator<Reservation> it = allReservations.listIterator(); it.hasNext(); ) {
             Reservation r = it.next();
+            LocalDate date = r.getDate();
+            LocalTime time = r.getTime();
+            int tableNo = r.getNoOfPax();
+            boolean custArrived = r.getCustArrived();
+
             LocalDateTime now = LocalDateTime.now();
-            LocalDateTime reservationDateTime = LocalDateTime.of(r.getDate(), r.getTime());
-            if (now.isAfter(reservationDateTime.plusMinutes(15)) && !r.getCustArrived()) {
+            LocalDateTime reservationDateTime = LocalDateTime.of(date, time);
+            if (now.isAfter(reservationDateTime.plusMinutes(15)) && !custArrived) {
                 System.out.println(r + " has expired and will be automatically removed.");
-                Table t = allTables.get(r.getTableNo());
-                t.markAsAvailableAt(r.getDate(), r.getTime());
+                Table t = allTables.get(tableNo);
+                t.markAsAvailableAt(date, time);
                 it.remove();
             }
         }
@@ -232,7 +243,9 @@ public class ReservationMgr implements Serializable {
     */
     public Customer getCustomerAt(int tableNo) {
         for (Reservation r : allReservations) {
-            if (r.getTableNo() == tableNo && r.getDate().isEqual(LocalDate.now()) && r.getTime().getHour() == LocalTime.now().getHour()) {
+            LocalDate date = r.getDate();
+            LocalTime time = r.getTime();
+            if (r.getTableNo() == tableNo && date.isEqual(LocalDate.now()) && time.getHour() == LocalTime.now().getHour()) {
                 r.setCustArrived(true);
                 return r.getCustomer();
             }
@@ -245,7 +258,9 @@ public class ReservationMgr implements Serializable {
     public void removeReservationAfterPayment(int tableNo) {
         for (ListIterator<Reservation> it = allReservations.listIterator(); it.hasNext(); ) {
             Reservation r = it.next();
-            if (r.getTableNo() == tableNo && r.getDate().isEqual(LocalDate.now()) && r.getTime().getHour() == LocalTime.now().getHour()) {
+            LocalDate date = r.getDate();
+            LocalTime time = r.getTime();
+            if (r.getTableNo() == tableNo && date.isEqual(LocalDate.now()) && time.getHour() == LocalTime.now().getHour()) {
                 allTables.get(r.getTableNo()).markAsAvailableAt(r.getDate(), r.getTime());
                 it.remove();
             }
