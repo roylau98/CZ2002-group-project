@@ -481,4 +481,8 @@ public class ReservationApp implements Serializable {
 
         return new Customer(name, gender, contactNumber, isMember);
     }
+
+	public ReservationMgr getReservationMgr() {
+		return reservationMgr;
+	}
 }
