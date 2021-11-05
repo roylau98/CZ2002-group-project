@@ -5,7 +5,7 @@ import java.util.Scanner;
  * inherit various method from abstract class {@link MenuItem} such as get(),update(),
  * 
  * @author 
- * @since 2021-10-22
+ * @since 2021-11-5
  * 
  */
 public class AlaCarteItem extends MenuItem {
@@ -38,6 +38,8 @@ public class AlaCarteItem extends MenuItem {
 	
 	/**
 	 * Return the type of this AlaCarteItem.
+	 *
+	 * @return typeOfItem	The enumeration type of this AlaCarteItem object
 	 */
 	public AlaCarteItemType getItemType() {
 		return typeOfItem;
