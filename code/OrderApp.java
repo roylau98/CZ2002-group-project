@@ -22,11 +22,11 @@ public class OrderApp implements Serializable {
          * Constructs an {@code OrderApp} object and
          * initialize the attributes {@code Order}/{@code }/{@code } .
          */
-	public OrderApp() {
+	public OrderApp(MenuMgr menuMgr) {
 		orderMgr = new OrderMgr();
 		staffApp = new StaffApp();
 		salesReportApp = new SalesReport();
-		menuMgrApp = new MenuMgr();
+		menuMgrApp = menuMgr;
 	}
 
 	public void salesReportOptions() {
