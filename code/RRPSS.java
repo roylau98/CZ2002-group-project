@@ -7,12 +7,13 @@ public class RRPSS implements Serializable {
     private ReservationApp reservationApp;
     private MenuApp menuApp;
     private transient Scanner sc = new Scanner(System.in);
-
+    private MenuMgr menuMgr;
 
     public RRPSS() {
-        orderApp = new OrderApp();
+    	menuMgr = new MenuMgr();
+        orderApp = new OrderApp(menuMgr);
         reservationApp = new ReservationApp();
-        menuApp = new MenuApp();
+        menuApp = new MenuApp(menuMgr);
     }
 
     public void rrpsOptions() {
@@ -52,9 +53,9 @@ public class RRPSS implements Serializable {
                     menuApp.menuOptions();
                     break;
                 case 4:
-                    System.out.println("=====Sales Report Option====");
+                    
                     orderApp.salesReportOptions();
-                    System.out.println("==End of SalesReport Option==");
+                    
                     break;
                 case 5:
                     System.out.println("Exited");
