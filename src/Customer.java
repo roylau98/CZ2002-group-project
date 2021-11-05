@@ -103,7 +103,12 @@ public class Customer extends Person {
     public int hashCode() {
         return Objects.hash(this.getName(), contactNo);
     }
-
+    
+    /**
+     * Return a string with customer details. 
+     *
+     * @return String with customer details.
+     */
     @Override
     public String toString() {
         return super.toString() + " Customer{" +
