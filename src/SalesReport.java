@@ -238,8 +238,10 @@ public class SalesReport implements Serializable{
 	/**
      	* Return the invoice in a selected month
 	*
-	* @param	month	selected month to return invoice
-	* @param	year	selected year to return invoice
+	* @param	month		selected month to return invoice
+	* @param	year		selected year to return invoice
+	*
+	* @return	selectedList	list of invoice in certain timeframe
      	*/
 	public ArrayList<Invoice> getListOfSalesInSelectedTimeFrame(int month, int year) {
 		ArrayList<Invoice> selectedList = new ArrayList<>();
@@ -261,6 +263,8 @@ public class SalesReport implements Serializable{
 	* @param	day	selected day to return invoice
 	* @param	month	selected month to return invoice
 	* @param	year	selected year to return invoice
+	*
+	* @return	selectedList	list of invoice in certain timeframe
      	*/
 	public ArrayList<Invoice> getListOfSalesInSelectedTimeFrame(int day, int month, int year) {
 		ArrayList<Invoice> selectedList = new ArrayList<>();
@@ -281,6 +285,8 @@ public class SalesReport implements Serializable{
      	* Sort the list of the invoice according to the date and time
 	*
 	* @param	selectedListOfSales	list of invoice to be sorted
+	*
+	* @return	selectedListOfSales	list of sorted invoice
      	*/
 	public ArrayList<Invoice> sortListOfSalesByAscendingLocalDateTime(ArrayList<Invoice> selectedListOfSales) {
 		Collections.sort(selectedListOfSales, new Comparator<Invoice>() {
