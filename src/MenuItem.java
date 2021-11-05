@@ -4,6 +4,7 @@ import java.util.Scanner;
  * An abstract class for {@link AlaCarteItem} and {@link PromotionalSet} used to store information about an item 
  *
  * @author 
+ * @since 2021-11-5
  */
 public abstract class MenuItem implements Serializable {
 	
@@ -39,6 +40,8 @@ public abstract class MenuItem implements Serializable {
 	
 	/**
 	 * Return price of this MenuItem
+	 *
+	 * @return  price   price of the MenuItem
 	 */
 	public double getPrice() {
 		return this.price;
@@ -46,6 +49,8 @@ public abstract class MenuItem implements Serializable {
 	
 	/**
 	 * Return name of this MenuItem
+	 *
+	 * @return  name	name of the MenuItem
 	 */
 	public String getName() {
 		return this.name;
@@ -53,6 +58,8 @@ public abstract class MenuItem implements Serializable {
 	
 	/**
 	 * Return description of this MenuItem
+	 *
+	 * @return  description   description of the MenuItem
 	 */
 	public String getDescription() {
 		return this.description;
