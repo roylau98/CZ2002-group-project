@@ -31,38 +31,43 @@ public class MenuApp implements Serializable{
     public void menuOptions() {
         sc = new Scanner(System.in);
         int choice = 999;
-        do {
-            System.out.println("Please select one of the options below:\n" +
+        while (choice != 5) {
+        	System.out.println("Please select one of the options below:\n" +
                     "(1) Print Menu\n" +
                     "(2) Add Menu Item\n" +
                     "(3) Remove Menu Item\n" +
                     "(4) Update Menu Item\n" +
                     "(5) Exit");
+
             try {
+                System.out.print("Enter Your Choice: ");
+                sc = new Scanner(System.in);
                 choice = sc.nextInt();
                 sc.nextLine();
-                System.out.println();
+                
             } catch (InputMismatchException e) {
-                System.out.println("Invalid input received.");
+                System.out.println("Invalid input");
             }
+
             switch (choice) {
-                case 1:
-                    printMenu();
-                    break;
-                case 2:
-                    addMenuItem();
-                    break;
-                case 3:
-                    removeMenuItem();
-                    break;
-                case 4:
-                    updateMenuItem();
-                    break;
-                default:
-                    System.out.println("There is only 5 options.");
-                    break;
+            case 1:
+                printMenu();
+                break;
+            case 2:
+                addMenuItem();
+                break;
+            case 3:
+                removeMenuItem();
+                break;
+            case 4:
+                updateMenuItem();
+                break;
+            default:
+                System.out.println("There is only 5 options.");
+                
             }
-        } while (choice != 5);
+        }
+        
     }
     
     /**
@@ -196,10 +201,12 @@ public class MenuApp implements Serializable{
     private void updatePromoSetContents(int indexOfMenuItemToBeUpdated) {
         String stringInput;
         int intInput;
+        PromotionalSet temp= new PromotionalSet();
         if (menuMgr.getMenuItem(indexOfMenuItemToBeUpdated) instanceof PromotionalSet) {
             int choice;
             do {
                 choice = askUserForChoiceInUpdatingPromoSetContents();
+                menuMgr.printMenuItemsByCat(temp);
                 switch (choice) {
                     case 1:
                         System.out.println("Enter the name of the promotional item to be added: ");
@@ -209,6 +216,7 @@ public class MenuApp implements Serializable{
                         menuMgr.addItemToPromoSetContent(indexOfMenuItemToBeUpdated,stringInput,intInput);
                         break;
                     case 2:
+                    	
                         System.out.println("Enter the name of the promotional item to be removed: ");
                         stringInput = askUserForMenuItemStringInput();
                         menuMgr.removeItemToPromoSetContent(indexOfMenuItemToBeUpdated, stringInput);
@@ -275,14 +283,25 @@ public class MenuApp implements Serializable{
     private double askUserForMenuItemPrice() {
         sc = new Scanner(System.in);
         double inputForPrice;
-        System.out.println("Enter your price input:");
-        try {
-            inputForPrice = sc.nextDouble();
-        }
-        catch (InputMismatchException e) {
-            sc.nextLine();
-            System.out.println("Invalid input type. Try again!");
-            return askUserForMenuItemPrice();
+        
+        while(true) 
+        {
+	        try {
+	        	System.out.println("Enter your price input:");
+	            inputForPrice = sc.nextDouble();
+	            if(inputForPrice<=0)
+	            {
+	            	System.out.println("Invalid input type. Try again!");
+	            	continue;
+	            }
+	            else
+	            	break;
+	        }
+	        catch (InputMismatchException e) {
+	            sc.nextLine();
+	            System.out.println("Invalid input type. Try again!");
+	            return askUserForMenuItemPrice();
+	        }
         }
         return inputForPrice;
     }
@@ -311,6 +330,7 @@ public class MenuApp implements Serializable{
     private int askUserForAlaCarteItemType() {
         sc = new Scanner(System.in);
         int inputForAlaCarteItemType;
+        while(true) {
         System.out.println("Please select the type of Ala Carte:");
         System.out.println("1) Main Course");
         System.out.println("2) Appertizer");
@@ -320,12 +340,19 @@ public class MenuApp implements Serializable{
         System.out.print("Enter Your Option: ");
         try {
             inputForAlaCarteItemType =sc.nextInt();
-            return inputForAlaCarteItemType;
+            if(inputForAlaCarteItemType<=0)
+            {
+            	System.out.println("Invalid input type. Try again!");
+            	continue;
+            }
+            else
+            	return inputForAlaCarteItemType;
         }
         catch (InputMismatchException e) {
             sc.nextLine();
             System.out.println("Invalid input type. Try again!");
             return askUserForAlaCarteItemType();
+        }
         }
     }
     
@@ -379,7 +406,11 @@ public class MenuApp implements Serializable{
         return choice;
 
     }
-
+    /**
+    * Return Menu Manager of the MenuApp
+    *
+    * @return   menuMgr the obejct manager of menu item
+    */
     public MenuMgr getMenuMgr() {
         return menuMgr;
     }
