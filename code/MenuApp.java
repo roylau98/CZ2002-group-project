@@ -4,8 +4,9 @@ import java.io.Serializable;
 public class MenuApp implements Serializable{
     private transient Scanner sc;
     private MenuMgr menuMgr;
-    public MenuApp () {
-        menuMgr = new MenuMgr();
+    public MenuApp (MenuMgr menuMgr) {
+        
+    	this.menuMgr=menuMgr;
         sc = new Scanner(System.in);
     }
     public void menuOptions() {

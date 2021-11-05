@@ -13,28 +13,98 @@ public class SalesReport implements Serializable{
 	public void options() {
 		int choice = 999;
 		int input;
-
-		System.out.println("Here are your choices: \n" +
-				"1)" +
-				"2)" +
-				"3)" +
-				"4) Exit");
+		int day,month,year;
+		
 		while (choice != -1) {
-			System.out.println("Enter your choice");
-			sc = new Scanner(System.in);
-			choice = sc.nextInt();
-
+			System.out.println("=====Sales Report Option====");
+			System.out.println("Here are your choices: \n" +
+					"1)Print All Sales\n" +
+					"2)Print Sales by Days\n" +
+					"3)Print Sales by Month\n" +
+					"4)Print Sales of Selected Day\n"+
+					"5)Print Sales of Selected Month\n"+
+					"6)Exit\n");
+			try 
+			{
+				System.out.print("Enter your choice: ");
+				sc = new Scanner(System.in);
+				choice = sc.nextInt();
+            		} 
+			catch (InputMismatchException e) 
+			{
+                		sc.nextLine();
+            		}
 			switch (choice) {
 				case 1:
+					printAllSales();
 					break;
 				case 2:
+					printSalesByDay();
 					break;
 				case 3:
+					printSalesByMonth();
 					break;
 				case 4:
+					while(true)
+					{
+						try 
+						{
+							System.out.println("Enter day:");
+							day = sc.nextInt();
+							if (day<=0)
+								throw new Exception("Error: date must not lower than 1!" );
+							System.out.println("Enter month:");
+							month = sc.nextInt();
+							if (month<=0)
+								throw new Exception("Error: date must not lower than 1!" );
+							System.out.println("Enter year:");
+							year = sc.nextInt();
+							if (year<=0)
+								throw new Exception("Error: date must not lower than 1!" );
+							break;
+			            		} 
+						catch (InputMismatchException e) 
+						{
+							System.out.println("Please enter a number!!!");
+			               			sc.nextLine();
+			           		}
+						catch(Exception e)
+						{
+							System.out.println(e.getMessage());
+						}
+					}
+					printSalesInSelectedDay(day,month,year);
 					break;
 				case 5:
+					while(true)
+					{
+						try 
+						{
+							System.out.println("Enter month:");
+							month = sc.nextInt();
+							if (month<=0)
+								throw new Exception("Error: date must not lower than 1!" );
+							System.out.println("Enter year:");
+							year = sc.nextInt();
+							if (year<=0)
+								throw new Exception("Error: date must not lower than 1!" );
+							break;
+			            		} 
+						catch (InputMismatchException e) 
+						{
+							System.out.println("Please enter a number!!!");
+			                		sc.nextLine();
+			            		}
+						catch(Exception e)
+						{
+							System.out.println(e.getMessage());
+						}
+					}
+					printSalesInSelectedMonth(month,year);
+					break;
+				case 6:
 					System.out.println("Exited");
+					System.out.println("==End of SalesReport Option==");
 					return;
 				default:
 					System.out.println("Invalid choice try again");
