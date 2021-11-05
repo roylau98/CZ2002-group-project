@@ -1,21 +1,45 @@
 import java.io.Serializable;
 import java.util.InputMismatchException;
 import java.util.Scanner;
-
+/**
+ * The main application where the RRPSS works. This class provides the interface for the user.
+ * 
+ * @author 
+ * @since 2021-11-5
+ */
 public class RRPSS implements Serializable {
+     private transient Scanner sc = new Scanner(System.in);
+    /**
+     * Order App wtih options
+     */
     private OrderApp orderApp;
+    /**
+     * Reservation App wtih options
+     */
     private ReservationApp reservationApp;
+    /**
+     * Menu App wtih options
+     */
     private MenuApp menuApp;
-    private transient Scanner sc = new Scanner(System.in);
+    
+   
+    /**
+     * Menu Manager shared by OrderApp and MenuApp
+     */
     private MenuMgr menuMgr;
-
+    
+     /**
+     * Class Constructor with default settings
+     */
     public RRPSS() {
     	menuMgr = new MenuMgr();
         orderApp = new OrderApp(menuMgr);
         reservationApp = new ReservationApp();
         menuApp = new MenuApp(menuMgr);
     }
-
+    /**
+     * Interface of the application
+     */
     public void rrpsOptions() {
         int choice = 0;
 
@@ -54,9 +78,7 @@ public class RRPSS implements Serializable {
                     menuApp.menuOptions();
                     break;
                 case 4:
-                    
                     orderApp.salesReportOptions();
-                    
                     break;
                 case 5:
                     System.out.println("Exited");
@@ -66,7 +88,9 @@ public class RRPSS implements Serializable {
             }
         }
     }
-
+    /**
+     * Main function that runs the RRPSS app
+     */
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         RRPSS rrpssApp;
