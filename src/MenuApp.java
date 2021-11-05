@@ -20,9 +20,8 @@ public class MenuApp implements Serializable{
     *@param menuMgr Object Manager of the menu
     *
     */
-    public MenuApp (MenuMgr menuMgr) {
-        
-    	this.menuMgr=menuMgr;
+    public MenuApp () {
+    	menuMgr = new MenuMgr();
         sc = new Scanner(System.in);
     }
     
@@ -379,6 +378,10 @@ public class MenuApp implements Serializable{
         }
         return choice;
 
+    }
+
+    public MenuMgr getMenuMgr() {
+        return menuMgr;
     }
 
 }

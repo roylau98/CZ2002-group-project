@@ -17,25 +17,12 @@ public class RRPSS implements Serializable {
      * Reservation App wtih options
      */
     private ReservationApp reservationApp;
-    /**
-     * Menu App wtih options
-     */
-    private MenuApp menuApp;
-    
-   
-    /**
-     * Menu Manager shared by OrderApp and MenuApp
-     */
-    private MenuMgr menuMgr;
-    
      /**
      * Class Constructor with default settings
      */
     public RRPSS() {
-    	menuMgr = new MenuMgr();
-        orderApp = new OrderApp(menuMgr);
+        orderApp = new OrderApp();
         reservationApp = new ReservationApp();
-        menuApp = new MenuApp(menuMgr);
     }
     /**
      * Interface of the application
@@ -75,7 +62,7 @@ public class RRPSS implements Serializable {
                     orderApp.orderAppOptions(reservationApp.getReservationMgr());
                     break;
                 case 3:
-                    menuApp.menuOptions();
+                    orderApp.getMenuApp().menuOptions();
                     break;
                 case 4:
                     orderApp.salesReportOptions();

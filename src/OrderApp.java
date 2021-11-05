@@ -27,17 +27,22 @@ public class OrderApp implements Serializable {
         * Object Manager of MenuItem
         */
 	private MenuMgr menuMgrApp;
+	/**
+	 *  Manager of MenuItem
+	 */
+	private MenuApp menuApp;
 
 	/**
          * Class Constructer
 	 *
 	 * @param	menuMgr		menu manager of this application
          */
-	public OrderApp(MenuMgr menuMgr) {
+	public OrderApp() {
 		orderMgr = new OrderMgr();
 		staffApp = new StaffApp();
 		salesReportApp = new SalesReport();
-		menuMgrApp = menuMgr;
+		menuApp = new MenuApp();
+		menuMgrApp = menuApp.getMenuMgr();
 	}
 	
 	/**
@@ -272,13 +277,17 @@ public class OrderApp implements Serializable {
 			menuItemNo = sc.nextInt();
 			sc.nextLine();
 		} catch (InputMismatchException e) {
-			System.out.println("Invalid input received.");
+			System.out.println("Invalid input type received.");
 			return askUserForMenuItemNo();
 		}
 		if (!menuMgrApp.validateMenuItemNo(menuItemNo)) {
-			System.out.println("Invalid input received.");
+			System.out.println("No such menu item.");
 			return askUserForMenuItemNo();
 		}
 		return menuItemNo;
+	}
+
+	public MenuApp getMenuApp() {
+		return menuApp;
 	}
 }
