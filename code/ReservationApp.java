@@ -24,6 +24,7 @@ public class ReservationApp implements Serializable {
     public void startReservationApp() {
         scanner = new Scanner(System.in);
         reservationMgr.removeNoShowReservations();
+		reservationMgr.createScheduler();
         System.out.println("Welcome to the ReservationApp.");
         boolean cont = true;
         int choice = 0;

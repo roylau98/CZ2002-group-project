@@ -82,14 +82,10 @@ public class Menu implements Serializable {
 							getMenuItem(indexNo-1);
 							break;
 						}
-						catch(InputMismatchException e)
+						catch(InputMismatchException | IndexOutOfBoundsException e)
 						{
 							System.out.println("Invalid option");
 						}
-						catch(IndexOutOfBoundsException e)  
-						{  
-							System.out.println("Invalid option");
-						} 
 					}
 					break;
 				case 3:
@@ -296,7 +292,6 @@ public class Menu implements Serializable {
 								
 						}
 						 //buffer
-						sc.nextLine();
 						System.out.println("<<<New Item Details>>>");
 						System.out.println("----------------------");
 						System.out.println();

@@ -31,7 +31,5 @@ public class Database {
             System.out.println("No such class");
             return null;
         }
-
     }
-
 }

@@ -7,7 +7,6 @@ import java.util.*;
 /**
  * Manager of all reservations and tables.
  * Supports addition, removal and amendment of reservations.
- * @author
  * @since 2021-10-23
  */
 public class ReservationMgr implements Serializable {
@@ -89,8 +88,8 @@ public class ReservationMgr implements Serializable {
         updateReservation(reservationNo, deepCopy);
     }
 
-    public void updateReservation(int reservationNo, Customer newCust) {
-        allReservations.get(reservationNo).setCustomer(newCust);
+    public void updateReservation(int reservationNo, Customer newCustomer) {
+        allReservations.get(reservationNo).setCustomer(newCustomer);
         System.out.println("Customer details updated");
     }
 
@@ -130,16 +129,15 @@ public class ReservationMgr implements Serializable {
         System.out.println("----------");
     }
 
-    public boolean checkAvailabilityAt(LocalDate date, LocalTime time, int noOfPax) {
+    public void checkAvailabilityAt(LocalDate date, LocalTime time, int noOfPax) {
         for (Table t : allTables) {
             if (noOfPax > t.getCapacity())
                 continue;
             if (t.checkAvailabilityAt(date, time))
                 System.out.println("Table " + allTables.indexOf(t) + " is available for reservation at " + date + " " + time);
-                return true;
+                return;
         }
         System.out.println("No tables are available for reservation at " + date + time);
-        return false;
     }
 
     public void removeNoShowReservations() {
@@ -158,9 +156,8 @@ public class ReservationMgr implements Serializable {
     }
 
     public void createScheduler() {
-        Timer timerSchedule = new Timer();
+        Timer timerSchedule = new Timer(true);
         TimerTask taskToRun = new ExpiredReservationsRemover(this);
-
         int minutesNow = LocalTime.now().getMinute();
         int offset;
         if (minutesNow < 15) {
@@ -169,7 +166,6 @@ public class ReservationMgr implements Serializable {
             offset = (75 - minutesNow) * 1000 * 60;
         }
         timerSchedule.scheduleAtFixedRate(taskToRun, offset, 3600000);
-
     }
 
     public void viewTablesWithReservationsNow() {
@@ -177,7 +173,7 @@ public class ReservationMgr implements Serializable {
         for (Table t : allTables) {
             // tables with a reservation now are not available for another reservation
             if (!t.checkAvailabilityAt(LocalDate.now(), LocalTime.now()))
-                System.out.println("Table " + allTables.indexOf(t) + ": " + t.toString());
+                System.out.println("Table " + allTables.indexOf(t) + ": " + t);
         }
         System.out.println("----------");
     }

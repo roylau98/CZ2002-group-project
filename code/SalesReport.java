@@ -47,6 +47,7 @@ public class SalesReport implements Serializable{
 
 	private void print(LocalDate start, LocalDate end) {
 		HashMap<MenuItem, Integer> salesCount = new HashMap<>();
+		HashMap<MenuItem, Double> revenue = new HashMap<>();
 		for (Invoice invoice : listOfSales) {
 			LocalDate invoiceDate = invoice.getTimestamp().toLocalDate();
 			if (invoiceDate.isBefore(start) || invoiceDate.isAfter(end))
@@ -56,6 +57,10 @@ public class SalesReport implements Serializable{
 				salesCount.replace(menuItem, salesCount.get(menuItem) + 1);
 			}
 		}
+		for (MenuItem menuItem : salesCount.keySet()) {
+			revenue.put(menuItem, salesCount.get(menuItem) * menuItem.getPrice());
+		}
+		revenue.forEach((menuItem, aDouble) -> System.out.println(menuItem + aDouble.toString()));
 	}
 
 	public double calculateRevenue(ArrayList<Invoice> selectedListOfSales) {
