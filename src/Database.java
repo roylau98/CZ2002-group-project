@@ -35,7 +35,7 @@ public class Database {
 	 * </p>
 	 * 
 	 * @param 	obj 	        serialized objecct to be saved
-     * @param   filename        A relative path to the project folder where the ".txt" file resides
+     	 * @param   filename        	A relative path to the project folder where the ".txt" file resides
 	 *
 	 */
     public void save(Object obj, String filename) {
