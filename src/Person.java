@@ -1,5 +1,5 @@
+import java.io.Serializable;
 import java.util.Objects;
-import java.io.*;
 /**
  * A parent class for Customer and Staff class
  *

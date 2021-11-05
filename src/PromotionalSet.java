@@ -1,5 +1,4 @@
 import java.util.HashMap;
-import java.util.InputMismatchException;
 import java.util.Scanner;
 /**
  * Stores information about a PromotionalSet inherit from{@link MenuItem} class to used in context of a menu.
