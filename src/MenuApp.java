@@ -1,7 +1,12 @@
 import java.io.Serializable;
 import java.util.InputMismatchException;
 import java.util.Scanner;
-
+/**
+ * Interface of the Menu App which has the option of add/remove etc. MenuItem
+ * <p>
+ * @author
+ * @since 2021-11-5
+ */
 public class MenuApp implements Serializable{
     private transient Scanner sc;
     
