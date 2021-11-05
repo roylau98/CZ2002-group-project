@@ -3,7 +3,7 @@ import java.util.InputMismatchException;
 import java.util.Scanner;
 /**
  * Stores information about a PromotionalSet inherit from{@link MenuItem} class to used in context of a menu.
- * This class stores the name, price, description of PromotionalSet {@link Menu},
+ * This class stores the name, price, description of PromotionalSet {@link MenuMgr},
  * and uses HashMap to keep track of the items in PromotionalSet.
  * it also provide various method to add/remove/update the content of the PromotionalSet.
  *
@@ -24,7 +24,6 @@ public class PromotionalSet extends MenuItem {
 	PromotionalSet() {
 		super("unknown", "unknown", 0);
 		items = new HashMap<>();
-		items.put(null,1);
 	}
 	
 	/**
@@ -33,7 +32,6 @@ public class PromotionalSet extends MenuItem {
 	PromotionalSet(String name, String description, double price) {
 		super(name, description, price);
 		this.items = new HashMap<>();
-		items.put(null,1);
 	}
 	
 	/**
@@ -81,6 +79,7 @@ public class PromotionalSet extends MenuItem {
 	 * Print the items and their quantity in this PromotionalSet
 	 */
 	public void printPromotionalSetListOfItems() {
+		System.out.println("-Contents-");
 		items.entrySet().forEach(
 				entry -> { System.out.println(entry.getKey() + " " + entry.getValue());
 		});
@@ -94,104 +93,6 @@ public class PromotionalSet extends MenuItem {
 		super.print();
 		printPromotionalSetListOfItems();
 	}
-	/**
-	 * A function to update the content(name,description,price,quantity) of this PromotionalSet which overrides the
-	 * method from the abstract class {@link MenuItem}
-	 *
-	 */
-	@Override
-	public void updateContents() {
-		super.updateContents();
 
-		sc = new Scanner(System.in);
-		int choice;
-		String inputForString;
-		int inputForInt;
-		while(true) {
-			try {
-				System.out.println("Update Set contents? 1-Yes, 0-N");
-				choice = sc.nextInt();
-				sc.nextLine();
-				break;
-			}
-			catch(InputMismatchException e)
-	        	{
-				System.out.println("Wrong Option!!!!!");
-	        	}
-		}
-		
-		if (choice == 1) {
-			while(choice != 4) {
-				while(true)
-				{
-					try {
-					System.out.println("(1) Add promotional Item");
-					System.out.println("(2) Remove promotional Item");
-					System.out.println("(3) Change promotional Item quantity");
-					System.out.println("(4) Quit");
-					System.out.println("------------------------------------");
-					System.out.print("Enter Your Option: ");
-					choice = sc.nextInt();
-					sc.nextLine();
-					System.out.println("------------------------------------");
-					System.out.println();
-					break;
-					}
-					catch(InputMismatchException e)
-			        	{
-						System.out.println("Wrong choice. Try again!");
-			        	}
-				}
-				switch (choice) {
-					case 1:
-						System.out.println("Enter the name of the item to add:");
-						inputForString = sc.next();
-						while(true)
-						{
-							try {
-								System.out.println("Enter the quantity:");
-								inputForInt = sc.nextInt();
-								sc.nextLine();
-								break;
-							}
-							catch(InputMismatchException e)
-					        	{
-								System.out.println("Error:quantity cannot be a string");
-					        	}
-							
-						}
-						
-						addItemToPromotionalSet(inputForString,inputForInt);
-						System.out.println("Updated!");
-						break;
-
-					case 2:
-						printPromotionalSetListOfItems();
-						System.out.println("Type the name of the item:");
-						inputForString = sc.next();
-						removeItemFromPromotionalSet(inputForString);
-						break;
-
-					case 3:
-						System.out.println("Type the name of the item:");
-						inputForString = sc.next();
-						System.out.println("Type the updated quantity:");
-						inputForInt = sc.nextInt();
-						sc.nextLine();
-						updateItemInPromotionalSet(inputForString,inputForInt);
-						break;
-
-					default:
-						System.out.println("Wrong choice. Try again!");
-				}
-			}
-		}
-		else if (choice == 0) {
-		}
-		else {
-			System.out.println("Wrong input, returning!");
-		}
-	}
-	
 
 }
