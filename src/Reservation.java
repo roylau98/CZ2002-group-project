@@ -7,7 +7,7 @@ import java.time.LocalTime;
  * It reserves a table at a particular date and time for a customer.
  * Reservation object also tracks the number of pax coming, and if the customer arrived during his reservation timing.
  * @author
- * @since 2021-10-19
+ * @since 2021-11-5
  */
 public class Reservation implements Serializable {
     /**
@@ -48,10 +48,10 @@ public class Reservation implements Serializable {
     /**
      * Class constructor to create a new reservation.
      *
-     * @param date     Date of reservation.
-     * @param time     Time of reservation.
-     * @param noOfPax  Number of persons for the reservation.
-     * @param customer Customer that made the reservation.
+     * @param   date      Date of reservation.
+     * @param   time      Time of reservation.
+     * @param   noOfPax   Number of persons for the reservation.
+     * @param   customer  Customer that made the reservation.
      */
     public Reservation(LocalDate date, LocalTime time, int noOfPax, Customer customer) {
         this.date = date;
@@ -65,7 +65,7 @@ public class Reservation implements Serializable {
 
     /**
      * Copy constructor.
-     * @param r Reservation to be cloned.
+     * @param   r   Reservation to be cloned.
      */
     public Reservation(Reservation r) {
         this.date = r.date;
@@ -79,7 +79,7 @@ public class Reservation implements Serializable {
 
     /**
      * Gets the date of the reservation.
-     * @return Date reserved.
+     * @return  date    Date reserved.
      */
     public LocalDate getDate() {
         return date;
@@ -87,7 +87,7 @@ public class Reservation implements Serializable {
 
     /**
      * Sets the date of the reservation.
-     * @param date Date reserved.
+     * @param   date    Date reserved.
      */
     public void setDate(LocalDate date) {
         this.date = date;
@@ -95,7 +95,7 @@ public class Reservation implements Serializable {
 
     /**
      * Gets the time of the reservation.
-     * @return Time reserved.
+     * @return  time    Time reserved.
      */
     public LocalTime getTime() {
         return time;
@@ -103,7 +103,7 @@ public class Reservation implements Serializable {
 
     /**
      * Sets the time of the reservation.
-     * @param time Time reserved.
+     * @param   time    Time reserved.
      */
     public void setTime(LocalTime time) {
         this.time = time;
@@ -112,7 +112,7 @@ public class Reservation implements Serializable {
 
     /**
      * Gets the number of persons.
-     * @return Number of persons.
+     * @return  noOfPax  Number of persons.
      */
     public int getNoOfPax() {
         return noOfPax;
@@ -120,7 +120,7 @@ public class Reservation implements Serializable {
 
     /**
      * Sets the number of persons.
-     * @param noOfPax Number of persons.
+     * @param   noOfPax     Number of persons.
      */
     public void setNoOfPax(int noOfPax) {
         this.noOfPax = noOfPax;
@@ -128,7 +128,7 @@ public class Reservation implements Serializable {
 
     /**
      * Gets the table number that the reservation has been assigned to.
-     * @return Table number.
+     * @return  tableNo  Table number.
      */
     public int getTableNo() {
         return tableNo;
@@ -136,7 +136,7 @@ public class Reservation implements Serializable {
 
     /**
      * Sets the table number that the reservation has been assigned to.
-     * @params Table number.
+     * @params  tableNo Table number.
      */
     public void setTableNo(int tableNo) {
         this.tableNo = tableNo;
@@ -144,7 +144,7 @@ public class Reservation implements Serializable {
 
     /**
      * Gets the customer that is making the reservation.
-     * @return Customer object
+     * @return  cutomer  Customer object
      */
     public Customer getCustomer() {
         return customer;
@@ -152,7 +152,7 @@ public class Reservation implements Serializable {
 
     /**
      * Sets the Customer that is making the reservation.
-     * @param customer The customer that is making the reservation.
+     * @param   customer    The customer that is making the reservation.
      */
     public void setCustomer(Customer customer) {
         this.customer = customer;
@@ -160,7 +160,7 @@ public class Reservation implements Serializable {
 
     /**
      * Tracks if the customer has arrived at his reservation timing.
-     * @return boolean, true if customer arrived, else false
+     * @return  custArrived     boolean, true if customer arrived, else false
      */
     public boolean getCustArrived() {
         return custArrived;
@@ -168,12 +168,16 @@ public class Reservation implements Serializable {
 
     /**
      * Sets the attribute custArrived when a customer arrived at his reservation timing.
-     * @param custArrived true if custArrived, else false
+     * @param   custArrived     true if custArrived, else false
      */
     public void setCustArrived(boolean custArrived) {
         this.custArrived = custArrived;
     }
-
+    /**
+     * Return a string with reservation details. 
+     *
+     * @return          String with reservation details.
+     */
     @Override
     public String toString() {
         return "Reservation{" +
