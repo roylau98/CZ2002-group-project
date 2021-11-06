@@ -1,6 +1,5 @@
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Scanner;
 
 /**
  * Manages the {@link Staff}
@@ -15,7 +14,6 @@ public class StaffMgr implements Serializable {
      * List of staff
      */
     private final ArrayList<Staff> listOfStaff;
-    private transient Scanner sc;
 
     /**
      * Class constructor with default settings
