@@ -436,7 +436,7 @@ public class ReservationApp implements Serializable {
             }
         } while (error);
         String contactNumber = Integer.toString(contactNumber_int);
-
+        cont = true;
         while (cont) {
             System.out.print("Member (Y/N): ");
             entry = scanner.nextLine().charAt(0);
