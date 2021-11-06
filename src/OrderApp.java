@@ -115,7 +115,7 @@ public class OrderApp implements Serializable {
      * @param reservationMgr The reservation manager which would be informed about the customer's arrival.
      */
     private void newOrder(ReservationMgr reservationMgr) {
-        System.out.println("Which table is this new order for?");
+        System.out.println("Which table is this new order for? Enter -1 to Quit");
         reservationMgr.viewTablesWithReservationsNow();
         // update error checking e.g. throwable in viewTablesWithReservationsNow()....
         int tableNo;
@@ -123,7 +123,10 @@ public class OrderApp implements Serializable {
             tableNo = sc.nextInt();
             sc.nextLine();
         } catch (InputMismatchException e) {
-            System.out.println("Invalid input received.");
+            System.out.println("Invalid input type received.");
+            return;
+        }
+        if (tableNo == -1) {
             return;
         }
         Customer c = reservationMgr.getCustomerAt(tableNo);
