@@ -193,12 +193,11 @@ public class MenuApp implements Serializable {
     private void updatePromoSetContents(int indexOfMenuItemToBeUpdated) {
         String stringInput;
         int intInput;
-        PromotionalSet temp = new PromotionalSet();
         if (menuMgr.getMenuItem(indexOfMenuItemToBeUpdated) instanceof PromotionalSet) {
             int choice;
             while (true) {
                 choice = askUserForChoiceInUpdatingPromoSetContents();
-                menuMgr.printMenuItemsByCat(temp);
+                menuMgr.getMenuItem(indexOfMenuItemToBeUpdated).print();
                 switch (choice) {
                     case 1:
                         System.out.print("Enter the name of the promotional item to be added: ");
