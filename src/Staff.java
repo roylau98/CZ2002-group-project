@@ -1,4 +1,3 @@
-import java.util.Scanner;
 
 /**
  * Stores information about a Staff inherit from{@link Person} class
@@ -75,24 +74,5 @@ public class Staff extends Person {
     public void setJobTitle(String jobTitle) {
         this.jobTitle = jobTitle;
     }
-
-    /**
-     * Update the details of employee
-     */
-    public void update() {
-        Scanner sc = new Scanner(System.in);
-        String inputString;
-        int inputInput;
-        System.out.println("What is the staff's name: ");
-        inputString = sc.next();
-        sc.nextLine();
-        System.out.println("What is the staff's employee ID: ");
-        inputInput = sc.nextInt();
-        sc.nextLine();
-        System.out.println("What is the staff's name: ");
-        inputString = sc.next();
-        sc.nextLine();
-    }
-
 
 }
