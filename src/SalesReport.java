@@ -199,22 +199,7 @@ public class SalesReport implements Serializable {
         }
         System.out.println("Total revenue in " + day + "/" + month + "/" + year + " = " + calculateRevenue(selectedListOfSales));
     }
-
-    /**
-     * Create list of invoices from all completed order
-     *
-     * @param listOfOrders list of all order created
-     */
-    public void createListOfInvoices(ArrayList<Order> listOfOrders) {
-        Order currOrder;
-        for (int i = 0; i < listOfOrders.size(); i++) {
-            currOrder = listOfOrders.get(i);
-            if (currOrder.isCompleted()) {
-                listOfSales.add(currOrder.getInvoice());
-            } else {
-            }
-        }
-    }
+    
 
     /**
      * Add invoice into the list
