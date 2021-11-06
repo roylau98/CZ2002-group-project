@@ -184,11 +184,13 @@ public class ReservationMgr implements Serializable {
     public void checkAvailabilityAt(LocalDate date, LocalTime time, int noOfPax) {
         boolean tableFound = false;
         for (Table t : allTables) {
-            if (noOfPax > t.getCapacity())
+            if (noOfPax > t.getCapacity()) {
                 continue;
-            if (t.checkAvailabilityAt(date, time))
+            }
+            if (t.checkAvailabilityAt(date, time)) {
                 System.out.println("Table " + allTables.indexOf(t) + " is available for reservation at " + date + " " + time);
-            tableFound = true;
+                tableFound = true;
+            }
         }
         if (!tableFound) {
             System.out.println("No tables are available for reservation at " + date + " " + time);
