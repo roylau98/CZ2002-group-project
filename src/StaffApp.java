@@ -105,6 +105,10 @@ public class StaffApp implements Serializable {
         return staffMgr.getStaffByID(employeeID);
     }
 
+    public int getNoOfStaff() {
+        return staffMgr.getTotalNoOfStaff();
+    }
+
     private int askUserToSetEmployeeID() {
         sc = new Scanner(System.in);
         int employeeID;
