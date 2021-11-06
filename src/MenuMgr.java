@@ -58,7 +58,7 @@ public class MenuMgr implements Serializable {
         System.out.println();
         printMenuItemsByCat(new AlaCarteItem());
         printMenuItemsByCat(new PromotionalSet());
-        System.out.println();
+
     }
 
     /**
