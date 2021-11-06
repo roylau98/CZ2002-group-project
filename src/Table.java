@@ -7,7 +7,6 @@ import java.util.HashMap;
 /**
  * Represents a table object in the restaurant.
  *
- * @author
  * @since 2021-11-5
  */
 public class Table implements Serializable {
@@ -37,7 +36,7 @@ public class Table implements Serializable {
     /**
      * Gets the capacity of the table.
      *
-     * @return capacity    Capacity of the table.
+     * @return capacity of the table.
      */
     public int getCapacity() {
         return capacity;
@@ -72,7 +71,7 @@ public class Table implements Serializable {
     /**
      * Records that the table is now available for reservations at the specified date and time.
      * It first checks to ensure that the date has a reservation before trying to mark the date and time as available.
-     * Lastly, it will attempt to cleanup the hashmap.
+     * Lastly, it will attempt to clean up the hashmap.
      *
      * @param date Reservation date.
      * @param time Reservation time.

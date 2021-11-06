@@ -14,7 +14,6 @@ import java.io.*;
  * <b>Note:</b> All classes which are going to be serialized must implement the {@link Serializable} interface!
  * </p>
  *
- * @author
  * @since 2021-11-5
  */
 public class Database {
@@ -35,7 +34,7 @@ public class Database {
      * If there is no exception, the {@link RRPSS} object will be save into the ".txt" file
      * </p>
      *
-     * @param obj      serialized objecct to be saved
+     * @param obj      serialized object to be saved
      * @param filename A relative path to the project folder where the ".txt" file resides
      */
     public void save(Object obj, String filename) {

@@ -9,7 +9,6 @@ import java.util.Scanner;
  * Interface of the Reservation App which has the option of create/remove etc. Reservation
  * <p>
  *
- * @author
  * @since 2021-11-5
  */
 public class ReservationApp implements Serializable {
@@ -38,11 +37,6 @@ public class ReservationApp implements Serializable {
      * Hours for reservation booking
      */
     private int hour = 0;
-	
-	/*public static void main(String[] args) {
-		ReservationApp reservationApp = new ReservationApp();
-		reservationApp.startReservationApp();
-	}*/
 
     /**
      * Interface of the ReservationApp with several options available
@@ -281,19 +275,17 @@ public class ReservationApp implements Serializable {
                 } catch (InputMismatchException e) {
                     if (currentYear == year) {
                         System.out.println("Invalid input. (Valid values: " + currentMonthEnum + " onwards)");
-                        scanner.nextLine();
-                        error = true;
                     } else {
                         System.out.println("Invalid input. (Valid values: 1 - 12)");
-                        scanner.nextLine();
-                        error = true;
                     }
+                    scanner.nextLine();
+                    error = true;
                 }
             } while (error);
             if (month < currentMonth && year == currentYear) {
                 System.out.println("Invalid value. (Valid values: " + currentMonthEnum + " onwards)");
             } else if (month < 1 || month > 12) {
-                System.out.println("Invalid Value. (Valud values: 1 - 12)");
+                System.out.println("Invalid Value. (Value values: 1 - 12)");
             } else {
                 cont = false;
             }
@@ -461,7 +453,7 @@ public class ReservationApp implements Serializable {
     /**
      * Return the reservationMgr
      *
-     * @return reservationMgr    the objecct manager of Reservation
+     * @return reservationMgr the object manager of Reservation
      */
     public ReservationMgr getReservationMgr() {
         return reservationMgr;

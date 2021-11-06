@@ -4,7 +4,6 @@ import java.util.Objects;
  * Represents a customer entity.
  * It is used in the Reservation class.
  *
- * @author
  * @since 2021-11-5
  */
 public class Customer extends Person {

@@ -5,19 +5,17 @@ import java.util.Scanner;
 /**
  * The main application where the RRPSS works. This class provides the interface for the user.
  *
- * @author
  * @since 2021-11-5
  */
 public class RRPSS implements Serializable {
     /**
-     * Order App wtih options
+     * Order App with options
      */
     private final OrderApp orderApp;
     /**
-     * Reservation App wtih options
+     * Reservation App with options
      */
     private final ReservationApp reservationApp;
-    private transient Scanner sc = new Scanner(System.in);
 
     /**
      * Class Constructor with default settings
@@ -31,7 +29,6 @@ public class RRPSS implements Serializable {
      * Main function that runs the RRPSS app
      */
     public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
         RRPSS rrpssApp;
         Database database = new Database();
         rrpssApp = (RRPSS) database.load("file.txt");
@@ -39,17 +36,17 @@ public class RRPSS implements Serializable {
             System.out.println("Creating New RRPSS......");
             rrpssApp = new RRPSS();
         }
-        rrpssApp.rrpsOptions();
+        rrpssApp.rrpssOptions();
         database.save(rrpssApp, "file.txt");
     }
 
     /**
      * Interface of the application
      */
-    public void rrpsOptions() {
+    public void rrpssOptions() {
         int choice = 0;
 
-        while (choice != 5) {
+        while (true) {
             System.out.println("~~~~~Welcome to Krusty Krab~~~~~");
             System.out.println();
             System.out.println("What do you want?");
@@ -62,7 +59,7 @@ public class RRPSS implements Serializable {
 
             try {
                 System.out.print("Enter Your Choice: ");
-                sc = new Scanner(System.in);
+                Scanner sc = new Scanner(System.in);
                 choice = sc.nextInt();
                 sc.nextLine();
                 System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");

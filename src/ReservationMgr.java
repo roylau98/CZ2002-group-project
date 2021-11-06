@@ -8,7 +8,6 @@ import java.util.*;
  * Manager of all reservations and tables.
  * Supports addition, removal and amendment of reservations.
  *
- * @author
  * @since 2021-11-5
  */
 public class ReservationMgr implements Serializable {
@@ -178,8 +177,8 @@ public class ReservationMgr implements Serializable {
     /**
      * Check the availability of table
      *
-     * @param date    the date to be check for availabity
-     * @param time    the time to be check for availabity
+     * @param date    the date to be checked for availability
+     * @param time    the time to be checked for availability
      * @param noOfPax no of pax for the reservation
      */
     public void checkAvailabilityAt(LocalDate date, LocalTime time, int noOfPax) {
@@ -206,11 +205,11 @@ public class ReservationMgr implements Serializable {
             LocalDate date = r.getDate();
             LocalTime time = r.getTime();
             int tableNo = r.getNoOfPax();
-            boolean custArrived = r.getCustArrived();
+            boolean customerArrived = r.getCustomerArrived();
 
             LocalDateTime now = LocalDateTime.now();
             LocalDateTime reservationDateTime = LocalDateTime.of(date, time);
-            if (now.isAfter(reservationDateTime.plusMinutes(15)) && !custArrived) {
+            if (now.isAfter(reservationDateTime.plusMinutes(15)) && !customerArrived) {
                 System.out.println(r + " has expired and will be automatically removed.");
                 Table t = allTables.get(tableNo);
                 t.markAsAvailableAt(date, time);
@@ -259,7 +258,7 @@ public class ReservationMgr implements Serializable {
             LocalDate date = r.getDate();
             LocalTime time = r.getTime();
             if (r.getTableNo() == tableNo && date.isEqual(LocalDate.now()) && time.getHour() == LocalTime.now().getHour()) {
-                r.setCustArrived(true);
+                r.setCustomerArrived(true);
                 return r.getCustomer();
             }
         }

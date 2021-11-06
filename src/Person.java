@@ -4,7 +4,6 @@ import java.util.Objects;
 /**
  * A parent class for Customer and Staff class
  *
- * @author
  * @since 2021-11-5
  */
 public class Person implements Serializable {
@@ -42,7 +41,7 @@ public class Person implements Serializable {
     /**
      * Gets the name of the person
      *
-     * @return name    name of the person
+     * @return name of the person
      */
     public String getName() {
         return this.name;
@@ -60,7 +59,7 @@ public class Person implements Serializable {
     /**
      * Gets the gender of the person
      *
-     * @return gender  gender of the person
+     * @return gender of the person
      */
     public Sex getGender() {
         return this.gender;

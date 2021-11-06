@@ -6,7 +6,6 @@ import java.util.Scanner;
  * Interface of the Order App which has the option of create/remove etc. order
  * <p>
  *
- * @author
  * @since 2021-11-5
  */
 
@@ -34,9 +33,8 @@ public class OrderApp implements Serializable {
     private transient Scanner sc = new Scanner(System.in);
 
     /**
-     * Class Constructer
+     * Class Constructor
      *
-     * @param menuMgr menu manager of this application
      */
     public OrderApp() {
         orderMgr = new OrderMgr();
@@ -59,7 +57,6 @@ public class OrderApp implements Serializable {
     public void orderAppOptions(ReservationMgr reservationMgr) {
         sc = new Scanner(System.in);
         int choice = 0;
-        int input = 0;
         do {
             System.out.println("Please select one of the options below:\n" +
                     "1. View an existing order\n" +
@@ -112,11 +109,11 @@ public class OrderApp implements Serializable {
     /**
      * Create a new order
      *
-     * @param menuMgr menu manager of this application
+     * @param reservationMgr The reservation manager which would be informed about the customer's arrival.
      */
     private void newOrder(ReservationMgr reservationMgr) {
         System.out.println("Which table is this new order for?");
-        // update error checking e.g throwable in viewTablesWithReservationsNow()....
+        // update error checking e.g. throwable in viewTablesWithReservationsNow()....
         reservationMgr.viewTablesWithReservationsNow();
         int tableNo;
         try {
@@ -242,7 +239,7 @@ public class OrderApp implements Serializable {
     /**
      * Add invoice to Sales Report App
      *
-     * @param menuMgr menu manager of this application
+     * @param reservationMgr The reservation manager which will be notified that an order has been completed.
      */
     private void billOrder(ReservationMgr reservationMgr) {
         if (orderMgr.getTotalNoOfOrders() == 0) {

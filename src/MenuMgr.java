@@ -1,8 +1,7 @@
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
-import java.util.Scanner;
+import java.util.Comparator;
 
 /**
  * Manages the {@link AlaCarteItem} and {@link PromotionalSet} of the {@link MenuMgr}.
@@ -12,14 +11,10 @@ import java.util.Scanner;
  * and various methods to add,remove,update MenuItem in the menu.
  * <p>
  *
- * @author
  * @since 2021-11-5
  */
 
 public class MenuMgr implements Serializable {
-
-    private final transient Scanner sc = new Scanner(System.in);
-
     /**
      * ArrayList of MenuItem which consists of AlaCarteItem and PromotionalSet, implemented in {@link ArrayList} data structure.
      * Each entry consists of a reference to existing {@link AlaCarteItem}/{@link PromotionalSet}object.
@@ -31,7 +26,7 @@ public class MenuMgr implements Serializable {
      * initialize the attributes {@code MenuItem} .
      */
     public MenuMgr() {
-        listOfMenuItems = new ArrayList<MenuItem>();
+        this.listOfMenuItems = new ArrayList<>();
     }
 
     /**
@@ -39,22 +34,20 @@ public class MenuMgr implements Serializable {
      */
     public void sortListOfMenuItems() {
         // sort by class type
-        Collections.sort(listOfMenuItems, (o1, o2) -> o1.getClass().getName().compareTo(o2.getClass().getName()));
-
+        listOfMenuItems.sort(Comparator.comparing(o -> o.getClass().getName()));
 
         ArrayList<AlaCarteItem> listOfAlaCarteItem = new ArrayList<>();
-        for (int i = 0; i < listOfMenuItems.size(); i++) {
-            if (listOfMenuItems.get(i) instanceof AlaCarteItem) {
-                listOfAlaCarteItem.add(((AlaCarteItem) listOfMenuItems.get(i)));
+        for (MenuItem menuItem : listOfMenuItems) {
+            if (menuItem instanceof AlaCarteItem) {
+                listOfAlaCarteItem.add(((AlaCarteItem) menuItem));
             }
         }
 
         listOfMenuItems.removeIf(element -> element instanceof AlaCarteItem);
 
         // sort AlaCarteItem by AlaCarteItemType
-        Collections.sort(listOfAlaCarteItem, (o1, o2) -> o1.getItemType().compareTo(o2.getItemType()));
+        listOfAlaCarteItem.sort(Comparator.comparing(AlaCarteItem::getItemType));
         listOfMenuItems.addAll(listOfAlaCarteItem);
-
     }
 
     /**
@@ -121,12 +114,9 @@ public class MenuMgr implements Serializable {
      * @return the existence(boolean) of certain MenuItem
      */
     public Boolean isMenuItemExist(MenuItem menuItem) {
-        for (int i = 0; i < listOfMenuItems.size(); i++) {
-            MenuItem curr = listOfMenuItems.get(i);
-            if (curr.getName() == menuItem.getName()) {
-                if (curr.getDescription() == menuItem.getDescription()) {
-                    return true;
-                }
+        for (MenuItem curr : listOfMenuItems) {
+            if (curr.getName().equals(menuItem.getName()) && curr.getDescription().equals(menuItem.getDescription())) {
+                return true;
             }
         }
         return false;
@@ -191,7 +181,7 @@ public class MenuMgr implements Serializable {
      * Update the enumeration type of existing items in Menu
      *
      * @param index index of the menu item to be updated
-     * @param type  updated enumeration type
+     * @param newType  updated enumeration type
      */
     public void updateAlaCarteItemSpecificDetails(int index, AlaCarteItemType newType) {
         MenuItem item = getMenuItem(index);
@@ -234,7 +224,7 @@ public class MenuMgr implements Serializable {
     }
 
     /**
-     * Return a existing {@link MenuItem}object by using the INDEX(actual index plus 1) of ArrayList
+     * Return an existing {@link MenuItem}object by using the INDEX(actual index plus 1) of ArrayList
      *
      * @param indexNo the index of menu item to be retrieved.
      * @return {@link MenuItem} object of given index.
@@ -249,7 +239,7 @@ public class MenuMgr implements Serializable {
     /**
      * Return the index no. of existing {@link MenuItem}object
      *
-     * @param {@link MenuItem} object of given index.
+     * @param item {@link MenuItem} object of given index.
      * @return the index of menu item to be retrieved.
      */
     public int getIndexOfMenuItem(MenuItem item) {
@@ -262,7 +252,7 @@ public class MenuMgr implements Serializable {
     }
 
     /**
-     * Return the index no. of a existing {@link MenuItem}object
+     * Return the index no. of an existing {@link MenuItem}object
      *
      * @param c {@link AlaCarteItem} object to find its index.
      * @return indexNo    the index no of MenuItem to be retrieved.
@@ -280,7 +270,7 @@ public class MenuMgr implements Serializable {
      * Return the true if it is a valid menu item no.
      *
      * @param menuItemNo index of the menu item
-     * @return true if it is a valid menu item no. ,false otherwise
+     * @return true if it is a valid menu item no., false otherwise
      */
     public boolean validateMenuItemNo(int menuItemNo) {
         return menuItemNo >= 0 && menuItemNo < listOfMenuItems.size();
@@ -302,8 +292,6 @@ public class MenuMgr implements Serializable {
      */
     public AlaCarteItemType chooseAlaCarteItemType(int index) {
         switch (index) {
-            case 1:
-                return AlaCarteItemType.MAIN_COURSE;
             case 2:
                 return AlaCarteItemType.APPETISER;
             case 3:

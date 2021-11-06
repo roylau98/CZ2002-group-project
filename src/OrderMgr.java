@@ -1,6 +1,5 @@
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Scanner;
 
 /**
  * Manages all the {@link Order} objects of the whole restaurants,
@@ -10,7 +9,6 @@ import java.util.Scanner;
  * and view individual order details and bills.
  * <p>
  *
- * @author
  * @since 2021-11-5
  */
 
@@ -20,8 +18,7 @@ public class OrderMgr implements Serializable {
      * Each entry consists of a reference to existing {@link Order}object.
      */
     private final ArrayList<Order> listOfOrders;
-    private final transient Scanner sc = new Scanner(System.in);
-    private int orderIDtracker;
+    private int orderIDTracker;
 
     /**
      * Constructs an {@code OrderApp} object and
@@ -29,7 +26,7 @@ public class OrderMgr implements Serializable {
      */
     public OrderMgr() {
         listOfOrders = new ArrayList<>();
-        orderIDtracker = 0;
+        orderIDTracker = 0;
     }
 
     public boolean validateOrderID(int orderID) {
@@ -45,7 +42,7 @@ public class OrderMgr implements Serializable {
     }
 
     public int createOrder(Customer customer, int tableNo, Staff staff) {
-        Order o = new Order(orderIDtracker++, customer, staff, tableNo);
+        Order o = new Order(orderIDTracker++, customer, staff, tableNo);
         listOfOrders.add(o);
         return o.getOrderID();
     }
@@ -57,9 +54,9 @@ public class OrderMgr implements Serializable {
      */
     public Order getOrder(int orderID) {
         Order selectedOrder = null;
-        for (int i = 0; i < listOfOrders.size(); i++) {
-            if (listOfOrders.get(i).getOrderID() == orderID) {
-                selectedOrder = listOfOrders.get(i);
+        for (Order order : listOfOrders) {
+            if (order.getOrderID() == orderID) {
+                selectedOrder = order;
                 break;
             }
         }
@@ -119,25 +116,21 @@ public class OrderMgr implements Serializable {
      */
 
     public void viewOrder(int orderID) {
-        Order selectedOrder;
-        for (int i = 0; i < listOfOrders.size(); i++) {
-            if (listOfOrders.get(i).getOrderID() == orderID) {
-
-                selectedOrder = listOfOrders.get(i);
-                System.out.println("==============Your Current Order=============");
-                System.out.println("No.\tItem\tPrice");
-                for (int j = 0; j < selectedOrder.getListOfItemsOrdered().size(); j++) {
-                    MenuItem currItem = selectedOrder.getListOfItemsOrdered().get(j);
-                    System.out.println((j + 1) + ")\t" + currItem.getName() + "\t$" + currItem.getPrice());
-                }
-                System.out.println("---------------------------------------------");
-                System.out.println("Total Price: $ " + selectedOrder.getTotalPriceOfOrder());
-                System.out.println("=============================================");
-                System.out.println();
-                return;
-            }
+        Order selectedOrder = getOrder(orderID);
+        if (selectedOrder == null) {
+            System.out.println("No such order");
+            return;
         }
-        System.out.println("No such order");
+        System.out.println("==============Your Current Order=============");
+        System.out.println("No.\tItem\tPrice");
+        for (int j = 0; j < selectedOrder.getListOfItemsOrdered().size(); j++) {
+            MenuItem currItem = selectedOrder.getListOfItemsOrdered().get(j);
+            System.out.println((j + 1) + ")\t" + currItem.getName() + "\t$" + currItem.getPrice());
+        }
+        System.out.println("---------------------------------------------");
+        System.out.println("Total Price: $ " + selectedOrder.getTotalPriceOfOrder());
+        System.out.println("=============================================");
+        System.out.println();
     }
 
     /**
@@ -146,21 +139,15 @@ public class OrderMgr implements Serializable {
      * @param orderID The ID that is used to indicate existing {@link Order} object
      */
     public Invoice chargeBill(ReservationMgr reservationMgr, int orderID) {
-        Order selectedOrder;
-        Invoice bill;
-
-        for (int i = 0; i < listOfOrders.size(); i++) {
-            if (listOfOrders.get(i).getOrderID() == orderID) {
-                selectedOrder = listOfOrders.get(i);
-                selectedOrder.createInvoice(selectedOrder);
-                bill = selectedOrder.getInvoice();
-                bill.printInvoice();
-                reservationMgr.removeReservationAfterPayment(listOfOrders.get(i).getAssignedTable());
-                return bill;
-            }
+        Order selectedOrder = getOrder(orderID);
+        if (selectedOrder == null) {
+            System.out.println("No such order");
+            return null;
         }
-
-        System.out.println("No such order");
-        return null;
+        selectedOrder.createInvoice(selectedOrder);
+        Invoice bill = selectedOrder.getInvoice();
+        bill.printInvoice();
+        reservationMgr.removeReservationAfterPayment(selectedOrder.getAssignedTable());
+        return bill;
     }
 }

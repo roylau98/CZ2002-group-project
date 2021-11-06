@@ -5,7 +5,6 @@ import java.util.Scanner;
  * <p>
  * inherit various method from abstract class {@link Person}
  *
- * @author
  * @since 2021-11-5
  */
 public class Staff extends Person {
@@ -17,10 +16,9 @@ public class Staff extends Person {
      * Job titles of employee
      */
     private String jobTitle;
-    private transient Scanner sc;
 
     /**
-     * Class constructer with default settings
+     * Class constructor with default settings
      */
     public Staff() {
         super("", Sex.MALE);
@@ -29,7 +27,7 @@ public class Staff extends Person {
     }
 
     /**
-     * Class constructer
+     * Class constructor
      *
      * @param name       name of the staff
      * @param gender     gender of the staff
@@ -80,11 +78,9 @@ public class Staff extends Person {
 
     /**
      * Update the details of employee
-     *
-     * @param jobTitle job title of the employee
      */
     public void update() {
-        sc = new Scanner(System.in);
+        Scanner sc = new Scanner(System.in);
         String inputString;
         int inputInput;
         System.out.println("What is the staff's name: ");

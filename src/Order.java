@@ -7,7 +7,6 @@ import java.util.ArrayList;
  * the ID, date and time of the {@link Order} object creation, the {@link Staff}
  * object who created the {@link Order}, and the details of menu item
  *
- * @author
  * @since 2021-11-5
  */
 public class Order implements Serializable {
@@ -49,21 +48,6 @@ public class Order implements Serializable {
     private int assignedTable;
 
     /**
-     * Class constructor with default settings
-     */
-    public Order() {
-        orderID = 9999;
-        dateTimeOrderCreated = LocalDateTime.now();
-        itemsOrdered = new ArrayList<MenuItem>();
-        customer = null;
-        orderCreatedBy = null;
-        completedStatus = false;
-        totalPriceOfOrder = 0;
-        orderInvoice = null;
-        assignedTable = -1;
-    }
-
-    /**
      * Class constructor
      *
      * @param orderID        ID of this order
@@ -74,7 +58,7 @@ public class Order implements Serializable {
     public Order(int orderID, Customer customer, Staff orderCreatedBy, int assignedTable) {
         this.orderID = orderID;
         this.dateTimeOrderCreated = LocalDateTime.now();
-        this.itemsOrdered = new ArrayList<MenuItem>();
+        this.itemsOrdered = new ArrayList<>();
         this.customer = customer;
         this.orderCreatedBy = orderCreatedBy;
         this.completedStatus = false;
@@ -95,7 +79,7 @@ public class Order implements Serializable {
     /**
      * Return customer of this order
      *
-     * @return customer    customer of this order
+     * @return customer of this order
      */
     public Customer getCustomer() {
         return customer;
@@ -109,7 +93,7 @@ public class Order implements Serializable {
     }
 
     /**
-     * Gets Invoice of this order
+     * Gets Invoice for this order
      *
      * @return orderInvoice        Invoice of this order
      */
@@ -211,8 +195,8 @@ public class Order implements Serializable {
      */
     public void calculatePriceOfOrder() {
         totalPriceOfOrder = 0;
-        for (int i = 0; i < itemsOrdered.size(); i++) {
-            totalPriceOfOrder = totalPriceOfOrder + itemsOrdered.get(i).getPrice();
+        for (MenuItem menuItem : itemsOrdered) {
+            totalPriceOfOrder += menuItem.getPrice();
         }
     }
 

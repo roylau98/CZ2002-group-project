@@ -1,15 +1,11 @@
 import java.io.Serializable;
-import java.util.Scanner;
 
 /**
  * An abstract class for {@link AlaCarteItem} and {@link PromotionalSet} used to store information about an item
  *
- * @author
  * @since 2021-11-5
  */
 public abstract class MenuItem implements Serializable {
-
-    private final transient Scanner sc = new Scanner(System.in);
     /**
      * Name of item
      */
@@ -17,7 +13,6 @@ public abstract class MenuItem implements Serializable {
     /**
      * Description of item
      */
-
     private String description;
     /**
      * Price of item
@@ -25,7 +20,7 @@ public abstract class MenuItem implements Serializable {
     private double price;
 
     /**
-     * Constructs a item with specified name, price, description.
+     * Constructs an item with specified name, price, description.
      *
      * @param name        name of this item.
      * @param price       price of this item.
@@ -40,7 +35,7 @@ public abstract class MenuItem implements Serializable {
     /**
      * Return price of this MenuItem
      *
-     * @return price   price of the MenuItem
+     * @return price of the MenuItem
      */
     public double getPrice() {
         return this.price;
@@ -49,7 +44,7 @@ public abstract class MenuItem implements Serializable {
     /**
      * Return name of this MenuItem
      *
-     * @return name    name of the MenuItem
+     * @return name of the MenuItem
      */
     public String getName() {
         return this.name;
@@ -58,7 +53,7 @@ public abstract class MenuItem implements Serializable {
     /**
      * Return description of this MenuItem
      *
-     * @return description   description of the MenuItem
+     * @return description of the MenuItem
      */
     public String getDescription() {
         return this.description;
@@ -108,5 +103,4 @@ public abstract class MenuItem implements Serializable {
         updateDescription(description);
         updatePrice(price);
     }
-
 }

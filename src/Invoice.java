@@ -3,7 +3,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 /**
- * Stores information of a order invoices in the restaurant.
+ * Stores information of an order invoices in the restaurant.
  * <p>
  * This class keep track of the sold items ({@link Order}) made by the customer,
  * calculate the final price, and print the order invoice which consist
@@ -18,12 +18,10 @@ import java.util.ArrayList;
  * 	<li>{@code finalPrice}: The amount that customer will pay. This final price take accounts the GST,service charge
  * </ul>
  *
- * @author
  * @since 2021-11-5
  */
 
 public class Invoice implements Serializable {
-
     /**
      * Goods service tax
      */
@@ -61,7 +59,6 @@ public class Invoice implements Serializable {
      */
     private int tableNo;
 
-
     /**
      * Constructs an {@code Invoice} object with default value of GST,serviceCharge and order
      */
@@ -89,13 +86,10 @@ public class Invoice implements Serializable {
         this.totalPrice = 0;
         this.finalPrice = 0;
         this.order = order;
-
-        if ((this.order.getCustomer()).getMembershipStatus())
-            memberDiscount = 0.1;
-        else
-            memberDiscount = 0;
-        listOfSoldItems = order.getListOfItemsOrdered();
-        timestamp = LocalDateTime.now();
+        this.memberDiscount = this.order.getCustomer().getMembershipStatus() ? 0.1 : 0;
+        this.listOfSoldItems = order.getListOfItemsOrdered();
+        this.timestamp = LocalDateTime.now();
+        this.tableNo = this.order.getAssignedTable();
     }
 
     /**
@@ -112,7 +106,7 @@ public class Invoice implements Serializable {
     }
 
     /**
-     * Print the Invoice of this order
+     * Print the Invoice for this order
      */
     public void printInvoice() {
         System.out.println();
@@ -121,6 +115,7 @@ public class Invoice implements Serializable {
         System.out.println("          Bikini Bottom, Pacific Ocean           ");
         System.out.println("                                                 ");
         System.out.println("                                                 ");
+        System.out.println("Table No: " + this.tableNo);
         System.out.println("Order ID: " + this.order.getOrderID());
         System.out.println("TimeStamp: " + getTimestamp());
         System.out.println("-------------------------------------------------");
@@ -175,15 +170,13 @@ public class Invoice implements Serializable {
     /**
      * Calculate and return the final price that take accounts of GST,service charge
      *
-     * @return finalPrice    total price of order with taxes included.
      */
-    public double calculateFinalPrice() {
+    public void calculateFinalPrice() {
         totalPrice = 0;
         for (int i = 0; i < order.getListOfItemsOrdered().size(); i++) {
             totalPrice = totalPrice + order.getListOfItemsOrdered().get(i).getPrice();
         }
         finalPrice = (totalPrice * (1 + serviceCharge)) * (1 + gst) * (1 - memberDiscount);
-        return finalPrice;
     }
 
     /**
@@ -194,5 +187,4 @@ public class Invoice implements Serializable {
     public LocalDateTime getTimestamp() {
         return timestamp;
     }
-
 }

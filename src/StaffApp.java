@@ -8,7 +8,6 @@ import java.util.Scanner;
  * This class provides methods to add,remove Staff in the restaurant
  * <p>
  *
- * @author
  * @since 2021-11-5
  */
 public class StaffApp implements Serializable {
@@ -19,7 +18,7 @@ public class StaffApp implements Serializable {
     private transient Scanner sc;
 
     /**
-     * Class constructer with default settings
+     * Class constructor with default settings
      */
     public StaffApp() {
         listOfStaff = new ArrayList<>();
@@ -36,20 +35,20 @@ public class StaffApp implements Serializable {
         sc = new Scanner(System.in);
         System.out.println("Please select the following staff");
 
-        for (int i = 0; i < listOfStaff.size(); i++) {
-            System.out.println(listOfStaff.get(i).getName());
-            System.out.println(listOfStaff.get(i).getEmployeeID());
-            System.out.println(listOfStaff.get(i).getJobTitle());
-            System.out.println(listOfStaff.get(i).getGender());
+        for (Staff staff : listOfStaff) {
+            System.out.println(staff.getName());
+            System.out.println(staff.getEmployeeID());
+            System.out.println(staff.getJobTitle());
+            System.out.println(staff.getGender());
         }
 
         System.out.println("Please type the employee ID");
         int choice = sc.nextInt();
         sc.nextLine();
 
-        for (int i = 0; i < listOfStaff.size(); i++) {
-            if (listOfStaff.get(i).getEmployeeID() == choice) {
-                return listOfStaff.get(i);
+        for (Staff staff : listOfStaff) {
+            if (staff.getEmployeeID() == choice) {
+                return staff;
             }
         }
         return null;
@@ -80,6 +79,4 @@ public class StaffApp implements Serializable {
             }
         }
     }
-
-
 }

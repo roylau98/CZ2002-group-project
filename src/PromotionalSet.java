@@ -1,20 +1,15 @@
 import java.util.HashMap;
-import java.util.Scanner;
 
 /**
  * Stores information about a PromotionalSet inherit from{@link MenuItem} class to used in context of a menu.
  * This class stores the name, price, description of PromotionalSet {@link MenuMgr},
  * and uses HashMap to keep track of the items in PromotionalSet.
- * it also provide various method to add/remove/update the content of the PromotionalSet.
+ * it also provides various method to add/remove/update the content of the PromotionalSet.
  *
- * @author
  * @see HashMap
  * @since 2021-11-5
  */
 public class PromotionalSet extends MenuItem {
-
-    private final transient Scanner sc = new Scanner(System.in);
-
     /**
      * HashMap that is used to keep track of the items in PromotionalSet
      */
@@ -23,7 +18,7 @@ public class PromotionalSet extends MenuItem {
     /**
      * Constructs a PromotionalSet with default name, price, description and type.
      */
-    PromotionalSet() {
+    public PromotionalSet() {
         super("unknown", "unknown", 0);
         items = new HashMap<>();
     }
@@ -35,13 +30,13 @@ public class PromotionalSet extends MenuItem {
      * @param description description of the promotional set
      * @param price       price of the promotional set
      */
-    PromotionalSet(String name, String description, double price) {
+    public PromotionalSet(String name, String description, double price) {
         super(name, description, price);
         this.items = new HashMap<>();
     }
 
     /**
-     * Add an existing item in Menu into PromotionaLSet
+     * Add an existing item in Menu into PromotionalSet
      *
      * @param itemName name of the existing item in Menu to be added into PromotionalSet
      * @param quantity The quantity of that certain item to be added in
@@ -52,7 +47,7 @@ public class PromotionalSet extends MenuItem {
     }
 
     /**
-     * Remove a certain item from PromotionaLSet
+     * Remove a certain item from PromotionalSet
      *
      * @param itemName name of the item  to be removed from PromotionalSet
      */
@@ -66,7 +61,7 @@ public class PromotionalSet extends MenuItem {
     }
 
     /**
-     * Update the quantity of certain item in PromotionaLSet
+     * Update the quantity of certain item in PromotionalSet
      *
      * @param itemName        name of the item to be updated in PromotionalSet
      * @param updatedQuantity the updated quantity of the certain item in PromotionalSet
@@ -85,10 +80,7 @@ public class PromotionalSet extends MenuItem {
      */
     public void printPromotionalSetListOfItems() {
         System.out.println("-Contents-");
-        items.entrySet().forEach(
-                entry -> {
-                    System.out.println(entry.getKey() + " " + entry.getValue());
-                });
+        items.forEach((key, value) -> System.out.println(key + " " + value));
     }
 
     /**
@@ -100,6 +92,4 @@ public class PromotionalSet extends MenuItem {
         super.print();
         printPromotionalSetListOfItems();
     }
-
-
 }
