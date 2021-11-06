@@ -74,7 +74,7 @@ public class RRPSS implements Serializable {
                     orderApp.orderAppOptions(reservationApp.getReservationMgr());
                     break;
                 case 3:
-                    orderApp.getMenuApp().menuOptions();
+                    orderApp.menuAppOptions();
                     break;
                 case 4:
                     orderApp.salesReportOptions();

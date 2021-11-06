@@ -308,8 +308,8 @@ public class OrderApp implements Serializable {
         return menuItemNo;
     }
 
-    public MenuApp getMenuApp() {
-        return menuApp;
+    public void menuAppOptions() {
+        menuApp.menuOptions();
     }
 
     public void staffAppOptions() {
