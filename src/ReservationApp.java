@@ -45,7 +45,6 @@ public class ReservationApp implements Serializable {
         scanner = new Scanner(System.in);
         reservationMgr.removeNoShowReservations();
         reservationMgr.createScheduler();
-        System.out.println("Welcome to the ReservationApp.");
         boolean cont = true;
         int choice = 0;
         while (cont) {
@@ -53,14 +52,16 @@ public class ReservationApp implements Serializable {
             while (cont) {
                 do {
                     try {
-                        System.out.println("Please select one of the options below:\n" +
+                        System.out.print("\nReservation App\n" +
+                                "Please select one of the options below:\n" +
                                 "1. Make a new reservation\n" +
                                 "2. Cancel an existing reservation\n" +
                                 "3. Amend an existing reservation\n" +
                                 "4. View the list of reservations\n" +
                                 "5. View the list of tables\n" +
                                 "6. Check availability at a specified date and time\n" +
-                                "7. Exit this application and return to the previous page");
+                                "7. Exit this application and return to the previous page\n" +
+                                "Enter your choice: ");
                         choice = scanner.nextInt();
                         scanner.nextLine();
                         error = false;

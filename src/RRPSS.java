@@ -47,14 +47,15 @@ public class RRPSS implements Serializable {
         int choice = 0;
 
         while (true) {
-            System.out.println("Please select one of the options below:\n" +
-                    "1. Manage reservations" +
-                    "2. Manage orders" +
-                    "3. Edit the menu" +
-                    "4. View sales report" +
-                    "5. Exit");
+            System.out.print("\nWelcome to Krusty Krab!\n" +
+                    "Please select one of the options below:\n" +
+                    "1. Manage reservations\n" +
+                    "2. Manage orders\n" +
+                    "3. Edit the menu\n" +
+                    "4. View sales report\n" +
+                    "5. Quit RRPSS and save all data\n" +
+                    "Enter your choice: ");
             try {
-                System.out.print("Enter your choice: ");
                 Scanner sc = new Scanner(System.in);
                 choice = sc.nextInt();
                 sc.nextLine();
@@ -76,7 +77,6 @@ public class RRPSS implements Serializable {
                     orderApp.salesReportOptions();
                     break;
                 case 5:
-                    System.out.println("Exited");
                     return;
                 default:
                     System.out.println("Invalid option. Try again!");

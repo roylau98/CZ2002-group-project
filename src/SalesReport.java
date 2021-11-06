@@ -32,15 +32,16 @@ public class SalesReport implements Serializable {
         int day, month, year;
 
         while (choice != -1) {
-            System.out.println("Please select one of the options below:\n" +
+            System.out.print("\nSales Report App\n" +
+                    "Please select one of the options below:\n" +
                     "1. Print all sales\n" +
                     "2. Print all sales by day\n" +
                     "3. Print all sales by month\n" +
                     "4. Print sales of selected Day\n" +
                     "5. Print sales of selected Month\n" +
-                    "6. Exit this application and return to the previous page");
+                    "6. Exit this application and return to the previous page\n" +
+                    "Enter your choice: ");
             try {
-                System.out.print("Enter your choice: ");
                 sc = new Scanner(System.in);
                 choice = sc.nextInt();
             } catch (InputMismatchException e) {
@@ -103,8 +104,6 @@ public class SalesReport implements Serializable {
                     printSalesInSelectedMonth(month, year);
                     break;
                 case 6:
-                    System.out.println("Exited");
-                    System.out.println("==End of SalesReport Option==");
                     return;
                 default:
                     System.out.println("Invalid choice try again");

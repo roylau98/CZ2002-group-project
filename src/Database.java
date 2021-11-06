@@ -80,7 +80,7 @@ public class Database {
             ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream);
             return objectInputStream.readObject();
         } catch (IOException e) {
-            System.out.println("No such file!");
+            System.out.println("There is no pre-existing data for the RRPSS system.");
             return null;
         } catch (ClassNotFoundException e1) {
             System.out.println("No such class");

@@ -58,17 +58,18 @@ public class OrderApp implements Serializable {
         sc = new Scanner(System.in);
         int choice = 0;
         do {
-            System.out.println("Please select one of the options below:\n" +
+            System.out.print("\nOrder App\n" +
+                    "Please select one of the options below:\n" +
                     "1. View an existing order\n" +
                     "2. Make a new order\n" +
                     "3. Cancel an existing order\n" +
                     "4. Update an existing order\n" +
                     "5. Make payment for an order\n" +
-                    "6. Exit this application and return to the previous page");
+                    "6. Exit this application and return to the previous page\n" +
+                    "Enter your choice: ");
             try {
                 choice = sc.nextInt();
                 sc.nextLine();
-                System.out.println();
             } catch (InputMismatchException e) {
                 System.out.println("Invalid input received.");
             }
@@ -88,6 +89,8 @@ public class OrderApp implements Serializable {
                 case 5:
                     billOrder(reservationMgr);
                     break;
+                case 6:
+                    return;
                 default:
                     System.out.println("Invalid input received.");
                     break;

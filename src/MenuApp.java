@@ -30,15 +30,15 @@ public class MenuApp implements Serializable {
         sc = new Scanner(System.in);
         int choice = 999;
         while (choice != 5) {
-            System.out.println("Please select one of the options below:\n" +
-                    "1. Print Menu\n" +
-                    "2. Add Menu Item\n" +
-                    "3. Remove Menu Item\n" +
-                    "4. Update Menu Item\n" +
-                    "5. Exit this application and return to the previous page");
-
+            System.out.print("\nMenu App\n" +
+                    "Please select one of the options below:\n" +
+                    "1. View menu\n" +
+                    "2. Add a menu item\n" +
+                    "3. Remove a menu item\n" +
+                    "4. Update a menu item\n" +
+                    "5. Exit this application and return to the previous page\n" +
+                    "Enter your choice: ");
             try {
-                System.out.print("Enter Your Choice: ");
                 sc = new Scanner(System.in);
                 choice = sc.nextInt();
                 sc.nextLine();
@@ -60,6 +60,8 @@ public class MenuApp implements Serializable {
                 case 4:
                     updateMenuItem();
                     break;
+                case 5:
+                    return;
                 default:
                     System.out.println("There is only 5 options.");
 
