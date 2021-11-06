@@ -1,34 +1,36 @@
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Scanner;
+
 /**
  * Manages the {@link Staff}
- * <p> 
+ * <p>
  * This class provides methods to add,remove Staff in the restaurant
  * <p>
+ *
  * @author
  * @since 2021-11-5
- * 
  */
 public class StaffApp implements Serializable {
     /**
-     * List of staff 
+     * List of staff
      */
-    private ArrayList<Staff> listOfStaff;
+    private final ArrayList<Staff> listOfStaff;
     private transient Scanner sc;
+
     /**
-     * Class constructer with default settings 
+     * Class constructer with default settings
      */
     public StaffApp() {
         listOfStaff = new ArrayList<>();
         listOfStaff.add(new Staff("Patrick", Sex.MALE, 1, "Manager"));
         listOfStaff.add(new Staff("SpongeBob", Sex.MALE, 2, "Worker"));
     }
-    
+
     /**
      * Return a selected staff
      *
-     * @return      the selected staff
+     * @return the selected staff
      */
     public Staff selectStaff() {
         sc = new Scanner(System.in);
@@ -52,6 +54,7 @@ public class StaffApp implements Serializable {
         }
         return null;
     }
+
     /**
      * Add new staff into restaurant
      */
@@ -60,10 +63,11 @@ public class StaffApp implements Serializable {
         newStaff.update();
         listOfStaff.add(newStaff);
     }
+
     /**
      * Remove existing staff from restaurant
      *
-     * @param   employeeID  ID of the staff to be removed
+     * @param employeeID ID of the staff to be removed
      */
     public void removeStaff(int employeeID) {
         sc = new Scanner(System.in);

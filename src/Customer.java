@@ -40,7 +40,7 @@ public class Customer extends Person {
     /**
      * Gets Customer Contact number
      *
-     * @return  contactNo   customer's contactNo
+     * @return contactNo   customer's contactNo
      */
     public String getContactNo() {
         return contactNo;
@@ -49,7 +49,7 @@ public class Customer extends Person {
     /**
      * Changes customer Contact number.
      *
-     * @param   contactNo   New contact number of the customer.
+     * @param contactNo New contact number of the customer.
      */
     public void setContactNo(String contactNo) {
         this.contactNo = contactNo;
@@ -58,7 +58,7 @@ public class Customer extends Person {
     /**
      * Gets customer membership status.
      *
-     * @return  membershipStatus    customer's membership status.
+     * @return membershipStatus    customer's membership status.
      */
     public Boolean getMembershipStatus() {
         return membershipStatus;
@@ -67,7 +67,7 @@ public class Customer extends Person {
     /**
      * Changes customer membership status.
      *
-     * @param   membershipStatus    New membership status of the customer.
+     * @param membershipStatus New membership status of the customer.
      */
     public void setMembershipStatus(Boolean membershipStatus) {
         this.membershipStatus = membershipStatus;
@@ -76,8 +76,8 @@ public class Customer extends Person {
     /**
      * Checks and compares Customer objects
      *
-     * @param   obj     Customer object
-     * @return          true if the Customer object is the same, else false
+     * @param obj Customer object
+     * @return true if the Customer object is the same, else false
      */
     @Override
     public boolean equals(Object obj) {
@@ -86,9 +86,7 @@ public class Customer extends Person {
         }
         if (!this.contactNo.equals(((Customer) obj).getContactNo()))
             return false;
-        if (!this.getName().equals(((Customer) obj).getName()))
-            return false;
-        return true;
+        return this.getName().equals(((Customer) obj).getName());
         //return super.equals(obj);
     }
 
@@ -97,17 +95,17 @@ public class Customer extends Person {
      * All customers with the exact same attributes will generate the same hashCode.
      * This is used in the mapping for HashMap.
      *
-     * @return          hashCode for the customer instance.
+     * @return hashCode for the customer instance.
      */
     @Override
     public int hashCode() {
         return Objects.hash(this.getName(), contactNo);
     }
-    
+
     /**
-     * Return a string with customer details. 
+     * Return a string with customer details.
      *
-     * @return          String with customer details.
+     * @return String with customer details.
      */
     @Override
     public String toString() {

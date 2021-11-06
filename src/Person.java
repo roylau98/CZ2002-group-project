@@ -1,5 +1,6 @@
 import java.io.Serializable;
 import java.util.Objects;
+
 /**
  * A parent class for Customer and Staff class
  *
@@ -30,6 +31,7 @@ public class Person implements Serializable {
 
     /**
      * Copy constructor.
+     *
      * @param p Person to be cloned.
      */
     public Person(Person p) {
@@ -40,7 +42,7 @@ public class Person implements Serializable {
     /**
      * Gets the name of the person
      *
-     * @return  name    name of the person
+     * @return name    name of the person
      */
     public String getName() {
         return this.name;
@@ -49,7 +51,7 @@ public class Person implements Serializable {
     /**
      * Sets the name of the person
      *
-     * @param   name    name of the person
+     * @param name name of the person
      */
     public void setName(String name) {
         this.name = name;
@@ -58,7 +60,7 @@ public class Person implements Serializable {
     /**
      * Gets the gender of the person
      *
-     * @return  gender  gender of the person
+     * @return gender  gender of the person
      */
     public Sex getGender() {
         return this.gender;
@@ -67,7 +69,7 @@ public class Person implements Serializable {
     /**
      * Sets the gender of the person
      *
-     * @param   gender  gender of the person
+     * @param gender gender of the person
      */
     public void setGender(Sex gender) {
         this.gender = gender;
@@ -75,8 +77,9 @@ public class Person implements Serializable {
 
     /**
      * Checks and compares Person objects
-     * @param   obj     person to be compared
-     * @return          true if the Person object is the same, else false
+     *
+     * @param obj person to be compared
+     * @return true if the Person object is the same, else false
      */
     @Override
     public boolean equals(Object obj) {
@@ -85,24 +88,24 @@ public class Person implements Serializable {
         }
         if (!this.name.equals(((Person) obj).name))
             return false;
-        if (this.gender != ((Person) obj).gender)
-            return false;
-        return true;
+        return this.gender == ((Person) obj).gender;
     }
 
     /**
      * Generates a hash for an instance of the Person class.
      * All Person with the exact same attributes will generate the same hashCode.
-     * @return          hashCode for the person instance.
+     *
+     * @return hashCode for the person instance.
      */
     @Override
     public int hashCode() {
         return Objects.hash(name, gender);
     }
-     /**
-     * Return a string with person details. 
+
+    /**
+     * Return a string with person details.
      *
-     * @return          String with person details.
+     * @return String with person details.
      */
     @Override
     public String toString() {

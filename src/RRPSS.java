@@ -1,29 +1,48 @@
 import java.io.Serializable;
 import java.util.InputMismatchException;
 import java.util.Scanner;
+
 /**
  * The main application where the RRPSS works. This class provides the interface for the user.
- * 
- * @author 
+ *
+ * @author
  * @since 2021-11-5
  */
 public class RRPSS implements Serializable {
-     private transient Scanner sc = new Scanner(System.in);
     /**
      * Order App wtih options
      */
-    private OrderApp orderApp;
+    private final OrderApp orderApp;
     /**
      * Reservation App wtih options
      */
-    private ReservationApp reservationApp;
-     /**
+    private final ReservationApp reservationApp;
+    private transient Scanner sc = new Scanner(System.in);
+
+    /**
      * Class Constructor with default settings
      */
     public RRPSS() {
         orderApp = new OrderApp();
         reservationApp = new ReservationApp();
     }
+
+    /**
+     * Main function that runs the RRPSS app
+     */
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        RRPSS rrpssApp;
+        Database database = new Database();
+        rrpssApp = (RRPSS) database.load("file.txt");
+        if (rrpssApp == null) {
+            System.out.println("Creating New RRPSS......");
+            rrpssApp = new RRPSS();
+        }
+        rrpssApp.rrpsOptions();
+        database.save(rrpssApp, "file.txt");
+    }
+
     /**
      * Interface of the application
      */
@@ -74,20 +93,5 @@ public class RRPSS implements Serializable {
                     System.out.println("Invalid option. Try again!");
             }
         }
-    }
-    /**
-     * Main function that runs the RRPSS app
-     */
-    public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
-        RRPSS rrpssApp;
-        Database database = new Database();
-        rrpssApp = (RRPSS) database.load("file.txt");
-        if (rrpssApp == null) {
-            System.out.println("Creating New RRPSS......");
-            rrpssApp = new RRPSS();
-        }
-        rrpssApp.rrpsOptions();
-        database.save(rrpssApp,"file.txt");
     }
 }
