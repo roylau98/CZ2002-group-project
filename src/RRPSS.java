@@ -38,6 +38,8 @@ public class RRPSS implements Serializable {
         }
         rrpssApp.rrpssOptions();
         database.save(rrpssApp, "file.txt");
+        System.out.println("Saving....");
+        System.out.println("Exited!");
     }
 
     /**
