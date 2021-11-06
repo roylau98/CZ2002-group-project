@@ -32,14 +32,13 @@ public class SalesReport implements Serializable {
         int day, month, year;
 
         while (choice != -1) {
-            System.out.println("=====Sales Report Option====");
-            System.out.println("Here are your choices: \n" +
-                    "1)Print All Sales\n" +
-                    "2)Print Sales by Days\n" +
-                    "3)Print Sales by Month\n" +
-                    "4)Print Sales of Selected Day\n" +
-                    "5)Print Sales of Selected Month\n" +
-                    "6)Exit\n");
+            System.out.println("Please select one of the options below:\n" +
+                    "1. Print all sales\n" +
+                    "2. Print all sales by day\n" +
+                    "3. Print all sales by month\n" +
+                    "4. Print sales of selected Day\n" +
+                    "5. Print sales of selected Month\n" +
+                    "6. Exit this application and return to the previous page");
             try {
                 System.out.print("Enter your choice: ");
                 sc = new Scanner(System.in);

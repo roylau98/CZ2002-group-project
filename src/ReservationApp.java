@@ -60,7 +60,7 @@ public class ReservationApp implements Serializable {
                                 "4. View the list of reservations\n" +
                                 "5. View the list of tables\n" +
                                 "6. Check availability at a specified date and time\n" +
-                                "7. Exit this application and return to the main menu");
+                                "7. Exit this application and return to the previous page");
                         choice = scanner.nextInt();
                         scanner.nextLine();
                         error = false;
@@ -268,7 +268,7 @@ public class ReservationApp implements Serializable {
         while (cont) {
             do {
                 try {
-                    System.out.println("Month (Jan:1, Feb:2, Mar:3, Apr:4, May:5, Jun:6, Jul:7, Aug:8, Sep:9, Oct:10, Nov:11, Dec:12): ");
+                    System.out.print("Month (Jan:1, Feb:2, Mar:3, Apr:4, May:5, Jun:6, Jul:7, Aug:8, Sep:9, Oct:10, Nov:11, Dec:12): ");
                     month = scanner.nextInt();
                     scanner.nextLine();
                     error = false;

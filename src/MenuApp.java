@@ -31,11 +31,11 @@ public class MenuApp implements Serializable {
         int choice = 999;
         while (choice != 5) {
             System.out.println("Please select one of the options below:\n" +
-                    "(1) Print Menu\n" +
-                    "(2) Add Menu Item\n" +
-                    "(3) Remove Menu Item\n" +
-                    "(4) Update Menu Item\n" +
-                    "(5) Exit");
+                    "1. Print Menu\n" +
+                    "2. Add Menu Item\n" +
+                    "3. Remove Menu Item\n" +
+                    "4. Update Menu Item\n" +
+                    "5. Exit this application and return to the previous page");
 
             try {
                 System.out.print("Enter Your Choice: ");
@@ -82,14 +82,10 @@ public class MenuApp implements Serializable {
         sc = new Scanner(System.in);
         int choice = 0;
         do {
-            System.out.println("Adding Menu Item......");
-            System.out.println(">>>>>>>>>>>>>>>>>>>>>>");
-            System.out.println();
-            System.out.println("Please select the type of item to add:");
-            System.out.println("1) Ala Carte");
-            System.out.println("2) Promotion Package");
-            System.out.println("3) Exit");
-            System.out.println("----------------------------------------");
+            System.out.println("What type of menu item would you like to add?");
+            System.out.println("1. Ala Carte");
+            System.out.println("2. Promotion Package");
+            System.out.println("3. Exit");
             try {
                 choice = sc.nextInt();
             } catch (InputMismatchException e) {
@@ -101,22 +97,22 @@ public class MenuApp implements Serializable {
             int index;
             switch (choice) {
                 case 1:
-                    System.out.println("Enter the name of the new AlaCarteItem");
+                    System.out.print("Enter the name of the new AlaCarteItem: ");
                     name = askUserForMenuItemStringInput();
-                    System.out.println("Enter the description of the new AlaCarteItem");
+                    System.out.print("Enter the description of the new AlaCarteItem: ");
                     description = askUserForMenuItemStringInput();
-                    System.out.println("Enter the Price of the new AlaCarteItem");
+                    System.out.print("Enter the Price of the new AlaCarteItem: ");
                     price = askUserForMenuItemPrice();
                     int inputForAlaCarteItemType = askUserForAlaCarteItemType();
                     index = menuMgr.createNewAlaCarteItem(name, description, price, menuMgr.chooseAlaCarteItemType(inputForAlaCarteItemType));
                     System.out.println("Index: " + index);
                     return;
                 case 2:
-                    System.out.println("Enter the name of the new PromotionalSet");
+                    System.out.print("Enter the name of the new PromotionalSet: ");
                     name = askUserForMenuItemStringInput();
-                    System.out.println("Enter the description of the new PromotionalSet");
+                    System.out.print("Enter the description of the new PromotionalSet: ");
                     description = askUserForMenuItemStringInput();
-                    System.out.println("Enter the Price of the new PromotionalSet");
+                    System.out.print("Enter the Price of the new PromotionalSet: ");
                     price = askUserForMenuItemPrice();
                     index = menuMgr.createNewPromoSetItem(name, description, price);
                     updatePromoSetContents(index);
@@ -133,11 +129,11 @@ public class MenuApp implements Serializable {
      */
     public void removeMenuItem() {
         if (menuMgr.getNumberOfMenuItems() == 0) {
-            System.out.println("There is no menuItems to remove");
+            System.out.println("There are no menu items.");
             return;
         }
         printMenu();
-        System.out.println("Please enter the index of the menuItem to be removed");
+        System.out.print("Enter the index of the menu item you would like to remove: ");
         int indexOfItemToBeRemoved = askUserForMenuItemIndex();
         if (indexOfItemToBeRemoved == -1) {
             return;
@@ -153,11 +149,11 @@ public class MenuApp implements Serializable {
         String description;
         double price;
         if (menuMgr.getNumberOfMenuItems() == 0) {
-            System.out.println("There is no menuItems to update");
+            System.out.println("There are no menu items.");
             return;
         }
         printMenu();
-        System.out.println("Enter the index of MenuItem to be updated: ");
+        System.out.print("Enter the index of the menu item you would like to update: ");
         int indexOfMenuItemToBeUpdated = askUserForMenuItemIndex();
         if (indexOfMenuItemToBeUpdated == -1) {
             return;
@@ -203,21 +199,21 @@ public class MenuApp implements Serializable {
                 menuMgr.printMenuItemsByCat(temp);
                 switch (choice) {
                     case 1:
-                        System.out.println("Enter the name of the promotional item to be added: ");
+                        System.out.print("Enter the name of the promotional item to be added: ");
                         stringInput = askUserForMenuItemStringInput();
-                        System.out.println("Enter the quantity of the promotional item to be added: ");
+                        System.out.print("Enter the quantity of the promotional item to be added: ");
                         intInput = askUserForQuantity();
                         menuMgr.addItemToPromoSetContent(indexOfMenuItemToBeUpdated, stringInput, intInput);
                         break;
                     case 2:
-                        System.out.println("Enter the name of the promotional item to be removed: ");
+                        System.out.print("Enter the name of the promotional item to be removed: ");
                         stringInput = askUserForMenuItemStringInput();
                         menuMgr.removeItemToPromoSetContent(indexOfMenuItemToBeUpdated, stringInput);
                         break;
                     case 3:
-                        System.out.println("Enter the name of the promotional item to be updated: ");
+                        System.out.print("Enter the name of the promotional item to be updated: ");
                         stringInput = askUserForMenuItemStringInput();
-                        System.out.println("Enter the quantity of the promotional item to be updated: ");
+                        System.out.print("Enter the quantity of the promotional item to be updated: ");
                         intInput = askUserForQuantity();
                         menuMgr.updateItemToPromoSetContent(indexOfMenuItemToBeUpdated, stringInput, intInput);
                         break;

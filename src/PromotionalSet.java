@@ -78,7 +78,7 @@ public class PromotionalSet extends MenuItem {
     /**
      * Print the items and their quantity in this PromotionalSet
      */
-    public void printPromotionalSetListOfItems() {
+    private void printPromotionalSetListOfItems() {
         System.out.println("-Contents-");
         items.forEach((key, value) -> System.out.println(key + " " + value));
     }

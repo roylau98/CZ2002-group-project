@@ -33,7 +33,7 @@ public class RRPSS implements Serializable {
         Database database = new Database();
         rrpssApp = (RRPSS) database.load("file.txt");
         if (rrpssApp == null) {
-            System.out.println("Creating New RRPSS......");
+            System.out.println("New RRPSS system created.");
             rrpssApp = new RRPSS();
         }
         rrpssApp.rrpssOptions();
@@ -47,32 +47,24 @@ public class RRPSS implements Serializable {
         int choice = 0;
 
         while (true) {
-            System.out.println("~~~~~Welcome to Krusty Krab~~~~~");
-            System.out.println();
-            System.out.println("What do you want?");
-            System.out.println("(1) Reservation");
-            System.out.println("(2) Order");
-            System.out.println("(3) Edit Menu   (Admin)");
-            System.out.println("(4) Sales Report(Admin)");
-            System.out.println("(5) Exit");
-            System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
-
+            System.out.println("Please select one of the options below:\n" +
+                    "1. Manage reservations" +
+                    "2. Manage orders" +
+                    "3. Edit the menu" +
+                    "4. View sales report" +
+                    "5. Exit");
             try {
-                System.out.print("Enter Your Choice: ");
+                System.out.print("Enter your choice: ");
                 Scanner sc = new Scanner(System.in);
                 choice = sc.nextInt();
                 sc.nextLine();
-                System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
-                System.out.println();
             } catch (InputMismatchException e) {
                 System.out.println("Invalid input");
             }
 
             switch (choice) {
                 case 1:
-                    System.out.println("======Reservation Option======");
                     reservationApp.startReservationApp();
-                    System.out.println("==End of Reservation Option===");
                     break;
                 case 2:
                     orderApp.orderAppOptions(reservationApp.getReservationMgr());

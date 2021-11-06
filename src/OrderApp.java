@@ -64,7 +64,7 @@ public class OrderApp implements Serializable {
                     "3. Cancel an existing order\n" +
                     "4. Update an existing order\n" +
                     "5. Make payment for an order\n" +
-                    "6. Quit this application and return to the previous page");
+                    "6. Exit this application and return to the previous page");
             try {
                 choice = sc.nextInt();
                 sc.nextLine();
@@ -113,8 +113,8 @@ public class OrderApp implements Serializable {
      */
     private void newOrder(ReservationMgr reservationMgr) {
         System.out.println("Which table is this new order for?");
-        // update error checking e.g. throwable in viewTablesWithReservationsNow()....
         reservationMgr.viewTablesWithReservationsNow();
+        // update error checking e.g. throwable in viewTablesWithReservationsNow()....
         int tableNo;
         try {
             tableNo = sc.nextInt();
