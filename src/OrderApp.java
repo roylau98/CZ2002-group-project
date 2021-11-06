@@ -298,4 +298,9 @@ public class OrderApp implements Serializable {
     public MenuApp getMenuApp() {
         return menuApp;
     }
+
+    public void staffAppOptions() {
+        staffApp.options();
+    }
+
 }
