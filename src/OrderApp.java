@@ -30,7 +30,7 @@ public class OrderApp implements Serializable {
      * Manager of MenuItem
      */
     private final MenuApp menuApp;
-    private transient Scanner sc = new Scanner(System.in);
+    private transient Scanner sc;
 
     /**
      * Class Constructor
@@ -127,6 +127,7 @@ public class OrderApp implements Serializable {
      * @param reservationMgr The reservation manager which would be informed about the customer's arrival.
      */
     private void newOrder(ReservationMgr reservationMgr) {
+        sc = new Scanner(System.in);
         System.out.println("Which table is this new order for? Enter -1 to Quit");
         reservationMgr.viewTablesWithReservationsNow();
         // update error checking e.g. throwable in viewTablesWithReservationsNow()....
@@ -180,6 +181,7 @@ public class OrderApp implements Serializable {
      * @param orderID the id of order to be updated
      */
     private void updateOrder(int orderID) {
+        sc = new Scanner(System.in);
         if (orderMgr.getOrder(orderID).isCompleted()) {
             System.out.println("Order " + orderID + " is complete and payment has been made.");
             return;
@@ -229,6 +231,7 @@ public class OrderApp implements Serializable {
      * @param orderID the id of order for menu item to be removed
      */
     private void removeFromOrder(int orderID) {
+        sc = new Scanner(System.in);
         orderMgr.printItemsInOrder(orderID);
         if (orderMgr.getOrder(orderID).getNumberOfItemsOrdered() == 0) {
             System.out.println("No items ordered so far.");
@@ -267,6 +270,7 @@ public class OrderApp implements Serializable {
      * Scanner to ask for user input(OrderID) with error checking
      */
     private int askUserForOrderID() {
+        sc = new Scanner(System.in);
         System.out.print("Enter an OrderID: ");
         int orderID;
         try {
@@ -287,6 +291,7 @@ public class OrderApp implements Serializable {
      * Scanner to ask for user input(MenuItemNo) with error checking
      */
     private int askUserForMenuItemNo() {
+        sc = new Scanner(System.in);
         System.out.print("Enter a menu item number: ");
         int menuItemNo;
         try {
