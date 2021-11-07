@@ -87,9 +87,10 @@ public class PromotionalSet extends MenuItem {
      * Print all the items in this PromotionalSet which overrides the
      * method from the abstract class {@link MenuItem}
      */
-    @Override
     public void print() {
-        super.print();
+        System.out.println("Name        : " + getName());
+        System.out.println("Description : " + getDescription());
+        System.out.printf("Price       : $%.2f\n", getPrice());
         printPromotionalSetListOfItems();
     }
 }

@@ -49,5 +49,13 @@ public class AlaCarteItem extends MenuItem {
     public void setItemType(AlaCarteItemType updatedAlaCarteItemType) {
         this.typeOfItem = updatedAlaCarteItemType;
     }
-
+    /**
+     * Print all the items in this AlaCarteItem which overrides the
+     * method from the abstract class {@link MenuItem}
+     */
+    public void print() {
+        System.out.println("Name        : " + getName());
+        System.out.println("Description : " + getDescription());
+        System.out.printf("Price       : $%.2f\n", getPrice());
+    }
 }

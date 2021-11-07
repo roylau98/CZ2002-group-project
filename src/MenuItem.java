@@ -89,10 +89,6 @@ public abstract class MenuItem implements Serializable {
     /**
      * Print the details(name,description,price) of this MenuItem
      */
-    public void print() {
-        System.out.println("Name        : " + getName());
-        System.out.println("Description : " + getDescription());
-        System.out.printf("Price       : $%.2f\n", getPrice());
-    }
+    public abstract void print();
 
 }
