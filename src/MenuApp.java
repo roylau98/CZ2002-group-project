@@ -313,7 +313,7 @@ public class MenuApp implements Serializable {
         sc = new Scanner(System.in);
         int inputForAlaCarteItemType;
         while (true) {
-            System.out.print("Please select the type of Ala Carte item:" +
+            System.out.print("Please select the type of Ala Carte item:\n" +
                     "1. Main Course\n" +
                     "2. Appetiser\n" +
                     "3. Drinks\n" +
