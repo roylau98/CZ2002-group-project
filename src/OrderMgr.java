@@ -85,6 +85,23 @@ public class OrderMgr implements Serializable {
     	return listOfOrders;
     }
     /**
+     * Check whether order has been made in certain table
+     *
+     * @param tableNo   table to be checked
+     */
+    public boolean checkforTableOrder(int tableNo) {
+    	for (Order order : getListOfOrder()) 
+        {
+            if (order.getAssignedTable() == tableNo) 
+            {
+            	System.out.println("The order for this table has been created.\n"
+            			+ "If you intend to update contents of order, please proceed to Option 4");
+                return true;
+            }
+        }
+    	return false;
+    }
+    /**
      * Print items of a specific order
      *
      * @param   orderID   ID of the order
