@@ -32,7 +32,7 @@ public class MenuMgr implements Serializable {
     /**
      * Sorts all the items in the MenuItem ArrayList in order
      */
-    public void sortListOfMenuItems() {
+    private void sortListOfMenuItems() {
         // sort by class type
         listOfMenuItems.sort(Comparator.comparing(o -> o.getClass().getName()));
 
