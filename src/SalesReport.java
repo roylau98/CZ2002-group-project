@@ -15,7 +15,7 @@ public class SalesReport implements Serializable {
      * List of invoices
      */
     private final ArrayList<Invoice> listOfSales;
-    private transient Scanner sc = new Scanner(System.in);
+    private transient Scanner sc;
 
     /**
      * Class constructor with default settings
@@ -28,6 +28,7 @@ public class SalesReport implements Serializable {
      * Open Sales Report App options
      */
     public void options() {
+        sc = new Scanner(System.in);
         int choice = 999;
         int day, month, year;
 
