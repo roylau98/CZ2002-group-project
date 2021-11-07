@@ -70,7 +70,7 @@ public class ReservationApp implements Serializable {
                         scanner.nextLine();
                     }
                 } while (error);
-                if (choice > 7 || choice < 1) {
+                if (choice > 6 || choice < 1) {
                     System.out.println("Invalid value for options. (Valid values 1 - 7)\n");
                 } else {
                     cont = false;
