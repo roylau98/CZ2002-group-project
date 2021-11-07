@@ -287,7 +287,7 @@ public class SalesReport implements Serializable {
         }
 
         if (year<=0) {
-            System.out.println("Error: year cannot be a negative value. Try again!");
+            System.out.println("Error: year cannot be less than 1. Try again!");
             return askUserForYear();
         }
         return year;
