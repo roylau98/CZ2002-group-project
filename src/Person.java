@@ -108,9 +108,10 @@ public class Person implements Serializable {
      */
     @Override
     public String toString() {
-        return "Person{" +
-                "name='" + name + '\'' +
-                ", gender=" + gender +
-                '}';
+        return name + " " + gender + " ";
+//        return "Person{" +
+//                "name='" + name + '\'' +
+//                ", gender=" + gender +
+//                '}';
     }
 }

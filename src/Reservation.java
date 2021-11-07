@@ -194,13 +194,14 @@ public class Reservation implements Serializable {
      */
     @Override
     public String toString() {
-        return "Reservation{" +
-                "date=" + date +
-                ", time=" + time +
-                ", hour=" + hour +
-                ", noOfPax=" + noOfPax +
-                ", customer=" + customer +
-                ", tableNo=" + tableNo +
-                '}';
+        return date + " " + time + "\t" + noOfPax + " persons\t" + customer + "\tTable Number " + tableNo + " ";
+//        return "Reservation{" +
+//                "date=" + date +
+//                ", time=" + time +
+//                ", hour=" + hour +
+//                ", noOfPax=" + noOfPax +
+//                ", customer=" + customer +
+//                ", tableNo=" + tableNo +
+//                '}';
     }
 }

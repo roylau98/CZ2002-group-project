@@ -161,7 +161,6 @@ public class ReservationMgr implements Serializable {
         System.out.println("---List of all reservations---");
         for (Reservation r : allReservations)
             System.out.println("Reservation " + allReservations.indexOf(r) + ": " + r.toString());
-        System.out.println("----------");
     }
 
     /**
@@ -236,7 +235,6 @@ public class ReservationMgr implements Serializable {
             if (!t.checkAvailabilityAt(LocalDate.now(), LocalTime.now()))
                 System.out.println("Table " + allTables.indexOf(t) + ": " + t);
         }
-        System.out.println("----------");
     }
 
     /**
