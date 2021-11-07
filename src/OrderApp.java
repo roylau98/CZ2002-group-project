@@ -142,15 +142,8 @@ public class OrderApp implements Serializable {
         if (tableNo == -1) {
             return;
         }
-        for (Order order : orderMgr.getListOfOrder()) 
-        {
-            if (order.getAssignedTable() == tableNo) 
-            {
-            	System.out.println("The order for this table has been created.\n"
-            			+ "If you intend to update contents of order, please proceed to Option 4");
-                return;
-            }
-        }
+        if(orderMgr.checkforTableOrder(tableNo)==true)
+        	return;
         Customer c = reservationMgr.getCustomerAt(tableNo);
         if (c == null) {
             System.out.println("Invalid input received.");
