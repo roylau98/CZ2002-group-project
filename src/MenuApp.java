@@ -313,13 +313,12 @@ public class MenuApp implements Serializable {
         sc = new Scanner(System.in);
         int inputForAlaCarteItemType;
         while (true) {
-            System.out.println("Please select the type of Ala Carte:");
-            System.out.println("1) Main Course");
-            System.out.println("2) Appetiser");
-            System.out.println("3) Drinks");
-            System.out.println("4) Desserts");
-            System.out.println("------------------------------------");
-            System.out.print("Enter Your Option: ");
+            System.out.print("Please select the type of Ala Carte item:" +
+                    "1. Main Course\n" +
+                    "2. Appetiser\n" +
+                    "3. Drinks\n" +
+                    "4. Desserts\n" +
+                    "Enter your choice: ");
             try {
                 inputForAlaCarteItemType = sc.nextInt();
                 if (inputForAlaCarteItemType <= 0) {
@@ -362,12 +361,12 @@ public class MenuApp implements Serializable {
     private int askUserForChoiceInUpdatingPromoSetContents() {
         sc = new Scanner(System.in);
         int choice = 999;
-        System.out.println("(1) Add promotional Item");
-        System.out.println("(2) Remove promotional Item");
-        System.out.println("(3) Change promotional Item quantity");
-        System.out.println("(4) Quit");
-        System.out.println("------------------------------------");
-        System.out.print("Enter Your Option: ");
+        System.out.print("Please select one of the options below:\n" +
+                "1. Add an item to the promotional set\n" +
+                "2. Remove an item from the promotional set\n" +
+                "3. Amend the quantity of an item in the promotional set\n" +
+                "4. Quit\n" +
+                "Enter your choice: ");
         try {
             choice = sc.nextInt();
         } catch (InputMismatchException e) {
