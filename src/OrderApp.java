@@ -48,7 +48,7 @@ public class OrderApp implements Serializable {
      * Open Sales Report options
      */
     public void salesReportOptions() {
-        salesReportApp.options();
+        salesReportApp.salesReportOptions();
     }
 
     /**

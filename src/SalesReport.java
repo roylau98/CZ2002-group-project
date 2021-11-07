@@ -27,7 +27,7 @@ public class SalesReport implements Serializable {
     /**
      * Open Sales Report App options
      */
-    public void options() {
+    public void salesReportOptions() {
         sc = new Scanner(System.in);
         int choice = 999;
         int day, month, year;
