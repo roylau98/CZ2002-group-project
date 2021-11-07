@@ -1,4 +1,3 @@
-
 /**
  * Stores information about a Staff inherit from{@link Person} class
  * <p>

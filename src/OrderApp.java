@@ -34,7 +34,6 @@ public class OrderApp implements Serializable {
 
     /**
      * Class Constructor
-     *
      */
     public OrderApp() {
         orderMgr = new OrderMgr();
@@ -56,13 +55,13 @@ public class OrderApp implements Serializable {
      */
     public void orderAppOptions(ReservationMgr reservationMgr) {
         sc = new Scanner(System.in);
-        if (staffApp.getNoOfStaff()==0) {
+        if (staffApp.getNoOfStaff() == 0) {
             System.out.print("\nOrder App\n");
             System.out.println("No staff. Orders cannot be made");
             System.out.println("Returning back to main menu...");
             return;
         }
-        if (menuMgrApp.getNumberOfMenuItems()==0) {
+        if (menuMgrApp.getNumberOfMenuItems() == 0) {
             System.out.print("Order App\n");
             System.out.println("No menu items. Orders cannot be made");
             System.out.println("Returning back to main menu...");

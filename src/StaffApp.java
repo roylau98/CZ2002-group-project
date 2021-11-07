@@ -65,7 +65,7 @@ public class StaffApp implements Serializable {
         String jobTitle = askUserForStaffStringInput("What is the staff's job title: ");
         int id = askUserToSetEmployeeID();
         int sex = askUserToSetEmployeeSex();
-        staffMgr.addStaff(name,staffMgr.chooseSex(sex),id,jobTitle);
+        staffMgr.addStaff(name, staffMgr.chooseSex(sex), id, jobTitle);
     }
 
     public void removeStaff() {
@@ -76,25 +76,26 @@ public class StaffApp implements Serializable {
     public void updateStaff() {
         int id = askUserForEmployeeID();
         if (yesOrNo("Update Staff's name: ")) {
-            staffMgr.updateStaffName(id,askUserForStaffStringInput("Enter updated name: "));
+            staffMgr.updateStaffName(id, askUserForStaffStringInput("Enter updated name: "));
         }
         if (yesOrNo("Update Staff's job title: ")) {
-            staffMgr.updateStaffJobTitle(id,askUserForStaffStringInput("Enter updated job title: "));
+            staffMgr.updateStaffJobTitle(id, askUserForStaffStringInput("Enter updated job title: "));
         }
         if (yesOrNo("Update Staff's ID: ")) {
-            staffMgr.updateStaffID(id,askUserToSetEmployeeID());
+            staffMgr.updateStaffID(id, askUserToSetEmployeeID());
         }
         if (yesOrNo("Update Staff's Sex: ")) {
-            staffMgr.updateStaffSex(id,staffMgr.chooseSex(askUserToSetEmployeeSex()));
+            staffMgr.updateStaffSex(id, staffMgr.chooseSex(askUserToSetEmployeeSex()));
         }
     }
+
     /**
      * Return a selected staff
      *
      * @return the selected staff
      */
     public Staff selectStaff() {
-        if (staffMgr.getTotalNoOfStaff()==0) {
+        if (staffMgr.getTotalNoOfStaff() == 0) {
             System.out.println("There is no staff currently");
             return null;
         }
@@ -114,13 +115,12 @@ public class StaffApp implements Serializable {
         System.out.print("What is the staff's employee ID: ");
         try {
             employeeID = sc.nextInt();
-        }
-        catch (InputMismatchException e) {
+        } catch (InputMismatchException e) {
             sc.nextLine();
             System.out.println("Invalid input type received");
             return askUserToSetEmployeeID();
         }
-        if (staffMgr.getStaffByID(employeeID)!=null) {
+        if (staffMgr.getStaffByID(employeeID) != null) {
             System.out.println("ID is already taken. Try again!");
             return askUserToSetEmployeeID();
         }
@@ -133,8 +133,7 @@ public class StaffApp implements Serializable {
         System.out.print("Enter employee ID: ");
         try {
             employeeID = sc.nextInt();
-        }
-        catch (InputMismatchException e) {
+        } catch (InputMismatchException e) {
             sc.nextLine();
             System.out.println("Invalid input type received");
             return askUserForEmployeeID();
@@ -166,8 +165,7 @@ public class StaffApp implements Serializable {
         System.out.print("What is the staff's employee sex. 0 - Male, 1 - Female: ");
         try {
             choice = sc.nextInt();
-        }
-        catch (InputMismatchException e) {
+        } catch (InputMismatchException e) {
             sc.nextLine();
             System.out.println("Invalid input type received. Try again!");
             return askUserToSetEmployeeSex();

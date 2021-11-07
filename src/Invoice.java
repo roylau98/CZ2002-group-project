@@ -126,12 +126,12 @@ public class Invoice implements Serializable {
         calculateFinalPrice();
         System.out.println("-------------------------------------------------");
         System.out.printf("Order's Total Price  :  $%.2f\n", getTotalPrice());
-        System.out.printf("Taxes                :  $%.2f\n", (getTotalPrice()*(serviceCharge+ gst)));
-        if(this.order.getCustomer().getMembershipStatus())
-        System.out.printf("Member Discount      : -$%.2f\n",(getTotalPrice()*(1+serviceCharge)*(1+gst)*(memberDiscount)));
+        System.out.printf("Taxes                :  $%.2f\n", (getTotalPrice() * (serviceCharge + gst)));
+        if (this.order.getCustomer().getMembershipStatus())
+            System.out.printf("Member Discount      : -$%.2f\n", (getTotalPrice() * (1 + serviceCharge) * (1 + gst) * (memberDiscount)));
         System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
         System.out.printf("Order's Final Price  :  "
-        		+ "$%.2f\n", getFinalPrice());
+                + "$%.2f\n", getFinalPrice());
         System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
         System.out.println();
         System.out.println("          THANK YOU FOR DINING WITH US           ");
@@ -172,17 +172,16 @@ public class Invoice implements Serializable {
 
     /**
      * Calculate and return the final price that take accounts of GST,service charge
-     *
      */
     public void calculateFinalPrice() {
         totalPrice = 0;
         for (int i = 0; i < order.getListOfItemsOrdered().size(); i++) {
             totalPrice = totalPrice + order.getListOfItemsOrdered().get(i).getPrice();
         }
-        if(this.order.getCustomer().getMembershipStatus())
-        	finalPrice = totalPrice * (1 + serviceCharge) * (1 + gst) * (1 - memberDiscount);
+        if (this.order.getCustomer().getMembershipStatus())
+            finalPrice = totalPrice * (1 + serviceCharge) * (1 + gst) * (1 - memberDiscount);
         else
-        	finalPrice = totalPrice * (1 + serviceCharge) * (1 + gst);
+            finalPrice = totalPrice * (1 + serviceCharge) * (1 + gst);
     }
 
     /**

@@ -42,24 +42,6 @@ public abstract class MenuItem implements Serializable {
     }
 
     /**
-     * Return name of this MenuItem
-     *
-     * @return name of the MenuItem
-     */
-    public String getName() {
-        return this.name;
-    }
-
-    /**
-     * Return description of this MenuItem
-     *
-     * @return description of the MenuItem
-     */
-    public String getDescription() {
-        return this.description;
-    }
-
-    /**
      * Update price of this MenuItem
      *
      * @param price updated price of this item.
@@ -69,12 +51,30 @@ public abstract class MenuItem implements Serializable {
     }
 
     /**
+     * Return name of this MenuItem
+     *
+     * @return name of the MenuItem
+     */
+    public String getName() {
+        return this.name;
+    }
+
+    /**
      * Update name of this MenuItem
      *
      * @param name updated name of this item.
      */
     public void setName(String name) {
         this.name = name;
+    }
+
+    /**
+     * Return description of this MenuItem
+     *
+     * @return description of the MenuItem
+     */
+    public String getDescription() {
+        return this.description;
     }
 
     /**

@@ -95,13 +95,12 @@ public class MenuMgr implements Serializable {
                     System.out.println();
                 }
             }
-        }
-        else if (c == AlaCarteItem.class) {
+        } else if (c == AlaCarteItem.class) {
             Arrays.asList(AlaCarteItemType.values()).forEach(
                     alaCarteItemType -> printMenuItemsByCat(alaCarteItemType)
             );
+        } else {
         }
-        else {}
 
     }
 
@@ -145,7 +144,7 @@ public class MenuMgr implements Serializable {
      * @return the index of this new PromotionalSet
      */
     public int createNewPromoSetItem(String name, String description, double price) {
-        MenuItem newItem = new PromotionalSet(name,description,price);
+        MenuItem newItem = new PromotionalSet(name, description, price);
         listOfMenuItems.add(newItem);
         sortListOfMenuItems();
         return listOfMenuItems.indexOf(newItem);
@@ -163,14 +162,15 @@ public class MenuMgr implements Serializable {
     /**
      * Update the details of existing items in Menu
      *
-     * @param index       index of the menu item to be updated
-     * @param name        updated name
+     * @param index index of the menu item to be updated
+     * @param name  updated name
      */
     public void updateMenuItemName(int index, String name) {
         MenuItem itemToBeUpdated = getMenuItem(index);
         itemToBeUpdated.setName(name);
         sortListOfMenuItems();
     }
+
     /**
      * Update the details of existing items in Menu
      *
@@ -182,11 +182,12 @@ public class MenuMgr implements Serializable {
         itemToBeUpdated.setDescription(description);
         sortListOfMenuItems();
     }
+
     /**
      * Update the details of existing items in Menu
      *
-     * @param index       index of the menu item to be updated
-     * @param price       updated price
+     * @param index index of the menu item to be updated
+     * @param price updated price
      */
     public void updateMenuItemPrice(int index, double price) {
         MenuItem itemToBeUpdated = getMenuItem(index);
@@ -197,8 +198,8 @@ public class MenuMgr implements Serializable {
     /**
      * Update the enumeration type of existing items in Menu
      *
-     * @param index index of the menu item to be updated
-     * @param newType  updated enumeration type
+     * @param index   index of the menu item to be updated
+     * @param newType updated enumeration type
      */
     public void updateAlaCarteItemSpecificDetails(int index, AlaCarteItemType newType) {
         MenuItem item = getMenuItem(index);

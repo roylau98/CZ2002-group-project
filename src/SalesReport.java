@@ -199,7 +199,7 @@ public class SalesReport implements Serializable {
         }
         System.out.println("Total revenue in " + day + "/" + month + "/" + year + " = " + calculateRevenue(selectedListOfSales));
     }
-    
+
 
     /**
      * Add invoice into the list

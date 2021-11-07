@@ -162,15 +162,15 @@ public class MenuApp implements Serializable {
         }
         if (yesOrNo("Update Name Of MenuItem?")) {
             name = askUserForMenuItemStringInput();
-            menuMgr.updateMenuItemName(indexOfMenuItemToBeUpdated,name);
+            menuMgr.updateMenuItemName(indexOfMenuItemToBeUpdated, name);
         }
         if (yesOrNo("Update Description Of MenuItem?")) {
             description = askUserForMenuItemStringInput();
-            menuMgr.updateMenuItemDescription(indexOfMenuItemToBeUpdated,description);
+            menuMgr.updateMenuItemDescription(indexOfMenuItemToBeUpdated, description);
         }
         if (yesOrNo("Update Price Of MenuItem?")) {
             price = askUserForMenuItemPrice();
-            menuMgr.updateMenuItemPrice(indexOfMenuItemToBeUpdated,price);
+            menuMgr.updateMenuItemPrice(indexOfMenuItemToBeUpdated, price);
         }
 
         if (menuMgr.getMenuItem(indexOfMenuItemToBeUpdated) instanceof AlaCarteItem) {

@@ -45,6 +45,7 @@ public class StaffMgr implements Serializable {
         Staff newStaff = new Staff(name, gender, employeeID, jobTitle);
         listOfStaff.add(newStaff);
     }
+
     /**
      * Remove existing staff from restaurant
      *
@@ -54,6 +55,7 @@ public class StaffMgr implements Serializable {
         Staff toBeRemoved = getStaffByID(employeeID);
         listOfStaff.remove(toBeRemoved);
     }
+
     /**
      * Update the name of employee
      */
@@ -61,6 +63,7 @@ public class StaffMgr implements Serializable {
         Staff updateThisStaff = getStaffByID(employeeID);
         updateThisStaff.setName(updatedName);
     }
+
     /**
      * Update the job title of employee
      */
@@ -68,6 +71,7 @@ public class StaffMgr implements Serializable {
         Staff updateThisStaff = getStaffByID(employeeID);
         updateThisStaff.setJobTitle(updatedJobTitle);
     }
+
     /**
      * Update the id of employee
      */
@@ -75,6 +79,7 @@ public class StaffMgr implements Serializable {
         Staff updateThisStaff = getStaffByID(employeeID);
         updateThisStaff.setEmployeeID(updatedEmployeeID);
     }
+
     /**
      * Update the sex of employee
      */
@@ -85,10 +90,10 @@ public class StaffMgr implements Serializable {
 
     public void printStaff() {
         for (Staff staff : listOfStaff) {
-            System.out.println("Name: "+staff.getName());
-            System.out.println("Staff ID: "+staff.getEmployeeID());
-            System.out.println("Job title: "+staff.getJobTitle());
-            System.out.println("Sex: "+staff.getGender()+"\n");
+            System.out.println("Name: " + staff.getName());
+            System.out.println("Staff ID: " + staff.getEmployeeID());
+            System.out.println("Job title: " + staff.getJobTitle());
+            System.out.println("Sex: " + staff.getGender() + "\n");
 
         }
     }
@@ -104,8 +109,7 @@ public class StaffMgr implements Serializable {
     public Sex chooseSex(int choice) {
         if (choice == 0) {
             return Sex.MALE;
-        }
-        else {
+        } else {
             return Sex.FEMALE;
         }
     }
