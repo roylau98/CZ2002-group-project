@@ -208,7 +208,7 @@ public class OrderApp implements Serializable {
                 addMenuItemToOrder(orderID);
                 break;
             case 2:
-                removeFromOrder(orderID);
+                removeMenuItemFromOrder(orderID);
                 break;
             case 3:
                 return;
@@ -239,7 +239,7 @@ public class OrderApp implements Serializable {
      *
      * @param orderID the id of order for menu item to be removed
      */
-    private void removeFromOrder(int orderID) {
+    private void removeMenuItemFromOrder(int orderID) {
         sc = new Scanner(System.in);
         orderMgr.printItemsInOrder(orderID);
         if (orderMgr.getOrder(orderID).getNumberOfItemsOrdered() == 0) {
