@@ -117,7 +117,7 @@ public class SalesReport implements Serializable {
     /**
      * Calculate the revenue of all sales
      */
-    public double calculateRevenue(ArrayList<Invoice> selectedListOfSales) {
+    private double calculateRevenue(ArrayList<Invoice> selectedListOfSales) {
         double sum = 0;
         for (Invoice invoice : selectedListOfSales) {
             sum += invoice.getFinalPrice();
@@ -128,7 +128,7 @@ public class SalesReport implements Serializable {
     /**
      * Print the revenue of all sales
      */
-    public void printAllSales() {
+    private void printAllSales() {
         sortListOfSalesByAscendingLocalDateTime(listOfSales);
         for (Invoice invoice : listOfSales) {
             invoice.printInvoice();
@@ -139,7 +139,7 @@ public class SalesReport implements Serializable {
     /**
      * Print the revenue of all sales by days
      */
-    public void printSalesByDay() {
+    private void printSalesByDay() {
         sortListOfSalesByAscendingLocalDateTime(listOfSales);
         for (Invoice invoice : listOfSales) {
             invoice.printInvoice();
@@ -150,7 +150,7 @@ public class SalesReport implements Serializable {
     /**
      * Print the revenue of all sales by months
      */
-    public void printSalesByMonth() {
+    private void printSalesByMonth() {
         sortListOfSalesByAscendingLocalDateTime(listOfSales);
         int minYear = listOfSales.get(0).getTimestamp().getYear();
         int maxYear = listOfSales.get(listOfSales.size() - 1).getTimestamp().getYear();
@@ -170,7 +170,7 @@ public class SalesReport implements Serializable {
      * @param month selected month to print revenue report
      * @param year  selected year to print revenue report
      */
-    public void printSalesInSelectedMonth(int month, int year) {
+    private void printSalesInSelectedMonth(int month, int year) {
         ArrayList<Invoice> selectedListOfSales = getListOfSalesInSelectedTimeFrame(month, year);
         if (selectedListOfSales == null) {
             System.out.println("No sales were made in " + month + "/" + year);
@@ -189,7 +189,7 @@ public class SalesReport implements Serializable {
      * @param month selected month to print revenue report
      * @param year  selected year to print revenue report
      */
-    public void printSalesInSelectedDay(int day, int month, int year) {
+    private void printSalesInSelectedDay(int day, int month, int year) {
         ArrayList<Invoice> selectedListOfSales = getListOfSalesInSelectedTimeFrame(day, month, year);
         if (selectedListOfSales == null) {
             System.out.println("No sales were made in this period");
@@ -221,7 +221,7 @@ public class SalesReport implements Serializable {
      * @param year  selected year to return invoice
      * @return selectedList    list of invoice in certain timeframe
      */
-    public ArrayList<Invoice> getListOfSalesInSelectedTimeFrame(int month, int year) {
+    private ArrayList<Invoice> getListOfSalesInSelectedTimeFrame(int month, int year) {
         ArrayList<Invoice> selectedList = new ArrayList<>();
         for (Invoice invoice : listOfSales) {
             if (invoice.getTimestamp().getMonthValue() == month && invoice.getTimestamp().getYear() == year) {
@@ -242,7 +242,7 @@ public class SalesReport implements Serializable {
      * @param year  selected year to return invoice
      * @return selectedList    list of invoice in certain timeframe
      */
-    public ArrayList<Invoice> getListOfSalesInSelectedTimeFrame(int day, int month, int year) {
+    private ArrayList<Invoice> getListOfSalesInSelectedTimeFrame(int day, int month, int year) {
         ArrayList<Invoice> selectedList = new ArrayList<>();
         for (Invoice invoice : listOfSales) {
             if (invoice.getTimestamp().getMonthValue() == month && invoice.getTimestamp().getYear() == year && invoice.getTimestamp().getDayOfMonth() == day) {
@@ -261,7 +261,7 @@ public class SalesReport implements Serializable {
      *
      * @param selectedListOfSales list of invoice to be sorted
      */
-    public void sortListOfSalesByAscendingLocalDateTime(ArrayList<Invoice> selectedListOfSales) {
+    private void sortListOfSalesByAscendingLocalDateTime(ArrayList<Invoice> selectedListOfSales) {
         selectedListOfSales.sort(Comparator.comparing(Invoice::getTimestamp));
     }
 }
