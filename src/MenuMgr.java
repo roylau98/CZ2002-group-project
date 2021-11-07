@@ -56,8 +56,8 @@ public class MenuMgr implements Serializable {
     public void printListOfMenuItems() {
         System.out.println("====== MENU ======");
         System.out.println();
-        printMenuItemsByCat(new AlaCarteItem());
-        printMenuItemsByCat(new PromotionalSet());
+        printMenuItemsByCat(AlaCarteItem.class);
+        printMenuItemsByCat(PromotionalSet.class);
 
     }
 
@@ -83,28 +83,26 @@ public class MenuMgr implements Serializable {
     /**
      * Prints PromotionalSet in the Menu (Overload)
      *
-     * @param item an empty variable used to initiate the function
+     * @param c ??
      */
-    public void printMenuItemsByCat(PromotionalSet item) {
-        System.out.println("---PromotionalSets---");
-        for (int i = 0; i < listOfMenuItems.size(); i++) {
-            if (listOfMenuItems.get(i) instanceof PromotionalSet) {
-                System.out.println("Index No.   : " + i);
-                listOfMenuItems.get(i).print();
-                System.out.println();
+    public void printMenuItemsByCat(Class c) {
+        if (c == PromotionalSet.class) {
+            System.out.println("---PromotionalSets---");
+            for (int i = 0; i < listOfMenuItems.size(); i++) {
+                if (listOfMenuItems.get(i) instanceof PromotionalSet) {
+                    System.out.println("Index No.   : " + i);
+                    listOfMenuItems.get(i).print();
+                    System.out.println();
+                }
             }
         }
-    }
+        else if (c == AlaCarteItem.class) {
+            Arrays.asList(AlaCarteItemType.values()).forEach(
+                    alaCarteItemType -> printMenuItemsByCat(alaCarteItemType)
+            );
+        }
+        else {}
 
-    /**
-     * Prints AlaCarteItem in the Menu (Overload)
-     *
-     * @param item an empty variable used to initiate the function
-     */
-    public void printMenuItemsByCat(AlaCarteItem item) {
-        Arrays.asList(AlaCarteItemType.values()).forEach(
-                alaCarteItemType -> printMenuItemsByCat(alaCarteItemType)
-        );
     }
 
     /**
