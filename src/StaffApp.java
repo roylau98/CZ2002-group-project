@@ -1,5 +1,4 @@
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
@@ -10,7 +9,7 @@ import java.util.Scanner;
  * @since 2021-11-6
  */
 public class StaffApp implements Serializable {
-    private StaffMgr staffMgr;
+    private final StaffMgr staffMgr;
     private transient Scanner sc;
 
     /**

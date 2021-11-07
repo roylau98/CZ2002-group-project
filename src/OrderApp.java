@@ -218,10 +218,6 @@ public class OrderApp implements Serializable {
      * @param orderID the id of order for menu item to be added
      */
     private void addToOrder(int orderID) {
-        if (menuMgrApp.getNumberOfMenuItems() == 0) {
-            System.out.println("No items are on the menu.");
-            return;
-        }
         menuMgrApp.printListOfMenuItems();
         System.out.println("Which item would you like to order?");
         orderMgr.addItemsInOrder(orderID, menuMgrApp.getMenuItem(askUserForMenuItemNo()));

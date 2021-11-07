@@ -295,9 +295,12 @@ public class MenuApp implements Serializable {
         System.out.println("Enter your input quantity:");
         try {
             input = sc.nextInt();
-        } catch (InputMismatchException e) {
             sc.nextLine();
+        } catch (InputMismatchException e) {
             System.out.println("Invalid input type. Try again!");
+            return askUserForQuantity();
+        }
+        if (input < 0) {
             return askUserForQuantity();
         }
         return input;

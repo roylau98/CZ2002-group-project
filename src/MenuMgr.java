@@ -133,7 +133,7 @@ public class MenuMgr implements Serializable {
         MenuItem newItem = new AlaCarteItem(name, description, price, type);
         listOfMenuItems.add(newItem);
         sortListOfMenuItems();
-        return getIndexOfMenuItem(newItem);
+        return listOfMenuItems.indexOf(newItem);
     }
 
     /**
@@ -148,7 +148,7 @@ public class MenuMgr implements Serializable {
         MenuItem newItem = new PromotionalSet(name,description,price);
         listOfMenuItems.add(newItem);
         sortListOfMenuItems();
-        return getIndexOfMenuItem(newItem);
+        return listOfMenuItems.indexOf(newItem);
     }
 
     /**
@@ -251,36 +251,6 @@ public class MenuMgr implements Serializable {
             return null;
         }
         return listOfMenuItems.get(indexNo);
-    }
-
-    /**
-     * Return the index no. of existing {@link MenuItem}object
-     *
-     * @param item {@link MenuItem} object of given index.
-     * @return the index of menu item to be retrieved.
-     */
-    public int getIndexOfMenuItem(MenuItem item) {
-        for (int i = 0; i < listOfMenuItems.size(); i++) {
-            if (listOfMenuItems.get(i).equals(item)) {
-                return i;
-            }
-        }
-        return -1;
-    }
-
-    /**
-     * Return the index no. of an existing {@link MenuItem}object
-     *
-     * @param c {@link AlaCarteItem} object to find its index.
-     * @return indexNo    the index no of MenuItem to be retrieved.
-     */
-    public int searchIndexOfMenuItem(MenuItem c) {
-        for (int i = 0; i < listOfMenuItems.size(); i++) {
-            if (listOfMenuItems.get(i).equals(c)) {
-                return i;
-            }
-        }
-        return -1;
     }
 
     /**
