@@ -64,7 +64,7 @@ public abstract class MenuItem implements Serializable {
      *
      * @param price updated price of this item.
      */
-    public void updatePrice(double price) {
+    public void setPrice(double price) {
         this.price = price;
     }
 
@@ -73,7 +73,7 @@ public abstract class MenuItem implements Serializable {
      *
      * @param name updated name of this item.
      */
-    public void updateName(String name) {
+    public void setName(String name) {
         this.name = name;
     }
 
@@ -82,7 +82,7 @@ public abstract class MenuItem implements Serializable {
      *
      * @param description updated description of this item.
      */
-    public void updateDescription(String description) {
+    public void setDescription(String description) {
         this.description = description;
     }
 
@@ -95,12 +95,4 @@ public abstract class MenuItem implements Serializable {
         System.out.println("Price       : $ " + getPrice());
     }
 
-    /**
-     * A function to update the content(name,description,price) of this MenuItem
-     */
-    public void updateContents(String name, String description, double price) {
-        updateName(name);
-        updateDescription(description);
-        updatePrice(price);
-    }
 }
