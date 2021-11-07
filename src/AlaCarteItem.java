@@ -50,12 +50,4 @@ public class AlaCarteItem extends MenuItem {
         this.typeOfItem = updatedAlaCarteItemType;
     }
 
-    /**
-     * A function to update the content(name,description,price and type) of this AlaCarteItem which overrides the
-     * method from the abstract class {@link MenuItem}
-     */
-    public void updateContents(String name, String description, double price, AlaCarteItemType type) {
-        super.updateContents(name, description, price);
-        setItemType(type);
-    }
 }

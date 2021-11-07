@@ -55,7 +55,8 @@ public class RRPSS implements Serializable {
                     "2. Manage orders\n" +
                     "3. Edit the menu\n" +
                     "4. View sales report\n" +
-                    "5. Quit RRPSS and save all data\n" +
+                    "5. Manage staff\n" +
+                    "6. Quit RRPSS and save all data\n" +
                     "Enter your choice: ");
             try {
                 Scanner sc = new Scanner(System.in);
@@ -73,12 +74,15 @@ public class RRPSS implements Serializable {
                     orderApp.orderAppOptions(reservationApp.getReservationMgr());
                     break;
                 case 3:
-                    orderApp.getMenuApp().menuOptions();
+                    orderApp.menuAppOptions();
                     break;
                 case 4:
                     orderApp.salesReportOptions();
                     break;
                 case 5:
+                    orderApp.staffAppOptions();
+                    break;
+                case 6:
                     return;
                 default:
                     System.out.println("Invalid option. Try again!");

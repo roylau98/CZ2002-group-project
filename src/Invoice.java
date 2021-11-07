@@ -130,7 +130,8 @@ public class Invoice implements Serializable {
         if(this.order.getCustomer().getMembershipStatus())
         System.out.printf("Member Discount      : -$%.2f\n",(getTotalPrice()*(1+serviceCharge)*(1+gst)*(memberDiscount)));
         System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
-        System.out.printf("Order's Final Price  :  $%.2f\n", getFinalPrice());
+        System.out.printf("Order's Final Price  :  "
+        		+ "$%.2f\n", getFinalPrice());
         System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
         System.out.println();
         System.out.println("          THANK YOU FOR DINING WITH US           ");

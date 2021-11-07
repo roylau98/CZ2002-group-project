@@ -162,20 +162,16 @@ public class MenuApp implements Serializable {
         }
         if (yesOrNo("Update Name Of MenuItem?")) {
             name = askUserForMenuItemStringInput();
-        } else {
-            name = menuMgr.getMenuItem(indexOfMenuItemToBeUpdated).getName();
+            menuMgr.updateMenuItemName(indexOfMenuItemToBeUpdated,name);
         }
         if (yesOrNo("Update Description Of MenuItem?")) {
             description = askUserForMenuItemStringInput();
-        } else {
-            description = menuMgr.getMenuItem(indexOfMenuItemToBeUpdated).getName();
+            menuMgr.updateMenuItemDescription(indexOfMenuItemToBeUpdated,description);
         }
         if (yesOrNo("Update Price Of MenuItem?")) {
             price = askUserForMenuItemPrice();
-        } else {
-            price = menuMgr.getMenuItem(indexOfMenuItemToBeUpdated).getPrice();
+            menuMgr.updateMenuItemPrice(indexOfMenuItemToBeUpdated,price);
         }
-        menuMgr.updateMenuItem(indexOfMenuItemToBeUpdated, name, description, price);
 
         if (menuMgr.getMenuItem(indexOfMenuItemToBeUpdated) instanceof AlaCarteItem) {
             if (yesOrNo("Update AlaCarteItemType?")) {
@@ -193,12 +189,11 @@ public class MenuApp implements Serializable {
     private void updatePromoSetContents(int indexOfMenuItemToBeUpdated) {
         String stringInput;
         int intInput;
-        PromotionalSet temp = new PromotionalSet();
         if (menuMgr.getMenuItem(indexOfMenuItemToBeUpdated) instanceof PromotionalSet) {
             int choice;
             while (true) {
                 choice = askUserForChoiceInUpdatingPromoSetContents();
-                menuMgr.printMenuItemsByCat(temp);
+                menuMgr.getMenuItem(indexOfMenuItemToBeUpdated).print();
                 switch (choice) {
                     case 1:
                         System.out.print("Enter the name of the promotional item to be added: ");
