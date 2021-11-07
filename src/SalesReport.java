@@ -215,7 +215,6 @@ public class SalesReport implements Serializable {
             }
         }
         if (selectedList.size() == 0) {
-            System.out.println("No sales were made in this period");
             return null;
         }
         return selectedList;
