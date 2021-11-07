@@ -329,7 +329,7 @@ public class OrderApp implements Serializable {
      * Open Staff Option
      */
     public void staffAppOptions() {
-        staffApp.options();
+        staffApp.staffAppOptions();
     }
 
 }

@@ -19,7 +19,7 @@ public class StaffApp implements Serializable {
         staffMgr = new StaffMgr();
     }
 
-    public void options() {
+    public void staffAppOptions() {
         sc = new Scanner(System.in);
         int choice = 0;
         do {
