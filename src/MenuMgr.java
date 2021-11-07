@@ -66,7 +66,7 @@ public class MenuMgr implements Serializable {
      *
      * @param alaCarteItemType the type of the AlaCarte
      */
-    public void printMenuItemsByCat(AlaCarteItemType alaCarteItemType) {
+    private void printMenuItemsByCat(AlaCarteItemType alaCarteItemType) {
         System.out.println("---" + alaCarteItemType + "---");
         for (int i = 0; i < listOfMenuItems.size(); i++) {
             try {
@@ -85,7 +85,7 @@ public class MenuMgr implements Serializable {
      *
      * @param c ??
      */
-    public void printMenuItemsByCat(Class c) {
+    private void printMenuItemsByCat(Class c) {
         if (c == PromotionalSet.class) {
             System.out.println("---PromotionalSets---");
             for (int i = 0; i < listOfMenuItems.size(); i++) {
