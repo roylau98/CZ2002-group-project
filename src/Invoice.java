@@ -67,7 +67,7 @@ public class Invoice implements Serializable {
         serviceCharge = 0.02;
         totalPrice = 0;
         finalPrice = 0;
-        memberDiscount = 0;
+        memberDiscount = 0.1;
         order = null;
         listOfSoldItems = null;
         timestamp = LocalDateTime.now();
@@ -86,7 +86,7 @@ public class Invoice implements Serializable {
         this.totalPrice = 0;
         this.finalPrice = 0;
         this.order = order;
-        this.memberDiscount = this.order.getCustomer().getMembershipStatus() ? 0.1 : 0;
+        this.memberDiscount = 0.1;
         this.listOfSoldItems = order.getListOfItemsOrdered();
         this.timestamp = LocalDateTime.now();
         this.tableNo = this.order.getAssignedTable();
@@ -125,10 +125,13 @@ public class Invoice implements Serializable {
         }
         calculateFinalPrice();
         System.out.println("-------------------------------------------------");
-        System.out.printf("Order's Total Price : $%.2f\n", getTotalPrice());
-        System.out.printf("Taxes               : $%.2f\n", (getFinalPrice() - getTotalPrice()));
+        System.out.printf("Order's Total Price  :  $%.2f\n", getTotalPrice());
+        System.out.printf("Taxes                :  $%.2f\n", (getTotalPrice()*(serviceCharge+ gst)));
+        if(this.order.getCustomer().getMembershipStatus())
+        System.out.printf("Member Discount      : -$%.2f\n",(getTotalPrice()*(1+serviceCharge)*(1+gst)*(memberDiscount)));
         System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
-        System.out.printf("Order's Final Price : $%.2f\n", getFinalPrice());
+        System.out.printf("Order's Final Price  :  "
+        		+ "$%.2f\n", getFinalPrice());
         System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
         System.out.println();
         System.out.println("          THANK YOU FOR DINING WITH US           ");
@@ -176,7 +179,10 @@ public class Invoice implements Serializable {
         for (int i = 0; i < order.getListOfItemsOrdered().size(); i++) {
             totalPrice = totalPrice + order.getListOfItemsOrdered().get(i).getPrice();
         }
-        finalPrice = (totalPrice * (1 + serviceCharge)) * (1 + gst) * (1 - memberDiscount);
+        if(this.order.getCustomer().getMembershipStatus())
+        	finalPrice = totalPrice * (1 + serviceCharge) * (1 + gst) * (1 - memberDiscount);
+        else
+        	finalPrice = totalPrice * (1 + serviceCharge) * (1 + gst);
     }
 
     /**
