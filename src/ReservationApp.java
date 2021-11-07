@@ -58,9 +58,8 @@ public class ReservationApp implements Serializable {
                                 "2. Cancel an existing reservation\n" +
                                 "3. Amend an existing reservation\n" +
                                 "4. View the list of reservations\n" +
-                                "5. View the list of tables\n" +
-                                "6. Check availability at a specified date and time\n" +
-                                "7. Exit this application and return to the previous page\n" +
+                                "5. Check availability at a specified date and time\n" +
+                                "6. Exit this application and return to the previous page\n" +
                                 "Enter your choice: ");
                         choice = scanner.nextInt();
                         scanner.nextLine();
@@ -93,12 +92,9 @@ public class ReservationApp implements Serializable {
                     reservationMgr.viewAllReservations();
                     break;
                 case 5:
-                    reservationMgr.viewAllTables();
-                    break;
-                case 6:
                     reservationMgr.checkAvailabilityAt(askUserForDate(), askUserForTime(), askUserForPax());
                     break;
-                case 7:
+                case 6:
                     cont = false;
                     break;
             }

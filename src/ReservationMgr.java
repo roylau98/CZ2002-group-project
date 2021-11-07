@@ -165,16 +165,6 @@ public class ReservationMgr implements Serializable {
     }
 
     /**
-     * Prints a list of all the tables and their respective availabilities to the console.
-     */
-    public void viewAllTables() {
-        System.out.println("---List of all tables---");
-        for (Table t : allTables)
-            System.out.println("Table " + allTables.indexOf(t) + ": " + t.toString());
-        System.out.println("----------");
-    }
-
-    /**
      * Check the availability of table
      *
      * @param date    the date to be checked for availability
