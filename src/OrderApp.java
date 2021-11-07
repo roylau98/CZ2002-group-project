@@ -205,7 +205,7 @@ public class OrderApp implements Serializable {
         }
         switch (choice) {
             case 1:
-                addToOrder(orderID);
+                addMenuItemToOrder(orderID);
                 break;
             case 2:
                 removeFromOrder(orderID);
@@ -223,7 +223,7 @@ public class OrderApp implements Serializable {
      *
      * @param orderID the id of order for menu item to be added
      */
-    private void addToOrder(int orderID) {
+    private void addMenuItemToOrder(int orderID) {
         if (menuMgrApp.getNumberOfMenuItems() == 0) {
             System.out.println("No items are on the menu.");
             return;
