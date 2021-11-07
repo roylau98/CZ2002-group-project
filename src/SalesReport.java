@@ -59,49 +59,14 @@ public class SalesReport implements Serializable {
                     printSalesByMonth();
                     break;
                 case 4:
-                    while (true) {
-                        try {
-                            System.out.println("Enter day:");
-                            day = sc.nextInt();
-                            if (day <= 0)
-                                throw new Exception("Error: date must not lower than 1!");
-                            System.out.println("Enter month:");
-                            month = sc.nextInt();
-                            if (month <= 0)
-                                throw new Exception("Error: date must not lower than 1!");
-                            System.out.println("Enter year:");
-                            year = sc.nextInt();
-                            if (year <= 0)
-                                throw new Exception("Error: date must not lower than 1!");
-                            break;
-                        } catch (InputMismatchException e) {
-                            System.out.println("Please enter a number!!!");
-                            sc.nextLine();
-                        } catch (Exception e) {
-                            System.out.println(e.getMessage());
-                        }
-                    }
+                    day = askUserForDate();
+                    month = askUserForMonth();
+                    year = askUserForYear();
                     printSalesInSelectedDay(day, month, year);
                     break;
                 case 5:
-                    while (true) {
-                        try {
-                            System.out.println("Enter month:");
-                            month = sc.nextInt();
-                            if (month <= 0)
-                                throw new Exception("Error: date must not lower than 1!");
-                            System.out.println("Enter year:");
-                            year = sc.nextInt();
-                            if (year <= 0)
-                                throw new Exception("Error: date must not lower than 1!");
-                            break;
-                        } catch (InputMismatchException e) {
-                            System.out.println("Please enter a number!!!");
-                            sc.nextLine();
-                        } catch (Exception e) {
-                            System.out.println(e.getMessage());
-                        }
-                    }
+                    month = askUserForMonth();
+                    year = askUserForYear();
                     printSalesInSelectedMonth(month, year);
                     break;
                 case 6:
@@ -264,4 +229,70 @@ public class SalesReport implements Serializable {
     private void sortListOfSalesByAscendingLocalDateTime(ArrayList<Invoice> selectedListOfSales) {
         selectedListOfSales.sort(Comparator.comparing(Invoice::getTimestamp));
     }
+
+
+    private int askUserForDate() {
+        System.out.println("Enter day:");
+        sc = new Scanner(System.in);
+        int day;
+        try {
+            day = sc.nextInt();
+        }
+        catch (InputMismatchException e) {
+            System.out.println("Invalid input type. Try again!");
+            return  askUserForDate();
+        }
+
+        if (day<=0) {
+            System.out.println("Error: date can only be between values 1 and 31. Try again!");
+            return askUserForDate();
+        }
+        if (day>31) {
+            System.out.println("Error: date can only be between values 1 and 31. Try again!");
+            return askUserForDate();
+        }
+        return day;
+    }
+    private int askUserForMonth() {
+        System.out.println("Enter month:");
+        sc = new Scanner(System.in);
+        int month;
+        try {
+            month = sc.nextInt();
+        }
+        catch (InputMismatchException e) {
+            System.out.println("Invalid input type. Try again!");
+            return  askUserForMonth();
+        }
+
+        if (month<=0) {
+            System.out.println("Error: month can only be between values 1 and 12. Try again!");
+            return askUserForMonth();
+        }
+        if (month>12) {
+            System.out.println("Error: month can only be between values 1 and 12. Try again!");
+            return askUserForMonth();
+        }
+        return month;
+    }
+    private int askUserForYear() {
+        System.out.println("Enter year:");
+        sc = new Scanner(System.in);
+        int year;
+        try {
+            year = sc.nextInt();
+        }
+        catch (InputMismatchException e) {
+            System.out.println("Invalid input type. Try again!");
+            return  askUserForYear();
+        }
+
+        if (year<=0) {
+            System.out.println("Error: year cannot be a negative value. Try again!");
+            return askUserForYear();
+        }
+        return year;
+    }
+
+
 }
