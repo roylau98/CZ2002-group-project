@@ -28,7 +28,11 @@ public class OrderMgr implements Serializable {
         listOfOrders = new ArrayList<>();
         orderIDTracker = 0;
     }
-
+    /**
+     * Check for validate of the orderID
+     *
+     * @param   orderID order id to be checked
+     */
     public boolean validateOrderID(int orderID) {
         for (Order o : listOfOrders) {
             if (o.getOrderID() == orderID)
@@ -36,11 +40,21 @@ public class OrderMgr implements Serializable {
         }
         return false;
     }
-
+    /**
+     * Get total size of the list of orders
+     *
+     * @return       total size of the list of orders
+     */
     public int getTotalNoOfOrders() {
         return listOfOrders.size();
     }
-
+    /**
+     * Create a new order
+     *
+     * @param   customer customer that made the order
+     * @param   tableNo table no of this order
+     * @param   staff   staff that serves this table
+     */
     public int createOrder(Customer customer, int tableNo, Staff staff) {
         Order o = new Order(orderIDTracker++, customer, staff, tableNo);
         listOfOrders.add(o);
@@ -48,7 +62,7 @@ public class OrderMgr implements Serializable {
     }
 
     /**
-     * A Do-While loop to update existing order (adding more items of AlaCarteItem and add PromotionalSet to it) by orderID
+     * Get order by orderID
      *
      * @param orderID The ID that is used to indicate existing {@link Order} object
      */
@@ -62,14 +76,48 @@ public class OrderMgr implements Serializable {
         }
         return selectedOrder;
     }
-
+    /**
+     * Return list of orders made
+     *
+     * @return listOfOrders All orders made by customer
+     */
+    public ArrayList<Order> getListOfOrder(){
+    	return listOfOrders;
+    }
+    /**
+     * Check whether order has been made in certain table
+     *
+     * @param tableNo   table to be checked
+     */
+    public boolean checkforTableOrder(int tableNo) {
+    	for (Order order : getListOfOrder()) 
+        {
+            if (order.getAssignedTable() == tableNo) 
+            {
+            	System.out.println("The order for this table has been created.\n"
+            			+ "If you intend to update contents of order, please proceed to Option 4");
+                return true;
+            }
+        }
+    	return false;
+    }
+    /**
+     * Print items of a specific order
+     *
+     * @param   orderID   ID of the order
+     */
     public void printItemsInOrder(int orderID) {
         Order selectedOrder = getOrder(orderID);
         for (int i = 0; i < selectedOrder.getListOfItemsOrdered().size(); i++) {
             System.out.println(i + ") " + selectedOrder.getListOfItemsOrdered().get(i).getName() + selectedOrder.getListOfItemsOrdered().get(i).getPrice());
         }
     }
-
+    /**
+     * Add menu items into a specific order
+     *
+     * @param   orderID   ID of the order
+     * @param   menuItem    menu item to be added 
+     */
     public void addItemsInOrder(int orderID, MenuItem menuItem) {
         Order order = getOrder(orderID);
         if (menuItem == null) {
@@ -80,7 +128,12 @@ public class OrderMgr implements Serializable {
         }
         order.addItemToOrder(menuItem);
     }
-
+    /**
+     * Remove menu items from a specific order
+     *
+     * @param   orderID   ID of the order
+     * @param   index    index of menu item to be removed 
+     */
     public void removeItemsInOrder(int orderID, int index) {
         Order selectedOrder = getOrder(orderID);
         if (selectedOrder == null) {
@@ -95,7 +148,7 @@ public class OrderMgr implements Serializable {
     //--------------------------------------------------------------------------------------------------------------------
 
     /**
-     * A Do-While loop to update existing order (removing more items of AlaCarteItem and add PromotionalSet to it) by orderID
+     * Remove existing order by orderID
      *
      * @param orderID The ID that is used to indicate existing {@link Order} object
      */
@@ -105,6 +158,9 @@ public class OrderMgr implements Serializable {
             System.out.println("No such order");
         } else {
             System.out.println("Order removed");
+            for(int i=0;i<listOfOrders.size();i++)
+            	if(listOfOrders.get(i)==currOrder)
+            		listOfOrders.remove(i);
         }
     }
     //-----------------------------------------------------------------------------------------------------------------------
