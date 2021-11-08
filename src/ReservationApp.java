@@ -15,7 +15,7 @@ public class ReservationApp implements Serializable {
     /**
      * Object Manager of Reservation
      */
-    private final ReservationMgr reservationMgr = new ReservationMgr();
+    private final ReservationMgr reservationMgr;
     /**
      * Capacity of table in restaurant
      */
@@ -37,6 +37,13 @@ public class ReservationApp implements Serializable {
      * Hours for reservation booking
      */
     private int hour = 0;
+
+    /**
+     * Class Constructor
+     */
+    public ReservationApp() {
+        reservationMgr = new ReservationMgr();
+    }
 
     /**
      * Interface of the ReservationApp with several options available
