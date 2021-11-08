@@ -84,7 +84,7 @@ public class ReservationMgr implements Serializable {
         Reservation r = allReservations.get(reservationNo);
         LocalDate date = r.getDate();
         LocalTime time = r.getTime();
-        int tableNo = r.getNoOfPax();
+        int tableNo = r.getTableNo();
         allTables.get(tableNo).markAsAvailableAt(date, time);
         allReservations.remove(reservationNo);
         System.out.println("Reservation has been cancelled");
