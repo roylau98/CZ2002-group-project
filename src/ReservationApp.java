@@ -309,14 +309,12 @@ public class ReservationApp implements Serializable {
                 if (date < currentDate || date > maxDay) {
                     System.out.println("Invalid value. (Valid values: From " + currentDate + " onwards to " + maxDay + ")");
                     cont = true;
+                } else if (currentHour == 23 && date <= currentDate){
+                    System.out.println("Invalid value. (Valid values: From " + (currentDate + 1) + " onwards to " + maxDay + ")");
                 } else {
-                    if (currentHour == 23) {
-                        System.out.println("Invalid value. (Valid values: From " + (currentDate + 1) + " onwards to " + maxDay + ")");
-                    } else {
-                        cont = false;
-                    }
+                    cont = false;
                 }
-            } else {
+            }  else {
                 if (date < 1 || date > maxDay) {
                     System.out.println("Invalid value. (Valid values: From 1 - " + maxDay + ")");
                     cont = true;
