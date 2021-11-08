@@ -195,7 +195,7 @@ public class ReservationMgr implements Serializable {
             Reservation r = it.next();
             LocalDate date = r.getDate();
             LocalTime time = r.getTime();
-            int tableNo = r.getNoOfPax();
+            int tableNo = r.getTableNo();
             boolean customerArrived = r.getCustomerArrived();
 
             LocalDateTime now = LocalDateTime.now();
