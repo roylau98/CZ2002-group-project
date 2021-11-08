@@ -1,8 +1,7 @@
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.util.Arrays;
-import java.util.HashMap;
+import java.util.*;
 
 /**
  * Represents a table object in the restaurant.
@@ -105,16 +104,17 @@ public class Table implements Serializable {
      * It will only remove when the date is passed or when there is no reservations on a particular date for this table.
      */
     private void mapCleanup() {
-        for (LocalDate date : availabilityRecord.keySet()) {
+        for (Iterator<Map.Entry<LocalDate, Boolean[]>> it = availabilityRecord.entrySet().iterator(); it.hasNext();) {
+            LocalDate date = it.next().getKey();
             if (date.isBefore(LocalDate.now()))
-                availabilityRecord.remove(date);
+                it.remove();
             boolean noRecords = true;
             for (int i = 0; i < 24; i++) {
                 if (!availabilityRecord.get(date)[i])
                     noRecords = false;
             }
             if (noRecords)
-                availabilityRecord.remove(date);
+                it.remove();
         }
     }
 
