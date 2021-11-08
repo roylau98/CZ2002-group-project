@@ -107,14 +107,36 @@ public class MenuMgr implements Serializable {
     /**
      * Return true/false of the existence of certain MenuItem
      *
-     * @param menuItem menu item to be checked whether it is inside the menu
+     * @param name          name of menu item to be checked whether it is inside the menu
      * @return the existence(boolean) of certain MenuItem
      */
-    public Boolean isMenuItemExist(MenuItem menuItem) {
+    public Boolean isMenuItemNameExist(String name) {
         for (MenuItem curr : listOfMenuItems) {
-            if (curr.getName().equals(menuItem.getName()) && curr.getDescription().equals(menuItem.getDescription())) {
+            if (curr.getName().equals(name)) {
                 return true;
             }
+        }
+        return false;
+    }
+    /**
+     * Return true/false of the existence of certain MenuItem
+     *
+     * @param description   description of menu item to be checked whether it is inside the menu
+     * @return the existence(boolean) of certain MenuItem
+     */
+    public Boolean isMenuItemDescriptionExist(String description) {
+        for (MenuItem curr : listOfMenuItems) {
+            if (curr.getDescription().equals(description)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public Boolean isPromoSetContentItemExist(int index, String key) {
+        MenuItem curr = getMenuItem(index);
+        if (curr instanceof PromotionalSet) {
+            return ((PromotionalSet) curr).checkIfItemExists(key);
         }
         return false;
     }

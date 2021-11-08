@@ -35,6 +35,10 @@ public class PromotionalSet extends MenuItem {
         this.items = new HashMap<>();
     }
 
+    public Boolean checkIfItemExists(String key) {
+        return items.containsKey(key);
+    }
+
     /**
      * Add an existing item in Menu into PromotionalSet
      *

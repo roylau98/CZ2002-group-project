@@ -100,9 +100,9 @@ public class MenuApp implements Serializable {
             switch (choice) {
                 case 1:
                     System.out.print("Enter the name of the new AlaCarteItem: ");
-                    name = askUserForMenuItemStringInput();
+                    name = askUserForMenuItemName();
                     System.out.print("Enter the description of the new AlaCarteItem: ");
-                    description = askUserForMenuItemStringInput();
+                    description = askUserForMenuItemDescription();
                     System.out.print("Enter the Price of the new AlaCarteItem: ");
                     price = askUserForMenuItemPrice();
                     int inputForAlaCarteItemType = askUserForAlaCarteItemType();
@@ -111,9 +111,9 @@ public class MenuApp implements Serializable {
                     return;
                 case 2:
                     System.out.print("Enter the name of the new PromotionalSet: ");
-                    name = askUserForMenuItemStringInput();
+                    name = askUserForMenuItemName();
                     System.out.print("Enter the description of the new PromotionalSet: ");
-                    description = askUserForMenuItemStringInput();
+                    description = askUserForMenuItemDescription();
                     System.out.print("Enter the Price of the new PromotionalSet: ");
                     price = askUserForMenuItemPrice();
                     index = menuMgr.createNewPromoSetItem(name, description, price);
@@ -161,11 +161,11 @@ public class MenuApp implements Serializable {
             return;
         }
         if (yesOrNo("Update Name Of MenuItem?")) {
-            name = askUserForMenuItemStringInput();
+            name = askUserForMenuItemName();
             menuMgr.updateMenuItemName(indexOfMenuItemToBeUpdated, name);
         }
         if (yesOrNo("Update Description Of MenuItem?")) {
-            description = askUserForMenuItemStringInput();
+            description = askUserForMenuItemDescription();
             menuMgr.updateMenuItemDescription(indexOfMenuItemToBeUpdated, description);
         }
         if (yesOrNo("Update Price Of MenuItem?")) {
@@ -197,19 +197,23 @@ public class MenuApp implements Serializable {
                 switch (choice) {
                     case 1:
                         System.out.print("Enter the name of the promotional item to be added: ");
-                        stringInput = askUserForMenuItemStringInput();
+                        stringInput = askUserForPromoSetContentItemName();
+                        while (menuMgr.isPromoSetContentItemExist(indexOfMenuItemToBeUpdated,stringInput)) {
+                            System.out.println("Item already exists. Try again!");
+                            stringInput = askUserForPromoSetContentItemName();
+                        }
                         System.out.print("Enter the quantity of the promotional item to be added: ");
                         intInput = askUserForQuantity();
                         menuMgr.addItemToPromoSetContent(indexOfMenuItemToBeUpdated, stringInput, intInput);
                         break;
                     case 2:
                         System.out.print("Enter the name of the promotional item to be removed: ");
-                        stringInput = askUserForMenuItemStringInput();
+                        stringInput = askUserForPromoSetContentItemName();
                         menuMgr.removeItemToPromoSetContent(indexOfMenuItemToBeUpdated, stringInput);
                         break;
                     case 3:
                         System.out.print("Enter the name of the promotional item to be updated: ");
-                        stringInput = askUserForMenuItemStringInput();
+                        stringInput = askUserForPromoSetContentItemName();
                         System.out.print("Enter the quantity of the promotional item to be updated: ");
                         intInput = askUserForQuantity();
                         menuMgr.updateItemToPromoSetContent(indexOfMenuItemToBeUpdated, stringInput, intInput);
@@ -246,9 +250,9 @@ public class MenuApp implements Serializable {
     }
 
     /**
-     * Scanner to ask for user input(MenuItemStringInput) with error checking
+     * Scanner to ask for user input for Menu item name with error checking
      */
-    private String askUserForMenuItemStringInput() {
+    private String askUserForMenuItemName() {
         sc = new Scanner(System.in);
         String inputForName;
         System.out.println("Enter your string input:");
@@ -257,9 +261,47 @@ public class MenuApp implements Serializable {
         } catch (InputMismatchException e) {
             sc.nextLine();
             System.out.println("Invalid input type. Try again!");
-            return askUserForMenuItemStringInput();
+            return askUserForMenuItemName();
+        }
+        if (menuMgr.isMenuItemNameExist(inputForName)) {
+            System.out.println("Name already exists. Try again!");
+            return askUserForMenuItemName();
         }
         return inputForName;
+    }
+    /**
+     * Scanner to ask for user input for Menu item's description with error checking
+     */
+    private String askUserForMenuItemDescription() {
+        sc = new Scanner(System.in);
+        String inputForDescription;
+        try {
+            inputForDescription = sc.nextLine();
+        } catch (InputMismatchException e) {
+            sc.nextLine();
+            System.out.println("Invalid input type. Try again!");
+            return askUserForMenuItemDescription();
+        }
+        if (menuMgr.isMenuItemDescriptionExist(inputForDescription)) {
+            System.out.println("Description already exists. Try again!");
+            return askUserForMenuItemDescription();
+        }
+        return inputForDescription;
+    }
+    /**
+     *
+     */
+    private String askUserForPromoSetContentItemName() {
+        sc = new Scanner(System.in);
+        String input;
+        try {
+            input = sc.nextLine();
+        } catch (InputMismatchException e) {
+            sc.nextLine();
+            System.out.println("Invalid input type. Try again!");
+            return askUserForPromoSetContentItemName();
+        }
+        return input;
     }
 
     /**
