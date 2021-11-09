@@ -124,6 +124,10 @@ public class StaffApp implements Serializable {
             System.out.println("ID is already taken. Try again!");
             return askUserToSetEmployeeID();
         }
+        if (employeeID<0) {
+            System.out.println("ID cannot be negative. Try again!");
+            return askUserToSetEmployeeID();
+        }
         return employeeID;
     }
 
