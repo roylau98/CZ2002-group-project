@@ -1,8 +1,6 @@
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.InputMismatchException;
-import java.util.Scanner;
+import java.time.LocalDate;
+import java.util.*;
 
 /**
  * Manage and print restaurant sales report daily or monthly.
@@ -38,9 +36,8 @@ public class SalesReport implements Serializable {
                     "1. Print all sales\n" +
                     "2. Print all sales by day\n" +
                     "3. Print all sales by month\n" +
-                    "4. Print sales of selected Day\n" +
-                    "5. Print sales of selected Month\n" +
-                    "6. Exit this application and return to the previous page\n" +
+                    "4. Print sales in selected period\n" +
+                    "5. Exit this application and return to the previous page\n" +
                     "Enter your choice: ");
             try {
                 sc = new Scanner(System.in);
@@ -59,35 +56,57 @@ public class SalesReport implements Serializable {
                     printSalesByMonth();
                     break;
                 case 4:
-                    day = askUserForDate();
-                    month = askUserForMonth();
-                    year = askUserForYear();
-                    printSalesInSelectedDay(day, month, year);
+                    System.out.println("Enter the date for the start of the period:");
+                    int startDay = askUserForDate();
+                    int startMonth = askUserForMonth();
+                    int startYear = askUserForYear();
+                    LocalDate start = LocalDate.of(startYear, startMonth, startDay);
+                    System.out.println("Enter the date for the end of the period:");
+                    int endDay = askUserForDate();
+                    int endMonth = askUserForMonth();
+                    int endYear = askUserForYear();
+                    LocalDate end = LocalDate.of(endYear, endMonth, endDay);
+                    if (end.isBefore(start)) {
+                        System.out.println("End date is before start date. Invalid input");
+                    } else {
+                        printSalesByPeriod(start, end);
+                    }
                     break;
                 case 5:
-                    month = askUserForMonth();
-                    year = askUserForYear();
-                    printSalesInSelectedMonth(month, year);
-                    break;
-                case 6:
                     return;
                 default:
                     System.out.println("Invalid choice try again");
+                    break;
             }
         }
 
 
     }
 
-    /**
-     * Calculate the revenue of all sales
-     */
-    private double calculateRevenue(ArrayList<Invoice> selectedListOfSales) {
-        double sum = 0;
-        for (Invoice invoice : selectedListOfSales) {
-            sum += invoice.getFinalPrice();
+    public void printSalesByPeriod(LocalDate start, LocalDate end) {
+        HashMap<MenuItem, Integer> salesCount = new HashMap<>();
+        HashMap<MenuItem, Double> revenue = new HashMap<>();
+        for (Invoice invoice : listOfSales) {
+            LocalDate invoiceDate = invoice.getTimestamp().toLocalDate();
+            if (invoiceDate.isBefore(start) || invoiceDate.isAfter(end))
+                continue;
+            for (MenuItem menuItem : invoice.getListOfSoldItems()) {
+                if (salesCount.containsKey(menuItem)) {
+                    salesCount.replace(menuItem, salesCount.get(menuItem) + 1);
+                } else {
+                    salesCount.putIfAbsent(menuItem, 1);
+                }
+            }
         }
-        return sum;
+        for (MenuItem menuItem : salesCount.keySet()) {
+            revenue.put(menuItem, salesCount.get(menuItem) * menuItem.getPrice());
+        }
+        System.out.println("The total sales from " + start + " to " + end + "is: ");
+        revenue.forEach((menuItem, aDouble) -> System.out.println(menuItem + aDouble.toString()));
+        double totalRevenue = 0;
+        for (double d : revenue.values())
+            totalRevenue += d;
+        System.out.println("Total revenue = " + totalRevenue);
     }
 
     /**
@@ -180,47 +199,6 @@ public class SalesReport implements Serializable {
     }
 
     /**
-     * Return the invoice in a selected month
-     *
-     * @param month selected month to return invoice
-     * @param year  selected year to return invoice
-     * @return selectedList    list of invoice in certain timeframe
-     */
-    private ArrayList<Invoice> getListOfSalesInSelectedTimeFrame(int month, int year) {
-        ArrayList<Invoice> selectedList = new ArrayList<>();
-        for (Invoice invoice : listOfSales) {
-            if (invoice.getTimestamp().getMonthValue() == month && invoice.getTimestamp().getYear() == year) {
-                selectedList.add(invoice);
-            }
-        }
-        if (selectedList.size() == 0) {
-            return null;
-        }
-        return selectedList;
-    }
-
-    /**
-     * Return the invoice in a selected day
-     *
-     * @param day   selected day to return invoice
-     * @param month selected month to return invoice
-     * @param year  selected year to return invoice
-     * @return selectedList    list of invoice in certain timeframe
-     */
-    private ArrayList<Invoice> getListOfSalesInSelectedTimeFrame(int day, int month, int year) {
-        ArrayList<Invoice> selectedList = new ArrayList<>();
-        for (Invoice invoice : listOfSales) {
-            if (invoice.getTimestamp().getMonthValue() == month && invoice.getTimestamp().getYear() == year && invoice.getTimestamp().getDayOfMonth() == day) {
-                selectedList.add(invoice);
-            }
-        }
-        if (selectedList.size() == 0) {
-            return null;
-        }
-        return selectedList;
-    }
-
-    /**
      * Sort the list of the invoice according to the date and time
      *
      * @param selectedListOfSales list of invoice to be sorted
@@ -228,7 +206,6 @@ public class SalesReport implements Serializable {
     private void sortListOfSalesByAscendingLocalDateTime(ArrayList<Invoice> selectedListOfSales) {
         selectedListOfSales.sort(Comparator.comparing(Invoice::getTimestamp));
     }
-
 
     private int askUserForDate() {
         System.out.println("Enter day:");
@@ -252,6 +229,7 @@ public class SalesReport implements Serializable {
         }
         return day;
     }
+
     private int askUserForMonth() {
         System.out.println("Enter month:");
         sc = new Scanner(System.in);
@@ -274,6 +252,7 @@ public class SalesReport implements Serializable {
         }
         return month;
     }
+
     private int askUserForYear() {
         System.out.println("Enter year:");
         sc = new Scanner(System.in);
@@ -292,6 +271,4 @@ public class SalesReport implements Serializable {
         }
         return year;
     }
-
-
 }
