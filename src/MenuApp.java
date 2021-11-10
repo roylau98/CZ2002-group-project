@@ -275,6 +275,7 @@ public class MenuApp implements Serializable {
     private String askUserForMenuItemDescription() {
         sc = new Scanner(System.in);
         String inputForDescription;
+        System.out.println("Enter your string input:");
         try {
             inputForDescription = sc.nextLine();
         } catch (InputMismatchException e) {
