@@ -179,10 +179,11 @@ public class OrderMgr implements Serializable {
         System.out.println("No.\tItem\tPrice");
         for (int j = 0; j < selectedOrder.getListOfItemsOrdered().size(); j++) {
             MenuItem currItem = selectedOrder.getListOfItemsOrdered().get(j);
-            System.out.println((j + 1) + ")\t" + currItem.getName() + "\t$" + currItem.getPrice());
+            System.out.printf((j + 1) + ")\t %s\t$%.2f\n", currItem.getName(), currItem.getPrice());
+            //System.out.println((j + 1) + ")\t" + currItem.getName() + "\t$" + currItem.getPrice());
         }
         System.out.println("---------------------------------------------");
-        System.out.println("Total Price: $ " + selectedOrder.getTotalPriceOfOrder());
+        System.out.printf("Total Price: $ %.2f\n", selectedOrder.getTotalPriceOfOrder());
         System.out.println("=============================================");
         System.out.println();
     }
