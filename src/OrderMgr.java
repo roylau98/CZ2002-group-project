@@ -94,8 +94,6 @@ public class OrderMgr implements Serializable {
         {
             if (order.getAssignedTable() == tableNo) 
             {
-            	System.out.println("The order for this table has been created.\n"
-            			+ "If you intend to update contents of order, please proceed to Option 4");
                 return true;
             }
         }
