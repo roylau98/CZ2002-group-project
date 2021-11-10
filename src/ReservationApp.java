@@ -41,8 +41,8 @@ public class ReservationApp implements Serializable {
     /**
      * Class Constructor
      */
-    public ReservationApp() {
-        reservationMgr = new ReservationMgr();
+    public ReservationApp(ReservationMgr reservationMgrEx) {
+        reservationMgr = reservationMgrEx;
     }
 
     /**

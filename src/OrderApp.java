@@ -10,45 +10,38 @@ import java.util.Scanner;
  */
 
 public class OrderApp implements Serializable {
+
+    private transient Scanner sc;
     /**
      * Object Manager of Order
      */
-    private final OrderMgr orderMgr;
-    /**
-     * Object Manager of staff
-     */
-    private final StaffApp staffApp;
+    private OrderMgr orderMgr;
     /**
      * Manager of Sales Report
      */
-    private final SalesReport salesReportApp;
+    private SalesReport salesReportApp;
     /**
      * Object Manager of MenuItem
      */
-    private final MenuMgr menuMgrApp;
+    private MenuMgr menuMgr;
     /**
-     * Manager of MenuItem
+     * Manager of staff
      */
-    private final MenuApp menuApp;
-    private transient Scanner sc;
-
+    private StaffApp staffApp;
+    /**
+     * Object Manager of Reservation
+     */
+    private ReservationMgr reservationMgr;
     /**
      * Class Constructor
      *
      */
-    public OrderApp() {
-        orderMgr = new OrderMgr();
-        staffApp = new StaffApp();
-        salesReportApp = new SalesReport();
-        menuApp = new MenuApp();
-        menuMgrApp = menuApp.getMenuMgr();
-    }
-
-    /**
-     * Open Sales Report options
-     */
-    public void salesReportOptions() {
-        salesReportApp.salesReportOptions();
+    public OrderApp(ReservationMgr reservationMgrEx,OrderMgr orderMgrEx, MenuMgr menuMgrEx, SalesReport salesReport,StaffApp staffAppEx) {
+        orderMgr = orderMgrEx;
+        staffApp = staffAppEx;
+        salesReportApp = salesReport;
+        reservationMgr = reservationMgrEx;
+        menuMgr = menuMgrEx;
     }
 
     /**
@@ -62,7 +55,7 @@ public class OrderApp implements Serializable {
             System.out.println("Returning back to main menu...");
             return;
         }
-        if (menuMgrApp.getNumberOfMenuItems()==0) {
+        if (menuMgr.getNumberOfMenuItems()==0) {
             System.out.print("Order App\n");
             System.out.println("No menu items. Orders cannot be made");
             System.out.println("Returning back to main menu...");
@@ -224,13 +217,13 @@ public class OrderApp implements Serializable {
      * @param orderID the id of order for menu item to be added
      */
     private void addMenuItemToOrder(int orderID) {
-        if (menuMgrApp.getNumberOfMenuItems() == 0) {
+        if (menuMgr.getNumberOfMenuItems() == 0) {
             System.out.println("No items are on the menu.");
             return;
         }
-        menuMgrApp.printListOfMenuItems();
+        menuMgr.printListOfMenuItems();
         System.out.println("Which item would you like to order?");
-        orderMgr.addItemsInOrder(orderID, menuMgrApp.getMenuItem(askUserForMenuItemNo()));
+        orderMgr.addItemsInOrder(orderID, menuMgr.getMenuItem(askUserForMenuItemNo()));
         orderMgr.viewOrder(orderID);
     }
 
@@ -313,18 +306,13 @@ public class OrderApp implements Serializable {
             System.out.println("Invalid input type received.");
             return askUserForMenuItemNo();
         }
-        if (!menuMgrApp.validateMenuItemNo(menuItemNo)) {
+        if (!menuMgr.validateMenuItemNo(menuItemNo)) {
             System.out.println("No such menu item.");
             return askUserForMenuItemNo();
         }
         return menuItemNo;
     }
-    /**
-     * Open Menu Option
-     */
-    public void menuAppOptions() {
-        menuApp.menuOptions();
-    }
+
     /**
      * Open Staff Option
      */

@@ -15,8 +15,8 @@ public class StaffApp implements Serializable {
     /**
      * Class constructor with default settings
      */
-    public StaffApp() {
-        staffMgr = new StaffMgr();
+    public StaffApp(StaffMgr staffMgrEx) {
+        staffMgr = staffMgrEx;
     }
 
     public void staffAppOptions() {

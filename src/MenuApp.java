@@ -18,8 +18,8 @@ public class MenuApp implements Serializable {
     /**
      * Constructs an {@code MenuApp} object with known menuMgr
      */
-    public MenuApp() {
-        menuMgr = new MenuMgr();
+    public MenuApp(MenuMgr menuMgrEx) {
+        menuMgr = menuMgrEx;
         sc = new Scanner(System.in);
     }
 
