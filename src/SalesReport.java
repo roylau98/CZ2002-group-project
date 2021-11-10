@@ -104,12 +104,14 @@ public class SalesReport implements Serializable {
         for (MenuItem menuItem : salesCount.keySet()) {
             revenue.put(menuItem, salesCount.get(menuItem) * menuItem.getPrice());
         }
-        System.out.println("The total sales from " + start + " to " + end + "is: ");
-        revenue.forEach((menuItem, aDouble) -> System.out.println(menuItem + aDouble.toString()));
+        System.out.println("The total sales from " + start + " to " + end + " is: ");
+        revenue.forEach((menuItem, aDouble) -> System.out.printf("%s\t $%.2f\n", menuItem.getName(), aDouble));
         double totalRevenue = 0;
         for (double d : revenue.values())
             totalRevenue += d;
         System.out.println("Total revenue = " + totalRevenue);
+        System.out.println("Individual sales count:");
+        salesCount.forEach((menuItem, count) -> System.out.println(menuItem.getName() + ": " + count + " sold."));
     }
 
     /**
@@ -145,7 +147,7 @@ public class SalesReport implements Serializable {
         LocalDate endDate = listOfSales.get(listOfSales.size()-1).getTimestamp().toLocalDate().plusMonths(1).withDayOfMonth(1).minusDays(1);
 
         for (LocalDate date = firstDate; date.isBefore(endDate); date = date.plusMonths(1)) {
-            System.out.println("printing for this date period: " + date + " to " + date.plusMonths(1).minusDays(1));
+            System.out.println("Printing for this date period: " + date + " to " + date.plusMonths(1).minusDays(1));
             printSalesByPeriod(date, date.plusMonths(1).minusDays(1));
         }
     }
