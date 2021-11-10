@@ -84,7 +84,7 @@ public class OrderApp implements Serializable {
                     viewOrder();
                     break;
                 case 2:
-                    newOrder(reservationMgr);
+                    newOrder();
                     break;
                 case 3:
                     removeOrder();
@@ -93,7 +93,7 @@ public class OrderApp implements Serializable {
                     updateOrder();
                     break;
                 case 5:
-                    billOrder(reservationMgr);
+                    billOrder();
                     break;
                 case 6:
                     return;
@@ -120,7 +120,7 @@ public class OrderApp implements Serializable {
      *
      * @param reservationMgr The reservation manager which would be informed about the customer's arrival.
      */
-    private void newOrder(ReservationMgr reservationMgr) {
+    private void newOrder() {
         sc = new Scanner(System.in);
         System.out.println("Which table is this new order for? Enter -1 to Quit");
         reservationMgr.viewTablesWithReservationsNow();
@@ -260,7 +260,7 @@ public class OrderApp implements Serializable {
      *
      * @param reservationMgr The reservation manager which will be notified that an order has been completed.
      */
-    private void billOrder(ReservationMgr reservationMgr) {
+    private void billOrder() {
     	int id;
         if (orderMgr.getTotalNoOfOrders() == 0) {
             System.out.println("No orders have been made.");
