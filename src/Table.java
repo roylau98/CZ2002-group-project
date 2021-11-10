@@ -1,7 +1,10 @@
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.util.*;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
 
 /**
  * Represents a table object in the restaurant.
@@ -106,8 +109,10 @@ public class Table implements Serializable {
     private void mapCleanup() {
         for (Iterator<Map.Entry<LocalDate, Boolean[]>> it = availabilityRecord.entrySet().iterator(); it.hasNext();) {
             LocalDate date = it.next().getKey();
-            if (date.isBefore(LocalDate.now()))
+            if (date.isBefore(LocalDate.now())) {
                 it.remove();
+                continue;
+            }
             boolean noRecords = true;
             for (int i = 0; i < 24; i++) {
                 if (!availabilityRecord.get(date)[i])
