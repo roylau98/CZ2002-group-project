@@ -28,8 +28,11 @@ public class SalesReport implements Serializable {
     public void salesReportOptions() {
         sc = new Scanner(System.in);
         int choice = 999;
-        int day, month, year;
 
+        if (listOfSales.size() == 0) {
+            System.out.println("There are no sales made yet. Unable to generate sales report!");
+            return;
+        }
         while (choice != -1) {
             System.out.print("\nSales Report App\n" +
                     "Please select one of the options below:\n" +
@@ -114,10 +117,9 @@ public class SalesReport implements Serializable {
      */
     private void printAllSales() {
         sortListOfSalesByAscendingLocalDateTime(listOfSales);
-        for (Invoice invoice : listOfSales) {
-            invoice.printInvoice();
-        }
-        System.out.println("Total revenue: " + calculateRevenue(listOfSales));
+        LocalDate firstDate = listOfSales.get(0).getTimestamp().toLocalDate();
+        LocalDate endDate = listOfSales.get(listOfSales.size()-1).getTimestamp().toLocalDate();
+        printSalesByPeriod(firstDate, endDate);
     }
 
     /**
@@ -125,10 +127,11 @@ public class SalesReport implements Serializable {
      */
     private void printSalesByDay() {
         sortListOfSalesByAscendingLocalDateTime(listOfSales);
-        for (Invoice invoice : listOfSales) {
-            invoice.printInvoice();
+        LocalDate firstDate = listOfSales.get(0).getTimestamp().toLocalDate();
+        LocalDate endDate = listOfSales.get(listOfSales.size()-1).getTimestamp().toLocalDate();
+        for (LocalDate date = firstDate; date.isBefore(endDate); date = date.plusDays(1)) {
+            printSalesByPeriod(date, date);
         }
-        System.out.println("Total revenue: " + calculateRevenue(listOfSales));
     }
 
     /**
@@ -136,55 +139,16 @@ public class SalesReport implements Serializable {
      */
     private void printSalesByMonth() {
         sortListOfSalesByAscendingLocalDateTime(listOfSales);
-        int minYear = listOfSales.get(0).getTimestamp().getYear();
-        int maxYear = listOfSales.get(listOfSales.size() - 1).getTimestamp().getYear();
+        LocalDate firstDate = listOfSales.get(0).getTimestamp().toLocalDate().withDayOfMonth(1);
+        //Get the date of the last invoice, then changing it to the first day of the month
+        //17 March -> 17 April -> 1 April -> 31 March
+        LocalDate endDate = listOfSales.get(listOfSales.size()-1).getTimestamp().toLocalDate().plusMonths(1).withDayOfMonth(1).minusDays(1);
 
-        for (int i = minYear; i <= maxYear; i++) {
-            for (int j = 1; j <= 12; j++) {
-                printSalesInSelectedMonth(j, i);
-            }
+        for (LocalDate date = firstDate; date.isBefore(endDate); date = date.plusMonths(1)) {
+            System.out.println("printing for this date period: " + date + " to " + date.plusMonths(1).minusDays(1));
+            printSalesByPeriod(date, date.plusMonths(1).minusDays(1));
         }
-
-        System.out.println("Total revenue: " + calculateRevenue(listOfSales));
     }
-
-    /**
-     * Print the revenue of all sales in a selected month
-     *
-     * @param month selected month to print revenue report
-     * @param year  selected year to print revenue report
-     */
-    private void printSalesInSelectedMonth(int month, int year) {
-        ArrayList<Invoice> selectedListOfSales = getListOfSalesInSelectedTimeFrame(month, year);
-        if (selectedListOfSales == null) {
-            System.out.println("No sales were made in " + month + "/" + year);
-            return;
-        }
-        for (Invoice invoice : selectedListOfSales) {
-            invoice.printInvoice();
-        }
-        System.out.println("Total revenue in " + month + "/" + year + " = " + calculateRevenue(selectedListOfSales));
-    }
-
-    /**
-     * Print the revenue of all sales in a selected day
-     *
-     * @param day   selected day to print revenue report
-     * @param month selected month to print revenue report
-     * @param year  selected year to print revenue report
-     */
-    private void printSalesInSelectedDay(int day, int month, int year) {
-        ArrayList<Invoice> selectedListOfSales = getListOfSalesInSelectedTimeFrame(day, month, year);
-        if (selectedListOfSales == null) {
-            System.out.println("No sales were made in this period");
-            return;
-        }
-        for (Invoice invoice : selectedListOfSales) {
-            invoice.printInvoice();
-        }
-        System.out.println("Total revenue in " + day + "/" + month + "/" + year + " = " + calculateRevenue(selectedListOfSales));
-    }
-
 
     /**
      * Add invoice into the list
