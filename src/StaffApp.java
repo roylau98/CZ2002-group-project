@@ -81,11 +81,11 @@ public class StaffApp implements Serializable {
         if (yesOrNo("Update Staff's job title: ")) {
             staffMgr.updateStaffJobTitle(id, askUserForStaffStringInput("Enter updated job title: "));
         }
-        if (yesOrNo("Update Staff's ID: ")) {
-            staffMgr.updateStaffID(id, askUserToSetEmployeeID());
-        }
         if (yesOrNo("Update Staff's Sex: ")) {
             staffMgr.updateStaffSex(id, staffMgr.chooseSex(askUserToSetEmployeeSex()));
+        }
+        if (yesOrNo("Update Staff's ID: ")) {
+            staffMgr.updateStaffID(id, askUserToSetEmployeeID());
         }
     }
 
