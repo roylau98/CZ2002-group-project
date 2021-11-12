@@ -86,6 +86,9 @@ public class SalesReport implements Serializable, AppInterface {
 
     }
 
+    /**
+     * Print the revenue of all sales from start date to end date
+     */
     public void printSalesByPeriod(LocalDate start, LocalDate end) {
         HashMap<MenuItem, Integer> salesCount = new HashMap<>();
         HashMap<MenuItem, Double> revenue = new HashMap<>();
@@ -177,6 +180,9 @@ public class SalesReport implements Serializable, AppInterface {
         selectedListOfSales.sort(Comparator.comparing(Invoice::getTimestamp));
     }
 
+    /**
+     * Scanner to ask for user input(date) with error checking
+     */
     private int askUserForDate() {
         System.out.println("Enter day:");
         sc = new Scanner(System.in);
@@ -199,6 +205,9 @@ public class SalesReport implements Serializable, AppInterface {
         return day;
     }
 
+    /**
+     * Scanner to ask for user input(month) with error checking
+     */
     private int askUserForMonth() {
         System.out.println("Enter month:");
         sc = new Scanner(System.in);
@@ -221,6 +230,9 @@ public class SalesReport implements Serializable, AppInterface {
         return month;
     }
 
+    /**
+     * Scanner to ask for user input(year) with error checking
+     */
     private int askUserForYear() {
         System.out.println("Enter year:");
         sc = new Scanner(System.in);
