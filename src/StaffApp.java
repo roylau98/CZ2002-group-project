@@ -58,7 +58,7 @@ public class StaffApp implements Serializable,AppInterface {
             }
         } while (choice != 5);
     }
-    private void printAll() {
+    public void printAll() {
     	System.out.println("---List Of Staff Employed---\n");
         staffMgr.printStaff();
     }
