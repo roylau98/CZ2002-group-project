@@ -12,7 +12,7 @@ import java.util.Scanner;
  *
  * @since 2021-11-5
  */
-public class ReservationApp implements Serializable {
+public class ReservationApp implements Serializable,AppInterface {
     /**
      * Object Manager of Reservation
      */
@@ -42,14 +42,14 @@ public class ReservationApp implements Serializable {
     /**
      * Class Constructor
      */
-    public ReservationApp() {
-        reservationMgr = new ReservationMgr();
+    public ReservationApp(ReservationMgr reservationMgrEx) {
+        reservationMgr = reservationMgrEx;
     }
 
     /**
      * Interface of the ReservationApp with several options available
      */
-    public void startReservationApp() {
+    public void openOptions() {
         scanner = new Scanner(System.in);
         reservationMgr.removeNoShowReservations();
         reservationMgr.createScheduler();
@@ -97,7 +97,7 @@ public class ReservationApp implements Serializable {
                     updateReservation();
                     break;
                 case 4:
-                    reservationMgr.viewAllReservations();
+                    printAll();
                     break;
                 case 5:
                     reservationMgr.checkAvailabilityAt(askUserForDate(), askUserForTime(), askUserForPax());
@@ -108,7 +108,13 @@ public class ReservationApp implements Serializable {
             }
         }
     }
-
+    /**
+     * Print all the existing reservation
+     */
+    public void printAll()
+    {
+    	reservationMgr.viewAllReservations();
+    }
     /**
      * Create new Reservation
      */
@@ -249,6 +255,8 @@ public class ReservationApp implements Serializable {
 
     /**
      * Scanner to ask for user input (Date) with error checking
+     *
+     * @return  the date input by user
      */
     private LocalDate askUserForDate() {    
         boolean cont = true;
@@ -340,6 +348,8 @@ public class ReservationApp implements Serializable {
 
     /**
      * Scanner to ask for user input (Time) with error checking
+     *
+     * @return  the time input by user
      */
     private LocalTime askUserForTime() {
         boolean cont = true;
@@ -391,6 +401,8 @@ public class ReservationApp implements Serializable {
 
     /**
      * Scanner to ask for user input (noOfPax) with error checking
+     *
+     * @return  the no. of people 
      */
     private int askUserForPax() {
         boolean cont = true;
@@ -421,6 +433,8 @@ public class ReservationApp implements Serializable {
 
     /**
      * Scanner to ask for user input (Customer Details) with error checking
+     *
+     * @return  the customer object
      */
     private Customer askUserForCustomerDetails() {
         boolean cont = true;

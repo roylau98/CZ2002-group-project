@@ -6,20 +6,22 @@ import java.util.Scanner;
  * Interface of the Staff App which has the option of create/remove etc. Staff
  * <p>
  *
- * @since 2021-11-6
+ * @since 2021-11-12
  */
-public class StaffApp implements Serializable {
+public class StaffApp implements Serializable,AppInterface {
     private final StaffMgr staffMgr;
     private transient Scanner sc;
 
     /**
      * Class constructor with default settings
      */
-    public StaffApp() {
-        staffMgr = new StaffMgr();
+    public StaffApp(StaffMgr staffMgrEx) {
+        staffMgr = staffMgrEx;
     }
-
-    public void staffAppOptions() {
+    /**
+     * Open the option of the staff app
+     */
+    public void openOptions() {
         sc = new Scanner(System.in);
         int choice = 0;
         do {
@@ -39,8 +41,7 @@ public class StaffApp implements Serializable {
             }
             switch (choice) {
                 case 1:
-                    System.out.println("---List Of Staff Employed---\n");
-                    staffMgr.printStaff();
+                    printAll();
                     break;
                 case 2:
                     addStaff();
@@ -59,7 +60,16 @@ public class StaffApp implements Serializable {
             }
         } while (choice != 5);
     }
-
+    /**
+     * Print all the staff and their details in the restaurant
+     */
+    public void printAll() {
+    	System.out.println("---List Of Staff Employed---\n");
+        staffMgr.printStaff();
+    }
+    /**
+     * Add new staff into the restaurant
+     */
     public void addStaff() {
         String name = askUserForStaffStringInput("What is the staff's name: ");
         String jobTitle = askUserForStaffStringInput("What is the staff's job title: ");
@@ -67,12 +77,16 @@ public class StaffApp implements Serializable {
         int sex = askUserToSetEmployeeSex();
         staffMgr.addStaff(name, staffMgr.chooseSex(sex), id, jobTitle);
     }
-
+    /**
+     * Remove staff from the restaurant
+     */
     public void removeStaff() {
         int id = askUserForEmployeeID();
         staffMgr.removeStaff(id);
     }
-
+    /**
+     * Update the details of a certain staff 
+     */
     public void updateStaff() {
         int id = askUserForEmployeeID();
         if (yesOrNo("Update Staff's name: ")) {
@@ -104,11 +118,21 @@ public class StaffApp implements Serializable {
         int employeeID = askUserForEmployeeID();
         return staffMgr.getStaffByID(employeeID);
     }
-
+    
+    /**
+     * Return the number of staff in the restaurant
+     *
+     * @return     number of staff
+     */
     public int getNoOfStaff() {
         return staffMgr.getTotalNoOfStaff();
     }
-
+    
+    /**
+     * Scanner to ask for user input(setting staff id) with error checking
+     *
+     * @return employeeID  the id of the staff
+     */
     private int askUserToSetEmployeeID() {
         sc = new Scanner(System.in);
         int employeeID;
@@ -130,7 +154,12 @@ public class StaffApp implements Serializable {
         }
         return employeeID;
     }
-
+    
+    /**
+     * Scanner to ask for user input(finding staff by id) with error checking
+     *
+     * @return employeeID  the id of the staff
+     */
     private int askUserForEmployeeID() {
         sc = new Scanner(System.in);
         int employeeID;
@@ -148,7 +177,11 @@ public class StaffApp implements Serializable {
         }
         return employeeID;
     }
-
+    /**
+     * Scanner to ask for user input(string) with error checking
+     *
+     * @return   details of the staff
+     */
     private String askUserForStaffStringInput(String whatToAsk) {
         sc = new Scanner(System.in);
         String inputString;
@@ -162,7 +195,11 @@ public class StaffApp implements Serializable {
         }
         return inputString;
     }
-
+    /**
+     * Scanner to ask for user input(Gender) with error checking
+     *
+     * @return    the enumeration of gender of the staff
+     */
     private int askUserToSetEmployeeSex() {
         sc = new Scanner(System.in);
         int choice;
@@ -186,6 +223,8 @@ public class StaffApp implements Serializable {
 
     /**
      * Scanner to ask for user input(Boolean) with error checking
+     *
+     * @return  true if updated false otherwise
      */
     private Boolean yesOrNo(String UpdateThis) {
         sc = new Scanner(System.in);
@@ -208,3 +247,4 @@ public class StaffApp implements Serializable {
 
 
 }
+

@@ -9,52 +9,45 @@ import java.util.Scanner;
  * @since 2021-11-5
  */
 
-public class OrderApp implements Serializable {
+public class OrderApp implements Serializable,AppInterface {
+
+    private transient Scanner sc;
     /**
      * Object Manager of Order
      */
-    private final OrderMgr orderMgr;
-    /**
-     * Object Manager of staff
-     */
-    private final StaffApp staffApp;
+    private OrderMgr orderMgr;
     /**
      * Manager of Sales Report
      */
-    private final SalesReport salesReportApp;
+    private SalesReport salesReportApp;
     /**
      * Object Manager of MenuItem
      */
-    private final MenuMgr menuMgrApp;
+    private MenuMgr menuMgr;
     /**
-     * Manager of MenuItem
+     * Manager of staff
      */
-    private final MenuApp menuApp;
-    private transient Scanner sc;
-
+    private StaffApp staffApp;
+    /**
+     * Object Manager of Reservation
+     */
+    private ReservationMgr reservationMgr;
     /**
      * Class Constructor
      *
      */
-    public OrderApp() {
-        orderMgr = new OrderMgr();
-        staffApp = new StaffApp();
-        salesReportApp = new SalesReport();
-        menuApp = new MenuApp();
-        menuMgrApp = menuApp.getMenuMgr();
-    }
-
-    /**
-     * Open Sales Report options
-     */
-    public void salesReportOptions() {
-        salesReportApp.salesReportOptions();
+    public OrderApp(ReservationMgr reservationMgrEx,OrderMgr orderMgrEx, MenuMgr menuMgrEx, SalesReport salesReport,StaffApp staffAppEx) {
+        orderMgr = orderMgrEx;
+        staffApp = staffAppEx;
+        salesReportApp = salesReport;
+        reservationMgr = reservationMgrEx;
+        menuMgr = menuMgrEx;
     }
 
     /**
      * Open Order App options
      */
-    public void orderAppOptions(ReservationMgr reservationMgr) {
+    public void openOptions() {
         sc = new Scanner(System.in);
         if (staffApp.getNoOfStaff()==0) {
             System.out.print("\nOrder App\n");
@@ -62,7 +55,7 @@ public class OrderApp implements Serializable {
             System.out.println("Returning back to main menu...");
             return;
         }
-        if (menuMgrApp.getNumberOfMenuItems()==0) {
+        if (menuMgr.getNumberOfMenuItems()==0) {
             System.out.print("Order App\n");
             System.out.println("No menu items. Orders cannot be made");
             System.out.println("Returning back to main menu...");
@@ -73,12 +66,13 @@ public class OrderApp implements Serializable {
         do {
             System.out.print("\nOrder App\n" +
                     "Please select one of the options below:\n" +
-                    "1. View an existing order\n" +
+                    "1. View existing orders\n" +
                     "2. Make a new order\n" +
                     "3. Cancel an existing order\n" +
                     "4. Update an existing order\n" +
                     "5. Make payment for an order\n" +
-                    "6. Exit this application and return to the previous page\n" +
+                    "6. Print All Order\n"+
+                    "7. Exit this application and return to the previous page\n" +
                     "Enter your choice: ");
             try {
                 choice = sc.nextInt();
@@ -91,7 +85,7 @@ public class OrderApp implements Serializable {
                     viewOrder();
                     break;
                 case 2:
-                    newOrder(reservationMgr);
+                    newOrder();
                     break;
                 case 3:
                     removeOrder();
@@ -100,26 +94,39 @@ public class OrderApp implements Serializable {
                     updateOrder();
                     break;
                 case 5:
-                    billOrder(reservationMgr);
+                    billOrder();
                     break;
                 case 6:
+                	printAll();
+                	break;
+                case 7:
                     return;
                 default:
                     System.out.println("Invalid input received.");
                     break;
             }
-        } while (choice != 6);
+        } while (choice != 7);
     }
 
     /**
      * View the specific order that has been created
      */
+    public void printAll()
+    {
+    	if(orderMgr.getTotalNoOfOrders()==0)
+    	{
+    		System.out.println("There is no order at the moment.");
+    		return;
+    	}
+    	
+    	orderMgr.printAllOrders();
+    }
     private void viewOrder() {
         if (orderMgr.getTotalNoOfOrders() == 0) {
             System.out.println("No orders have been made.");
             return;
         }
-        orderMgr.viewOrder(askUserForOrderID());
+        orderMgr.printAllOrders();
     }
 
     /**
@@ -127,7 +134,7 @@ public class OrderApp implements Serializable {
      *
      * @param reservationMgr The reservation manager which would be informed about the customer's arrival.
      */
-    private void newOrder(ReservationMgr reservationMgr) {
+    private void newOrder() {
         sc = new Scanner(System.in);
         System.out.println("Which table is this new order for? Enter -1 to Quit");
         reservationMgr.viewTablesWithReservationsNow();
@@ -165,6 +172,7 @@ public class OrderApp implements Serializable {
             System.out.println("No orders have been made.");
             return;
         }
+        orderMgr.printAllOrders();
         orderMgr.removeOrder(askUserForOrderID());
     }
 
@@ -176,6 +184,7 @@ public class OrderApp implements Serializable {
             System.out.println("No orders have been made.");
             return;
         }
+        orderMgr.printAllOrders();
         int orderID = askUserForOrderID();
         updateOrder(orderID);
     }
@@ -224,13 +233,13 @@ public class OrderApp implements Serializable {
      * @param orderID the id of order for menu item to be added
      */
     private void addMenuItemToOrder(int orderID) {
-        if (menuMgrApp.getNumberOfMenuItems() == 0) {
+        if (menuMgr.getNumberOfMenuItems() == 0) {
             System.out.println("No items are on the menu.");
             return;
         }
-        menuMgrApp.printListOfMenuItems();
+        menuMgr.printListOfMenuItems();
         System.out.println("Which item would you like to order?");
-        orderMgr.addItemsInOrder(orderID, menuMgrApp.getMenuItem(askUserForMenuItemNo()));
+        orderMgr.addItemsInOrder(orderID, menuMgr.getMenuItem(askUserForMenuItemNo()));
         orderMgr.viewOrder(orderID);
     }
 
@@ -267,15 +276,15 @@ public class OrderApp implements Serializable {
      *
      * @param reservationMgr The reservation manager which will be notified that an order has been completed.
      */
-    private void billOrder(ReservationMgr reservationMgr) {
+    private void billOrder() {
     	int id;
         if (orderMgr.getTotalNoOfOrders() == 0) {
             System.out.println("No orders have been made.");
             return;
         }
+        orderMgr.printAllOrderID();
         id=askUserForOrderID();
         salesReportApp.addInvoice(orderMgr.chargeBill(reservationMgr,id ));
-        orderMgr.removeOrder(id);
     }
 
     /**
@@ -313,23 +322,18 @@ public class OrderApp implements Serializable {
             System.out.println("Invalid input type received.");
             return askUserForMenuItemNo();
         }
-        if (!menuMgrApp.validateMenuItemNo(menuItemNo)) {
+        if (!menuMgr.validateMenuItemNo(menuItemNo)) {
             System.out.println("No such menu item.");
             return askUserForMenuItemNo();
         }
         return menuItemNo;
     }
-    /**
-     * Open Menu Option
-     */
-    public void menuAppOptions() {
-        menuApp.menuOptions();
-    }
+
     /**
      * Open Staff Option
      */
     public void staffAppOptions() {
-        staffApp.staffAppOptions();
+        staffApp.openOptions();
     }
 
 }

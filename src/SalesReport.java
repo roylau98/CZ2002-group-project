@@ -10,7 +10,7 @@ import java.util.Scanner;
  *
  * @since 2021-11-5
  */
-public class SalesReport implements Serializable {
+public class SalesReport implements Serializable,AppInterface {
     /**
      * List of invoices
      */
@@ -27,7 +27,7 @@ public class SalesReport implements Serializable {
     /**
      * Open Sales Report App options
      */
-    public void salesReportOptions() {
+    public void openOptions() {
         sc = new Scanner(System.in);
         int choice = 999;
         int day, month, year;
@@ -50,7 +50,7 @@ public class SalesReport implements Serializable {
             }
             switch (choice) {
                 case 1:
-                    printAllSales();
+                    printAll();
                     break;
                 case 2:
                     printSalesByDay();
@@ -93,7 +93,7 @@ public class SalesReport implements Serializable {
     /**
      * Print the revenue of all sales
      */
-    private void printAllSales() {
+    public void printAll() {
         sortListOfSalesByAscendingLocalDateTime(listOfSales);
         for (Invoice invoice : listOfSales) {
             invoice.printInvoice();

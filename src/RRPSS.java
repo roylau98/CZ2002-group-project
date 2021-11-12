@@ -16,13 +16,48 @@ public class RRPSS implements Serializable {
      * Reservation App with options
      */
     private final ReservationApp reservationApp;
+    /**
+     * Manager of MenuItem
+     */
+    private final MenuApp menuApp;
+    /**
+     * Manager of staff
+     */
+    private final StaffApp staffApp;
+    /**
+     * Manager of Sales Report
+     */
+    private final SalesReport salesReportApp;
+    /**
+     * Object Manager of Reservation
+     */
+    private final ReservationMgr reservationMgr;
+    /**
+     * Object Manager of Order
+     */
+    private final OrderMgr orderMgr;
+    /**
+     * Object Manager of MenuItem
+     */
+    private final MenuMgr menuMgr;
+    /**
+     * Object Manager of Staff
+     */
+    private final StaffMgr staffMgr;
 
     /**
      * Class Constructor with default settings
      */
     public RRPSS() {
-        orderApp = new OrderApp();
-        reservationApp = new ReservationApp();
+        salesReportApp = new SalesReport();
+        orderMgr = new OrderMgr();
+        menuMgr = new MenuMgr();
+        reservationMgr = new ReservationMgr();
+        staffMgr = new StaffMgr();
+        reservationApp = new ReservationApp(reservationMgr);
+        menuApp = new MenuApp(menuMgr);
+        staffApp = new StaffApp(staffMgr);
+        orderApp = new OrderApp(reservationMgr,orderMgr,menuMgr,salesReportApp,staffApp);
     }
 
     /**
@@ -68,16 +103,16 @@ public class RRPSS implements Serializable {
 
             switch (choice) {
                 case 1:
-                    reservationApp.startReservationApp();
+                    reservationApp.openOptions();
                     break;
                 case 2:
-                    orderApp.orderAppOptions(reservationApp.getReservationMgr());
+                    orderApp.openOptions();
                     break;
                 case 3:
-                    orderApp.menuAppOptions();
+                    menuApp.openOptions();
                     break;
                 case 4:
-                    orderApp.salesReportOptions();
+                    salesReportApp.openOptions();
                     break;
                 case 5:
                     orderApp.staffAppOptions();

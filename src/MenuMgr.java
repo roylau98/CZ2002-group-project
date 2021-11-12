@@ -11,7 +11,7 @@ import java.util.Comparator;
  * and various methods to add,remove,update MenuItem in the menu.
  * <p>
  *
- * @since 2021-11-5
+ * @since 2021-11-12
  */
 
 public class MenuMgr implements Serializable {
@@ -83,7 +83,7 @@ public class MenuMgr implements Serializable {
     /**
      * Prints PromotionalSet in the Menu (Overload)
      *
-     * @param c ??
+     * @param c  class of object
      */
     private void printMenuItemsByCat(Class c) {
         if (c == PromotionalSet.class) {
