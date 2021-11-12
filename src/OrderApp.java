@@ -66,7 +66,7 @@ public class OrderApp implements Serializable,AppInterface {
         do {
             System.out.print("\nOrder App\n" +
                     "Please select one of the options below:\n" +
-                    "1. View an existing order\n" +
+                    "1. View existing orders\n" +
                     "2. Make a new order\n" +
                     "3. Cancel an existing order\n" +
                     "4. Update an existing order\n" +
@@ -126,11 +126,7 @@ public class OrderApp implements Serializable,AppInterface {
             System.out.println("No orders have been made.");
             return;
         }
-        for(int i=0;i<orderMgr.getTotalNoOfOrders();i++)
-    	{
-        	System.out.println("Order "+i);
-    	}
-        orderMgr.viewOrder(askUserForOrderID());
+        orderMgr.printAllOrders();
     }
 
     /**
@@ -176,7 +172,7 @@ public class OrderApp implements Serializable,AppInterface {
             System.out.println("No orders have been made.");
             return;
         }
-        orderMgr.printAllOrderID();
+        orderMgr.printAllOrders();
         orderMgr.removeOrder(askUserForOrderID());
     }
 
@@ -188,6 +184,7 @@ public class OrderApp implements Serializable,AppInterface {
             System.out.println("No orders have been made.");
             return;
         }
+
         int orderID = askUserForOrderID();
         updateOrder(orderID);
     }
