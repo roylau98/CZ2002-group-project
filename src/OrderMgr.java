@@ -9,7 +9,7 @@ import java.util.ArrayList;
  * and view individual order details and bills.
  * <p>
  *
- * @since 2021-11-5
+ * @since 2021-11-12
  */
 
 public class OrderMgr implements Serializable {
@@ -18,6 +18,10 @@ public class OrderMgr implements Serializable {
      * Each entry consists of a reference to existing {@link Order}object.
      */
     private final ArrayList<Order> listOfOrders;
+    
+    /**
+     * Used for tracking of order
+     */
     private int orderIDTracker;
 
     /**
@@ -40,6 +44,9 @@ public class OrderMgr implements Serializable {
         }
         return false;
     }
+    /**
+     * Print all existing order and their details
+     */
     public void printAllOrders() {
     	System.out.println("Current Existing Order: ");
     	for (Order order : getListOfOrder()) 
@@ -48,6 +55,9 @@ public class OrderMgr implements Serializable {
             viewOrder(order.getOrderID());
         }
     }
+    /**
+     * Print all existing order id
+     */
     public void printAllOrderID() {
     	System.out.println("Current Existing Order: ");
     	for (Order order : getListOfOrder()) 
