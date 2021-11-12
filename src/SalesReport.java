@@ -93,7 +93,7 @@ public class SalesReport implements Serializable,AppInterface {
     /**
      * Print the revenue of all sales
      */
-    private void printAll() {
+    public void printAll() {
         sortListOfSalesByAscendingLocalDateTime(listOfSales);
         for (Invoice invoice : listOfSales) {
             invoice.printInvoice();
