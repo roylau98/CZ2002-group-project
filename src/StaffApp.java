@@ -8,7 +8,7 @@ import java.util.Scanner;
  *
  * @since 2021-11-12
  */
-public class StaffApp implements Serializable,AppInterface {
+public class StaffApp implements Serializable, AppInterface {
     private final StaffMgr staffMgr;
     private transient Scanner sc;
 
@@ -18,6 +18,7 @@ public class StaffApp implements Serializable,AppInterface {
     public StaffApp(StaffMgr staffMgrEx) {
         staffMgr = staffMgrEx;
     }
+
     /**
      * Open the option of the staff app
      */
@@ -60,13 +61,15 @@ public class StaffApp implements Serializable,AppInterface {
             }
         } while (choice != 5);
     }
+
     /**
      * Print all the staff and their details in the restaurant
      */
     public void printAll() {
-    	System.out.println("---List Of Staff Employed---\n");
+        System.out.println("---List Of Staff Employed---\n");
         staffMgr.printStaff();
     }
+
     /**
      * Add new staff into the restaurant
      */
@@ -77,6 +80,7 @@ public class StaffApp implements Serializable,AppInterface {
         int sex = askUserToSetEmployeeSex();
         staffMgr.addStaff(name, staffMgr.chooseSex(sex), id, jobTitle);
     }
+
     /**
      * Remove staff from the restaurant
      */
@@ -84,8 +88,9 @@ public class StaffApp implements Serializable,AppInterface {
         int id = askUserForEmployeeID();
         staffMgr.removeStaff(id);
     }
+
     /**
-     * Update the details of a certain staff 
+     * Update the details of a certain staff
      */
     public void updateStaff() {
         int id = askUserForEmployeeID();
@@ -118,16 +123,16 @@ public class StaffApp implements Serializable,AppInterface {
         int employeeID = askUserForEmployeeID();
         return staffMgr.getStaffByID(employeeID);
     }
-    
+
     /**
      * Return the number of staff in the restaurant
      *
-     * @return     number of staff
+     * @return number of staff
      */
     public int getNoOfStaff() {
         return staffMgr.getTotalNoOfStaff();
     }
-    
+
     /**
      * Scanner to ask for user input(setting staff id) with error checking
      *
@@ -148,13 +153,13 @@ public class StaffApp implements Serializable,AppInterface {
             System.out.println("ID is already taken. Try again!");
             return askUserToSetEmployeeID();
         }
-        if (employeeID<0) {
+        if (employeeID < 0) {
             System.out.println("ID cannot be negative. Try again!");
             return askUserToSetEmployeeID();
         }
         return employeeID;
     }
-    
+
     /**
      * Scanner to ask for user input(finding staff by id) with error checking
      *
@@ -177,10 +182,11 @@ public class StaffApp implements Serializable,AppInterface {
         }
         return employeeID;
     }
+
     /**
      * Scanner to ask for user input(string) with error checking
      *
-     * @return   details of the staff
+     * @return details of the staff
      */
     private String askUserForStaffStringInput(String whatToAsk) {
         sc = new Scanner(System.in);
@@ -195,10 +201,11 @@ public class StaffApp implements Serializable,AppInterface {
         }
         return inputString;
     }
+
     /**
      * Scanner to ask for user input(Gender) with error checking
      *
-     * @return    the enumeration of gender of the staff
+     * @return the enumeration of gender of the staff
      */
     private int askUserToSetEmployeeSex() {
         sc = new Scanner(System.in);
@@ -224,7 +231,7 @@ public class StaffApp implements Serializable,AppInterface {
     /**
      * Scanner to ask for user input(Boolean) with error checking
      *
-     * @return  true if updated false otherwise
+     * @return true if updated false otherwise
      */
     private Boolean yesOrNo(String UpdateThis) {
         sc = new Scanner(System.in);

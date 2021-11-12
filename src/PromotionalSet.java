@@ -34,11 +34,12 @@ public class PromotionalSet extends MenuItem {
         super(name, description, price);
         this.items = new HashMap<>();
     }
+
     /**
-     * Check if the item is existed 
+     * Check if the item is existed
      *
-     * @param  key  the name of the promotional set
-     * @return      true if the promotional set false otherwise
+     * @param key the name of the promotional set
+     * @return true if the promotional set false otherwise
      */
     public Boolean checkIfItemExists(String key) {
         return items.containsKey(key);

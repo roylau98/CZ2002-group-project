@@ -18,7 +18,7 @@ public class OrderMgr implements Serializable {
      * Each entry consists of a reference to existing {@link Order}object.
      */
     private final ArrayList<Order> listOfOrders;
-    
+
     /**
      * Used for tracking of order
      */
@@ -32,10 +32,11 @@ public class OrderMgr implements Serializable {
         listOfOrders = new ArrayList<>();
         orderIDTracker = 0;
     }
+
     /**
      * Check for validate of the orderID
      *
-     * @param   orderID order id to be checked
+     * @param orderID order id to be checked
      */
     public boolean validateOrderID(int orderID) {
         for (Order o : listOfOrders) {
@@ -44,41 +45,43 @@ public class OrderMgr implements Serializable {
         }
         return false;
     }
+
     /**
      * Print all existing order and their details
      */
     public void printAllOrders() {
-    	System.out.println("Current Existing Order: ");
-    	for (Order order : getListOfOrder()) 
-        {
-    		System.out.println("Order "+order.getOrderID()+" : ");
+        System.out.println("Current Existing Order: ");
+        for (Order order : getListOfOrder()) {
+            System.out.println("Order " + order.getOrderID() + " : ");
             viewOrder(order.getOrderID());
         }
     }
+
     /**
      * Print all existing order id
      */
     public void printAllOrderID() {
-    	System.out.println("Current Existing Order: ");
-    	for (Order order : getListOfOrder()) 
-        {
-    		System.out.println("Order "+order.getOrderID());
+        System.out.println("Current Existing Order: ");
+        for (Order order : getListOfOrder()) {
+            System.out.println("Order " + order.getOrderID());
         }
     }
+
     /**
      * Get total size of the list of orders
      *
-     * @return       total size of the list of orders
+     * @return total size of the list of orders
      */
     public int getTotalNoOfOrders() {
         return listOfOrders.size();
     }
+
     /**
      * Create a new order
      *
-     * @param   customer customer that made the order
-     * @param   tableNo table no of this order
-     * @param   staff   staff that serves this table
+     * @param customer customer that made the order
+     * @param tableNo  table no of this order
+     * @param staff    staff that serves this table
      */
     public int createOrder(Customer customer, int tableNo, Staff staff) {
         Order o = new Order(orderIDTracker++, customer, staff, tableNo);
@@ -101,33 +104,34 @@ public class OrderMgr implements Serializable {
         }
         return selectedOrder;
     }
+
     /**
      * Return list of orders made
      *
      * @return listOfOrders All orders made by customer
      */
-    public ArrayList<Order> getListOfOrder(){
-    	return listOfOrders;
+    public ArrayList<Order> getListOfOrder() {
+        return listOfOrders;
     }
+
     /**
      * Check whether order has been made in certain table
      *
-     * @param tableNo   table to be checked
+     * @param tableNo table to be checked
      */
     public boolean checkforTableOrder(int tableNo) {
-    	for (Order order : getListOfOrder()) 
-        {
-            if (order.getAssignedTable() == tableNo) 
-            {
+        for (Order order : getListOfOrder()) {
+            if (order.getAssignedTable() == tableNo) {
                 return true;
             }
         }
-    	return false;
+        return false;
     }
+
     /**
      * Print items of a specific order
      *
-     * @param   orderID   ID of the order
+     * @param orderID ID of the order
      */
     public void printItemsInOrder(int orderID) {
         Order selectedOrder = getOrder(orderID);
@@ -135,11 +139,12 @@ public class OrderMgr implements Serializable {
             System.out.println(i + ") " + selectedOrder.getListOfItemsOrdered().get(i).getName() + selectedOrder.getListOfItemsOrdered().get(i).getPrice());
         }
     }
+
     /**
      * Add menu items into a specific order
      *
-     * @param   orderID   ID of the order
-     * @param   menuItem    menu item to be added 
+     * @param orderID  ID of the order
+     * @param menuItem menu item to be added
      */
     public void addItemsInOrder(int orderID, MenuItem menuItem) {
         Order order = getOrder(orderID);
@@ -151,11 +156,12 @@ public class OrderMgr implements Serializable {
         }
         order.addItemToOrder(menuItem);
     }
+
     /**
      * Remove menu items from a specific order
      *
-     * @param   orderID   ID of the order
-     * @param   index    index of menu item to be removed 
+     * @param orderID ID of the order
+     * @param index   index of menu item to be removed
      */
     public void removeItemsInOrder(int orderID, int index) {
         Order selectedOrder = getOrder(orderID);
@@ -181,9 +187,9 @@ public class OrderMgr implements Serializable {
             System.out.println("No such order");
         } else {
             System.out.println("Order removed");
-            for(int i=0;i<listOfOrders.size();i++)
-            	if(listOfOrders.get(i)==currOrder)
-            		listOfOrders.remove(i);
+            for (int i = 0; i < listOfOrders.size(); i++)
+                if (listOfOrders.get(i) == currOrder)
+                    listOfOrders.remove(i);
         }
     }
     //-----------------------------------------------------------------------------------------------------------------------

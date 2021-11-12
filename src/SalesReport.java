@@ -8,7 +8,7 @@ import java.util.*;
  *
  * @since 2021-11-5
  */
-public class SalesReport implements Serializable,AppInterface {
+public class SalesReport implements Serializable, AppInterface {
     /**
      * List of invoices
      */
@@ -95,7 +95,7 @@ public class SalesReport implements Serializable,AppInterface {
                 continue;
 
             for (MenuItem menuItem : invoice.getListOfSoldItems()) {
-                if(salesCount.containsKey(menuItem)) {
+                if (salesCount.containsKey(menuItem)) {
                     salesCount.replace(menuItem, salesCount.get(menuItem) + 1);
                 } else {
                     salesCount.putIfAbsent(menuItem, 1);
@@ -124,7 +124,7 @@ public class SalesReport implements Serializable,AppInterface {
     public void printAll() {
         sortListOfSalesByAscendingLocalDateTime(listOfSales);
         LocalDate firstDate = listOfSales.get(0).getTimestamp().toLocalDate();
-        LocalDate endDate = listOfSales.get(listOfSales.size()-1).getTimestamp().toLocalDate();
+        LocalDate endDate = listOfSales.get(listOfSales.size() - 1).getTimestamp().toLocalDate();
         printSalesByPeriod(firstDate, endDate);
     }
 
@@ -134,7 +134,7 @@ public class SalesReport implements Serializable,AppInterface {
     private void printSalesByDay() {
         sortListOfSalesByAscendingLocalDateTime(listOfSales);
         LocalDate firstDate = listOfSales.get(0).getTimestamp().toLocalDate();
-        LocalDate endDate = listOfSales.get(listOfSales.size()-1).getTimestamp().toLocalDate();
+        LocalDate endDate = listOfSales.get(listOfSales.size() - 1).getTimestamp().toLocalDate();
         for (LocalDate date = firstDate; date.isBefore(endDate.plusDays(1)); date = date.plusDays(1)) {
             printSalesByPeriod(date, date);
         }
@@ -148,7 +148,7 @@ public class SalesReport implements Serializable,AppInterface {
         LocalDate firstDate = listOfSales.get(0).getTimestamp().toLocalDate().withDayOfMonth(1);
         //Get the date of the last invoice, then changing it to the first day of the month
         //17 March -> 17 April -> 1 April -> 31 March
-        LocalDate endDate = listOfSales.get(listOfSales.size()-1).getTimestamp().toLocalDate().plusMonths(1).withDayOfMonth(1).minusDays(1);
+        LocalDate endDate = listOfSales.get(listOfSales.size() - 1).getTimestamp().toLocalDate().plusMonths(1).withDayOfMonth(1).minusDays(1);
 
         for (LocalDate date = firstDate; date.isBefore(endDate); date = date.plusMonths(1)) {
             System.out.println("Printing for this date period: " + date + " to " + date.plusMonths(1).minusDays(1));
@@ -183,17 +183,16 @@ public class SalesReport implements Serializable,AppInterface {
         int day;
         try {
             day = sc.nextInt();
-        }
-        catch (InputMismatchException e) {
+        } catch (InputMismatchException e) {
             System.out.println("Invalid input type. Try again!");
-            return  askUserForDate();
+            return askUserForDate();
         }
 
-        if (day<=0) {
+        if (day <= 0) {
             System.out.println("Error: date can only be between values 1 and 31. Try again!");
             return askUserForDate();
         }
-        if (day>31) {
+        if (day > 31) {
             System.out.println("Error: date can only be between values 1 and 31. Try again!");
             return askUserForDate();
         }
@@ -206,17 +205,16 @@ public class SalesReport implements Serializable,AppInterface {
         int month;
         try {
             month = sc.nextInt();
-        }
-        catch (InputMismatchException e) {
+        } catch (InputMismatchException e) {
             System.out.println("Invalid input type. Try again!");
-            return  askUserForMonth();
+            return askUserForMonth();
         }
 
-        if (month<=0) {
+        if (month <= 0) {
             System.out.println("Error: month can only be between values 1 and 12. Try again!");
             return askUserForMonth();
         }
-        if (month>12) {
+        if (month > 12) {
             System.out.println("Error: month can only be between values 1 and 12. Try again!");
             return askUserForMonth();
         }
@@ -229,13 +227,12 @@ public class SalesReport implements Serializable,AppInterface {
         int year;
         try {
             year = sc.nextInt();
-        }
-        catch (InputMismatchException e) {
+        } catch (InputMismatchException e) {
             System.out.println("Invalid input type. Try again!");
-            return  askUserForYear();
+            return askUserForYear();
         }
 
-        if (year<=0) {
+        if (year <= 0) {
             System.out.println("Error: year cannot be less than 1. Try again!");
             return askUserForYear();
         }

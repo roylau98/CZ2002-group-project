@@ -57,7 +57,7 @@ public class RRPSS implements Serializable {
         reservationApp = new ReservationApp(reservationMgr);
         menuApp = new MenuApp(menuMgr);
         staffApp = new StaffApp(staffMgr);
-        orderApp = new OrderApp(reservationMgr,orderMgr,menuMgr,salesReportApp,staffApp);
+        orderApp = new OrderApp(reservationMgr, orderMgr, menuMgr, salesReportApp, staffApp);
     }
 
     /**

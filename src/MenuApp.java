@@ -8,7 +8,7 @@ import java.util.Scanner;
  *
  * @since 2021-11-12
  */
-public class MenuApp implements Serializable,AppInterface {
+public class MenuApp implements Serializable, AppInterface {
     /**
      * Object Manager of the menu
      */
@@ -198,7 +198,7 @@ public class MenuApp implements Serializable,AppInterface {
                     case 1:
                         System.out.print("Enter the name of the promotional item to be added: ");
                         stringInput = askUserForPromoSetContentItemName();
-                        while (menuMgr.isPromoSetContentItemExist(indexOfMenuItemToBeUpdated,stringInput)) {
+                        while (menuMgr.isPromoSetContentItemExist(indexOfMenuItemToBeUpdated, stringInput)) {
                             System.out.println("Item already exists. Try again!");
                             stringInput = askUserForPromoSetContentItemName();
                         }
@@ -228,7 +228,7 @@ public class MenuApp implements Serializable,AppInterface {
     /**
      * Scanner to ask for user input(MenuItemIndex) with error checking
      *
-     * @return  index of the menu item
+     * @return index of the menu item
      */
     private int askUserForMenuItemIndex() {
         sc = new Scanner(System.in);
@@ -254,7 +254,7 @@ public class MenuApp implements Serializable,AppInterface {
     /**
      * Scanner to ask for user input for Menu item name with error checking
      *
-     * @return   name of the menu items
+     * @return name of the menu items
      */
     private String askUserForMenuItemName() {
         sc = new Scanner(System.in);
@@ -273,10 +273,11 @@ public class MenuApp implements Serializable,AppInterface {
         }
         return inputForName;
     }
+
     /**
      * Scanner to ask for user input for Menu item's description with error checking
      *
-     * @return  description of the menu items
+     * @return description of the menu items
      */
     private String askUserForMenuItemDescription() {
         sc = new Scanner(System.in);
@@ -295,10 +296,11 @@ public class MenuApp implements Serializable,AppInterface {
         }
         return inputForDescription;
     }
+
     /**
      * Scanner to ask for user input for Promotional Set's name with error checking
      *
-     * @return  name of the promotional set
+     * @return name of the promotional set
      */
     private String askUserForPromoSetContentItemName() {
         sc = new Scanner(System.in);
@@ -316,7 +318,7 @@ public class MenuApp implements Serializable,AppInterface {
     /**
      * Scanner to ask for user input(MenuItemPrice) with error checking
      *
-     * @return  price of the menu item
+     * @return price of the menu item
      */
     private double askUserForMenuItemPrice() {
         sc = new Scanner(System.in);
@@ -342,7 +344,7 @@ public class MenuApp implements Serializable,AppInterface {
     /**
      * Scanner to ask for user input(Quantity) with error checking
      *
-     * @return  quantity of the item
+     * @return quantity of the item
      */
     private int askUserForQuantity() {
         sc = new Scanner(System.in);
@@ -363,7 +365,7 @@ public class MenuApp implements Serializable,AppInterface {
 
     /**
      * Scanner to ask for user input(AlaCarteItemType) with error checking
-     *
+     * <p>
      * return  the choice of the enumeration type of menu item
      */
     private int askUserForAlaCarteItemType() {
@@ -393,7 +395,7 @@ public class MenuApp implements Serializable,AppInterface {
     /**
      * Scanner to ask for user input(Boolean) with error checking
      *
-     * @return  true if updated false otherwise
+     * @return true if updated false otherwise
      */
     private Boolean yesOrNo(String UpdateThis) {
         sc = new Scanner(System.in);
@@ -417,7 +419,7 @@ public class MenuApp implements Serializable,AppInterface {
     /**
      * Scanner to ask for user input for UpdatingPromoSetContents() with error checking
      *
-     * @return  choice of updating promoset content
+     * @return choice of updating promoset content
      */
     private int askUserForChoiceInUpdatingPromoSetContents() {
         sc = new Scanner(System.in);

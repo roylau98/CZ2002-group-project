@@ -9,34 +9,34 @@ import java.util.Scanner;
  * @since 2021-11-5
  */
 
-public class OrderApp implements Serializable,AppInterface {
+public class OrderApp implements Serializable, AppInterface {
 
     private transient Scanner sc;
     /**
      * Object Manager of Order
      */
-    private OrderMgr orderMgr;
+    private final OrderMgr orderMgr;
     /**
      * Manager of Sales Report
      */
-    private SalesReport salesReportApp;
+    private final SalesReport salesReportApp;
     /**
      * Object Manager of MenuItem
      */
-    private MenuMgr menuMgr;
+    private final MenuMgr menuMgr;
     /**
      * Manager of staff
      */
-    private StaffApp staffApp;
+    private final StaffApp staffApp;
     /**
      * Object Manager of Reservation
      */
-    private ReservationMgr reservationMgr;
+    private final ReservationMgr reservationMgr;
+
     /**
      * Class Constructor
-     *
      */
-    public OrderApp(ReservationMgr reservationMgrEx,OrderMgr orderMgrEx, MenuMgr menuMgrEx, SalesReport salesReport,StaffApp staffAppEx) {
+    public OrderApp(ReservationMgr reservationMgrEx, OrderMgr orderMgrEx, MenuMgr menuMgrEx, SalesReport salesReport, StaffApp staffAppEx) {
         orderMgr = orderMgrEx;
         staffApp = staffAppEx;
         salesReportApp = salesReport;
@@ -49,13 +49,13 @@ public class OrderApp implements Serializable,AppInterface {
      */
     public void openOptions() {
         sc = new Scanner(System.in);
-        if (staffApp.getNoOfStaff()==0) {
+        if (staffApp.getNoOfStaff() == 0) {
             System.out.print("\nOrder App\n");
             System.out.println("No staff. Orders cannot be made");
             System.out.println("Returning back to main menu...");
             return;
         }
-        if (menuMgr.getNumberOfMenuItems()==0) {
+        if (menuMgr.getNumberOfMenuItems() == 0) {
             System.out.print("Order App\n");
             System.out.println("No menu items. Orders cannot be made");
             System.out.println("Returning back to main menu...");
@@ -71,7 +71,7 @@ public class OrderApp implements Serializable,AppInterface {
                     "3. Cancel an existing order\n" +
                     "4. Update an existing order\n" +
                     "5. Make payment for an order\n" +
-                    "6. Print All Order\n"+
+                    "6. Print All Order\n" +
                     "7. Exit this application and return to the previous page\n" +
                     "Enter your choice: ");
             try {
@@ -97,8 +97,8 @@ public class OrderApp implements Serializable,AppInterface {
                     billOrder();
                     break;
                 case 6:
-                	printAll();
-                	break;
+                    printAll();
+                    break;
                 case 7:
                     return;
                 default:
@@ -111,16 +111,15 @@ public class OrderApp implements Serializable,AppInterface {
     /**
      * View the specific order that has been created
      */
-    public void printAll()
-    {
-    	if(orderMgr.getTotalNoOfOrders()==0)
-    	{
-    		System.out.println("There is no order at the moment.");
-    		return;
-    	}
-    	
-    	orderMgr.printAllOrders();
+    public void printAll() {
+        if (orderMgr.getTotalNoOfOrders() == 0) {
+            System.out.println("There is no order at the moment.");
+            return;
+        }
+
+        orderMgr.printAllOrders();
     }
+
     private void viewOrder() {
         if (orderMgr.getTotalNoOfOrders() == 0) {
             System.out.println("No orders have been made.");
@@ -150,7 +149,7 @@ public class OrderApp implements Serializable,AppInterface {
         if (tableNo == -1) {
             return;
         }
-        if(orderMgr.checkforTableOrder(tableNo)==true) {
+        if (orderMgr.checkforTableOrder(tableNo) == true) {
             System.out.println("The order for this table has been created.\n" + "If you intend to update contents of order, please proceed to Option 4");
             return;
         }
@@ -277,14 +276,14 @@ public class OrderApp implements Serializable,AppInterface {
      * @param reservationMgr The reservation manager which will be notified that an order has been completed.
      */
     private void billOrder() {
-    	int id;
+        int id;
         if (orderMgr.getTotalNoOfOrders() == 0) {
             System.out.println("No orders have been made.");
             return;
         }
         orderMgr.printAllOrderID();
-        id=askUserForOrderID();
-        salesReportApp.addInvoice(orderMgr.chargeBill(reservationMgr,id ));
+        id = askUserForOrderID();
+        salesReportApp.addInvoice(orderMgr.chargeBill(reservationMgr, id));
     }
 
     /**

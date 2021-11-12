@@ -25,18 +25,18 @@ public class StaffMgr implements Serializable {
     }
 
     /**
-     * Return the number of staff 
+     * Return the number of staff
      *
-     * @return   number of staff
+     * @return number of staff
      */
     public int getTotalNoOfStaff() {
         return listOfStaff.size();
     }
-    
+
     /**
      * Return staff object by staff id
      *
-     * @param  id     id of the staff
+     * @param id id of the staff
      * @return staff  staff object to be returned
      */
     public Staff getStaffByID(int id) {
@@ -97,9 +97,9 @@ public class StaffMgr implements Serializable {
         Staff updateThisStaff = getStaffByID(employeeID);
         updateThisStaff.setGender(updatedSex);
     }
+
     /**
-     * Print all the staff and their details 
-     *
+     * Print all the staff and their details
      */
     public void printStaff() {
         for (Staff staff : listOfStaff) {
@@ -110,11 +110,12 @@ public class StaffMgr implements Serializable {
 
         }
     }
+
     /**
-     * Return true if the id is existing,false otherwise 
+     * Return true if the id is existing,false otherwise
      *
-     * @param  employeeID  id of the employee
-     * @return             the validate of the id
+     * @param employeeID id of the employee
+     * @return the validate of the id
      */
     public boolean validateEmployeeID(int employeeID) {
         for (Staff s : listOfStaff) {
@@ -123,11 +124,12 @@ public class StaffMgr implements Serializable {
         }
         return false;
     }
+
     /**
-     * Return the gender by selection 
+     * Return the gender by selection
      *
-     * @param  choice  choice of the gender
-     * @return         enumeration of the gender
+     * @param choice choice of the gender
+     * @return enumeration of the gender
      */
     public Sex chooseSex(int choice) {
         if (choice == 0) {

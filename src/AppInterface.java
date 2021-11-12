@@ -6,13 +6,14 @@
  */
 public interface AppInterface {
 
-  /**
-   * Open the options of the application
-   */
-	public void openOptions();
-  /**
-   * Print All items 
-   */
-	public void printAll();
-		
+    /**
+     * Open the options of the application
+     */
+    void openOptions();
+
+    /**
+     * Print All items
+     */
+    void printAll();
+
 }
