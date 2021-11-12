@@ -31,7 +31,7 @@ public class OrderApp implements Serializable {
     /**
      * Object Manager of Reservation
      */
-    private ReservationMgr reservationMgr; 
+    private ReservationMgr reservationMgr;
     /**
      * Class Constructor
      *
@@ -47,7 +47,7 @@ public class OrderApp implements Serializable {
     /**
      * Open Order App options
      */
-    public void orderAppOptions(ReservationMgr reservationMgr) {
+    public void openOptions() {
         sc = new Scanner(System.in);
         if (staffApp.getNoOfStaff()==0) {
             System.out.print("\nOrder App\n");
@@ -71,7 +71,8 @@ public class OrderApp implements Serializable {
                     "3. Cancel an existing order\n" +
                     "4. Update an existing order\n" +
                     "5. Make payment for an order\n" +
-                    "6. Exit this application and return to the previous page\n" +
+                    "6. Print All Order\n"+
+                    "7. Exit this application and return to the previous page\n" +
                     "Enter your choice: ");
             try {
                 choice = sc.nextInt();
@@ -96,22 +97,43 @@ public class OrderApp implements Serializable {
                     billOrder();
                     break;
                 case 6:
+                	printAll();
+                case 7:
                     return;
                 default:
                     System.out.println("Invalid input received.");
                     break;
             }
-        } while (choice != 6);
+        } while (choice != 7);
     }
 
     /**
      * View the specific order that has been created
      */
+    private void printAll()
+    {
+    	if(orderMgr.getTotalNoOfOrders()==0)
+    	{
+    		System.out.println("There is no order at the moment.");
+    		return;
+    	}
+    	for(int i=0;i<orderMgr.getTotalNoOfOrders();i++)
+    	{
+    		System.out.println("Order "+i+": ");
+    		orderMgr.viewOrder(i);
+    		System.out.println();
+    		
+    	}
+    }
     private void viewOrder() {
         if (orderMgr.getTotalNoOfOrders() == 0) {
             System.out.println("No orders have been made.");
             return;
         }
+        for(int i=0;i<orderMgr.getTotalNoOfOrders();i++)
+    	{
+        	System.out.println("Order "+i);
+    	}
         orderMgr.viewOrder(askUserForOrderID());
     }
 
@@ -266,6 +288,7 @@ public class OrderApp implements Serializable {
             System.out.println("No orders have been made.");
             return;
         }
+        printAll();
         id=askUserForOrderID();
         salesReportApp.addInvoice(orderMgr.chargeBill(reservationMgr,id ));
         orderMgr.removeOrder(id);
@@ -317,7 +340,7 @@ public class OrderApp implements Serializable {
      * Open Staff Option
      */
     public void staffAppOptions() {
-        staffApp.staffAppOptions();
+        staffApp.openOptions();
     }
 
 }
