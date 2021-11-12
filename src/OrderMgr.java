@@ -40,6 +40,21 @@ public class OrderMgr implements Serializable {
         }
         return false;
     }
+    public void printAllOrders() {
+    	System.out.println("Current Existing Order: ");
+    	for (Order order : getListOfOrder()) 
+        {
+    		System.out.println("Order "+order.getOrderID()+" : ");
+            viewOrder(order.getOrderID());
+        }
+    }
+    public void printAllOrderID() {
+    	System.out.println("Current Existing Order: ");
+    	for (Order order : getListOfOrder()) 
+        {
+    		System.out.println("Order "+order.getOrderID());
+        }
+    }
     /**
      * Get total size of the list of orders
      *
