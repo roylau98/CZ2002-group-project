@@ -8,7 +8,7 @@ import java.util.Scanner;
  *
  * @since 2021-11-5
  */
-public class MenuApp implements Serializable {
+public class MenuApp implements Serializable,AppInterface {
     /**
      * Object Manager of the menu
      */
@@ -26,7 +26,7 @@ public class MenuApp implements Serializable {
     /**
      * Interface of the MenuApp with several options available
      */
-    public void menuOptions() {
+    public void openOptions() {
         sc = new Scanner(System.in);
         int choice = 999;
         while (choice != 5) {
@@ -49,7 +49,7 @@ public class MenuApp implements Serializable {
 
             switch (choice) {
                 case 1:
-                    printMenu();
+                    printAll();
                     break;
                 case 2:
                     addMenuItem();
@@ -73,7 +73,7 @@ public class MenuApp implements Serializable {
     /**
      * Print the latest Menu in the restaurant
      */
-    public void printMenu() {
+    private void printAll() {
         menuMgr.printListOfMenuItems();
     }
 
@@ -134,7 +134,7 @@ public class MenuApp implements Serializable {
             System.out.println("There are no menu items.");
             return;
         }
-        printMenu();
+        printAll();
         System.out.print("Enter the index of the menu item you would like to remove: ");
         int indexOfItemToBeRemoved = askUserForMenuItemIndex();
         if (indexOfItemToBeRemoved == -1) {
@@ -154,7 +154,7 @@ public class MenuApp implements Serializable {
             System.out.println("There are no menu items.");
             return;
         }
-        printMenu();
+        printAll();
         System.out.print("Enter the index of the menu item you would like to update: ");
         int indexOfMenuItemToBeUpdated = askUserForMenuItemIndex();
         if (indexOfMenuItemToBeUpdated == -1) {
