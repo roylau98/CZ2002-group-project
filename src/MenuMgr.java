@@ -83,7 +83,7 @@ public class MenuMgr implements Serializable {
     /**
      * Prints PromotionalSet in the Menu (Overload)
      *
-     * @param c  class of object
+     * @param c class of object
      */
     private void printMenuItemsByCat(Class c) {
         if (c == PromotionalSet.class) {
@@ -107,7 +107,7 @@ public class MenuMgr implements Serializable {
     /**
      * Return true/false of the existence of certain MenuItem
      *
-     * @param name          name of menu item to be checked whether it is inside the menu
+     * @param name name of menu item to be checked whether it is inside the menu
      * @return the existence(boolean) of certain MenuItem
      */
     public Boolean isMenuItemNameExist(String name) {
@@ -118,10 +118,11 @@ public class MenuMgr implements Serializable {
         }
         return false;
     }
+
     /**
      * Return true/false of the existence of certain MenuItem
      *
-     * @param description   description of menu item to be checked whether it is inside the menu
+     * @param description description of menu item to be checked whether it is inside the menu
      * @return the existence(boolean) of certain MenuItem
      */
     public Boolean isMenuItemDescriptionExist(String description) {

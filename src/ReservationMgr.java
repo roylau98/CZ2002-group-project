@@ -91,25 +91,15 @@ public class ReservationMgr implements Serializable {
     }
 
     /**
-     * Update existing reservation date
-     *
-     * @param reservationNo reservation no. to be updated
-     * @param newDate       Date to be updated
-     */
-    public void updateReservation(int reservationNo, LocalDate newDate) {
-        Reservation deepCopy = new Reservation(allReservations.get(reservationNo));
-        deepCopy.setDate(newDate);
-        updateReservation(reservationNo, deepCopy);
-    }
-
-    /**
-     * Update existing reservation time
+     * Update existing reservation date and time
      *
      * @param reservationNo reservation no. to be updated
      * @param newTime       Time to be updated
+     * @param newDate       Date to be updated
      */
-    public void updateReservation(int reservationNo, LocalTime newTime) {
+    public void updateReservation(int reservationNo, LocalDate newDate, LocalTime newTime) {
         Reservation deepCopy = new Reservation(allReservations.get(reservationNo));
+        deepCopy.setDate(newDate);
         deepCopy.setTime(newTime);
         updateReservation(reservationNo, deepCopy);
     }
@@ -160,7 +150,7 @@ public class ReservationMgr implements Serializable {
     public void viewAllReservations() {
         System.out.println("---List of all reservations---");
         for (Reservation r : allReservations)
-            System.out.println("Reservation " + allReservations.indexOf(r) + ": " + r.toString());
+            System.out.println("Reservation " + allReservations.indexOf(r) + ": " + r);
     }
 
     /**
@@ -230,10 +220,17 @@ public class ReservationMgr implements Serializable {
      */
     public void viewTablesWithReservationsNow() {
         System.out.println("---List of tables with reservations now---");
-        for (Table t : allTables) {
-            // tables with a reservation now are not available for another reservation
-            if (!t.checkAvailabilityAt(LocalDate.now(), LocalTime.now()))
-                System.out.println("Table " + allTables.indexOf(t) + ": " + t);
+        ArrayList<Reservation> reservationsNow = new ArrayList<>();
+        for (Reservation r : allReservations) {
+            LocalDate date = r.getDate();
+            int hour = r.getHour();
+            if (date.isEqual(date) && hour == LocalTime.now().getHour()) {
+                reservationsNow.add(r);
+            }
+        }
+        reservationsNow.sort(Comparator.comparing(Reservation::getTableNo));
+        for (Reservation r : reservationsNow) {
+            System.out.printf("Table %d: %20s", r.getTableNo(), r.getCustomer().getName());
         }
     }
 

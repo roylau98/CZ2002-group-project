@@ -107,7 +107,7 @@ public class Table implements Serializable {
      * It will only remove when the date is passed or when there is no reservations on a particular date for this table.
      */
     private void mapCleanup() {
-        for (Iterator<Map.Entry<LocalDate, Boolean[]>> it = availabilityRecord.entrySet().iterator(); it.hasNext();) {
+        for (Iterator<Map.Entry<LocalDate, Boolean[]>> it = availabilityRecord.entrySet().iterator(); it.hasNext(); ) {
             LocalDate date = it.next().getKey();
             if (date.isBefore(LocalDate.now())) {
                 it.remove();

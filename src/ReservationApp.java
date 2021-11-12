@@ -1,7 +1,7 @@
 import java.io.Serializable;
+import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.time.Month;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
@@ -11,7 +11,7 @@ import java.util.Scanner;
  *
  * @since 2021-11-5
  */
-public class ReservationApp implements Serializable,AppInterface {
+public class ReservationApp implements Serializable, AppInterface {
     /**
      * Object Manager of Reservation
      */
@@ -107,25 +107,35 @@ public class ReservationApp implements Serializable,AppInterface {
             }
         }
     }
+
     /**
      * Print all the existing reservation
      */
-    public void printAll()
-    {
-    	reservationMgr.viewAllReservations();
+    public void printAll() {
+        reservationMgr.viewAllReservations();
     }
+
     /**
      * Create new Reservation
      */
     private void makeReservation() {
+        boolean error = true;
+        LocalTime time;
         System.out.println("Please enter the following details below:");
         LocalDate date = askUserForDate();
-        LocalTime time = askUserForTime();
+        do {
+            try {
+                time = askUserForTime();
+                error = false;
+            } catch (DateTimeException e) {
+                System.out.println("Error in reservation, did not reserve. Try reserving again.");
+                return;
+            }
+        } while (error);
         int noOfPax = askUserForPax();
         Customer customer = askUserForCustomerDetails();
         reservationMgr.makeReservation(new Reservation(date, time, noOfPax, customer));
     }
-
     /**
      * Cancel existing Reservation
      */
@@ -200,10 +210,9 @@ public class ReservationApp implements Serializable,AppInterface {
             do {
                 try {
                     System.out.println("What would you like to amend?\n" +
-                            "1. Date of reservation\n" +
-                            "2. Time of reservation\n" +
-                            "3. Number of persons\n" +
-                            "4. Customer details");
+                            "1. Date/time of reservation\n" +
+                            "2. Number of persons\n" +
+                            "3. Customer details");
                     choice = scanner.nextInt();
                     scanner.nextLine();
                     error = false;
@@ -214,8 +223,8 @@ public class ReservationApp implements Serializable,AppInterface {
                 }
             } while (error);
 
-            if (choice < 1 || choice > 4) {
-                System.out.println("Invalid value. (Valid value: 1 - 4)\n");
+            if (choice < 1 || choice > 3) {
+                System.out.println("Invalid value. (Valid value: 1 - 3)\n");
             } else {
                 cont = false;
             }
@@ -224,17 +233,14 @@ public class ReservationApp implements Serializable,AppInterface {
         switch (choice) {
             case 1:
                 LocalDate date = askUserForDate();
-                reservationMgr.updateReservation(reservationNoToUpdate, date);
+                LocalTime time = askUserForTime();
+                reservationMgr.updateReservation(reservationNoToUpdate, date, time);
                 break;
             case 2:
-                LocalTime time = askUserForTime();
-                reservationMgr.updateReservation(reservationNoToUpdate, time);
-                break;
-            case 3:
                 int noOfPax = askUserForPax();
                 reservationMgr.updateReservation(reservationNoToUpdate, noOfPax);
                 break;
-            case 4:
+            case 3:
                 Customer updatedCustomer = askUserForCustomerDetails();
                 reservationMgr.updateReservation(reservationNoToUpdate, updatedCustomer);
                 break;
@@ -244,16 +250,9 @@ public class ReservationApp implements Serializable,AppInterface {
     /**
      * Scanner to ask for user input (Date) with error checking
      *
-     * @return  the date input by user
+     * @return the date input by user
      */
     private LocalDate askUserForDate() {
-        LocalDate localDate = LocalDate.now();
-        LocalTime localTime = LocalTime.now();
-        int currentYear = localDate.getYear();
-        int currentMonth = localDate.getMonthValue();
-        Month currentMonthEnum = localDate.getMonth();
-        int currentDate = localDate.getDayOfMonth();
-        int currentHour = localTime.getHour();
         boolean cont = true;
         boolean error = true;
         while (cont) {
@@ -264,13 +263,13 @@ public class ReservationApp implements Serializable,AppInterface {
                     scanner.nextLine();
                     error = false;
                 } catch (InputMismatchException e) {
-                    System.out.println("Invalid input. (Valid values: " + currentYear + " onwards)");
+                    System.out.println("Invalid input. (Valid values: " + LocalDate.now().getYear() + " onwards)");
                     scanner.nextLine();
                     error = true;
                 }
             } while (error);
-            if (year < currentYear) {
-                System.out.println("Invalid value. (Valid values: " + currentYear + " onwards)");
+            if (year < LocalDate.now().getYear()) {
+                System.out.println("Invalid value. (Valid values: " + LocalDate.now().getYear() + " onwards)");
                 cont = true;
             } else {
                 cont = false;
@@ -285,8 +284,8 @@ public class ReservationApp implements Serializable,AppInterface {
                     scanner.nextLine();
                     error = false;
                 } catch (InputMismatchException e) {
-                    if (currentYear == year) {
-                        System.out.println("Invalid input. (Valid values: " + currentMonthEnum + " onwards)");
+                    if (LocalDate.now().getYear() == year) {
+                        System.out.println("Invalid input. (Valid values: " + LocalDate.now().getMonth() + " onwards)");
                     } else {
                         System.out.println("Invalid input. (Valid values: 1 - 12)");
                     }
@@ -294,8 +293,8 @@ public class ReservationApp implements Serializable,AppInterface {
                     error = true;
                 }
             } while (error);
-            if (month < currentMonth && year == currentYear) {
-                System.out.println("Invalid value. (Valid values: " + currentMonthEnum + " onwards)");
+            if (month < LocalDate.now().getMonthValue() && year == LocalDate.now().getYear()) {
+                System.out.println("Invalid value. (Valid values: " + LocalDate.now().getMonth() + " onwards)");
             } else if (month < 1 || month > 12) {
                 System.out.println("Invalid Value. (Value values: 1 - 12)");
             } else {
@@ -303,9 +302,9 @@ public class ReservationApp implements Serializable,AppInterface {
             }
         }
         cont = true;
-        LocalDate lastDayOfMonth = LocalDate.of(year, month, 1);
-        int maxDay = lastDayOfMonth.getMonth().length(lastDayOfMonth.isLeapYear());
         while (cont) {
+            LocalDate lastDayOfMonth = LocalDate.of(year, month, 1);
+            int maxDay = lastDayOfMonth.getMonth().length(lastDayOfMonth.isLeapYear());
             do {
 
                 try {
@@ -320,16 +319,16 @@ public class ReservationApp implements Serializable,AppInterface {
                 }
             } while (error);
 
-            if (year == currentYear && month == currentMonth) {
-                if (date < currentDate || date > maxDay) {
-                    System.out.println("Invalid value. (Valid values: From " + currentDate + " onwards to " + maxDay + ")");
+            if (year == LocalDate.now().getYear() && month == LocalDate.now().getMonthValue()) {
+                if (date < LocalDate.now().getDayOfMonth() || date > maxDay) {
+                    System.out.println("Invalid value. (Valid values: From " + LocalDate.now().getDayOfMonth() + " onwards to " + maxDay + ")");
                     cont = true;
-                } else if (currentHour == 23 && date <= currentDate){
-                    System.out.println("Invalid value. (Valid values: From " + (currentDate + 1) + " onwards to " + maxDay + ")");
+                } else if (LocalTime.now().getHour() == 23 && date <= LocalDate.now().getDayOfMonth()) {
+                    System.out.println("Invalid value. (Valid values: From " + (LocalDate.now().getDayOfMonth() + 1) + " onwards to " + maxDay + ")");
                 } else {
                     cont = false;
                 }
-            }  else {
+            } else {
                 if (date < 1 || date > maxDay) {
                     System.out.println("Invalid value. (Valid values: From 1 - " + maxDay + ")");
                     cont = true;
@@ -344,15 +343,9 @@ public class ReservationApp implements Serializable,AppInterface {
     /**
      * Scanner to ask for user input (Time) with error checking
      *
-     * @return  the time input by user
+     * @return the time input by user
      */
     private LocalTime askUserForTime() {
-        LocalDate localDate = LocalDate.now();
-        LocalTime localTime = LocalTime.now();
-        int currentYear = localDate.getYear();
-        int currentMonth = localDate.getMonthValue();
-        int currentDate = localDate.getDayOfMonth();
-        int currentHour = localTime.getHour();
         boolean cont = true;
         boolean error = true;
         cont = true;
@@ -371,8 +364,22 @@ public class ReservationApp implements Serializable,AppInterface {
             } while (error);
             if (hour < 0 || hour > 23) {
                 System.out.println("Invalid value. (Valid values: 0 - 23)");
-            } else if (year == currentYear && month == currentMonth && date == currentDate && hour <= currentHour) {
-                System.out.println("Invalid value. (Valid values: " + (currentHour + 1) + " - 23)");
+            } else if (year == LocalDate.now().getYear() && month == LocalDate.now().getMonthValue() && date == LocalDate.now().getDayOfMonth() && hour <= LocalTime.now().getHour()) {
+                if (LocalTime.now().getHour() == 23) { //time exceeded, hour rolled over.
+                    System.out.println("Time rolled over, re-book another date from tomorrow.");
+                    return LocalTime.of(-1, -1); // to throw dateTimeException
+                } else {
+                    System.out.println("Invalid value. (Valid values: " + (LocalTime.now().getHour() + 1) + " - 23)");
+                }
+            } else if (year < LocalDate.now().getYear()) { //time exceeded, year rolled over.
+                System.out.println("Time rolled over, re-book another date from next year.");
+                return LocalTime.of(-1, -1); // to throw dateTimeException
+            } else if (year == LocalDate.now().getYear() && month < LocalDate.now().getMonthValue()) { //time exceeded, month rolled over.
+                System.out.println("Time rolled over, re-book another date from next month.");
+                return LocalTime.of(-1, -1); // to throw dateTimeException
+            } else if (year == LocalDate.now().getYear() && month == LocalDate.now().getMonthValue() && date < LocalDate.now().getDayOfMonth()) { //time exceeded, date rolled over.
+                System.out.println("Time rolled over, re-book another date from next day.");
+                return LocalTime.of(-1, -1); // to throw dateTimeException
             } else {
                 cont = false;
             }
@@ -383,7 +390,7 @@ public class ReservationApp implements Serializable,AppInterface {
     /**
      * Scanner to ask for user input (noOfPax) with error checking
      *
-     * @return  the no. of people 
+     * @return the no. of people
      */
     private int askUserForPax() {
         boolean cont = true;
@@ -415,7 +422,7 @@ public class ReservationApp implements Serializable,AppInterface {
     /**
      * Scanner to ask for user input (Customer Details) with error checking
      *
-     * @return  the customer object
+     * @return the customer object
      */
     private Customer askUserForCustomerDetails() {
         boolean cont = true;
