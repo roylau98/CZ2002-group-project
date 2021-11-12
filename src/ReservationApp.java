@@ -107,6 +107,9 @@ public class ReservationApp implements Serializable,AppInterface {
             }
         }
     }
+    /**
+     * Print all the existing reservation
+     */
     public void printAll()
     {
     	reservationMgr.viewAllReservations();
@@ -240,6 +243,8 @@ public class ReservationApp implements Serializable,AppInterface {
 
     /**
      * Scanner to ask for user input (Date) with error checking
+     *
+     * @return  the date input by user
      */
     private LocalDate askUserForDate() {
         LocalDate localDate = LocalDate.now();
@@ -338,6 +343,8 @@ public class ReservationApp implements Serializable,AppInterface {
 
     /**
      * Scanner to ask for user input (Time) with error checking
+     *
+     * @return  the time input by user
      */
     private LocalTime askUserForTime() {
         LocalDate localDate = LocalDate.now();
@@ -375,6 +382,8 @@ public class ReservationApp implements Serializable,AppInterface {
 
     /**
      * Scanner to ask for user input (noOfPax) with error checking
+     *
+     * @return  the no. of people 
      */
     private int askUserForPax() {
         boolean cont = true;
@@ -405,6 +414,8 @@ public class ReservationApp implements Serializable,AppInterface {
 
     /**
      * Scanner to ask for user input (Customer Details) with error checking
+     *
+     * @return  the customer object
      */
     private Customer askUserForCustomerDetails() {
         boolean cont = true;
