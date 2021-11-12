@@ -91,7 +91,7 @@ public class SalesReport implements Serializable {
         HashMap<MenuItem, Double> revenue = new HashMap<>();
         for (Invoice invoice : listOfSales) {
             LocalDate invoiceDate = invoice.getTimestamp().toLocalDate();
-            if (invoiceDate.isBefore(start) || invoiceDate.isAfter(end)) {
+            if (invoiceDate.isBefore(start) || invoiceDate.isAfter(end))
                 continue;
 
             for (MenuItem menuItem : invoice.getListOfSoldItems()) {
