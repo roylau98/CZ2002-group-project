@@ -114,7 +114,7 @@ public class SalesReport implements Serializable {
         double totalRevenue = 0;
         for (double d : revenue.values())
             totalRevenue += d;
-        System.out.printf("Total revenue = $.2f\n", totalRevenue);
+        System.out.printf("Total revenue = $%.2f\n", totalRevenue);
         System.out.printf("Total revenue (accounting for member's discount) = $%.2f\n", finalRevenue);
         System.out.println("Individual sales count:");
         salesCount.forEach((menuItem, count) -> System.out.println(menuItem.getName() + ": " + count + " sold."));
