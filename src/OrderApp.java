@@ -111,7 +111,7 @@ public class OrderApp implements Serializable,AppInterface {
     /**
      * View the specific order that has been created
      */
-    private void printAll()
+    public void printAll()
     {
     	if(orderMgr.getTotalNoOfOrders()==0)
     	{
