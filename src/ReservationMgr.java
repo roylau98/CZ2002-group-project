@@ -220,10 +220,17 @@ public class ReservationMgr implements Serializable {
      */
     public void viewTablesWithReservationsNow() {
         System.out.println("---List of tables with reservations now---");
-        for (Table t : allTables) {
-            // tables with a reservation now are not available for another reservation
-            if (!t.checkAvailabilityAt(LocalDate.now(), LocalTime.now()))
-                System.out.println("Table " + allTables.indexOf(t) + ": " + t);
+        ArrayList<Reservation> reservationsNow = new ArrayList<>();
+        for (Reservation r : allReservations) {
+            LocalDate date = r.getDate();
+            int hour = r.getHour();
+            if (date.isEqual(date) && hour == LocalTime.now().getHour()) {
+                reservationsNow.add(r);
+            }
+        }
+        reservationsNow.sort(Comparator.comparing(Reservation::getTableNo));
+        for (Reservation r : reservationsNow) {
+            System.out.printf("Table %d: %20s", r.getTableNo(), r.getCustomer().getName());
         }
     }
 
