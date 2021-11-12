@@ -98,6 +98,7 @@ public class OrderApp implements Serializable,AppInterface {
                     break;
                 case 6:
                 	printAll();
+                	break;
                 case 7:
                     return;
                 default:
@@ -117,13 +118,8 @@ public class OrderApp implements Serializable,AppInterface {
     		System.out.println("There is no order at the moment.");
     		return;
     	}
-    	for(int i=0;i<orderMgr.getTotalNoOfOrders();i++)
-    	{
-    		System.out.println("Order "+i+": ");
-    		orderMgr.viewOrder(i);
-    		System.out.println();
-    		
-    	}
+    	
+    	orderMgr.printAllOrders();
     }
     private void viewOrder() {
         if (orderMgr.getTotalNoOfOrders() == 0) {
@@ -180,6 +176,7 @@ public class OrderApp implements Serializable,AppInterface {
             System.out.println("No orders have been made.");
             return;
         }
+        orderMgr.printAllOrderID();
         orderMgr.removeOrder(askUserForOrderID());
     }
 
@@ -288,7 +285,7 @@ public class OrderApp implements Serializable,AppInterface {
             System.out.println("No orders have been made.");
             return;
         }
-        printAll();
+        orderMgr.printAllOrderID();
         id=askUserForOrderID();
         salesReportApp.addInvoice(orderMgr.chargeBill(reservationMgr,id ));
         orderMgr.removeOrder(id);
