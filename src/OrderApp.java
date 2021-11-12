@@ -184,7 +184,7 @@ public class OrderApp implements Serializable,AppInterface {
             System.out.println("No orders have been made.");
             return;
         }
-
+        orderMgr.printAllOrders();
         int orderID = askUserForOrderID();
         updateOrder(orderID);
     }
