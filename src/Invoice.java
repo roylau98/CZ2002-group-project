@@ -18,7 +18,7 @@ import java.util.ArrayList;
  * 	<li>{@code finalPrice}: The amount that customer will pay. This final price take accounts the GST,service charge
  * </ul>
  *
- * @since 2021-11-12
+ * @since 2021-11-5
  */
 
 public class Invoice implements Serializable {
@@ -121,7 +121,10 @@ public class Invoice implements Serializable {
         System.out.println("-------------------------------------------------");
         System.out.println("No.\tItem Name\tPrice");
         for (int i = 0; i < listOfSoldItems.size(); i++) {
-            System.out.printf((i + 1) + ".\t" + listOfSoldItems.get(i).getName() + "\t\t$%.2f\n" + listOfSoldItems.get(i).getPrice());
+            System.out.printf("%d.\t%s\t$%.2f\n", (i+1), listOfSoldItems.get(i).getName(), listOfSoldItems.get(i).getPrice());
+            //System.out.print((i + 1) + ".\t" + listOfSoldItems.get(i).getName() + "\t\t$");
+            //System.out.printf("%.2f\n", listOfSoldItems.get(i).getPrice());
+            //System.out.println((i + 1) + ".\t" + listOfSoldItems.get(i).getName() + "\t\t$" + listOfSoldItems.get(i).getPrice());
         }
         calculateFinalPrice();
         System.out.println("-------------------------------------------------");
@@ -171,7 +174,7 @@ public class Invoice implements Serializable {
     }
 
     /**
-     * Calculate the final price that take accounts of GST,service charge
+     * Calculate and return the final price that take accounts of GST,service charge
      */
     public void calculateFinalPrice() {
         totalPrice = 0;
