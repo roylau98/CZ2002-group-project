@@ -73,7 +73,7 @@ public class MenuApp implements Serializable,AppInterface {
     /**
      * Print the latest Menu in the restaurant
      */
-    private void printAll() {
+    public void printAll() {
         menuMgr.printListOfMenuItems();
     }
 
