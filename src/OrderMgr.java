@@ -217,6 +217,7 @@ public class OrderMgr implements Serializable {
         Invoice bill = selectedOrder.getInvoice();
         bill.printInvoice();
         reservationMgr.removeReservationAfterPayment(selectedOrder.getAssignedTable());
+        removeOrder(orderID);
         return bill;
     }
 }
