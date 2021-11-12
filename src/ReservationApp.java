@@ -107,7 +107,7 @@ public class ReservationApp implements Serializable,AppInterface {
             }
         }
     }
-    private void printAll()
+    public void printAll()
     {
     	reservationMgr.viewAllReservations();
     }
