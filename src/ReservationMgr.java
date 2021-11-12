@@ -150,7 +150,7 @@ public class ReservationMgr implements Serializable {
     public void viewAllReservations() {
         System.out.println("---List of all reservations---");
         for (Reservation r : allReservations)
-            System.out.println("Reservation " + allReservations.indexOf(r) + ": " + r.toString());
+            System.out.println("Reservation " + allReservations.indexOf(r) + ": " + r);
     }
 
     /**
