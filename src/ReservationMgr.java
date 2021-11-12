@@ -103,13 +103,15 @@ public class ReservationMgr implements Serializable {
     }
 
     /**
-     * Update existing reservation time
+     * Update existing reservation date and time
      *
      * @param reservationNo reservation no. to be updated
      * @param newTime       Time to be updated
+     * @param newDate       Date to be updated
      */
-    public void updateReservation(int reservationNo, LocalTime newTime) {
+    public void updateReservation(int reservationNo, LocalDate newDate, LocalTime newTime) {
         Reservation deepCopy = new Reservation(allReservations.get(reservationNo));
+        deepCopy.setDate(newDate);
         deepCopy.setTime(newTime);
         updateReservation(reservationNo, deepCopy);
     }

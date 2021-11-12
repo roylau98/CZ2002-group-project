@@ -1,9 +1,8 @@
 import java.io.Serializable;
+import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.time.Month;
 import java.util.InputMismatchException;
-import java.time.DateTimeException;
 import java.util.Scanner;
 
 /**
@@ -212,10 +211,9 @@ public class ReservationApp implements Serializable,AppInterface {
             do {
                 try {
                     System.out.println("What would you like to amend?\n" +
-                            "1. Date of reservation\n" +
-                            "2. Time of reservation\n" +
-                            "3. Number of persons\n" +
-                            "4. Customer details");
+                            "1. Date/time of reservation\n" +
+                            "2. Number of persons\n" +
+                            "3. Customer details");
                     choice = scanner.nextInt();
                     scanner.nextLine();
                     error = false;
@@ -226,8 +224,8 @@ public class ReservationApp implements Serializable,AppInterface {
                 }
             } while (error);
 
-            if (choice < 1 || choice > 4) {
-                System.out.println("Invalid value. (Valid value: 1 - 4)\n");
+            if (choice < 1 || choice > 3) {
+                System.out.println("Invalid value. (Valid value: 1 - 3)\n");
             } else {
                 cont = false;
             }
