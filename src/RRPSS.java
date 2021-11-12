@@ -103,16 +103,16 @@ public class RRPSS implements Serializable {
 
             switch (choice) {
                 case 1:
-                    reservationApp.startReservationApp();
+                    reservationApp.openOptions();
                     break;
                 case 2:
-                    orderApp.orderAppOptions(reservationApp.getReservationMgr());
+                    orderApp.openOptions();
                     break;
                 case 3:
-                    menuApp.menuOptions();
+                    menuApp.openOptions();
                     break;
                 case 4:
-                    salesReportApp.salesReportOptions();
+                    salesReportApp.openOptions();
                     break;
                 case 5:
                     orderApp.staffAppOptions();
