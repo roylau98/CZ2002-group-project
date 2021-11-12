@@ -13,6 +13,6 @@ public interface AppInterface {
   /**
    * Print All items 
    */
-	private void printAll() {};
+	public void printAll() {};
 		
 }
