@@ -34,10 +34,10 @@ public class ReservationMgr implements Serializable {
      * Add table with default available seats
      */
     private void addTables() {
-        allTables.add(new Table(2));
-        allTables.add(new Table(2));
-        allTables.add(new Table(4));
-        allTables.add(new Table(4));
+        for (int i=0; i<5; i++) {
+            allTables.add(new Table((i+1)*2));
+            allTables.add(new Table((i+1)*2));
+        }
     }
 
     /**
