@@ -7,7 +7,7 @@ import java.util.ArrayList;
  * This class provides methods to add,remove Staff in the restaurant
  * <p>
  *
- * @since 2021-11-6
+ * @since 2021-11-12
  */
 public class StaffMgr implements Serializable {
     /**
@@ -24,11 +24,21 @@ public class StaffMgr implements Serializable {
         listOfStaff.add(new Staff("SpongeBob", Sex.MALE, 2, "Worker"));
     }
 
-
+    /**
+     * Return the number of staff 
+     *
+     * @return   number of staff
+     */
     public int getTotalNoOfStaff() {
         return listOfStaff.size();
     }
-
+    
+    /**
+     * Return staff object by staff id
+     *
+     * @param  id     id of the staff
+     * @return staff  staff object to be returned
+     */
     public Staff getStaffByID(int id) {
         for (Staff staff : listOfStaff) {
             if (staff.getEmployeeID() == id) {
@@ -87,7 +97,10 @@ public class StaffMgr implements Serializable {
         Staff updateThisStaff = getStaffByID(employeeID);
         updateThisStaff.setGender(updatedSex);
     }
-
+    /**
+     * Print all the staff and their details 
+     *
+     */
     public void printStaff() {
         for (Staff staff : listOfStaff) {
             System.out.println("Name: " + staff.getName());
@@ -97,7 +110,12 @@ public class StaffMgr implements Serializable {
 
         }
     }
-
+    /**
+     * Return true if the id is existing,false otherwise 
+     *
+     * @param  employeeID  id of the employee
+     * @return             the validate of the id
+     */
     public boolean validateEmployeeID(int employeeID) {
         for (Staff s : listOfStaff) {
             if (s.getEmployeeID() == employeeID)
@@ -105,7 +123,12 @@ public class StaffMgr implements Serializable {
         }
         return false;
     }
-
+    /**
+     * Return the gender by selection 
+     *
+     * @param  choice  choice of the gender
+     * @return         enumeration of the gender
+     */
     public Sex chooseSex(int choice) {
         if (choice == 0) {
             return Sex.MALE;
