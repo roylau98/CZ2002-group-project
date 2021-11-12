@@ -268,7 +268,6 @@ public class OrderApp implements Serializable {
         }
         id=askUserForOrderID();
         salesReportApp.addInvoice(orderMgr.chargeBill(reservationMgr,id ));
-        orderMgr.removeOrder(id);
     }
 
     /**
