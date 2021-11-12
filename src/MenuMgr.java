@@ -134,6 +134,13 @@ public class MenuMgr implements Serializable {
         return false;
     }
 
+    /**
+     * Return true/false of the existence of certain Promotional set
+     *
+     * @param index index of the promotional item
+     * @param key   name of promotional item
+     * @return the existence(boolean) of certain MenuItem
+     */
     public Boolean isPromoSetContentItemExist(int index, String key) {
         MenuItem curr = getMenuItem(index);
         if (curr instanceof PromotionalSet) {
