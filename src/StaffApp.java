@@ -8,7 +8,7 @@ import java.util.Scanner;
  *
  * @since 2021-11-6
  */
-public class StaffApp implements Serializable {
+public class StaffApp implements Serializable,AppInterface {
     private final StaffMgr staffMgr;
     private transient Scanner sc;
 
@@ -19,7 +19,7 @@ public class StaffApp implements Serializable {
         staffMgr = staffMgrEx;
     }
 
-    public void staffAppOptions() {
+    public void openOptions() {
         sc = new Scanner(System.in);
         int choice = 0;
         do {
@@ -39,8 +39,7 @@ public class StaffApp implements Serializable {
             }
             switch (choice) {
                 case 1:
-                    System.out.println("---List Of Staff Employed---\n");
-                    staffMgr.printStaff();
+                    printAll();
                     break;
                 case 2:
                     addStaff();
@@ -59,7 +58,10 @@ public class StaffApp implements Serializable {
             }
         } while (choice != 5);
     }
-
+    private void printAll() {
+    	System.out.println("---List Of Staff Employed---\n");
+        staffMgr.printStaff();
+    }
     public void addStaff() {
         String name = askUserForStaffStringInput("What is the staff's name: ");
         String jobTitle = askUserForStaffStringInput("What is the staff's job title: ");
@@ -208,3 +210,4 @@ public class StaffApp implements Serializable {
 
 
 }
+
