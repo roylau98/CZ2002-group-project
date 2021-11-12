@@ -66,12 +66,12 @@ public class OrderApp implements Serializable,AppInterface {
         do {
             System.out.print("\nOrder App\n" +
                     "Please select one of the options below:\n" +
-                    "1. View existing orders\n" +
-                    "2. Make a new order\n" +
-                    "3. Cancel an existing order\n" +
-                    "4. Update an existing order\n" +
-                    "5. Make payment for an order\n" +
-                    "6. Print All Order\n"+
+                    "1. View existing order\n" +
+                    "2. View all orders\n"+
+                    "3. Make a new order\n" +
+                    "4. Cancel an existing order\n" +
+                    "5. Update an existing order\n" +
+                    "6. Make payment for an order\n" +
                     "7. Exit this application and return to the previous page\n" +
                     "Enter your choice: ");
             try {
@@ -85,20 +85,20 @@ public class OrderApp implements Serializable,AppInterface {
                     viewOrder();
                     break;
                 case 2:
-                    newOrder();
+                    printAll();
                     break;
                 case 3:
-                    removeOrder();
+                    newOrder();
                     break;
                 case 4:
-                    updateOrder();
+                    removeOrder();
                     break;
                 case 5:
-                    billOrder();
+                    updateOrder();
                     break;
                 case 6:
-                	printAll();
-                	break;
+                    billOrder();
+                    break;
                 case 7:
                     return;
                 default:
@@ -126,7 +126,8 @@ public class OrderApp implements Serializable,AppInterface {
             System.out.println("No orders have been made.");
             return;
         }
-        orderMgr.printAllOrders();
+        orderMgr.printAllOrderID();
+        orderMgr.viewOrder(askUserForOrderID());
     }
 
     /**
