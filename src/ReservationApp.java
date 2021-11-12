@@ -234,17 +234,14 @@ public class ReservationApp implements Serializable,AppInterface {
         switch (choice) {
             case 1:
                 LocalDate date = askUserForDate();
-                reservationMgr.updateReservation(reservationNoToUpdate, date);
+                LocalTime time = askUserForTime();
+                reservationMgr.updateReservation(reservationNoToUpdate, date, time);
                 break;
             case 2:
-                LocalTime time = askUserForTime();
-                reservationMgr.updateReservation(reservationNoToUpdate, time);
-                break;
-            case 3:
                 int noOfPax = askUserForPax();
                 reservationMgr.updateReservation(reservationNoToUpdate, noOfPax);
                 break;
-            case 4:
+            case 3:
                 Customer updatedCustomer = askUserForCustomerDetails();
                 reservationMgr.updateReservation(reservationNoToUpdate, updatedCustomer);
                 break;
