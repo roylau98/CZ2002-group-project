@@ -136,7 +136,6 @@ public class ReservationApp implements Serializable, AppInterface {
         Customer customer = askUserForCustomerDetails();
         reservationMgr.makeReservation(new Reservation(date, time, noOfPax, customer));
     }
-
     /**
      * Cancel existing Reservation
      */
