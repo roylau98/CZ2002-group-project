@@ -89,29 +89,36 @@ public class SalesReport implements Serializable {
     public void printSalesByPeriod(LocalDate start, LocalDate end) {
         HashMap<MenuItem, Integer> salesCount = new HashMap<>();
         HashMap<MenuItem, Double> revenue = new HashMap<>();
+        double finalRevenue = 0.0;
         for (Invoice invoice : listOfSales) {
             LocalDate invoiceDate = invoice.getTimestamp().toLocalDate();
-            if (invoiceDate.isBefore(start) || invoiceDate.isAfter(end))
+            if (invoiceDate.isBefore(start) || invoiceDate.isAfter(end)) {
                 continue;
-            for (MenuItem menuItem : invoice.getListOfSoldItems()) {
-                if (salesCount.containsKey(menuItem)) {
-                    salesCount.replace(menuItem, salesCount.get(menuItem) + 1);
-                } else {
-                    salesCount.putIfAbsent(menuItem, 1);
+            } else {
+                for (MenuItem menuItem : invoice.getListOfSoldItems()) {
+                    if (salesCount.containsKey(menuItem)) {
+                        salesCount.replace(menuItem, salesCount.get(menuItem) + 1);
+                    } else {
+                        salesCount.putIfAbsent(menuItem, 1);
+                    }
                 }
+                finalRevenue += invoice.getFinalPrice();
             }
         }
         for (MenuItem menuItem : salesCount.keySet()) {
             revenue.put(menuItem, salesCount.get(menuItem) * menuItem.getPrice());
         }
+        System.out.println("=======================================================");
         System.out.println("The total sales from " + start + " to " + end + " is: ");
         revenue.forEach((menuItem, aDouble) -> System.out.printf("%s\t $%.2f\n", menuItem.getName(), aDouble));
         double totalRevenue = 0;
         for (double d : revenue.values())
             totalRevenue += d;
-        System.out.println("Total revenue = " + totalRevenue);
+        System.out.printf("Total revenue = $.2f\n", totalRevenue);
+        System.out.printf("Total revenue (accounting for member's discount) = $%.2f\n", finalRevenue);
         System.out.println("Individual sales count:");
         salesCount.forEach((menuItem, count) -> System.out.println(menuItem.getName() + ": " + count + " sold."));
+        System.out.println("=======================================================");
     }
 
     /**
@@ -131,7 +138,7 @@ public class SalesReport implements Serializable {
         sortListOfSalesByAscendingLocalDateTime(listOfSales);
         LocalDate firstDate = listOfSales.get(0).getTimestamp().toLocalDate();
         LocalDate endDate = listOfSales.get(listOfSales.size()-1).getTimestamp().toLocalDate();
-        for (LocalDate date = firstDate; date.isBefore(endDate); date = date.plusDays(1)) {
+        for (LocalDate date = firstDate; date.isBefore(endDate.plusDays(1)); date = date.plusDays(1)) {
             printSalesByPeriod(date, date);
         }
     }
