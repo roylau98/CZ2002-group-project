@@ -9,7 +9,7 @@ import java.util.Scanner;
  * @since 2021-11-5
  */
 
-public class OrderApp implements Serializable {
+public class OrderApp implements Serializable,AppInterface {
 
     private transient Scanner sc;
     /**
