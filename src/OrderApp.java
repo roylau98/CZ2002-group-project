@@ -31,7 +31,7 @@ public class OrderApp implements Serializable {
     /**
      * Object Manager of Reservation
      */
-    private ReservationMgr reservationMgr;
+    private ReservationMgr reservationMgr; 
     /**
      * Class Constructor
      *
