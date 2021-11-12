@@ -7,7 +7,7 @@ import java.util.HashMap;
  * it also provides various method to add/remove/update the content of the PromotionalSet.
  *
  * @see HashMap
- * @since 2021-11-5
+ * @since 2021-11-12
  */
 public class PromotionalSet extends MenuItem {
     /**
@@ -34,7 +34,12 @@ public class PromotionalSet extends MenuItem {
         super(name, description, price);
         this.items = new HashMap<>();
     }
-
+    /**
+     * Check if the item is existed 
+     *
+     * @param  key  the name of the promotional set
+     * @return      true if the promotional set false otherwise
+     */
     public Boolean checkIfItemExists(String key) {
         return items.containsKey(key);
     }
