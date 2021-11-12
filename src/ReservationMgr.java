@@ -230,7 +230,7 @@ public class ReservationMgr implements Serializable {
         }
         reservationsNow.sort(Comparator.comparing(Reservation::getTableNo));
         for (Reservation r : reservationsNow) {
-            System.out.printf("Table %d: %20s", r.getTableNo(), r.getCustomer().getName());
+            System.out.println("Table " + r.getTableNo() + ": " + r.getCustomer().getName());
         }
     }
 
