@@ -11,7 +11,7 @@ import java.util.Scanner;
  *
  * @since 2021-11-5
  */
-public class ReservationApp implements Serializable {
+public class ReservationApp implements Serializable,AppInterface {
     /**
      * Object Manager of Reservation
      */
@@ -48,7 +48,7 @@ public class ReservationApp implements Serializable {
     /**
      * Interface of the ReservationApp with several options available
      */
-    public void startReservationApp() {
+    public void openOptions() {
         scanner = new Scanner(System.in);
         reservationMgr.removeNoShowReservations();
         reservationMgr.createScheduler();
@@ -96,7 +96,7 @@ public class ReservationApp implements Serializable {
                     updateReservation();
                     break;
                 case 4:
-                    reservationMgr.viewAllReservations();
+                    printAll();
                     break;
                 case 5:
                     reservationMgr.checkAvailabilityAt(askUserForDate(), askUserForTime(), askUserForPax());
@@ -107,7 +107,10 @@ public class ReservationApp implements Serializable {
             }
         }
     }
-
+    private void printAll()
+    {
+    	reservationMgr.viewAllReservations();
+    }
     /**
      * Create new Reservation
      */
