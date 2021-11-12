@@ -3,6 +3,7 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.Month;
 import java.util.InputMismatchException;
+import java.time.DateTimeException;
 import java.util.Scanner;
 
 /**
@@ -112,9 +113,20 @@ public class ReservationApp implements Serializable {
      * Create new Reservation
      */
     private void makeReservation() {
+    	boolean error = true;
+    	LocalTime time;
         System.out.println("Please enter the following details below:");
         LocalDate date = askUserForDate();
-        LocalTime time = askUserForTime();
+        do {
+        	try {
+        		time = askUserForTime();
+        		error = false;
+        	}
+        	catch (DateTimeException e) {
+        		System.out.println("Error in reservation, did not reserve. Try reserving again.");
+        		return;
+        	}
+        } while (error);
         int noOfPax = askUserForPax();
         Customer customer = askUserForCustomerDetails();
         reservationMgr.makeReservation(new Reservation(date, time, noOfPax, customer));
@@ -238,14 +250,7 @@ public class ReservationApp implements Serializable {
     /**
      * Scanner to ask for user input (Date) with error checking
      */
-    private LocalDate askUserForDate() {
-        LocalDate localDate = LocalDate.now();
-        LocalTime localTime = LocalTime.now();
-        int currentYear = localDate.getYear();
-        int currentMonth = localDate.getMonthValue();
-        Month currentMonthEnum = localDate.getMonth();
-        int currentDate = localDate.getDayOfMonth();
-        int currentHour = localTime.getHour();
+    private LocalDate askUserForDate() {    
         boolean cont = true;
         boolean error = true;
         while (cont) {
@@ -256,13 +261,13 @@ public class ReservationApp implements Serializable {
                     scanner.nextLine();
                     error = false;
                 } catch (InputMismatchException e) {
-                    System.out.println("Invalid input. (Valid values: " + currentYear + " onwards)");
+                    System.out.println("Invalid input. (Valid values: " + LocalDate.now().getYear() + " onwards)");
                     scanner.nextLine();
                     error = true;
                 }
             } while (error);
-            if (year < currentYear) {
-                System.out.println("Invalid value. (Valid values: " + currentYear + " onwards)");
+            if (year < LocalDate.now().getYear()) {
+                System.out.println("Invalid value. (Valid values: " + LocalDate.now().getYear() + " onwards)");
                 cont = true;
             } else {
                 cont = false;
@@ -277,8 +282,8 @@ public class ReservationApp implements Serializable {
                     scanner.nextLine();
                     error = false;
                 } catch (InputMismatchException e) {
-                    if (currentYear == year) {
-                        System.out.println("Invalid input. (Valid values: " + currentMonthEnum + " onwards)");
+                    if (LocalDate.now().getYear() == year) {
+                        System.out.println("Invalid input. (Valid values: " + LocalDate.now().getMonth() + " onwards)");
                     } else {
                         System.out.println("Invalid input. (Valid values: 1 - 12)");
                     }
@@ -286,8 +291,8 @@ public class ReservationApp implements Serializable {
                     error = true;
                 }
             } while (error);
-            if (month < currentMonth && year == currentYear) {
-                System.out.println("Invalid value. (Valid values: " + currentMonthEnum + " onwards)");
+            if (month < LocalDate.now().getMonthValue() && year == LocalDate.now().getYear()) {
+                System.out.println("Invalid value. (Valid values: " + LocalDate.now().getMonth() + " onwards)");
             } else if (month < 1 || month > 12) {
                 System.out.println("Invalid Value. (Value values: 1 - 12)");
             } else {
@@ -295,9 +300,9 @@ public class ReservationApp implements Serializable {
             }
         }
         cont = true;
-        LocalDate lastDayOfMonth = LocalDate.of(year, month, 1);
-        int maxDay = lastDayOfMonth.getMonth().length(lastDayOfMonth.isLeapYear());
         while (cont) {
+        	LocalDate lastDayOfMonth = LocalDate.of(year, month, 1);
+        	int maxDay = lastDayOfMonth.getMonth().length(lastDayOfMonth.isLeapYear());
             do {
 
                 try {
@@ -312,12 +317,12 @@ public class ReservationApp implements Serializable {
                 }
             } while (error);
 
-            if (year == currentYear && month == currentMonth) {
-                if (date < currentDate || date > maxDay) {
-                    System.out.println("Invalid value. (Valid values: From " + currentDate + " onwards to " + maxDay + ")");
+            if (year == LocalDate.now().getYear() && month == LocalDate.now().getMonthValue()) {
+                if (date < LocalDate.now().getDayOfMonth() || date > maxDay) {
+                    System.out.println("Invalid value. (Valid values: From " + LocalDate.now().getDayOfMonth() + " onwards to " + maxDay + ")");
                     cont = true;
-                } else if (currentHour == 23 && date <= currentDate){
-                    System.out.println("Invalid value. (Valid values: From " + (currentDate + 1) + " onwards to " + maxDay + ")");
+                } else if (LocalTime.now().getHour() == 23 && date <= LocalDate.now().getDayOfMonth()){
+                    System.out.println("Invalid value. (Valid values: From " + (LocalDate.now().getDayOfMonth() + 1) + " onwards to " + maxDay + ")");
                 } else {
                     cont = false;
                 }
@@ -337,12 +342,6 @@ public class ReservationApp implements Serializable {
      * Scanner to ask for user input (Time) with error checking
      */
     private LocalTime askUserForTime() {
-        LocalDate localDate = LocalDate.now();
-        LocalTime localTime = LocalTime.now();
-        int currentYear = localDate.getYear();
-        int currentMonth = localDate.getMonthValue();
-        int currentDate = localDate.getDayOfMonth();
-        int currentHour = localTime.getHour();
         boolean cont = true;
         boolean error = true;
         cont = true;
@@ -361,13 +360,33 @@ public class ReservationApp implements Serializable {
             } while (error);
             if (hour < 0 || hour > 23) {
                 System.out.println("Invalid value. (Valid values: 0 - 23)");
-            } else if (year == currentYear && month == currentMonth && date == currentDate && hour <= currentHour) {
-                System.out.println("Invalid value. (Valid values: " + (currentHour + 1) + " - 23)");
-            } else {
+            } 
+            else if (year == LocalDate.now().getYear() && month == LocalDate.now().getMonthValue() && date == LocalDate.now().getDayOfMonth() && hour <= LocalTime.now().getHour()) {
+            	if (LocalTime.now().getHour() == 23) { //time exceeded, hour rolled over.
+            		System.out.println("Time rolled over, re-book another date from tomorrow.");
+            		return LocalTime.of(-1, -1); // to throw dateTimeException
+            	}
+            	else {
+            		System.out.println("Invalid value. (Valid values: " + (LocalTime.now().getHour() + 1) + " - 23)");
+            	}
+            }
+            else if (year < LocalDate.now().getYear()) { //time exceeded, year rolled over.
+            	System.out.println("Time rolled over, re-book another date from next year.");
+            	return LocalTime.of(-1, -1); // to throw dateTimeException
+            }
+            else if (year == LocalDate.now().getYear() && month < LocalDate.now().getMonthValue()) { //time exceeded, month rolled over.
+            	System.out.println("Time rolled over, re-book another date from next month.");
+            	return LocalTime.of(-1, -1); // to throw dateTimeException
+            }
+            else if (year == LocalDate.now().getYear() && month == LocalDate.now().getMonthValue() && date < LocalDate.now().getDayOfMonth()) { //time exceeded, date rolled over.
+            	System.out.println("Time rolled over, re-book another date from next day.");
+				return LocalTime.of(-1, -1); // to throw dateTimeException
+            }
+        	else {
                 cont = false;
             }
         }
-        return LocalTime.of(hour, 0);
+        return LocalTime.of(hour,  0);
     }
 
     /**
