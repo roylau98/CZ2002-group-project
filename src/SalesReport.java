@@ -89,36 +89,33 @@ public class SalesReport implements Serializable {
     public void printSalesByPeriod(LocalDate start, LocalDate end) {
         HashMap<MenuItem, Integer> salesCount = new HashMap<>();
         HashMap<MenuItem, Double> revenue = new HashMap<>();
-        double finalRevenue = 0.0;
         for (Invoice invoice : listOfSales) {
             LocalDate invoiceDate = invoice.getTimestamp().toLocalDate();
             if (invoiceDate.isBefore(start) || invoiceDate.isAfter(end)) {
                 continue;
-            } else {
-                for (MenuItem menuItem : invoice.getListOfSoldItems()) {
-                    if (salesCount.containsKey(menuItem)) {
-                        salesCount.replace(menuItem, salesCount.get(menuItem) + 1);
-                    } else {
-                        salesCount.putIfAbsent(menuItem, 1);
-                    }
+
+            for (MenuItem menuItem : invoice.getListOfSoldItems()) {
+                if(salesCount.containsKey(menuItem)) {
+                    salesCount.replace(menuItem, salesCount.get(menuItem) + 1);
+                } else {
+                    salesCount.putIfAbsent(menuItem, 1);
                 }
-                finalRevenue += invoice.getFinalPrice();
             }
         }
         for (MenuItem menuItem : salesCount.keySet()) {
             revenue.put(menuItem, salesCount.get(menuItem) * menuItem.getPrice());
         }
-        System.out.println("=======================================================");
+        System.out.println("===============================================================");
         System.out.println("The total sales from " + start + " to " + end + " is: ");
-        revenue.forEach((menuItem, aDouble) -> System.out.printf("%s\t $%.2f\n", menuItem.getName(), aDouble));
+        System.out.printf("%-20s%-15s%-17s%-10s\n", "Menu Item", "Unit Price", "Quantity Sold", "Revenue");
+        for (MenuItem menuItem : salesCount.keySet()) {
+            System.out.printf("%-20s$ %-13.2f%-17d$ %-10.2f\n", menuItem.getName(), menuItem.getPrice(), salesCount.get(menuItem), revenue.get(menuItem));
+        }
         double totalRevenue = 0;
         for (double d : revenue.values())
             totalRevenue += d;
         System.out.printf("Total revenue = $%.2f\n", totalRevenue);
-        System.out.printf("Total revenue (accounting for member's discount) = $%.2f\n", finalRevenue);
-        System.out.println("Individual sales count:");
-        salesCount.forEach((menuItem, count) -> System.out.println(menuItem.getName() + ": " + count + " sold."));
-        System.out.println("=======================================================");
+        System.out.println("===============================================================");
     }
 
     /**
