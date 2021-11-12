@@ -120,6 +120,9 @@ public class OrderApp implements Serializable, AppInterface {
         orderMgr.printAllOrders();
     }
 
+    /**
+     * Views all existing orders
+     */
     private void viewOrder() {
         if (orderMgr.getTotalNoOfOrders() == 0) {
             System.out.println("No orders have been made.");
@@ -131,8 +134,6 @@ public class OrderApp implements Serializable, AppInterface {
 
     /**
      * Create a new order
-     *
-     * @param reservationMgr The reservation manager which would be informed about the customer's arrival.
      */
     private void newOrder() {
         sc = new Scanner(System.in);
@@ -273,8 +274,6 @@ public class OrderApp implements Serializable, AppInterface {
 
     /**
      * Add invoice to Sales Report App
-     *
-     * @param reservationMgr The reservation manager which will be notified that an order has been completed.
      */
     private void billOrder() {
         int id;
