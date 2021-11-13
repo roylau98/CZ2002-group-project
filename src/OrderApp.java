@@ -320,7 +320,7 @@ public class OrderApp implements Serializable, AppInterface {
     /**
      * Scanner to ask for user input(MenuItemNo) with error checking
      *
-     * @return menuItemNo    the index no. of the {@link MenuItem}
+     * @return the index no. of the {@link MenuItem}
      */
     private int askUserForMenuItemNo() {
         sc = new Scanner(System.in);

@@ -94,7 +94,7 @@ public class OrderMgr implements Serializable {
      * Get {@link Order} by orderID
      *
      * @param orderID The ID that is used to indicate existing {@link Order} object
-     * @return selectedOrder    the {@link Order} object
+     * @return the {@link Order} object
      */
     public Order getOrder(int orderID) {
         Order selectedOrder = null;

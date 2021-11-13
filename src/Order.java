@@ -70,7 +70,7 @@ public class Order implements Serializable {
     /**
      * Gets Date time when this {@code Order} is created
      *
-     * @return dateTimeOrderCreated   Date time when this {@code Order}is created
+     * @return Date time when this {@code Order}is created
      */
     public LocalDateTime getDateTimeOrderCreated() {
         return dateTimeOrderCreated;
@@ -97,7 +97,7 @@ public class Order implements Serializable {
     /**
      * Gets Invoice for this {@code Order}
      *
-     * @return orderInvoice        Invoice of this {@code Order}
+     * @return Invoice of this {@code Order}
      */
     public Invoice getInvoice() {
         return orderInvoice;
@@ -116,7 +116,7 @@ public class Order implements Serializable {
     /**
      * Gets order ID of this {@code Order}
      *
-     * @return orderID        order ID of this {@code Order}
+     * @return order ID of this {@code Order}
      */
     public int getOrderID() {
         return this.orderID;
@@ -150,7 +150,7 @@ public class Order implements Serializable {
     /**
      * Gets the table no. of this {@code Order}
      *
-     * @return assignedTable    table no. of this {@code Order}
+     * @return table no. of this {@code Order}
      */
     public int getAssignedTable() {
         return assignedTable;
@@ -168,7 +168,7 @@ public class Order implements Serializable {
     /**
      * Gets staff that serves this table
      *
-     * @return orderCreatedBy    staff that serves this {@code Order}
+     * @return staff that serves this {@code Order}
      */
     public Staff getStaff() {
         return orderCreatedBy;
@@ -186,7 +186,7 @@ public class Order implements Serializable {
     /**
      * Gets array list of {@link MenuItem} ordered by customer
      *
-     * @return itemsOrdered    array list of item ordered by customer
+     * @return array list of item ordered by customer
      */
     public ArrayList<MenuItem> getListOfItemsOrdered() {
         return itemsOrdered;

@@ -21,12 +21,12 @@ public class Database {
      * Save a serialized object from a ".txt" file from the given path.
      *
      * <p>
-     * <b>Note:</b> All classes which are serialized must implement the {@link Serializable} interface!
+     * <b>Note:</b> All classes which are serialized must implement the {@link Serializable} interface
      * </p>
      * <p>
      * Exceptions which may occur during data saving include:
-     * IOException}
-     * <p>
+     * IOException
+     * </p>
      * <p>
      * The exceptions have been handled inside the method.
      * </p>

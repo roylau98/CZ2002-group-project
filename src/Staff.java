@@ -41,7 +41,7 @@ public class Staff extends Person {
     /**
      * Gets ID of the {@code Staff}
      *
-     * @return employeeID    ID of the {@code Staff}
+     * @return ID of the {@code Staff}
      */
     public int getEmployeeID() {
         return employeeID;
@@ -59,7 +59,7 @@ public class Staff extends Person {
     /**
      * Gets job title of the {@code Staff}
      *
-     * @return jobTitle    job title of the {@code Staff}
+     * @return job title of the {@code Staff}
      */
     public String getJobTitle() {
         return jobTitle;

@@ -144,7 +144,7 @@ public class StaffApp implements Serializable, AppInterface {
     /**
      * Scanner to ask for user input(setting {@link Staff} id) with error checking
      *
-     * @return employeeID  the id of the {@link Staff}
+     * @return the id of the {@link Staff}
      */
     private int askUserToSetEmployeeID() {
         sc = new Scanner(System.in);
@@ -171,7 +171,7 @@ public class StaffApp implements Serializable, AppInterface {
     /**
      * Scanner to ask for user input(finding {@link Staff} by id) with error checking
      *
-     * @return employeeID  the id of the {@link Staff}
+     * @return the id of the {@link Staff}
      */
     private int askUserForEmployeeID() {
         sc = new Scanner(System.in);

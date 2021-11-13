@@ -127,7 +127,7 @@ public class Reservation implements Serializable {
     /**
      * Gets the number of persons.
      *
-     * @return noOfPax  Number of persons.
+     * @return Number of persons.
      */
     public int getNoOfPax() {
         return noOfPax;
@@ -145,7 +145,7 @@ public class Reservation implements Serializable {
     /**
      * Gets the table number that the {@code Reservation} has been assigned to.
      *
-     * @return tableNo  Table number.
+     * @return Table number.
      */
     public int getTableNo() {
         return tableNo;
