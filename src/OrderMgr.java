@@ -25,8 +25,7 @@ public class OrderMgr implements Serializable {
     private int orderIDTracker;
 
     /**
-     * Constructs an {@code OrderApp} object and
-     * initialize the attributes {@code Order}/{@code }/{@code } .
+     * Class Constructer
      */
     public OrderMgr() {
         listOfOrders = new ArrayList<>();
