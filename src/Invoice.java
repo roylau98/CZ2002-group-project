@@ -60,7 +60,7 @@ public class Invoice implements Serializable {
     private int tableNo;
 
     /**
-     * Constructs an {@code Invoice} object with default value of GST,serviceCharge and order
+     * CLass Constructer
      */
     public Invoice() {
         gst = 0.07;
@@ -126,7 +126,8 @@ public class Invoice implements Serializable {
         calculateFinalPrice();
         System.out.println("-------------------------------------------------");
         System.out.printf("Order's Total Price  :  $%.2f\n", getTotalPrice());
-        System.out.printf("Taxes                :  $%.2f\n", (getTotalPrice() * (serviceCharge + gst)));
+        System.out.printf("Taxes                :  $%.2f\n", (getTotalPrice() * (gst)));
+        System.out.printf("Service Charge       :  $%.2f\n", (getTotalPrice() * (serviceCharge)));
         if (this.order.getCustomer().getMembershipStatus())
             System.out.printf("Member Discount      : -$%.2f\n", (getTotalPrice() * (1 + serviceCharge) * (1 + gst) * (memberDiscount)));
         System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
