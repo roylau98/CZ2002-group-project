@@ -59,7 +59,7 @@ public class ReservationApp implements Serializable, AppInterface {
             while (cont) {
                 do {
                     try {
-                        System.out.println("\nReservation App\n" +
+                        System.out.print("\nReservation App\n" +
                                 "Please select one of the options below:\n" +
                                 "1. Make a new reservation\n" +
                                 "2. Cancel an existing reservation\n" +
