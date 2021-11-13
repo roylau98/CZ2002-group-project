@@ -21,7 +21,7 @@ public class MenuApp implements Serializable, AppInterface {
     /**
      * Constructs an {@code MenuApp} object with known menuMgr
      * 
-     * @param	menuMgrEX	menu manager of the application
+     * @param	menuMgrEx	menu manager of the application
      */
     public MenuApp(MenuMgr menuMgrEx) {
         menuMgr = menuMgrEx;
