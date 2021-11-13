@@ -37,7 +37,7 @@ public class OrderMgr implements Serializable {
      * Check for validate of the orderID
      *
      * @param orderID order id to be checked
-     * @return 		  true if the orderID is valid,false otherwise
+     * @return true if the orderID is valid,false otherwise
      */
     public boolean validateOrderID(int orderID) {
         for (Order o : listOfOrders) {
@@ -83,8 +83,7 @@ public class OrderMgr implements Serializable {
      * @param customer customer that made the order
      * @param tableNo  table no of this order
      * @param staff    staff that serves this table
-     * 
-     * @return			order id
+     * @return order id
      */
     public int createOrder(Customer customer, int tableNo, Staff staff) {
         Order o = new Order(orderIDTracker++, customer, staff, tableNo);
@@ -95,8 +94,8 @@ public class OrderMgr implements Serializable {
     /**
      * Get order by orderID
      *
-     * @param orderID 			The ID that is used to indicate existing {@link Order} object
-     * @return selectedOrder	the order object
+     * @param orderID The ID that is used to indicate existing {@link Order} object
+     * @return selectedOrder    the order object
      */
     public Order getOrder(int orderID) {
         Order selectedOrder = null;
@@ -122,7 +121,7 @@ public class OrderMgr implements Serializable {
      * Check whether order has been made in certain table
      *
      * @param tableNo table to be checked
-     * @return 		  true if order of this table has been made,false otherwise
+     * @return true if order of this table has been made,false otherwise
      */
     public boolean checkforTableOrder(int tableNo) {
         for (Order order : getListOfOrder()) {
@@ -227,10 +226,9 @@ public class OrderMgr implements Serializable {
     /**
      * A function that printout the bills in order by using orderID
      *
-     * @param reservationMgr	The reservation manager of the app
-     * @param orderID 			The ID that is used to indicate existing {@link Order} object
-     * 
-     * @return bill				The invoice object for this order
+     * @param reservationMgr The reservation manager of the app
+     * @param orderID        The ID that is used to indicate existing {@link Order} object
+     * @return bill                The invoice object for this order
      */
     public Invoice chargeBill(ReservationMgr reservationMgr, int orderID) {
         Order selectedOrder = getOrder(orderID);

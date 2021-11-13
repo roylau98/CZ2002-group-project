@@ -118,7 +118,7 @@ public class Reservation implements Serializable {
     /**
      * Gets the hour of the reservation.
      *
-     * @return		the hour of the reservation
+     * @return the hour of the reservation
      */
     public int getHour() {
         return hour;

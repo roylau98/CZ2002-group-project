@@ -6,20 +6,20 @@ import java.io.Serializable;
  * @since 2021-11-5
  */
 public enum AlaCarteItemType implements Serializable {
-	/**
-	 * Main course type of AlaCarte item
-	 */
+    /**
+     * Main course type of AlaCarte item
+     */
     MAIN_COURSE,
     /**
-	 * Appetizer type of AlaCarte item
-	 */
+     * Appetizer type of AlaCarte item
+     */
     APPETISER,
     /**
-	 * Drinks type of AlaCarte item
-	 */
+     * Drinks type of AlaCarte item
+     */
     DRINKS,
     /**
-	 * Dessert type of AlaCarte item
-	 */
+     * Dessert type of AlaCarte item
+     */
     DESSERT
 }

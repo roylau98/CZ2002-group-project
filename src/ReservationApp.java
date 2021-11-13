@@ -43,8 +43,8 @@ public class ReservationApp implements Serializable, AppInterface {
 
     /**
      * Class Constructor
-     * 
-     * @param reservationMgrEx	the reservation manager of the app
+     *
+     * @param reservationMgrEx the reservation manager of the app
      */
     public ReservationApp(ReservationMgr reservationMgrEx) {
         reservationMgr = reservationMgrEx;
@@ -141,6 +141,7 @@ public class ReservationApp implements Serializable, AppInterface {
         Customer customer = askUserForCustomerDetails();
         reservationMgr.makeReservation(new Reservation(date, time, noOfPax, customer));
     }
+
     /**
      * Cancel existing Reservation
      */

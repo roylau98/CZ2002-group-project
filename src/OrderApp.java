@@ -10,10 +10,6 @@ import java.util.Scanner;
  */
 
 public class OrderApp implements Serializable, AppInterface {
-	/**
-     * Scanner for the  user input
-     */
-    private transient Scanner sc;
     /**
      * Object Manager of Order
      */
@@ -34,16 +30,19 @@ public class OrderApp implements Serializable, AppInterface {
      * Object Manager of Reservation
      */
     private final ReservationMgr reservationMgr;
+    /**
+     * Scanner for the  user input
+     */
+    private transient Scanner sc;
 
     /**
      * Class Constructor
-     * 
-     * @param	reservationMgrEx	reservation manager of the app
-     * @param	orderMgrEx			order manager of the app
-     * @param	menuMgrEx			menu manager of the app
-     * @param	salesReport			sales report application
-     * @param	staffAppEx			staff application
-     * 
+     *
+     * @param    reservationMgrEx    reservation manager of the app
+     * @param    orderMgrEx            order manager of the app
+     * @param    menuMgrEx            menu manager of the app
+     * @param    salesReport            sales report application
+     * @param    staffAppEx            staff application
      */
     public OrderApp(ReservationMgr reservationMgrEx, OrderMgr orderMgrEx, MenuMgr menuMgrEx, SalesReport salesReport, StaffApp staffAppEx) {
         orderMgr = orderMgrEx;
@@ -76,7 +75,7 @@ public class OrderApp implements Serializable, AppInterface {
             System.out.print("\nOrder App\n" +
                     "Please select one of the options below:\n" +
                     "1. View existing order\n" +
-                    "2. View all orders\n"+
+                    "2. View all orders\n" +
                     "3. Make a new order\n" +
                     "4. Cancel an existing order\n" +
                     "5. Update an existing order\n" +
@@ -297,8 +296,8 @@ public class OrderApp implements Serializable, AppInterface {
 
     /**
      * Scanner to ask for user input(OrderID) with error checking
-     * 
-     * @return	orderID		order ID
+     *
+     * @return orderID        order ID
      */
     private int askUserForOrderID() {
         sc = new Scanner(System.in);
@@ -320,8 +319,8 @@ public class OrderApp implements Serializable, AppInterface {
 
     /**
      * Scanner to ask for user input(MenuItemNo) with error checking
-     * 
-     * @return	menuItemNo	the index no. of the menu item
+     *
+     * @return menuItemNo    the index no. of the menu item
      */
     private int askUserForMenuItemNo() {
         sc = new Scanner(System.in);

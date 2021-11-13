@@ -91,9 +91,9 @@ public class SalesReport implements Serializable, AppInterface {
 
     /**
      * Print the revenue of all sales from start date to end date
-     * 
-     * @param	start	the start date of the sales
-     * @param	end		the end date of the sales
+     *
+     * @param    start    the start date of the sales
+     * @param    end        the end date of the sales
      */
     public void printSalesByPeriod(LocalDate start, LocalDate end) {
         HashMap<MenuItem, Integer> salesCount = new HashMap<>();
@@ -243,7 +243,7 @@ public class SalesReport implements Serializable, AppInterface {
     /**
      * Scanner to ask for user input(year) with error checking
      *
-     * @return  year input by user
+     * @return year input by user
      */
     private int askUserForYear() {
         System.out.println("Enter year:");

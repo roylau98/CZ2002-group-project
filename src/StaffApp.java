@@ -9,7 +9,7 @@ import java.util.Scanner;
  * @since 2021-11-12
  */
 public class StaffApp implements Serializable, AppInterface {
-	/**
+    /**
      * Staff manager of this application
      */
     private final StaffMgr staffMgr;
@@ -20,8 +20,8 @@ public class StaffApp implements Serializable, AppInterface {
 
     /**
      * Class constructor with default settings
-     * 
-     * @param	staffMgrEx	staff manager of the app
+     *
+     * @param    staffMgrEx    staff manager of the app
      */
     public StaffApp(StaffMgr staffMgrEx) {
         staffMgr = staffMgrEx;
@@ -193,10 +193,9 @@ public class StaffApp implements Serializable, AppInterface {
 
     /**
      * Scanner to ask for user input(string) with error checking
-     * 
-     * @param	whatToAsk	the details which indicate what to ask from user
      *
      * @return details of the staff
+     * @param    whatToAsk    the details which indicate what to ask from user
      */
     private String askUserForStaffStringInput(String whatToAsk) {
         sc = new Scanner(System.in);
@@ -241,8 +240,8 @@ public class StaffApp implements Serializable, AppInterface {
     /**
      * Scanner to ask for user input(Boolean) with error checking
      *
-     * @param	UpdateThis	the details which indicate what to be updated
      * @return true if updated false otherwise
+     * @param    UpdateThis    the details which indicate what to be updated
      */
     private Boolean yesOrNo(String UpdateThis) {
         sc = new Scanner(System.in);
