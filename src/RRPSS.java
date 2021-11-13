@@ -62,6 +62,8 @@ public class RRPSS implements Serializable {
 
     /**
      * Main function that runs the RRPSS app
+     * 
+     * @param	args	it stores Java command line arguments and is an array of type java.lang.String class
      */
     public static void main(String[] args) {
         RRPSS rrpssApp;
