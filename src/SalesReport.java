@@ -13,6 +13,9 @@ public class SalesReport implements Serializable, AppInterface {
      * List of invoices
      */
     private final ArrayList<Invoice> listOfSales;
+    /**
+     * Scanner for the user input
+     */
     private transient Scanner sc;
 
     /**
@@ -88,6 +91,9 @@ public class SalesReport implements Serializable, AppInterface {
 
     /**
      * Print the revenue of all sales from start date to end date
+     * 
+     * @param	start	the start date of the sales
+     * @param	end		the end date of the sales
      */
     public void printSalesByPeriod(LocalDate start, LocalDate end) {
         HashMap<MenuItem, Integer> salesCount = new HashMap<>();
