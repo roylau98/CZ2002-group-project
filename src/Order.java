@@ -87,6 +87,8 @@ public class Order implements Serializable {
 
     /**
      * Update the customer of this order
+     * 
+     * @param	customer	the updated customer of this order
      */
     public void setCustomer(Customer customer) {
         this.customer = customer;
