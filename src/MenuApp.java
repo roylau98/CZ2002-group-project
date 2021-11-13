@@ -13,10 +13,15 @@ public class MenuApp implements Serializable, AppInterface {
      * Object Manager of the menu
      */
     private final MenuMgr menuMgr;
+    /**
+     * Scanner for user input
+     */
     private transient Scanner sc;
 
     /**
      * Constructs an {@code MenuApp} object with known menuMgr
+     * 
+     * @param	menuMgrEX	menu manager of the application
      */
     public MenuApp(MenuMgr menuMgrEx) {
         menuMgr = menuMgrEx;
@@ -185,6 +190,8 @@ public class MenuApp implements Serializable, AppInterface {
 
     /**
      * Add new {@code PromotionalSets} object into the Menu
+     * 
+     * @param	indexOfMenuItemToBeUpdated	index of the menu item to be updated
      */
     private void updatePromoSetContents(int indexOfMenuItemToBeUpdated) {
         String stringInput;
@@ -366,7 +373,7 @@ public class MenuApp implements Serializable, AppInterface {
     /**
      * Scanner to ask for user input(AlaCarteItemType) with error checking
      * <p>
-     * return  the choice of the enumeration type of menu item
+     * @return  the choice of the enumeration type of menu item
      */
     private int askUserForAlaCarteItemType() {
         sc = new Scanner(System.in);
@@ -394,10 +401,11 @@ public class MenuApp implements Serializable, AppInterface {
 
     /**
      * Scanner to ask for user input(Boolean) with error checking
-     *
-     * @return true if updated false otherwise
+     *	
+     * @param	UpdateThis  the details which indicate what to update
+     * @return 				true if updated false otherwise
      */
-    private Boolean yesOrNo(String UpdateThis) {
+    private boolean yesOrNo(String UpdateThis) {
         sc = new Scanner(System.in);
         int choice = 999;
 
