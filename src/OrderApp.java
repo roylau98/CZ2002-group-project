@@ -3,7 +3,7 @@ import java.util.InputMismatchException;
 import java.util.Scanner;
 
 /**
- * Interface of the Order App which has the option of create/remove etc. order
+ * Interface of the Order App which has the option of create/remove etc. {@link Order}
  * <p>
  *
  * @since 2021-11-5
@@ -11,38 +11,38 @@ import java.util.Scanner;
 
 public class OrderApp implements Serializable, AppInterface {
     /**
-     * Object Manager of Order
+     * Object Manager of {@link Order}
      */
     private final OrderMgr orderMgr;
     /**
-     * Manager of Sales Report
+     * {@link SalesReport} application
      */
     private final SalesReport salesReportApp;
     /**
-     * Object Manager of MenuItem
+     * Object Manager of {@link MenuItem}
      */
     private final MenuMgr menuMgr;
     /**
-     * Manager of staff
+     * {@link Staff} application
      */
     private final StaffApp staffApp;
     /**
-     * Object Manager of Reservation
+     * Object Manager of {@link Reservation}
      */
     private final ReservationMgr reservationMgr;
     /**
-     * Scanner for the  user input
+     * Scanner for the user input
      */
     private transient Scanner sc;
 
     /**
      * Class Constructor
      *
-     * @param    reservationMgrEx    reservation manager of the app
-     * @param    orderMgrEx            order manager of the app
-     * @param    menuMgrEx            menu manager of the app
-     * @param    salesReport            sales report application
-     * @param    staffAppEx            staff application
+     * @param    reservationMgrEx    {@link ReservationMgr} manager of the app
+     * @param    orderMgrEx            {@link OrderMgr} manager of the app
+     * @param    menuMgrEx            {@link MenuMgr} manager of the app
+     * @param    salesReport            {@link SalesReport} application
+     * @param    staffAppEx            {@link StaffApp}
      */
     public OrderApp(ReservationMgr reservationMgrEx, OrderMgr orderMgrEx, MenuMgr menuMgrEx, SalesReport salesReport, StaffApp staffAppEx) {
         orderMgr = orderMgrEx;
@@ -117,7 +117,7 @@ public class OrderApp implements Serializable, AppInterface {
     }
 
     /**
-     * View the specific order that has been created
+     * View the specific {@link Order} that has been created
      */
     public void printAll() {
         if (orderMgr.getTotalNoOfOrders() == 0) {
@@ -129,7 +129,7 @@ public class OrderApp implements Serializable, AppInterface {
     }
 
     /**
-     * Views all existing orders
+     * Views all existing {@link Order}
      */
     private void viewOrder() {
         if (orderMgr.getTotalNoOfOrders() == 0) {
@@ -141,7 +141,7 @@ public class OrderApp implements Serializable, AppInterface {
     }
 
     /**
-     * Create a new order
+     * Create a new {@link Order}
      */
     private void newOrder() {
         sc = new Scanner(System.in);
@@ -174,7 +174,7 @@ public class OrderApp implements Serializable, AppInterface {
     }
 
     /**
-     * Remove a specific order from this app
+     * Remove a specific {@link Order} from this app
      */
     private void removeOrder() {
         if (orderMgr.getTotalNoOfOrders() == 0) {
@@ -186,7 +186,7 @@ public class OrderApp implements Serializable, AppInterface {
     }
 
     /**
-     * Update a specific order from this app
+     * Update a specific {@link Order} from this app
      */
     private void updateOrder() {
         if (orderMgr.getTotalNoOfOrders() == 0) {
@@ -199,9 +199,9 @@ public class OrderApp implements Serializable, AppInterface {
     }
 
     /**
-     * Update the details of a specific order from this app
+     * Update the details of a specific {@link Order} from this app
      *
-     * @param orderID the id of order to be updated
+     * @param orderID the id of {@link Order} to be updated
      */
     private void updateOrder(int orderID) {
         sc = new Scanner(System.in);
@@ -237,9 +237,9 @@ public class OrderApp implements Serializable, AppInterface {
     }
 
     /**
-     * Add menu item to a specific order from this app
+     * Add {@link MenuItem} to a specific {@link Order} from this app
      *
-     * @param orderID the id of order for menu item to be added
+     * @param orderID the id of order for {@link MenuItem} to be added
      */
     private void addMenuItemToOrder(int orderID) {
         if (menuMgr.getNumberOfMenuItems() == 0) {
@@ -253,9 +253,9 @@ public class OrderApp implements Serializable, AppInterface {
     }
 
     /**
-     * Remove menu item from a specific order in this app
+     * Remove {@link MenuItem} from a specific {@link Order} in this app
      *
-     * @param orderID the id of order for menu item to be removed
+     * @param orderID the id of {@link Order} for {@link MenuItem} to be removed
      */
     private void removeMenuItemFromOrder(int orderID) {
         sc = new Scanner(System.in);
@@ -281,7 +281,7 @@ public class OrderApp implements Serializable, AppInterface {
     }
 
     /**
-     * Add invoice to Sales Report App
+     * Add {@link Invoice} to {@link SalesReport} application
      */
     private void billOrder() {
         int id;
@@ -320,7 +320,7 @@ public class OrderApp implements Serializable, AppInterface {
     /**
      * Scanner to ask for user input(MenuItemNo) with error checking
      *
-     * @return menuItemNo    the index no. of the menu item
+     * @return menuItemNo    the index no. of the {@link MenuItem}
      */
     private int askUserForMenuItemNo() {
         sc = new Scanner(System.in);

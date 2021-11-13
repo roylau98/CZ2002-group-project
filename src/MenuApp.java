@@ -82,7 +82,7 @@ public class MenuApp implements Serializable, AppInterface {
     }
 
     /**
-     * Add new {@code MenuItem} object into the Menu
+     * Add new {@link MenuItem} object into the Menu
      */
     public void addMenuItem() {
         sc = new Scanner(System.in);
@@ -131,7 +131,7 @@ public class MenuApp implements Serializable, AppInterface {
     }
 
     /**
-     * Remove {@code MenuItem} object from the Menu
+     * Remove {@link MenuItem} object from the Menu
      */
     public void removeMenuItem() {
         if (menuMgr.getNumberOfMenuItems() == 0) {
@@ -148,7 +148,7 @@ public class MenuApp implements Serializable, AppInterface {
     }
 
     /**
-     * Update the details of existing {@code MenuItem} in the Menu
+     * Update the details of existing {@link MenuItem} in the Menu
      */
     public void updateMenuItem() {
         String name;
@@ -232,7 +232,7 @@ public class MenuApp implements Serializable, AppInterface {
     }
 
     /**
-     * Scanner to ask for user input(MenuItemIndex) with error checking
+     * Scanner to ask for user input({@link MenuItem} Index) with error checking
      *
      * @return index of the menu item
      */
@@ -258,7 +258,7 @@ public class MenuApp implements Serializable, AppInterface {
     }
 
     /**
-     * Scanner to ask for user input for Menu item name with error checking
+     * Scanner to ask for user input for {@link MenuItem} name with error checking
      *
      * @return name of the menu items
      */
@@ -281,7 +281,7 @@ public class MenuApp implements Serializable, AppInterface {
     }
 
     /**
-     * Scanner to ask for user input for Menu item's description with error checking
+     * Scanner to ask for user input for {@link MenuItem} description with error checking
      *
      * @return description of the menu items
      */
@@ -304,7 +304,7 @@ public class MenuApp implements Serializable, AppInterface {
     }
 
     /**
-     * Scanner to ask for user input for Promotional Set's name with error checking
+     * Scanner to ask for user input for {@link PromotionalSet} name with error checking
      *
      * @return name of the promotional set
      */
@@ -322,7 +322,7 @@ public class MenuApp implements Serializable, AppInterface {
     }
 
     /**
-     * Scanner to ask for user input(MenuItemPrice) with error checking
+     * Scanner to ask for user input({@link MenuItem} Price) with error checking
      *
      * @return price of the menu item
      */
@@ -453,7 +453,7 @@ public class MenuApp implements Serializable, AppInterface {
     /**
      * Return {@link MenuMgr} of the MenuApp
      *
-     * @return menuMgr the object manager of menu item
+     * @return the object manager of menu item
      */
     public MenuMgr getMenuMgr() {
         return menuMgr;

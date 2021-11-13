@@ -7,16 +7,16 @@
  */
 public class Staff extends Person {
     /**
-     * ID of employee
+     * ID of {@code Staff}
      */
     private int employeeID;
     /**
-     * Job titles of employee
+     * Job titles of {@code Staff}
      */
     private String jobTitle;
 
     /**
-     * Class constructor with default settings
+     * Class Constructor with default settings
      */
     public Staff() {
         super("", Sex.MALE);
@@ -25,7 +25,7 @@ public class Staff extends Person {
     }
 
     /**
-     * Class constructor
+     * Class Constructor
      *
      * @param name       name of the staff
      * @param gender     gender of the staff
@@ -39,36 +39,36 @@ public class Staff extends Person {
     }
 
     /**
-     * Gets ID of the employee
+     * Gets ID of the {@code Staff}
      *
-     * @return employeeID    ID of the employee
+     * @return employeeID    ID of the {@code Staff}
      */
     public int getEmployeeID() {
         return employeeID;
     }
 
     /**
-     * Update ID of the employee
+     * Update ID of the {@code Staff}
      *
-     * @param employeeID ID of the employee
+     * @param employeeID ID of the {@code Staff}
      */
     public void setEmployeeID(int employeeID) {
         this.employeeID = employeeID;
     }
 
     /**
-     * Gets job title of the employee
+     * Gets job title of the {@code Staff}
      *
-     * @return jobTitle    job title of the employee
+     * @return jobTitle    job title of the {@code Staff}
      */
     public String getJobTitle() {
         return jobTitle;
     }
 
     /**
-     * Update job title of the employee
+     * Update job title of the {@code Staff}
      *
-     * @param jobTitle job title of the employee
+     * @param jobTitle job title of the {@code Staff}
      */
     public void setJobTitle(String jobTitle) {
         this.jobTitle = jobTitle;

@@ -7,7 +7,7 @@ import java.util.TimerTask;
  */
 public class ExpiredReservationsRemover extends TimerTask {
     /**
-     * The same reservationMgr in our application
+     * The same {@link ReservationMgr} in our application
      */
     private final ReservationMgr reservationMgr;
 
@@ -21,7 +21,7 @@ public class ExpiredReservationsRemover extends TimerTask {
     }
 
     /**
-     * Action that will be executed by the timer task. This removes reservations upon period expiry which is set
+     * Action that will be executed by the timer task. This removes {@link Reservation} upon period expiry which is set
      * at 15 minutes.
      */
     @Override

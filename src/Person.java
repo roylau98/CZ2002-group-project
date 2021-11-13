@@ -18,7 +18,7 @@ public class Person implements Serializable {
     private Sex gender;
 
     /**
-     * Class constructor
+     * Class Constructor
      *
      * @param name   name of the {@code Person}
      * @param gender gender of the {@code Person}
@@ -29,7 +29,7 @@ public class Person implements Serializable {
     }
 
     /**
-     * Copy constructor.
+     * Copy Constructor.
      *
      * @param p {@code Person} to be cloned.
      */

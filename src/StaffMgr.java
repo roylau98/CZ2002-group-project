@@ -4,19 +4,19 @@ import java.util.ArrayList;
 /**
  * Manages the {@link Staff}
  * <p>
- * This class provides methods to add,remove Staff in the restaurant
+ * This class provides methods to add,remove {@link Staff} in the restaurant
  * <p>
  *
  * @since 2021-11-12
  */
 public class StaffMgr implements Serializable {
     /**
-     * List of staff
+     * List of {@link Staff}
      */
     private final ArrayList<Staff> listOfStaff;
 
     /**
-     * Class constructor with default settings
+     * Class constructor
      */
     public StaffMgr() {
         listOfStaff = new ArrayList<>();
@@ -25,19 +25,19 @@ public class StaffMgr implements Serializable {
     }
 
     /**
-     * Return the number of staff
+     * Return the number of {@link Staff}
      *
-     * @return number of staff
+     * @return number of {@link Staff}
      */
     public int getTotalNoOfStaff() {
         return listOfStaff.size();
     }
 
     /**
-     * Return staff object by staff id
+     * Return {@link Staff} object by staff id
      *
-     * @param id id of the staff
-     * @return staff  staff object to be returned
+     * @param id id of the {@link Staff}
+     * @return {@link Staff} object to be returned
      */
     public Staff getStaffByID(int id) {
         for (Staff staff : listOfStaff) {
@@ -49,12 +49,12 @@ public class StaffMgr implements Serializable {
     }
 
     /**
-     * Add new staff into restaurant
+     * Add new {@link Staff} into restaurant
      *
-     * @param    name    name of the staff
-     * @param    gender    the enumeration which indicate the gender of the staff
-     * @param    employeeID    the id of the staff
-     * @param    jobTitle    the job title of the staff
+     * @param    name    name of the {@link Staff}
+     * @param    gender    the enumeration which indicate the gender of the {@link Staff}
+     * @param    employeeID    the id of the {@link Staff}
+     * @param    jobTitle    the job title of the {@link Staff}
      */
     public void addStaff(String name, Sex gender, int employeeID, String jobTitle) {
         Staff newStaff = new Staff(name, gender, employeeID, jobTitle);
@@ -62,9 +62,9 @@ public class StaffMgr implements Serializable {
     }
 
     /**
-     * Remove existing staff from restaurant
+     * Remove existing {@link Staff} from restaurant
      *
-     * @param employeeID ID of the staff to be removed
+     * @param employeeID ID of the {@link Staff} to be removed
      */
     public void removeStaff(int employeeID) {
         Staff toBeRemoved = getStaffByID(employeeID);
@@ -72,10 +72,10 @@ public class StaffMgr implements Serializable {
     }
 
     /**
-     * Update the name of employee
+     * Update the name of {@link Staff}
      *
-     * @param    employeeID    the id of the staff to be updated
-     * @param    updatedName    the updated name of the staff
+     * @param    employeeID    the id of the {@link Staff} to be updated
+     * @param    updatedName    the updated name of the {@link Staff}
      */
     public void updateStaffName(int employeeID, String updatedName) {
         Staff updateThisStaff = getStaffByID(employeeID);
@@ -83,10 +83,10 @@ public class StaffMgr implements Serializable {
     }
 
     /**
-     * Update the job title of employee
+     * Update the job title of {@link Staff}employee
      *
-     * @param    employeeID        the id of the staff to be updated
-     * @param    updatedJobTitle    the updated job title of the staff
+     * @param    employeeID        the id of the {@link Staff} to be updated
+     * @param    updatedJobTitle    the updated job title of the {@link Staff}
      */
     public void updateStaffJobTitle(int employeeID, String updatedJobTitle) {
         Staff updateThisStaff = getStaffByID(employeeID);
@@ -94,10 +94,10 @@ public class StaffMgr implements Serializable {
     }
 
     /**
-     * Update the id of employee
+     * Update the id of {@link Staff}
      *
-     * @param    employeeID            the id of the staff to be updated
-     * @param    updatedEmployeeID    the updated id of the staff
+     * @param    employeeID            the id of the {@link Staff} to be updated
+     * @param    updatedEmployeeID    the updated id of the {@link Staff}
      */
     public void updateStaffID(int employeeID, int updatedEmployeeID) {
         Staff updateThisStaff = getStaffByID(employeeID);
@@ -105,10 +105,10 @@ public class StaffMgr implements Serializable {
     }
 
     /**
-     * Update the sex of employee
+     * Update the gender of {@link Staff}
      *
-     * @param    employeeID    the id of the staff to be updated
-     * @param    updatedSex    the updated gender of the staff
+     * @param    employeeID    the id of the {@link Staff} to be updated
+     * @param    updatedSex    the updated gender of the {@link Staff}
      */
     public void updateStaffSex(int employeeID, Sex updatedSex) {
         Staff updateThisStaff = getStaffByID(employeeID);
@@ -116,7 +116,7 @@ public class StaffMgr implements Serializable {
     }
 
     /**
-     * Print all the staff and their details
+     * Print all the {@link Staff} and their details
      */
     public void printStaff() {
         for (Staff staff : listOfStaff) {
@@ -131,8 +131,8 @@ public class StaffMgr implements Serializable {
     /**
      * Return true if the id is existing,false otherwise
      *
-     * @param employeeID id of the employee
-     * @return the validate of the id
+     * @param employeeID id of the {@link Staff}
+     * @return true if id is valid,false otherwise
      */
     public boolean validateEmployeeID(int employeeID) {
         for (Staff s : listOfStaff) {

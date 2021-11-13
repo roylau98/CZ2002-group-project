@@ -3,21 +3,21 @@ import java.util.InputMismatchException;
 import java.util.Scanner;
 
 /**
- * The main application where the RRPSS works. This class provides the interface for the user.
+ * The main application where the {@code RRPSS}  works. This class provides the interface for the user.
  *
  * @since 2021-11-5
  */
 public class RRPSS implements Serializable {
     /**
-     * Order App with options
+     * {@link OrderApp} with options
      */
     private final OrderApp orderApp;
     /**
-     * Reservation App with options
+     * {@link ReservationApp} with options
      */
     private final ReservationApp reservationApp;
     /**
-     * Manager of MenuItem
+     * {@link MenuApp} with options
      */
     private final MenuApp menuApp;
     /**
@@ -25,23 +25,23 @@ public class RRPSS implements Serializable {
      */
     private final StaffApp staffApp;
     /**
-     * Manager of Sales Report
+     * {@link SalesReport} application
      */
     private final SalesReport salesReportApp;
     /**
-     * Object Manager of Reservation
+     * Object Manager of Reservation,{@link ReservationMgr}
      */
     private final ReservationMgr reservationMgr;
     /**
-     * Object Manager of Order
+     * Object Manager of Order,{@link OrderMgr}
      */
     private final OrderMgr orderMgr;
     /**
-     * Object Manager of MenuItem
+     * Object Manager of MenuItem,{@link MenuMgr}
      */
     private final MenuMgr menuMgr;
     /**
-     * Object Manager of Staff
+     * Object Manager of {@link StaffMgr}
      */
     private final StaffMgr staffMgr;
 
@@ -61,7 +61,7 @@ public class RRPSS implements Serializable {
     }
 
     /**
-     * Main function that runs the RRPSS app
+     * Main function that runs the {@code RRPSS} app
      *
      * @param    args    it stores Java command line arguments and is an array of type java.lang.String class
      */

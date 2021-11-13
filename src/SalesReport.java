@@ -10,7 +10,7 @@ import java.util.*;
  */
 public class SalesReport implements Serializable, AppInterface {
     /**
-     * List of invoices
+     * List of {@link Invoice}
      */
     private final ArrayList<Invoice> listOfSales;
     /**
@@ -19,7 +19,7 @@ public class SalesReport implements Serializable, AppInterface {
     private transient Scanner sc;
 
     /**
-     * Class constructor with default settings
+     * Class Constructor
      */
     public SalesReport() {
         listOfSales = new ArrayList<>();
@@ -166,9 +166,9 @@ public class SalesReport implements Serializable, AppInterface {
     }
 
     /**
-     * Add invoice into the list
+     * Add {@link Invoice} into the list
      *
-     * @param tobeAdded Invoice to be added
+     * @param tobeAdded {@link Invoice} to be added
      */
     public void addInvoice(Invoice tobeAdded) {
         if (tobeAdded == null) {
@@ -178,9 +178,9 @@ public class SalesReport implements Serializable, AppInterface {
     }
 
     /**
-     * Sort the list of the invoice according to the date and time
+     * Sort the list of the {@link Invoice} according to the date and time
      *
-     * @param selectedListOfSales list of invoice to be sorted
+     * @param selectedListOfSales list of {@link Invoice} to be sorted
      */
     private void sortListOfSalesByAscendingLocalDateTime(ArrayList<Invoice> selectedListOfSales) {
         selectedListOfSales.sort(Comparator.comparing(Invoice::getTimestamp));

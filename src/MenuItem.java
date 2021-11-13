@@ -20,7 +20,7 @@ public abstract class MenuItem implements Serializable {
     private double price;
 
     /**
-     * Constructs an item with specified name, price, description.
+     * Class Constructor
      *
      * @param name        name of this item.
      * @param price       price of this item.
@@ -62,7 +62,7 @@ public abstract class MenuItem implements Serializable {
     /**
      * Update name of this {@code MenuItem}
      *
-     * @param name updated name of this item.
+     * @param name updated name of the {@code MenuItem}
      */
     public void setName(String name) {
         this.name = name;
@@ -80,7 +80,7 @@ public abstract class MenuItem implements Serializable {
     /**
      * Update description of this {@code MenuItem}
      *
-     * @param description updated description of this item.
+     * @param description updated description of the {@code MenuItem}
      */
     public void setDescription(String description) {
         this.description = description;

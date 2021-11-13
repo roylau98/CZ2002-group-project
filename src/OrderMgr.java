@@ -5,8 +5,8 @@ import java.util.ArrayList;
  * Manages all the {@link Order} objects of the whole restaurants,
  * basically the "manager" of {@link RRPSS} to {@link Order} objects
  * <p>
- * This class provides various methods to create,update(add/remove MenuItem) of the order,
- * and view individual order details and bills.
+ * This class provides various methods to create,update(add/remove {@link MenuItem}) of the {@link Order},
+ * and view individual {@link Order} details and {@link Invoice}
  * <p>
  *
  * @since 2021-11-12
@@ -14,18 +14,18 @@ import java.util.ArrayList;
 
 public class OrderMgr implements Serializable {
     /**
-     * List of Order implemented in {@link ArrayList} data structure.
+     * List of {@link Order} implemented in {@link ArrayList} data structure.
      * Each entry consists of a reference to existing {@link Order}object.
      */
     private final ArrayList<Order> listOfOrders;
 
     /**
-     * Used for tracking of order
+     * Used for tracking of {@link Order}
      */
     private int orderIDTracker;
 
     /**
-     * Class Constructer
+     * Class Constructor
      */
     public OrderMgr() {
         listOfOrders = new ArrayList<>();
@@ -47,7 +47,7 @@ public class OrderMgr implements Serializable {
     }
 
     /**
-     * Print all existing order and their details
+     * Print all existing {@link Order}order and their details
      */
     public void printAllOrders() {
         System.out.println("Current Existing Order: ");
@@ -68,20 +68,20 @@ public class OrderMgr implements Serializable {
     }
 
     /**
-     * Get total size of the list of orders
+     * Get total size of the list of {@link Order}
      *
-     * @return total size of the list of orders
+     * @return total size of the list of {@link Order}
      */
     public int getTotalNoOfOrders() {
         return listOfOrders.size();
     }
 
     /**
-     * Create a new order
+     * Create a new {@link Order}
      *
-     * @param customer customer that made the order
-     * @param tableNo  table no of this order
-     * @param staff    staff that serves this table
+     * @param customer customer that made the {@link Order}
+     * @param tableNo  table no of this {@link Order}
+     * @param staff    {@link Staff} that serves this table
      * @return order id
      */
     public int createOrder(Customer customer, int tableNo, Staff staff) {
@@ -91,10 +91,10 @@ public class OrderMgr implements Serializable {
     }
 
     /**
-     * Get order by orderID
+     * Get {@link Order} by orderID
      *
      * @param orderID The ID that is used to indicate existing {@link Order} object
-     * @return selectedOrder    the order object
+     * @return selectedOrder    the {@link Order} object
      */
     public Order getOrder(int orderID) {
         Order selectedOrder = null;
@@ -108,18 +108,18 @@ public class OrderMgr implements Serializable {
     }
 
     /**
-     * Return list of orders made
+     * Return list of {@link Order} made
      *
-     * @return listOfOrders All orders made by customer
+     * @return listOfOrders All {@link Order} made by customer
      */
     public ArrayList<Order> getListOfOrder() {
         return listOfOrders;
     }
 
     /**
-     * Check whether order has been made in certain table
+     * Check whether order has been made in certain {@link Table}
      *
-     * @param tableNo table to be checked
+     * @param tableNo {@link Table} to be checked
      * @return true if order of this table has been made,false otherwise
      */
     public boolean checkforTableOrder(int tableNo) {
@@ -132,9 +132,9 @@ public class OrderMgr implements Serializable {
     }
 
     /**
-     * Print items of a specific order
+     * Print items of a specific {@link Order}
      *
-     * @param orderID ID of the order
+     * @param orderID ID of the {@link Order}
      */
     public void printItemsInOrder(int orderID) {
         Order selectedOrder = getOrder(orderID);
@@ -144,10 +144,10 @@ public class OrderMgr implements Serializable {
     }
 
     /**
-     * Add menu items into a specific order
+     * Add menu items into a specific {@link Order}
      *
-     * @param orderID  ID of the order
-     * @param menuItem menu item to be added
+     * @param orderID  ID of the {@link Order}
+     * @param menuItem {@link MenuItem} to be added
      */
     public void addItemsInOrder(int orderID, MenuItem menuItem) {
         Order order = getOrder(orderID);
@@ -161,10 +161,10 @@ public class OrderMgr implements Serializable {
     }
 
     /**
-     * Remove menu items from a specific order
+     * Remove {@link MenuItem} from a specific {@link Order}
      *
-     * @param orderID ID of the order
-     * @param index   index of menu item to be removed
+     * @param orderID ID of the {@link Order}
+     * @param index   index of ordered item to be removed
      */
     public void removeItemsInOrder(int orderID, int index) {
         Order selectedOrder = getOrder(orderID);
@@ -180,7 +180,7 @@ public class OrderMgr implements Serializable {
     //--------------------------------------------------------------------------------------------------------------------
 
     /**
-     * Remove existing order by orderID
+     * Remove existing {@link Order} by orderID
      *
      * @param orderID The ID that is used to indicate existing {@link Order} object
      */
@@ -198,7 +198,7 @@ public class OrderMgr implements Serializable {
     //-----------------------------------------------------------------------------------------------------------------------
 
     /**
-     * A function that printout the existing items in order by using orderID
+     * A function that printout the existing items in {@link Order} by using orderID
      *
      * @param orderID The ID that is used to indicate existing {@link Order} object
      */
@@ -223,11 +223,11 @@ public class OrderMgr implements Serializable {
     }
 
     /**
-     * A function that printout the bills in order by using orderID
+     * A function that printout the bills in {@link Order} by using orderID
      *
      * @param reservationMgr The reservation manager of the app
      * @param orderID        The ID that is used to indicate existing {@link Order} object
-     * @return bill                The invoice object for this order
+     * @return               The {@link Invoice} object for this {@link Order}
      */
     public Invoice chargeBill(ReservationMgr reservationMgr, int orderID) {
         Order selectedOrder = getOrder(orderID);

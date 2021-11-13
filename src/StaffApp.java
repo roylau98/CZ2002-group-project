@@ -3,14 +3,14 @@ import java.util.InputMismatchException;
 import java.util.Scanner;
 
 /**
- * Interface of the Staff App which has the option of create/remove etc. Staff
+ * Interface of the Staff App which has the option of create/remove etc. {@link Staff}
  * <p>
  *
  * @since 2021-11-12
  */
 public class StaffApp implements Serializable, AppInterface {
     /**
-     * Staff manager of this application
+     * {@link Staff} manager of this application
      */
     private final StaffMgr staffMgr;
     /**
@@ -71,7 +71,7 @@ public class StaffApp implements Serializable, AppInterface {
     }
 
     /**
-     * Print all the staff and their details in the restaurant
+     * Print all the {@link Staff} and their details in the restaurant
      */
     public void printAll() {
         System.out.println("---List Of Staff Employed---\n");
@@ -79,7 +79,7 @@ public class StaffApp implements Serializable, AppInterface {
     }
 
     /**
-     * Add new staff into the restaurant
+     * Add new {@link Staff} into the restaurant
      */
     public void addStaff() {
         String name = askUserForStaffStringInput("What is the staff's name: ");
@@ -90,7 +90,7 @@ public class StaffApp implements Serializable, AppInterface {
     }
 
     /**
-     * Remove staff from the restaurant
+     * Remove {@link Staff} from the restaurant
      */
     public void removeStaff() {
         int id = askUserForEmployeeID();
@@ -98,7 +98,7 @@ public class StaffApp implements Serializable, AppInterface {
     }
 
     /**
-     * Update the details of a certain staff
+     * Update the details of a certain {@link Staff}
      */
     public void updateStaff() {
         int id = askUserForEmployeeID();
@@ -117,9 +117,9 @@ public class StaffApp implements Serializable, AppInterface {
     }
 
     /**
-     * Return a selected staff
+     * Return a selected {@link Staff}
      *
-     * @return the selected staff
+     * @return the selected {@link Staff}
      */
     public Staff selectStaff() {
         if (staffMgr.getTotalNoOfStaff() == 0) {
@@ -133,18 +133,18 @@ public class StaffApp implements Serializable, AppInterface {
     }
 
     /**
-     * Return the number of staff in the restaurant
+     * Return the number of {@link Staff} in the restaurant
      *
-     * @return number of staff
+     * @return number of {@link Staff}
      */
     public int getNoOfStaff() {
         return staffMgr.getTotalNoOfStaff();
     }
 
     /**
-     * Scanner to ask for user input(setting staff id) with error checking
+     * Scanner to ask for user input(setting {@link Staff} id) with error checking
      *
-     * @return employeeID  the id of the staff
+     * @return employeeID  the id of the {@link Staff}
      */
     private int askUserToSetEmployeeID() {
         sc = new Scanner(System.in);
@@ -169,9 +169,9 @@ public class StaffApp implements Serializable, AppInterface {
     }
 
     /**
-     * Scanner to ask for user input(finding staff by id) with error checking
+     * Scanner to ask for user input(finding {@link Staff} by id) with error checking
      *
-     * @return employeeID  the id of the staff
+     * @return employeeID  the id of the {@link Staff}
      */
     private int askUserForEmployeeID() {
         sc = new Scanner(System.in);
@@ -195,6 +195,7 @@ public class StaffApp implements Serializable, AppInterface {
      * Scanner to ask for user input(string) with error checking
      *
      * @param    whatToAsk    the details which indicate what to ask from user
+     * @return                details of the {@link Staff}
      */
     private String askUserForStaffStringInput(String whatToAsk) {
         sc = new Scanner(System.in);
@@ -213,7 +214,7 @@ public class StaffApp implements Serializable, AppInterface {
     /**
      * Scanner to ask for user input(Gender) with error checking
      *
-     * @return the enumeration of gender of the staff
+     * @return the enumeration of gender of the  {@link Staff}
      */
     private int askUserToSetEmployeeSex() {
         sc = new Scanner(System.in);

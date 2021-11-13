@@ -7,19 +7,19 @@ import java.io.Serializable;
  */
 public enum AlaCarteItemType implements Serializable {
     /**
-     * Main course type of AlaCarte item
+     * Main course type of {@link AlaCarteItem}.
      */
     MAIN_COURSE,
     /**
-     * Appetizer type of AlaCarte item
+     * Appetizer type of {@link AlaCarteItem}.
      */
     APPETISER,
     /**
-     * Drinks type of AlaCarte item
+     * Drinks type of {@link AlaCarteItem}.
      */
     DRINKS,
     /**
-     * Dessert type of AlaCarte item
+     * Dessert type of {@link AlaCarteItem}.
      */
     DESSERT
 }

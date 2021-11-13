@@ -7,7 +7,7 @@ import java.util.ArrayList;
  * <p>
  * This class keep track of the sold items ({@link Order}) made by the customer,
  * calculate the final price, and print the order invoice which consist
- * of {@code Order} details and price breakdown.
+ * of {@link Order} details and price breakdown.
  *
  * <p>
  * The price is broken down into:
@@ -60,7 +60,7 @@ public class Invoice implements Serializable {
     private int tableNo;
 
     /**
-     * CLass Constructer
+     * Class Constructor
      */
     public Invoice() {
         gst = 0.07;
@@ -74,7 +74,7 @@ public class Invoice implements Serializable {
     }
 
     /**
-     * Constructs an {@code Invoice} object with specific value of GST,serviceCharge and order
+     * Class Constructor
      *
      * @param gst           goods and service tax
      * @param serviceCharge service charge from the restaurant
@@ -147,7 +147,7 @@ public class Invoice implements Serializable {
     /**
      * Return the final price that take accounts of GST,service charge
      *
-     * @return finalPrice    total price of order with taxes included.
+     * @return total price of order with taxes included.
      */
     public double getFinalPrice() {
         return finalPrice;
@@ -156,7 +156,7 @@ public class Invoice implements Serializable {
     /**
      * Return the total price of the ordered item(exclude GST,service charge )
      *
-     * @return totalPrice    total price of order with taxes excluded
+     * @return total price of order with taxes excluded
      */
     public double getTotalPrice() {
         return totalPrice;
@@ -165,7 +165,7 @@ public class Invoice implements Serializable {
     /**
      * Return the list of item ordered by the customer
      *
-     * @return listOfSoldItems        Menu items ordered in this order
+     * @return  Menu items ordered in this order
      */
     public ArrayList<MenuItem> getListOfSoldItems() {
         return listOfSoldItems;

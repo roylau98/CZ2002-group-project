@@ -51,7 +51,7 @@ public class AlaCarteItem extends MenuItem {
     }
 
     /**
-     * Print all the items in this AlaCarteItem which overrides the
+     * Print all the items in this {@code AlaCarteItem} which overrides the
      * method from the abstract class {@link MenuItem}
      */
     public void print() {
