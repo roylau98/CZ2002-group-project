@@ -44,7 +44,7 @@ public class Customer extends Person {
     /**
      * Gets Customer Contact number
      *
-     * @return  customer's contactNo
+     * @return customer's contactNo
      */
     public String getContactNo() {
         return contactNo;
@@ -62,7 +62,7 @@ public class Customer extends Person {
     /**
      * Gets customer membership status.
      *
-     * @return  customer's membership status.
+     * @return customer's membership status.
      */
     public Boolean getMembershipStatus() {
         return membershipStatus;

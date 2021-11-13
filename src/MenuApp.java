@@ -20,7 +20,7 @@ public class MenuApp implements Serializable, AppInterface {
     /**
      * Class Constructor
      *
-     * @param    menuMgrEx    menu manager of the application
+     * @param menuMgrEx menu manager of the application
      */
     public MenuApp(MenuMgr menuMgrEx) {
         menuMgr = menuMgrEx;
@@ -190,7 +190,7 @@ public class MenuApp implements Serializable, AppInterface {
     /**
      * Add new {@link PromotionalSet} object into the Menu
      *
-     * @param    indexOfMenuItemToBeUpdated    index of the menu item to be updated
+     * @param indexOfMenuItemToBeUpdated index of the menu item to be updated
      */
     private void updatePromoSetContents(int indexOfMenuItemToBeUpdated) {
         String stringInput;
@@ -401,7 +401,7 @@ public class MenuApp implements Serializable, AppInterface {
     /**
      * Scanner to ask for user input(Boolean) with error checking
      *
-     * @param    UpdateThis the details which indicate what to update
+     * @param UpdateThis the details which indicate what to update
      * @return true if updated false otherwise
      */
     private boolean yesOrNo(String UpdateThis) {

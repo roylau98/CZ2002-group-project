@@ -256,7 +256,7 @@ public class ReservationMgr implements Serializable {
     /**
      * Remove reservation on a table that has already made payment
      *
-     * @param    tableNo     table no. which had already made payment
+     * @param tableNo table no. which had already made payment
      */
     public void removeReservationAfterPayment(int tableNo) {
         for (ListIterator<Reservation> it = allReservations.listIterator(); it.hasNext(); ) {

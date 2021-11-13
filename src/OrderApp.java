@@ -38,11 +38,11 @@ public class OrderApp implements Serializable, AppInterface {
     /**
      * Class Constructor
      *
-     * @param    reservationMgrEx    {@link ReservationMgr} manager of the app
-     * @param    orderMgrEx            {@link OrderMgr} manager of the app
-     * @param    menuMgrEx            {@link MenuMgr} manager of the app
-     * @param    salesReport            {@link SalesReport} application
-     * @param    staffAppEx            {@link StaffApp}
+     * @param reservationMgrEx {@link ReservationMgr} manager of the app
+     * @param orderMgrEx       {@link OrderMgr} manager of the app
+     * @param menuMgrEx        {@link MenuMgr} manager of the app
+     * @param salesReport      {@link SalesReport} application
+     * @param staffAppEx       {@link StaffApp}
      */
     public OrderApp(ReservationMgr reservationMgrEx, OrderMgr orderMgrEx, MenuMgr menuMgrEx, SalesReport salesReport, StaffApp staffAppEx) {
         orderMgr = orderMgrEx;

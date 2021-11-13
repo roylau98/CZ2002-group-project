@@ -51,10 +51,10 @@ public class StaffMgr implements Serializable {
     /**
      * Add new {@link Staff} into restaurant
      *
-     * @param    name    name of the {@link Staff}
-     * @param    gender    the enumeration which indicate the gender of the {@link Staff}
-     * @param    employeeID    the id of the {@link Staff}
-     * @param    jobTitle    the job title of the {@link Staff}
+     * @param name       name of the {@link Staff}
+     * @param gender     the enumeration which indicate the gender of the {@link Staff}
+     * @param employeeID the id of the {@link Staff}
+     * @param jobTitle   the job title of the {@link Staff}
      */
     public void addStaff(String name, Sex gender, int employeeID, String jobTitle) {
         Staff newStaff = new Staff(name, gender, employeeID, jobTitle);
@@ -74,8 +74,8 @@ public class StaffMgr implements Serializable {
     /**
      * Update the name of {@link Staff}
      *
-     * @param    employeeID    the id of the {@link Staff} to be updated
-     * @param    updatedName    the updated name of the {@link Staff}
+     * @param employeeID  the id of the {@link Staff} to be updated
+     * @param updatedName the updated name of the {@link Staff}
      */
     public void updateStaffName(int employeeID, String updatedName) {
         Staff updateThisStaff = getStaffByID(employeeID);
@@ -85,8 +85,8 @@ public class StaffMgr implements Serializable {
     /**
      * Update the job title of {@link Staff}employee
      *
-     * @param    employeeID        the id of the {@link Staff} to be updated
-     * @param    updatedJobTitle    the updated job title of the {@link Staff}
+     * @param employeeID      the id of the {@link Staff} to be updated
+     * @param updatedJobTitle the updated job title of the {@link Staff}
      */
     public void updateStaffJobTitle(int employeeID, String updatedJobTitle) {
         Staff updateThisStaff = getStaffByID(employeeID);
@@ -96,8 +96,8 @@ public class StaffMgr implements Serializable {
     /**
      * Update the id of {@link Staff}
      *
-     * @param    employeeID            the id of the {@link Staff} to be updated
-     * @param    updatedEmployeeID    the updated id of the {@link Staff}
+     * @param employeeID        the id of the {@link Staff} to be updated
+     * @param updatedEmployeeID the updated id of the {@link Staff}
      */
     public void updateStaffID(int employeeID, int updatedEmployeeID) {
         Staff updateThisStaff = getStaffByID(employeeID);
@@ -107,8 +107,8 @@ public class StaffMgr implements Serializable {
     /**
      * Update the gender of {@link Staff}
      *
-     * @param    employeeID    the id of the {@link Staff} to be updated
-     * @param    updatedSex    the updated gender of the {@link Staff}
+     * @param employeeID the id of the {@link Staff} to be updated
+     * @param updatedSex the updated gender of the {@link Staff}
      */
     public void updateStaffSex(int employeeID, Sex updatedSex) {
         Staff updateThisStaff = getStaffByID(employeeID);

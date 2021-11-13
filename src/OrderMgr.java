@@ -110,7 +110,7 @@ public class OrderMgr implements Serializable {
     /**
      * Return list of {@link Order} made
      *
-     * @return listOfOrders All {@link Order} made by customer
+     * @return All {@link Order} made by customer
      */
     public ArrayList<Order> getListOfOrder() {
         return listOfOrders;
@@ -139,7 +139,7 @@ public class OrderMgr implements Serializable {
     public void printItemsInOrder(int orderID) {
         Order selectedOrder = getOrder(orderID);
         for (int i = 0; i < selectedOrder.getListOfItemsOrdered().size(); i++) {
-            System.out.printf(i + ")" + selectedOrder.getListOfItemsOrdered().get(i).getName() +"/t$ "+selectedOrder.getListOfItemsOrdered().get(i).getPrice());
+            System.out.printf(i + ")" + selectedOrder.getListOfItemsOrdered().get(i).getName() + "/t$ " + selectedOrder.getListOfItemsOrdered().get(i).getPrice());
         }
     }
 
@@ -227,7 +227,7 @@ public class OrderMgr implements Serializable {
      *
      * @param reservationMgr The reservation manager of the app
      * @param orderID        The ID that is used to indicate existing {@link Order} object
-     * @return               The {@link Invoice} object for this {@link Order}
+     * @return The {@link Invoice} object for this {@link Order}
      */
     public Invoice chargeBill(ReservationMgr reservationMgr, int orderID) {
         Order selectedOrder = getOrder(orderID);

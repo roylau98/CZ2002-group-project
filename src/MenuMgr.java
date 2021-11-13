@@ -305,8 +305,8 @@ public class MenuMgr implements Serializable {
     /**
      * Function for choosing enumeration type of AlaCarteItem
      *
+     * @param index the choice of the AlaCarte type
      * @return the enumeration type of AlaCarteItem
-     * @param    index    the choice of the AlaCarte type
      */
     public AlaCarteItemType chooseAlaCarteItemType(int index) {
         switch (index) {

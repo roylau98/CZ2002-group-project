@@ -165,7 +165,7 @@ public class Invoice implements Serializable {
     /**
      * Return the list of item ordered by the customer
      *
-     * @return  Menu items ordered in this order
+     * @return Menu items ordered in this order
      */
     public ArrayList<MenuItem> getListOfSoldItems() {
         return listOfSoldItems;

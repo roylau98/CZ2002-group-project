@@ -88,7 +88,7 @@ public class Order implements Serializable {
     /**
      * Update the customer of this {@code Order}
      *
-     * @param    customer    the updated customer of this {@code Order}
+     * @param customer the updated customer of this {@code Order}
      */
     public void setCustomer(Customer customer) {
         this.customer = customer;
@@ -205,7 +205,7 @@ public class Order implements Serializable {
     /**
      * Gets total price of this {@code Order}(taxes excluded)
      *
-     * @return  total price of this order(taxes excluded)
+     * @return total price of this order(taxes excluded)
      */
     public double getTotalPriceOfOrder() {
         calculatePriceOfOrder();
