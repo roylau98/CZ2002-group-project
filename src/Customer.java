@@ -29,7 +29,11 @@ public class Customer extends Person {
         this.contactNo = contactNo;
         this.membershipStatus = membershipStatus;
     }
-
+    /**
+     * Class constructor
+     *
+     * @param c		customer object
+     */
     public Customer(Customer c) {
         super(c);
         this.contactNo = String.valueOf(c.contactNo);
