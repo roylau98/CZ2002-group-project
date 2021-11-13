@@ -9,11 +9,19 @@ import java.util.Scanner;
  * @since 2021-11-12
  */
 public class StaffApp implements Serializable, AppInterface {
+	/**
+     * Staff manager of this application
+     */
     private final StaffMgr staffMgr;
+    /**
+     * Scanner for user input
+     */
     private transient Scanner sc;
 
     /**
      * Class constructor with default settings
+     * 
+     * @param	staffMgrEx	staff manager of the app
      */
     public StaffApp(StaffMgr staffMgrEx) {
         staffMgr = staffMgrEx;
@@ -185,6 +193,8 @@ public class StaffApp implements Serializable, AppInterface {
 
     /**
      * Scanner to ask for user input(string) with error checking
+     * 
+     * @param	whatToAsk	the details which indicate what to ask from user
      *
      * @return details of the staff
      */
@@ -231,6 +241,7 @@ public class StaffApp implements Serializable, AppInterface {
     /**
      * Scanner to ask for user input(Boolean) with error checking
      *
+     * @param	UpdateThis	the details which indicate what to be updated
      * @return true if updated false otherwise
      */
     private Boolean yesOrNo(String UpdateThis) {
