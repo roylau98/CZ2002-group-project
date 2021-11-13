@@ -53,7 +53,8 @@ public class ReservationMgr implements Serializable {
      * Makes a reservation. Finds a suitable table that can contain the number of persons.
      * Reservation will be added to the collection and asks the table to be marked as unavailable at the specified date and time.
      *
-     * @param r Reservation.
+     * @param 	r Reservation.
+     * @return 	  true if reservation has been made,false otherwise
      */
     public boolean makeReservation(Reservation r) {
         LocalDate date = r.getDate();
@@ -254,6 +255,8 @@ public class ReservationMgr implements Serializable {
 
     /**
      * Remove reservation on a table that has already made payment
+     * 
+     * @param	tableNo	  table no. which had already made payment  
      */
     public void removeReservationAfterPayment(int tableNo) {
         for (ListIterator<Reservation> it = allReservations.listIterator(); it.hasNext(); ) {
