@@ -24,15 +24,15 @@ public class Database {
      * <b>Note:</b> All classes which are serialized must implement the {@link Serializable} interface!
      * </p>
      *
-     * <p>
+     * 
      * Exceptions which may occur during data saving include:
-     * <li>IOException}</li>
-     * <p>
-     * <p>
+     * IOException}
+     * 
+     * 
      * The exceptions have been handled inside the method.
-     * <br>
+     * 
      * If there is no exception, the {@link RRPSS} object will be save into the ".txt" file
-     * </p>
+     * 
      *
      * @param obj      serialized object to be saved
      * @param filename A relative path to the project folder where the ".txt" file resides
@@ -58,18 +58,18 @@ public class Database {
      * <b>Note:</b> All classes which are serialized must implement the {@link Serializable} interface!
      * </p>
      *
-     * <p>
+     * 
      * Exceptions which may occur during data reading include:
-     * <ul>
-     * <li>ClassNotFoundException</li>
-     * <li>IOException}</li>
-     * </ul>
-     * <br>
+     * 
+     * ClassNotFoundException
+     * IOException
+     * 
+     * 
      * All exceptions have been handled inside the method.
-     * <br>
+     * 
      * If there is no exception, the {@link RRPSS} object inside the ".txt" file will be returned.
      * Otherwise, {@code null}.
-     * </p>
+     * 
      *
      * @param filename A relative path to the project folder where the ".txt" file resides
      * @return The {@link RRPSS} object inside the ".txt" file if it is found, {@code null} otherwise
