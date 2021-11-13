@@ -21,7 +21,7 @@ public class RRPSS implements Serializable {
      */
     private final MenuApp menuApp;
     /**
-     * Manager of staff
+     * {@link StaffApp} application
      */
     private final StaffApp staffApp;
     /**

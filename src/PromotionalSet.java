@@ -1,22 +1,22 @@
 import java.util.HashMap;
 
 /**
- * Stores information about a PromotionalSet inherit from{@link MenuItem} class to used in context of a menu.
- * This class stores the name, price, description of PromotionalSet {@link MenuMgr},
- * and uses HashMap to keep track of the items in PromotionalSet.
- * it also provides various method to add/remove/update the content of the PromotionalSet.
+ * Stores information about a {@code PromotionalSet} inherit from{@link MenuItem} class to used in context of a menu.
+ * This class stores the name, price, description of {@code PromotionalSet} in {@link MenuMgr},
+ * and uses HashMap to keep track of the items in {@code PromotionalSet}.
+ * it also provides various method to add/remove/update the content of the {@code PromotionalSet}.
  *
  * @see HashMap
  * @since 2021-11-12
  */
 public class PromotionalSet extends MenuItem {
     /**
-     * HashMap that is used to keep track of the items in PromotionalSet
+     * {@link HashMap} that is used to keep track of the items in {@code PromotionalSet}
      */
     private final HashMap<String, Integer> items;
 
     /**
-     * Constructs a PromotionalSet with default name, price, description and type.
+     * Constructs a {@code PromotionalSet} with default name, price, description and type.
      */
     public PromotionalSet() {
         super("unknown", "unknown", 0);
@@ -24,7 +24,7 @@ public class PromotionalSet extends MenuItem {
     }
 
     /**
-     * Constructs a PromotionalSet with specific name, price, description and type.
+     * Constructs a {@code PromotionalSet} with specific name, price, description and type.
      *
      * @param name        name of the promotional set
      * @param description description of the promotional set
@@ -38,17 +38,17 @@ public class PromotionalSet extends MenuItem {
     /**
      * Check if the item is existed
      *
-     * @param key the name of the promotional set
-     * @return true if the promotional set false otherwise
+     * @param key the name of the {@code PromotionalSet}
+     * @return true if the {@code PromotionalSet} false otherwise
      */
     public Boolean checkIfItemExists(String key) {
         return items.containsKey(key);
     }
 
     /**
-     * Add an existing item in Menu into PromotionalSet
+     * Add an existing item in Menu into {@code PromotionalSet}
      *
-     * @param itemName name of the existing item in Menu to be added into PromotionalSet
+     * @param itemName name of the existing item in Menu to be added into {@code PromotionalSet}
      * @param quantity The quantity of that certain item to be added in
      */
     public void addItemToPromotionalSet(String itemName, int quantity) {
@@ -57,9 +57,9 @@ public class PromotionalSet extends MenuItem {
     }
 
     /**
-     * Remove a certain item from PromotionalSet
+     * Remove a certain item from {@code PromotionalSet}
      *
-     * @param itemName name of the item  to be removed from PromotionalSet
+     * @param itemName name of the item  to be removed from {@code PromotionalSet}
      */
     public void removeItemFromPromotionalSet(String itemName) {
         if (items.containsKey(itemName)) {
@@ -71,10 +71,10 @@ public class PromotionalSet extends MenuItem {
     }
 
     /**
-     * Update the quantity of certain item in PromotionalSet
+     * Update the quantity of certain item in {@code PromotionalSet}
      *
-     * @param itemName        name of the item to be updated in PromotionalSet
-     * @param updatedQuantity the updated quantity of the certain item in PromotionalSet
+     * @param itemName        name of the item to be updated in {@code PromotionalSet}
+     * @param updatedQuantity the updated quantity of the certain item in {@code PromotionalSet}
      */
     public void updateItemInPromotionalSet(String itemName, int updatedQuantity) {
         if (items.containsKey(itemName)) {
@@ -86,7 +86,7 @@ public class PromotionalSet extends MenuItem {
     }
 
     /**
-     * Print the items and their quantity in this PromotionalSet
+     * Print the items and their quantity in this {@code PromotionalSet}
      */
     private void printPromotionalSetListOfItems() {
         System.out.println("-Contents-");
@@ -94,7 +94,7 @@ public class PromotionalSet extends MenuItem {
     }
 
     /**
-     * Print all the items in this PromotionalSet which overrides the
+     * Print all the items in this {@code PromotionalSet} which overrides the
      * method from the abstract class {@link MenuItem}
      */
     public void print() {

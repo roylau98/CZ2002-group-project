@@ -1,7 +1,7 @@
 import java.io.Serializable;
 
 /**
- * Enumeration to indicate the sex of {@link Person}
+ * Enumeration to indicate the sex of a {@link Person}
  *
  * @since 2021-11-5
  */

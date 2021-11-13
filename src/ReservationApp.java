@@ -6,7 +6,7 @@ import java.util.InputMismatchException;
 import java.util.Scanner;
 
 /**
- * Interface of the Reservation App which has the option of create/remove etc. Reservation
+ * Interface of the {@code ReservationApp} which has the option of create/remove etc. {@link Reservation}
  * <p>
  *
  * @since 2021-11-5
@@ -51,7 +51,7 @@ public class ReservationApp implements Serializable, AppInterface {
     }
 
     /**
-     * Interface of the ReservationApp with several options available
+     * Interface of the {@code ReservationApp} with several options available
      */
     public void openOptions() {
         scanner = new Scanner(System.in);
@@ -428,7 +428,7 @@ public class ReservationApp implements Serializable, AppInterface {
     /**
      * Scanner to ask for user input (Customer Details) with error checking
      *
-     * @return the customer object
+     * @return the {@link Customer} object
      */
     private Customer askUserForCustomerDetails() {
         boolean cont = true;
@@ -480,9 +480,9 @@ public class ReservationApp implements Serializable, AppInterface {
     }
 
     /**
-     * Return the reservationMgr
+     * Return the {@link ReservationMgr}
      *
-     * @return reservationMgr the object manager of Reservation
+     * @return {@link ReservationMgr} the object manager of Reservation
      */
     public ReservationMgr getReservationMgr() {
         return reservationMgr;

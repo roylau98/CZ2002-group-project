@@ -3,8 +3,7 @@ import java.util.InputMismatchException;
 import java.util.Scanner;
 
 /**
- * Interface of the Menu App which has the option of add/remove etc. MenuItem
- * <p>
+ * Interface of the Menu App which has the option of add/remove etc. {@link MenuItem}
  *
  * @since 2021-11-12
  */
@@ -19,7 +18,7 @@ public class MenuApp implements Serializable, AppInterface {
     private transient Scanner sc;
 
     /**
-     * Constructs an {@code MenuApp} object with known menuMgr
+     * Class Constructor
      *
      * @param    menuMgrEx    menu manager of the application
      */
@@ -29,7 +28,7 @@ public class MenuApp implements Serializable, AppInterface {
     }
 
     /**
-     * Interface of the MenuApp with several options available
+     * Interface of the {@code MenuApp} with several options available
      */
     public void openOptions() {
         sc = new Scanner(System.in);
@@ -189,7 +188,7 @@ public class MenuApp implements Serializable, AppInterface {
     }
 
     /**
-     * Add new {@code PromotionalSets} object into the Menu
+     * Add new {@link PromotionalSet} object into the Menu
      *
      * @param    indexOfMenuItemToBeUpdated    index of the menu item to be updated
      */
@@ -371,8 +370,7 @@ public class MenuApp implements Serializable, AppInterface {
     }
 
     /**
-     * Scanner to ask for user input(AlaCarteItemType) with error checking
-     * <p>
+     * Scanner to ask for user input({@link AlaCarteItemType}) with error checking
      *
      * @return the choice of the enumeration type of menu item
      */
@@ -403,8 +401,8 @@ public class MenuApp implements Serializable, AppInterface {
     /**
      * Scanner to ask for user input(Boolean) with error checking
      *
-     * @return true if updated false otherwise
      * @param    UpdateThis the details which indicate what to update
+     * @return true if updated false otherwise
      */
     private boolean yesOrNo(String UpdateThis) {
         sc = new Scanner(System.in);
@@ -426,9 +424,9 @@ public class MenuApp implements Serializable, AppInterface {
     }
 
     /**
-     * Scanner to ask for user input for UpdatingPromoSetContents() with error checking
+     * Scanner to ask for user input for {@link #updatePromoSetContents(int)} with error checking
      *
-     * @return choice of updating promoset content
+     * @return choice of updating {@link PromotionalSet} content
      */
     private int askUserForChoiceInUpdatingPromoSetContents() {
         sc = new Scanner(System.in);
@@ -453,7 +451,7 @@ public class MenuApp implements Serializable, AppInterface {
     }
 
     /**
-     * Return Menu Manager of the MenuApp
+     * Return {@link MenuMgr} of the MenuApp
      *
      * @return menuMgr the object manager of menu item
      */

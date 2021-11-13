@@ -1,18 +1,18 @@
 /**
- * Stores information about a AlaCarteItem inherit from{@link MenuItem} class to used in context of a menu.
- * This class stores the name, price, description and type of AlaCarteItem {@link MenuMgr},
- * inherit various method from abstract class {@link MenuItem} such as get(),update(),
+ * Stores information about an {@code AlaCarteItem} to be used in context of a menu such as its name, price, description and
+ * the type of {@code AlaCarteItem} it is.
+ * Inherits various methods from the abstract class {@link MenuItem}.
  *
  * @since 2021-11-5
  */
 public class AlaCarteItem extends MenuItem {
     /**
-     * Enumeration type {@link AlaCarteItemType}used to indicate type of the AlaCarteItem
+     * Enumeration type {@link AlaCarteItemType} used to indicate type of the {@code AlaCarteItem}.
      */
     private AlaCarteItemType typeOfItem;
 
     /**
-     * Constructs an item with default name, price, description and type.
+     * Class constructor.
      */
     public AlaCarteItem() {
         super("unknown", "unknown", 0);
@@ -20,12 +20,12 @@ public class AlaCarteItem extends MenuItem {
     }
 
     /**
-     * Constructs an item with specified name, price, description and type.
+     * Class constructor.
      *
-     * @param name        name of this item.
-     * @param price       price of this item.
-     * @param description description of this item.
-     * @param type        type of this item
+     * @param name        name of the item
+     * @param price       price of the item
+     * @param description description of the item
+     * @param type        type of the item
      */
     public AlaCarteItem(String name, String description, double price, AlaCarteItemType type) {
         super(name, description, price);
@@ -33,16 +33,16 @@ public class AlaCarteItem extends MenuItem {
     }
 
     /**
-     * Return the type of this AlaCarteItem.
+     * Gets the type of this {@code AlaCarteItem}.
      *
-     * @return typeOfItem    The enumeration type of this AlaCarteItem object
+     * @return The enumeration type of this {@link AlaCarteItem} object
      */
     public AlaCarteItemType getItemType() {
         return typeOfItem;
     }
 
     /**
-     * Update the type of this AlaCarteItem.
+     * Sets the type of this {@code AlaCarteItem}.
      *
      * @param updatedAlaCarteItemType the type of this item to be updated
      */

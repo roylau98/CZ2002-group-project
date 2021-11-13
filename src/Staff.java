@@ -1,5 +1,5 @@
 /**
- * Stores information about a Staff inherit from{@link Person} class
+ * Stores information about a {@code Staff} inherit from{@link Person} class
  * <p>
  * inherit various method from abstract class {@link Person}
  *

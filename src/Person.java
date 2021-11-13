@@ -2,7 +2,7 @@ import java.io.Serializable;
 import java.util.Objects;
 
 /**
- * A parent class for Customer and Staff class
+ * A parent class for {@link Customer} and {@link Staff} class
  *
  * @since 2021-11-5
  */
@@ -20,8 +20,8 @@ public class Person implements Serializable {
     /**
      * Class constructor
      *
-     * @param name   name of the person
-     * @param gender gender of the person
+     * @param name   name of the {@code Person}
+     * @param gender gender of the {@code Person}
      */
     public Person(String name, Sex gender) {
         this.name = name;
@@ -31,7 +31,7 @@ public class Person implements Serializable {
     /**
      * Copy constructor.
      *
-     * @param p Person to be cloned.
+     * @param p {@code Person} to be cloned.
      */
     public Person(Person p) {
         this.name = String.valueOf(p.name);
@@ -39,46 +39,46 @@ public class Person implements Serializable {
     }
 
     /**
-     * Gets the name of the person
+     * Gets the name of the {@code Person}
      *
-     * @return name of the person
+     * @return name of the {@code Person}
      */
     public String getName() {
         return this.name;
     }
 
     /**
-     * Sets the name of the person
+     * Sets the name of the {@code Person}
      *
-     * @param name name of the person
+     * @param name name of the {@code Person}
      */
     public void setName(String name) {
         this.name = name;
     }
 
     /**
-     * Gets the gender of the person
+     * Gets the gender of the {@code Person}
      *
-     * @return gender of the person
+     * @return gender of the {@code Person}
      */
     public Sex getGender() {
         return this.gender;
     }
 
     /**
-     * Sets the gender of the person
+     * Sets the gender of the {@code Person}
      *
-     * @param gender gender of the person
+     * @param gender gender of the {@code Person}
      */
     public void setGender(Sex gender) {
         this.gender = gender;
     }
 
     /**
-     * Checks and compares Person objects
+     * Checks and compares {@code Person} objects
      *
-     * @param obj person to be compared
-     * @return true if the Person object is the same, else false
+     * @param obj {@code Person} to be compared
+     * @return true if the {@code Person} object is the same, else false
      */
     @Override
     public boolean equals(Object obj) {
@@ -91,10 +91,10 @@ public class Person implements Serializable {
     }
 
     /**
-     * Generates a hash for an instance of the Person class.
+     * Generates a hash for an instance of the {@code Person} class.
      * All Person with the exact same attributes will generate the same hashCode.
      *
-     * @return hashCode for the person instance.
+     * @return hashCode for the {@code Person} instance.
      */
     @Override
     public int hashCode() {
@@ -102,9 +102,9 @@ public class Person implements Serializable {
     }
 
     /**
-     * Return a string with person details.
+     * Return a string with {@code Person} details.
      *
-     * @return String with person details.
+     * @return String with {@code Person} details.
      */
     @Override
     public String toString() {

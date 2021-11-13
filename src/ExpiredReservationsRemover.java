@@ -1,7 +1,7 @@
 import java.util.TimerTask;
 
 /**
- * Represents a TimerTask object which can be scheduled to be executed by a timer.
+ * Represents a {@link java.util.TimerTask} object which can be scheduled to be executed by a timer.
  *
  * @since 2021-11-5
  */
@@ -12,7 +12,7 @@ public class ExpiredReservationsRemover extends TimerTask {
     private final ReservationMgr reservationMgr;
 
     /**
-     * Constructor for a new TimerTask.
+     * Class constructor.
      *
      * @param reservationMgr The reservation manager whose method would be called by this class.
      */

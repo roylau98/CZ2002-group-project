@@ -41,9 +41,9 @@ public class ReservationMgr implements Serializable {
     }
 
     /**
-     * Return total no. of reservation
+     * Return total no. of reservations
      *
-     * @return total no. of reservation
+     * @return total no. of reservations
      */
     public int getTotalNoOfReservations() {
         return allReservations.size();
@@ -51,9 +51,9 @@ public class ReservationMgr implements Serializable {
 
     /**
      * Makes a reservation. Finds a suitable table that can contain the number of persons.
-     * Reservation will be added to the collection and asks the table to be marked as unavailable at the specified date and time.
+     * {@link Reservation} will be added to the collection and asks the table to be marked as unavailable at the specified date and time.
      *
-     * @param r Reservation.
+     * @param r {@link Reservation}.
      * @return true if reservation has been made,false otherwise
      */
     public boolean makeReservation(Reservation r) {
@@ -77,7 +77,7 @@ public class ReservationMgr implements Serializable {
 
     /**
      * Cancels a reservation.
-     * Removes the reservation from the collection and asks the table to be marked as available for other reservations at the specified date and time.
+     * Removes the {@link Reservation} from the collection and asks the table to be marked as available for other reservations at the specified date and time.
      *
      * @param reservationNo Reservation number.
      */

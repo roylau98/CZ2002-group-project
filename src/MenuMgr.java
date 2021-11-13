@@ -6,9 +6,9 @@ import java.util.Comparator;
 /**
  * Manages the {@link AlaCarteItem} and {@link PromotionalSet} of the {@link MenuMgr}.
  * <p>
- * This class provides printing of whole menu or individual MenuItem,
- * provide accessor (get methods) of individual MenuItem
- * and various methods to add,remove,update MenuItem in the menu.
+ * This class provides printing of whole menu or individual {@link MenuItem},
+ * provide accessor (get methods) of individual {@link MenuItem}
+ * and various methods to add,remove,update {@link MenuItem} in the menu.
  * <p>
  *
  * @since 2021-11-12
@@ -16,21 +16,20 @@ import java.util.Comparator;
 
 public class MenuMgr implements Serializable {
     /**
-     * ArrayList of MenuItem which consists of AlaCarteItem and PromotionalSet, implemented in {@link ArrayList} data structure.
+     * ArrayList of {@link MenuItem} which consists of {@link AlaCarteItem} and {@link PromotionalSet}.
      * Each entry consists of a reference to existing {@link AlaCarteItem}/{@link PromotionalSet}object.
      */
     private final ArrayList<MenuItem> listOfMenuItems;
 
     /**
-     * Constructs an {@code Menu} object and
-     * initialize the attributes {@code MenuItem} .
+     * Class constructor.
      */
     public MenuMgr() {
         this.listOfMenuItems = new ArrayList<>();
     }
 
     /**
-     * Sorts all the items in the MenuItem ArrayList in order
+     * Sorts all the items in the {@link MenuItem} ArrayList in order
      */
     private void sortListOfMenuItems() {
         // sort by class type
@@ -62,9 +61,9 @@ public class MenuMgr implements Serializable {
     }
 
     /**
-     * Prints a certain type of AlaCarteItems in the Menu (Overload)
+     * Prints a certain type of {@link AlaCarteItem} in the Menu (Overload)
      *
-     * @param alaCarteItemType the type of the AlaCarte
+     * @param alaCarteItemType the type of the {@link AlaCarteItem}
      */
     private void printMenuItemsByCat(AlaCarteItemType alaCarteItemType) {
         System.out.println("---" + alaCarteItemType + "---");
@@ -81,7 +80,7 @@ public class MenuMgr implements Serializable {
     }
 
     /**
-     * Prints PromotionalSet in the Menu (Overload)
+     * Prints {@link PromotionalSet} in the Menu (Overload)
      *
      * @param c class of object
      */
@@ -105,10 +104,10 @@ public class MenuMgr implements Serializable {
     }
 
     /**
-     * Return true/false of the existence of certain MenuItem
+     * Return true/false of the existence of certain {@link MenuItem}
      *
-     * @param name name of menu item to be checked whether it is inside the menu
-     * @return the existence(boolean) of certain MenuItem
+     * @param name name of {@link MenuItem} to be checked whether it is inside the menu
+     * @return true if a {@link MenuItem} with the same name exists
      */
     public Boolean isMenuItemNameExist(String name) {
         for (MenuItem curr : listOfMenuItems) {
@@ -120,10 +119,10 @@ public class MenuMgr implements Serializable {
     }
 
     /**
-     * Return true/false of the existence of certain MenuItem
+     * Return true/false of the existence of certain {@link MenuItem}
      *
-     * @param description description of menu item to be checked whether it is inside the menu
-     * @return the existence(boolean) of certain MenuItem
+     * @param description description of {@link MenuItem} to be checked whether it is inside the menu
+     * @return true if a {@link MenuItem} with the same description exists
      */
     public Boolean isMenuItemDescriptionExist(String description) {
         for (MenuItem curr : listOfMenuItems) {
@@ -135,11 +134,11 @@ public class MenuMgr implements Serializable {
     }
 
     /**
-     * Return true/false of the existence of certain Promotional set
+     * Return true/false of the existence of certain {@link PromotionalSet} set
      *
      * @param index index of the promotional item
      * @param key   name of promotional item
-     * @return the existence(boolean) of certain MenuItem
+     * @return the existence(boolean) of certain {@link MenuItem}
      */
     public Boolean isPromoSetContentItemExist(int index, String key) {
         MenuItem curr = getMenuItem(index);
@@ -150,13 +149,13 @@ public class MenuMgr implements Serializable {
     }
 
     /**
-     * Function to create new AlaCarteItem
+     * Function to create new {@link AlaCarteItem}
      *
-     * @param name        name of new AlaCarteItem
-     * @param description description of new AlaCarteItem
-     * @param price       price of new AlaCarteItem
-     * @param type        the enumeration type of new AlaCarteItem
-     * @return the index of this new AlaCarteItem
+     * @param name        name of new {@link AlaCarteItem}
+     * @param description description of new {@link AlaCarteItem}
+     * @param price       price of new {@link AlaCarteItem}
+     * @param type        the enumeration type of new {@link AlaCarteItem}
+     * @return the index of this new {@link AlaCarteItem}
      */
     public int createNewAlaCarteItem(String name, String description, double price, AlaCarteItemType type) {
         MenuItem newItem = new AlaCarteItem(name, description, price, type);
@@ -166,12 +165,12 @@ public class MenuMgr implements Serializable {
     }
 
     /**
-     * Function to create new PromotionalSet
+     * Function to create new {@link PromotionalSet}
      *
-     * @param name        name of new PromotionalSet
-     * @param description description of new PromotionalSet
-     * @param price       price of new PromotionalSet
-     * @return the index of this new PromotionalSet
+     * @param name        name of new {@link PromotionalSet}
+     * @param description description of new {@link PromotionalSet}
+     * @param price       price of new {@link PromotionalSet}
+     * @return the index of this new {@link PromotionalSet}
      */
     public int createNewPromoSetItem(String name, String description, double price) {
         MenuItem newItem = new PromotionalSet(name, description, price);
@@ -181,9 +180,9 @@ public class MenuMgr implements Serializable {
     }
 
     /**
-     * Function to remove existing MenuItem
+     * Function to remove existing {@link MenuItem}
      *
-     * @param index index of menu item to be removed
+     * @param index index of {@link MenuItem} to be removed
      */
     public void removeMenuItem(int index) {
         listOfMenuItems.remove(index);
@@ -192,7 +191,7 @@ public class MenuMgr implements Serializable {
     /**
      * Update the details of existing items in Menu
      *
-     * @param index index of the menu item to be updated
+     * @param index index of the {@link MenuItem} to be updated
      * @param name  updated name
      */
     public void updateMenuItemName(int index, String name) {
@@ -204,7 +203,7 @@ public class MenuMgr implements Serializable {
     /**
      * Update the details of existing items in Menu
      *
-     * @param index       index of the menu item to be updated
+     * @param index       index of the {@link MenuItem} to be updated
      * @param description updated description
      */
     public void updateMenuItemDescription(int index, String description) {
@@ -216,7 +215,7 @@ public class MenuMgr implements Serializable {
     /**
      * Update the details of existing items in Menu
      *
-     * @param index index of the menu item to be updated
+     * @param index index of the {@link MenuItem} to be updated
      * @param price updated price
      */
     public void updateMenuItemPrice(int index, double price) {
@@ -228,7 +227,7 @@ public class MenuMgr implements Serializable {
     /**
      * Update the enumeration type of existing items in Menu
      *
-     * @param index   index of the menu item to be updated
+     * @param index   index of the {@link MenuItem} to be updated
      * @param newType updated enumeration type
      */
     public void updateAlaCarteItemSpecificDetails(int index, AlaCarteItemType newType) {
@@ -239,7 +238,7 @@ public class MenuMgr implements Serializable {
     /**
      * Function to add a PromoSetContent
      *
-     * @param index    index of the menu item to be added to PromoSet
+     * @param index    index of the {@link MenuItem} to be added to PromoSet
      * @param name     name of new PromoSetContent
      * @param quantity quantity of the certain menu item
      */
@@ -251,7 +250,7 @@ public class MenuMgr implements Serializable {
     /**
      * Function to update a PromoSetContent
      *
-     * @param index    index of the menu item to be updated to PromoSet
+     * @param index    index of the {@link MenuItem} to be updated to PromoSet
      * @param name     name of new PromoSetContent
      * @param quantity quantity of the certain menu item
      */
@@ -263,7 +262,7 @@ public class MenuMgr implements Serializable {
     /**
      * Function to remove a PromoSetContent
      *
-     * @param index index of the menu item to be removed in PromoSet
+     * @param index index of the {@link MenuItem} to be removed in PromoSet
      * @param name  name of PromoSetContent
      */
     public void removeItemToPromoSetContent(int index, String name) {
@@ -272,9 +271,9 @@ public class MenuMgr implements Serializable {
     }
 
     /**
-     * Return an existing {@link MenuItem}object by using the INDEX(actual index plus 1) of ArrayList
+     * Return an existing {@link MenuItem} object by using the INDEX(actual index plus 1) of ArrayList
      *
-     * @param indexNo the index of menu item to be retrieved.
+     * @param indexNo the index of {@link MenuItem} to be retrieved.
      * @return {@link MenuItem} object of given index.
      */
     public MenuItem getMenuItem(int indexNo) {

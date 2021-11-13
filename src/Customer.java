@@ -1,8 +1,8 @@
 import java.util.Objects;
 
 /**
- * Represents a customer entity.
- * It is used in the Reservation class.
+ * Represents a customer entity inherit from {@link Person} class.
+ * It is used in the {@link Reservation} class.
  *
  * @since 2021-11-5
  */

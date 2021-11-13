@@ -19,7 +19,7 @@ public class StaffApp implements Serializable, AppInterface {
     private transient Scanner sc;
 
     /**
-     * Class constructor with default settings
+     * Class constructor
      *
      * @param    staffMgrEx    staff manager of the app
      */
@@ -194,7 +194,6 @@ public class StaffApp implements Serializable, AppInterface {
     /**
      * Scanner to ask for user input(string) with error checking
      *
-     * @return details of the staff
      * @param    whatToAsk    the details which indicate what to ask from user
      */
     private String askUserForStaffStringInput(String whatToAsk) {
