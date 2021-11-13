@@ -224,7 +224,7 @@ public class ReservationMgr implements Serializable {
         for (Reservation r : allReservations) {
             LocalDate date = r.getDate();
             int hour = r.getHour();
-            if (date.isEqual(date) && hour == LocalTime.now().getHour()) {
+            if (date.isEqual(LocalDate.now()) && hour == LocalTime.now().getHour()) {
                 reservationsNow.add(r);
             }
         }
