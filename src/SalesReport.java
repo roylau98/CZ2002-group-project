@@ -182,6 +182,8 @@ public class SalesReport implements Serializable, AppInterface {
 
     /**
      * Scanner to ask for user input(date) with error checking
+     *
+     * @return date input by user
      */
     private int askUserForDate() {
         System.out.println("Enter day:");
@@ -207,6 +209,8 @@ public class SalesReport implements Serializable, AppInterface {
 
     /**
      * Scanner to ask for user input(month) with error checking
+     *
+     * @return month input by user
      */
     private int askUserForMonth() {
         System.out.println("Enter month:");
@@ -232,6 +236,8 @@ public class SalesReport implements Serializable, AppInterface {
 
     /**
      * Scanner to ask for user input(year) with error checking
+     *
+     * @return  year input by user
      */
     private int askUserForYear() {
         System.out.println("Enter year:");
