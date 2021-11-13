@@ -10,7 +10,9 @@ import java.util.Scanner;
  */
 
 public class OrderApp implements Serializable, AppInterface {
-
+	/**
+     * Scanner for the  user input
+     */
     private transient Scanner sc;
     /**
      * Object Manager of Order
@@ -35,6 +37,13 @@ public class OrderApp implements Serializable, AppInterface {
 
     /**
      * Class Constructor
+     * 
+     * @param	reservationMgrEx	reservation manager of the app
+     * @param	orderMgrEx			order manager of the app
+     * @param	menuMgrEx			menu manager of the app
+     * @param	salesReport			sales report application
+     * @param	staffAppEx			staff application
+     * 
      */
     public OrderApp(ReservationMgr reservationMgrEx, OrderMgr orderMgrEx, MenuMgr menuMgrEx, SalesReport salesReport, StaffApp staffAppEx) {
         orderMgr = orderMgrEx;
@@ -288,6 +297,8 @@ public class OrderApp implements Serializable, AppInterface {
 
     /**
      * Scanner to ask for user input(OrderID) with error checking
+     * 
+     * @return	orderID		order ID
      */
     private int askUserForOrderID() {
         sc = new Scanner(System.in);
@@ -309,6 +320,8 @@ public class OrderApp implements Serializable, AppInterface {
 
     /**
      * Scanner to ask for user input(MenuItemNo) with error checking
+     * 
+     * @return	menuItemNo	the index no. of the menu item
      */
     private int askUserForMenuItemNo() {
         sc = new Scanner(System.in);
@@ -336,3 +349,4 @@ public class OrderApp implements Serializable, AppInterface {
     }
 
 }
+
