@@ -20,6 +20,9 @@ public class ReservationApp implements Serializable, AppInterface {
      * Capacity of table in restaurant
      */
     private final int MAX_TABLE_CAPACITY = 10;
+    /**
+     * Scanner for user input
+     */
     private transient Scanner scanner;
     /**
      * Year for reservation booking
@@ -40,6 +43,8 @@ public class ReservationApp implements Serializable, AppInterface {
 
     /**
      * Class Constructor
+     * 
+     * @param reservationMgrEx	the reservation manager of the app
      */
     public ReservationApp(ReservationMgr reservationMgrEx) {
         reservationMgr = reservationMgrEx;
