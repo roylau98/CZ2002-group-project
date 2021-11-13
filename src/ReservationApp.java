@@ -55,8 +55,8 @@ public class ReservationApp implements Serializable, AppInterface {
      */
     public void openOptions() {
         scanner = new Scanner(System.in);
-        reservationMgr.removeNoShowReservations();
         reservationMgr.createScheduler();
+        reservationMgr.removeNoShowReservations();
         boolean cont = true;
         int choice = 0;
         while (cont) {
