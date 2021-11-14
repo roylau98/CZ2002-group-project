@@ -117,7 +117,7 @@ public class RRPSS implements Serializable {
                     salesReportApp.openOptions();
                     break;
                 case 5:
-                    orderApp.staffAppOptions();
+                    staffApp.openOptions();
                     break;
                 case 6:
                     return;

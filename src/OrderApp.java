@@ -340,12 +340,5 @@ public class OrderApp implements Serializable, AppInterface {
         return menuItemNo;
     }
 
-    /**
-     * Open Staff Option
-     */
-    public void staffAppOptions() {
-        staffApp.openOptions();
-    }
-
 }
 
