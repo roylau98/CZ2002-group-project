@@ -18,8 +18,3 @@ It is a console based application, with the following functionalities:
 [Roy Lau](https://github.com/roylau98) \
 [Yi Pun](https://github.com/ypwong99) \
 [Zi Jian](https://github.com/zijian99) 
-
-We done goof now son
-
-![Alt Text](https://c.tenor.com/f4MzvvjwUhAAAAAC/spongebob-mocking.gif)
-
