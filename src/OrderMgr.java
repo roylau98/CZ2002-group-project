@@ -136,10 +136,11 @@ public class OrderMgr implements Serializable {
      *
      * @param orderID ID of the {@link Order}
      */
-    public void printItemsInOrder(int orderID) {
+   public void printItemsInOrder(int orderID) {
         Order selectedOrder = getOrder(orderID);
+        System.out.println("Items in order: ");
         for (int i = 0; i < selectedOrder.getListOfItemsOrdered().size(); i++) {
-            System.out.printf(i + ")" + selectedOrder.getListOfItemsOrdered().get(i).getName() + "/t$ " + selectedOrder.getListOfItemsOrdered().get(i).getPrice());
+            System.out.println(i + ") " + selectedOrder.getListOfItemsOrdered().get(i).getName() +"\t $"+ selectedOrder.getListOfItemsOrdered().get(i).getPrice());
         }
     }
 
