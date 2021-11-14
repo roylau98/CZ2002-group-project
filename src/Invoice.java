@@ -121,7 +121,7 @@ public class Invoice implements Serializable {
         System.out.println("-------------------------------------------------");
         System.out.println("No.\tItem Name\tPrice");
         for (int i = 0; i < listOfSoldItems.size(); i++) {
-            System.out.printf((i + 1) + ".\t" + listOfSoldItems.get(i).getName() + "\t\t$%.2f\n", listOfSoldItems.get(i).getPrice());
+            System.out.printf("%d.\t%s\t\t$%.2f\n", (i + 1), listOfSoldItems.get(i).getName(), listOfSoldItems.get(i).getPrice());
         }
         calculateFinalPrice();
         System.out.println("-------------------------------------------------");
